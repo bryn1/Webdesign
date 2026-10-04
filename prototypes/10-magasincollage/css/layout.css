@@ -1,0 +1,208 @@
+/* layout.css — grund, sidledighet och sektionernas utläggning för tema 10.
+   Innehåller no-JS-fallbacken: collage och rotation bor i collage.css och är
+   låsta till html[data-motion] — utan JS står allt synligt i vanlig rutnät. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+  font-weight: 300;
+  line-height: var(--lh-body);
+  overflow-x: hidden; /* sidledes overflow är aldrig ett alternativ vid 375 px */
+  -webkit-text-size-adjust: 100%;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; line-height: 1.05; margin: 0 0 var(--sp-2); }
+p { margin: 0 0 var(--sp-2); overflow-wrap: break-word; }
+
+.display { font-family: var(--f-display); }
+
+.shell { width: min(var(--shell), 100% - 2 * var(--gut)); margin-inline: auto; }
+
+section { padding-block: var(--sp-5); }
+section[id] { scroll-margin-top: 4.5rem; }
+
+/* --- Fokus och skip-link (a11y-golv) --- */
+:focus-visible { outline: 3px solid var(--c-violet); outline-offset: 3px; border-radius: 2px; }
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 99;
+  background: var(--c-ink); color: var(--c-bg); padding: 0.7rem 1.2rem;
+}
+.skip-link:focus { left: var(--sp-2); top: var(--sp-2); }
+
+/* --- Sidhuvud --- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgb(251 247 242 / 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--c-line);
+}
+.header-shell { display: flex; align-items: center; gap: var(--sp-3); padding-block: 0.7rem; }
+.brand { font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 1.35rem; color: var(--c-ink); text-decoration: none; }
+.brand-mark { color: var(--c-violet); font-style: normal; }
+.site-nav { margin-left: auto; }
+.site-nav ul { display: flex; flex-wrap: wrap; gap: 0.2rem 1.15rem; list-style: none; margin: 0; padding: 0; }
+.site-nav a {
+  color: var(--c-ink); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em; padding-block: 0.3rem;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { border-bottom-color: var(--c-yellow); }
+@media (max-width: 560px) {
+  .header-shell { flex-wrap: wrap; }
+  .site-nav { order: 3; width: 100%; margin-left: 0; }
+  .site-nav a { font-size: 0.85rem; }
+}
+
+/* --- Knappar och små komponenter --- */
+.btn {
+  display: inline-block; padding: 0.72rem 1.5rem; border: 2px solid var(--c-ink);
+  border-radius: 999px; font: 600 1rem/1.2 var(--f-body); text-decoration: none;
+  cursor: pointer; background: none; color: var(--c-ink);
+}
+.btn--pop { background: var(--c-violet); border-color: var(--c-violet); color: var(--c-on-violet); }
+.btn--pop:hover { background: var(--c-violet-deep); border-color: var(--c-violet-deep); }
+.btn--ghost:hover { background: var(--c-yellow); }
+.btn--quiet { border-color: var(--c-line); }
+.btn--sm { padding: 0.45rem 1rem; font-size: 0.9rem; }
+.btn-demo { font-weight: 400; opacity: 0.85; }
+
+.eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-muted); margin-bottom: var(--sp-1); }
+.eyebrow--pop { color: var(--c-violet-deep); }
+.eyebrow--on-dark { color: var(--c-yellow); }
+
+.inline-link { color: var(--c-violet-deep); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.inline-link:hover { color: var(--c-ink); }
+
+.demo-badge {
+  display: inline-block; background: var(--c-yellow); color: var(--c-ink);
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.35rem 0.8rem; border: 1.5px solid var(--c-ink); border-radius: var(--r-sm);
+  transform: rotate(-1.2deg);
+}
+.demo-badge--form { display: block; width: fit-content; margin-bottom: var(--sp-2); }
+
+.note { color: var(--c-muted); font-size: 0.95rem; }
+.placeholder-label {
+  display: grid; place-items: center; height: 100%; min-height: 120px;
+  border: 2px dashed var(--c-violet); border-radius: var(--r-sm);
+  color: var(--c-violet-deep); font-weight: 500; font-size: 0.95rem;
+  background: repeating-linear-gradient(-45deg, transparent 0 12px, rgb(124 58 237 / 0.05) 12px 24px);
+  padding: var(--sp-2); text-align: center;
+}
+
+/* --- Hero --- */
+.hero { position: relative; padding-block: var(--sp-5) calc(var(--sp-5) + 2rem); }
+.hero-shell { position: relative; z-index: 2; }
+.hero-title { font-size: var(--fs-hero); font-weight: 900; letter-spacing: -0.015em; text-transform: uppercase; margin-bottom: var(--sp-2); }
+.hero-word { display: block; }
+.hero-word--swap { font-style: italic; color: var(--c-violet); }
+.hero-sub { max-width: 34ch; font-size: 1.15rem; color: var(--c-muted); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+.scroll-hint {
+  width: min(var(--shell), 100% - 2 * var(--gut)); margin-inline: auto;
+  margin-top: var(--sp-4); color: var(--c-muted); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+}
+.hero-sticker {
+  position: absolute; z-index: 3; right: var(--gut); top: 30%;
+  background: var(--c-yellow); border: 2px solid var(--c-ink); border-radius: 999px;
+  padding: 0.6rem 1.1rem; font-weight: 600; font-size: 0.9rem; transform: rotate(6deg);
+  box-shadow: var(--shadow-card);
+}
+@media (max-width: 700px) { .hero-sticker { position: static; display: inline-block; margin-top: var(--sp-2); transform: rotate(-2deg); } }
+
+/* --- Om mig --- */
+.om-grid { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .om-grid { grid-template-columns: 5fr 7fr; } }
+.portrait-card { margin: 0; max-width: 22rem; }
+.portrait-frame { aspect-ratio: 4 / 5; padding: 10px; background: var(--c-paper); border: 1px solid var(--c-line); box-shadow: var(--shadow-card); }
+.portrait-card figcaption { color: var(--c-muted); font-size: 0.9rem; margin-top: var(--sp-1); font-style: italic; font-family: var(--f-display); }
+.om-text h2 { margin-top: var(--sp-1); }
+.om-text p:last-child { margin-bottom: 0; }
+
+/* --- Sektionen i mörk band (Tjänster) --- */
+.band { background: var(--c-ink); color: var(--c-bg); }
+.band h2 { color: var(--c-bg); }
+.band--paper { background: var(--c-neutral); color: var(--c-ink); }
+
+.service-list { display: grid; gap: var(--sp-2); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); list-style: none; margin: var(--sp-4) 0 0; padding: 0; }
+.service-card { background: var(--c-bg); color: var(--c-ink); border: 1px solid var(--c-line); border-radius: var(--r-md); padding: var(--sp-3); box-shadow: var(--shadow-card); }
+.service-card h3 { font-size: 1.5rem; margin-bottom: var(--sp-1); }
+.service-card p { margin-bottom: var(--sp-1); }
+.price-line { color: var(--c-muted); font-size: 0.9rem; }
+
+/* --- Galleri --- */
+.gallery { position: relative; overflow: hidden; }
+.gallery-hint { color: var(--c-muted); font-size: 0.9rem; font-style: italic; }
+@media (max-width: 900px) { .gallery-hint { display: none; } }
+
+/* --- Boka --- */
+.booking-layout { margin-top: var(--sp-3); }
+.cal-legend { display: flex; gap: var(--sp-3); font-size: 0.9rem; color: var(--c-muted); }
+.sw { display: inline-block; width: 0.9em; height: 0.9em; border: 1.5px solid var(--c-ink); border-radius: 3px; margin-right: 0.4em; }
+.sw--free { background: var(--c-paper); }
+.sw--taken { background: repeating-linear-gradient(-45deg, var(--c-neutral) 0 4px, var(--c-line) 4px 8px); }
+.cal-root { overflow-x: auto; }
+.cal-root p { max-width: 40ch; }
+.cal-grid { display: grid; grid-template-columns: max-content repeat(6, minmax(84px, 1fr)); gap: 6px; min-width: 34rem; padding-block: var(--sp-1); }
+.cal-time { align-self: center; font-weight: 600; font-size: 0.9rem; padding-right: 0.6rem; }
+.cal-dayhead { text-align: center; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4rem 0.2rem; }
+.cal-slot {
+  display: block; text-align: center; padding: 0.55rem 0.3rem;
+  border: 1.5px solid var(--c-ink); border-radius: var(--r-sm);
+  background: var(--c-paper); color: var(--c-ink);
+  font: 500 0.88rem/1.2 var(--f-body); cursor: pointer;
+}
+.cal-slot:hover { background: var(--c-yellow); }
+.cal-slot--taken {
+  background: repeating-linear-gradient(-45deg, var(--c-neutral) 0 5px, var(--c-line) 5px 10px);
+  color: var(--c-muted); cursor: default; border-style: dashed;
+}
+
+/* --- Kontakt --- */
+.kontakt-grid { display: grid; gap: var(--sp-4); grid-template-columns: 1fr; }
+@media (min-width: 860px) { .kontakt-grid { grid-template-columns: 5fr 7fr; } }
+.address p { margin-bottom: var(--sp-2); font-style: normal; }
+
+.contact-form { display: grid; gap: var(--sp-2); align-content: start; }
+.contact-form label { display: grid; gap: 0.4rem; font-weight: 500; font-size: 0.95rem; }
+.contact-form input, .contact-form textarea {
+  font: 400 1rem/1.5 var(--f-body); color: var(--c-ink); background: var(--c-paper);
+  border: 1.5px solid var(--c-line); border-radius: var(--r-sm); padding: 0.65rem 0.8rem;
+  width: 100%;
+}
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { border-color: var(--c-violet); }
+.form-status { min-height: 1.5em; font-weight: 500; margin: 0; }
+
+/* --- Sidfot --- */
+.site-footer { border-top: 1px solid var(--c-line); padding-block: var(--sp-4); background: var(--c-paper); }
+.footer-grid { display: grid; gap: var(--sp-3); grid-template-columns: 1fr; }
+@media (min-width: 860px) { .footer-grid { grid-template-columns: 2fr 1fr; } }
+.footer-brand { font-family: var(--f-display); font-style: italic; font-weight: 700; font-size: 1.3rem; }
+.footer-note { color: var(--c-muted); font-size: 0.95rem; }
+.footer-nav { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.footer-nav a { color: var(--c-ink); text-decoration: none; border-bottom: 1px solid transparent; }
+.footer-nav a:hover { border-bottom-color: var(--c-yellow); }
+
+/* --- Dialog --- */
+.booking-dialog { border: 2px solid var(--c-ink); border-radius: var(--r-md); padding: var(--sp-3); max-width: 30rem; background: var(--c-paper); color: var(--c-ink); font-family: var(--f-body); }
+.booking-dialog::backdrop { background: rgb(20 20 20 / 0.55); }
+.booking-dialog h3 { font-family: var(--f-display); }
+.dialog-cta { display: flex; flex-wrap: wrap; gap: var(--sp-1); }
+
+/* ============================================================
+   NO-JS / REDUCED-MOTION-FALLBACK: galleriet är redan ett vanligt
+   rutnät i collage.css utan html[data-motion] — inget döljs, inget
+   roteras. Collageeffekterna tänds enbart av js/collage.js.
+   ============================================================ */

@@ -1,0 +1,136 @@
+/* collage.css — magasincollaget för tema 10 (MC 10088).
+   Allt här är progressiv förstärkning: utan JS sätter inte collage.js
+   html[data-motion], och gallret står som ett vanligt, synligt rutnät utan
+   rotation. Under prefers-reduced-motion stannar effekterna ur samma spärrr. */
+
+/* --- Rutnätet — no-JS-fallback: alla kort synliga, ingen rotation --- */
+.collage {
+  display: grid; gap: var(--sp-3); list-style: none; margin: var(--sp-3) 0 0; padding: var(--sp-1);
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+
+/* --- Vykortspapper --- */
+.postcard {
+  position: relative; margin: 0; background: var(--c-paper);
+  border: 1px solid var(--c-line); border-radius: var(--r-sm);
+  padding: 9px 9px 0; box-shadow: var(--shadow-card);
+  --dx: 0px; --dy: 0px; --ds: 1;
+  transform-origin: 50% 40%;
+}
+.postcard img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 2px; }
+.postcard::before { /* gult tejpstrimla överst — tidningskänsla */
+  content: ""; position: absolute; left: 50%; top: -12px; width: 84px; height: 24px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgb(250 204 21 / 0.85); border-inline: 1px dashed rgb(20 20 20 / 0.15);
+  box-shadow: 0 1px 3px rgb(20 20 20 / 0.18);
+}
+.postcard:nth-child(even)::before { transform: translateX(-50%) rotate(4deg); }
+
+.postcard-tag {
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  background: var(--c-ink); color: var(--c-bg); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px;
+}
+.postcard-tag--after { background: var(--c-violet); color: var(--c-on-violet); }
+.postcard-note {
+  display: block; padding: 0.6rem 0.2rem 0.75rem;
+  font-family: var(--f-display); font-style: italic; font-size: 1.02rem;
+}
+.postcard--pending { display: grid; align-content: start; gap: 0; }
+.postcard--pending .placeholder-label { aspect-ratio: 3 / 4; min-height: 0; }
+.postcard--pending .postcard-tag { position: static; width: fit-content; margin: 12px 0 0; }
+.postcard--pending .postcard-note { margin-top: 0.4rem; }
+
+/* --- Collage-läget: endast när js/collage.js tänt html[data-motion] ---
+   Parallax (JS skriver --py per kort), drag (--dx/--dy) och rotation
+   --rot (satt per kort i HTML) — allt i en och samma transform. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion] .postcard {
+    transform: translate(var(--dx), calc(var(--dy) + var(--py, 0px)))
+               rotate(clamp(-2deg, var(--rot, 0deg), 2deg)) scale(var(--ds));
+    transition: box-shadow 0.25s ease;
+    will-change: transform;
+  }
+  /* Scatter layout på bred skärm: korten glider över varandra och rubriken. */
+  @media (min-width: 900px) {
+    html[data-motion] .postcard {
+      transform: translate(var(--dx), calc(var(--dy) + var(--py, 0px)))
+                 rotate(var(--rot, 0deg)) scale(var(--ds));
+    }
+    html[data-motion] .gallery h2 { position: relative; z-index: 0; }
+    html[data-motion] .gallery .collage {
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--gut);
+      row-gap: clamp(1rem, 4vw, 3rem);
+      margin-top: -3.5rem; /* vykorten glider upp och över titeln */
+      position: relative; z-index: 1;
+    }
+    html[data-motion] .gallery .postcard { position: relative; z-index: 4; }
+    html[data-motion] .gallery .postcard:nth-child(-n+3) { z-index: 5; } /* rad 1: bildtexten fri ovanpå rad 2 */
+    html[data-motion] .gallery .postcard:nth-child(1) { grid-column: 1 / span 4; margin-top: 6.5rem; }
+    html[data-motion] .gallery .postcard:nth-child(2) { grid-column: 5 / span 4; margin-top: 0; }
+    html[data-motion] .gallery .postcard:nth-child(3) { grid-column: 9 / span 4; margin-top: 4.5rem; }
+    html[data-motion] .gallery .postcard:nth-child(4) { grid-column: 2 / span 4; }
+    html[data-motion] .gallery .postcard:nth-child(5) { grid-column: 6 / span 4; margin-top: 3.5rem; }
+    html[data-motion] .gallery .postcard:nth-child(6) { grid-column: 10 / span 3; margin-top: -1rem; }
+  }
+  html[data-motion] .postcard:hover { box-shadow: var(--shadow-lift); }
+
+  /* Drag bara där det finns en muspekare att dra med */
+  @media (pointer: fine) {
+    html[data-motion] .postcard { cursor: grab; user-select: none; }
+    html[data-motion] .postcard img { pointer-events: none; }
+    html[data-motion] .postcard.is-dragging { cursor: grabbing; z-index: 30; box-shadow: var(--shadow-lift); --ds: 1.04; }
+  }
+
+  /* Hero-omslagets lösa vykort och klistermärken — parallax-lager */
+  .hero-float { display: none; }
+  @media (min-width: 900px) {
+    html[data-motion] .hero-float {
+      display: block; position: absolute; z-index: 1; width: clamp(150px, 17vw, 260px);
+      border: 8px solid var(--c-paper); box-shadow: var(--shadow-lift); background: var(--c-paper);
+      transform: translateY(var(--py, 0px));
+    }
+    html[data-motion] .hero-float img { aspect-ratio: 3 / 4; object-fit: cover; }
+    html[data-motion] .hero-float--1 { right: 6vw; top: 22%; rotate: 4deg; }
+    html[data-motion] .hero-float--2 { right: 24vw; top: 58%; width: clamp(120px, 12vw, 190px); rotate: -5deg; }
+    html[data-motion] .hero-sticker { transition: transform 0.3s ease; }
+  }
+
+  /* Tjänstekorten gungar lätt in i kollaget (transform-only, aldrig layout) */
+  html[data-motion] .service-card { transform: rotate(var(--srot, 0deg)); }
+  html[data-motion] .service-card:nth-child(odd) { --srot: -0.6deg; }
+  html[data-motion] .service-card:nth-child(even) { --srot: 0.5deg; }
+  html[data-motion] .portrait-card { transform: rotate(-1.6deg); }
+}
+
+/* --- Konturbytes-rubriker (Milkshake-mönstret, PATTERN):
+   stora display-texter byter till kontur medan collagekort glider över dem.
+   Bara stor displaytext — brödtexten förblir solid och AA-kontrasterad. --- */
+@supports (-webkit-text-stroke: 2px #141414) {
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-motion] .swap-title { transition: color 0.45s ease; }
+    html[data-motion] .swap-title.is-outline {
+      color: transparent; -webkit-text-stroke: 2px var(--c-ink);
+    }
+    html[data-motion] .swap-title--light.is-outline { -webkit-text-stroke: 2px var(--c-bg); }
+    html[data-motion] .swap-title--huge.is-outline { -webkit-text-stroke: 2.5px var(--c-ink); }
+    html[data-motion] .hero-word--swap { transition: color 0.45s ease; }
+    html[data-motion] .hero-word--swap.is-outline {
+      color: transparent; -webkit-text-stroke: 3px var(--c-violet);
+    }
+  }
+}
+.swap-title--huge { font-size: clamp(2.6rem, 8vw, 6rem); }
+
+/* --- Reducerad rörelse: inget undantag — kollaget faller tillbaka till
+   ett statiskt, helt synligt rutnät utan rotation, parallax eller drag. --- */
+@media (prefers-reduced-motion: reduce) {
+  .postcard, html[data-motion] .postcard,
+  html[data-motion] .service-card, html[data-motion] .portrait-card,
+  html[data-motion] .hero-float {
+    transform: none !important; rotate: none !important; transition: none !important;
+  }
+  html[data-motion] .swap-title.is-outline,
+  html[data-motion] .hero-word--swap.is-outline { color: revert; -webkit-text-stroke: 0; transition: none; }
+}

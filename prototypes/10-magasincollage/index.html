@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anny Morin — Frisör i Karlskrona</title>
+<meta name="description" content="Anny Morin, frisör på salongen Müllers., Landbrogatan 11 i Karlskrona. Klippning, färg och vård med lugn och omsorg. Bokning via telefon 072-155 48 60 eller Instagram @mullers.anny.">
+<!-- Favicon som inline data-URI: inga externa favicon-förfrågningar, inga 404. -->
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="%237c3aed"/><text x="16" y="23" font-family="Georgia,serif" font-size="19" font-weight="bold" text-anchor="middle" fill="%23facc15">A</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- CSS-ordning: tokens → layout → collage (temat sitter i egna mappen, ingen delad mall) -->
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/collage.css">
+<script defer src="js/collage.js"></script>
+<script defer src="js/booking-mock.js"></script>
+<script defer src="js/contact-form.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Hoppa till innehåll</a>
+
+<header class="site-header">
+  <div class="shell header-shell">
+    <a class="brand" href="#top">Anny&nbsp;Morin <span class="brand-mark" aria-hidden="true">✦</span></a>
+    <nav class="site-nav" aria-label="Huvudmeny">
+      <ul>
+        <li><a href="#om">Om mig</a></li>
+        <li><a href="#tjanster">Tjänster</a></li>
+        <li><a href="#galleri">Galleri</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="https://www.instagram.com/mullers.anny/" rel="me noopener" target="_blank">Instagram</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--pop btn--sm" href="#boka">Boka tid</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ===== Hero — tidningsomslag med lösa vykort ===== -->
+  <section id="top" class="hero" aria-labelledby="hero-rubrik">
+    <div class="shell hero-shell">
+      <p class="eyebrow eyebrow--pop">Frisör i Karlskrona <span aria-hidden="true">·</span> nr 10</p>
+      <h1 id="hero-rubrik" class="display hero-title">
+        <span class="hero-word">Anny</span>
+        <span class="hero-word hero-word--swap" data-outline>Morin</span>
+      </h1>
+      <p class="hero-sub">Klippning, färg och vård med lugn och omsorg. Jag arbetar på
+        salongen Müllers., Landbrogatan 11, mitt i Karlskrona.</p>
+      <p class="hero-cta">
+        <a class="btn btn--pop" href="#boka">Boka tid</a>
+        <a class="btn btn--ghost" href="#kontakt">Hitta hit</a>
+      </p>
+    </div>
+    <!-- Dekorativa omslagsvykort: galleriet längre ner bär innehållet, dessa är
+         aria-hidden och döljs på smal skärm. -->
+    <div class="hero-float hero-float--1" aria-hidden="true" data-float data-speed="0.10">
+      <img src="../_assets/gal-01.jpeg" alt="" width="1536" height="2048" loading="lazy">
+    </div>
+    <div class="hero-float hero-float--2" aria-hidden="true" data-float data-speed="-0.06">
+      <img src="../_assets/gal-04.jpeg" alt="" width="1536" height="2048" loading="lazy">
+    </div>
+    <p class="hero-sticker" aria-hidden="true">klipp · färg · vård ✂</p>
+    <p class="scroll-hint" aria-hidden="true">Skrolla — korten lossnar ↓</p>
+  </section>
+
+  <!-- ===== Om mig ===== -->
+  <section id="om" aria-labelledby="om-rubrik">
+    <div class="shell om-grid">
+      <figure class="portrait-card" data-outline-figure>
+        <div class="portrait-frame">
+          <span class="placeholder-label">Porträtt — bild kommer</span>
+        </div>
+        <figcaption>Anny på Müllers., Landbrogatan 11.</figcaption>
+      </figure>
+      <div class="om-text">
+        <p class="eyebrow">Om mig</p>
+        <h2 id="om-rubrik" class="display swap-title" data-outline>Hår som känns som ditt</h2>
+        <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
+          först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
+          går ut dörren.</p>
+        <p>Just nu arbetar jag på Müllers., salongen på Landbrogatan 11 i centrala
+          Karlskrona. Vi arbetar med bland annat ammoniakfri färg, balayage och vårdande
+          behandlingar.</p>
+        <p>Vill du se mitt dagliga arbete? Följ mig på Instagram
+          <a class="inline-link" href="https://www.instagram.com/mullers.anny/" rel="me noopener" target="_blank">@mullers.anny</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tjänster ===== -->
+  <section id="tjanster" class="band" aria-labelledby="tjanster-rubrik">
+    <div class="shell">
+      <p class="eyebrow eyebrow--on-dark">Tjänster</p>
+      <h2 id="tjanster-rubrik" class="display swap-title swap-title--light" data-outline>Det här kan jag</h2>
+      <ul class="service-list" role="list">
+        <li class="service-card" data-tilt>
+          <h3>Klippning</h3>
+          <p>Kort eller långt, klassiskt eller med textur — en klippning som passar dig och
+            din vardag.</p>
+          <p class="price-line">Pris: <!-- väntar på ägarens bekräftelse (PoC-regel I1) -->–</p>
+        </li>
+        <li class="service-card" data-tilt>
+          <h3>Färg &amp; balayage</h3>
+          <p>Ammoniakfri färg, slingor och balayage. Jag rekommenderar alltid en konsultation
+            innan färg.</p>
+          <p class="price-line">Pris: –</p>
+        </li>
+        <li class="service-card" data-tilt>
+          <h3>Vård &amp; håranalys</h3>
+          <p>Vårdande behandlingar och håranalys — friskt hår är grunden för allt snyggt
+            arbete.</p>
+          <p class="price-line">Pris: –</p>
+        </li>
+        <li class="service-card" data-tilt>
+          <h3>Bröllop &amp; bal</h3>
+          <p>Uppsättning och styling till livets stora dagar. Vi bokar en provfrisering i god
+            tid innan.</p>
+          <p class="price-line">Pris: –</p>
+        </li>
+        <li class="service-card" data-tilt>
+          <h3>Barbering &amp; skägg</h3>
+          <p>Klippning och skäggtrim med kniv och kam, i lugn och ro.</p>
+          <p class="price-line">Pris: –</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Galleri — magasincollaget ===== -->
+  <section id="galleri" class="gallery" aria-labelledby="galleri-rubrik">
+    <div class="shell">
+      <p class="eyebrow">Galleri</p>
+      <!-- Titeln ligger bakom collagekort: byter till kontur när korten glider över -->
+      <h2 id="galleri-rubrik" class="display swap-title swap-title--huge" data-outline>Före &amp; efter</h2>
+      <p class="gallery-hint" aria-hidden="true">Dra i korten om du vill</p>
+      <ul class="collage" role="list" data-collage>
+        <li class="postcard" style="--rot:-3.5deg; --py:0px" data-speed="0.08">
+          <img src="../_assets/gal-01.jpeg" alt="Före: långt, rakt blont hår fotograferat bakifrån i salongen." width="1536" height="2048" loading="lazy">
+          <span class="postcard-tag">Före</span>
+          <span class="postcard-note">Långt blont</span>
+        </li>
+        <li class="postcard" style="--rot:3deg; --py:0px" data-speed="-0.12">
+          <img src="../_assets/gal-02.jpeg" alt="Efter: långt blont hår satt i lösa, varma vågor." width="1536" height="2048" loading="lazy">
+          <span class="postcard-tag postcard-tag--after">Efter</span>
+          <span class="postcard-note">Långt blont</span>
+        </li>
+        <li class="postcard" style="--rot:2.5deg; --py:0px" data-speed="0.14">
+          <img src="../_assets/gal-03.jpeg" alt="Före: axellångt, ljusblont hår bakifrån." width="1536" height="2048" loading="lazy">
+          <span class="postcard-tag">Före</span>
+          <span class="postcard-note">Kortare blont</span>
+        </li>
+        <li class="postcard" style="--rot:-2deg; --py:0px" data-speed="-0.09">
+          <img src="../_assets/gal-04.jpeg" alt="Efter: axellångt blont hår med varma toner och mjuka vågor." width="1536" height="2048" loading="lazy">
+          <span class="postcard-tag postcard-tag--after">Efter</span>
+          <span class="postcard-note">Kortare blont</span>
+        </li>
+        <li class="postcard postcard--pending" style="--rot:4deg; --py:0px" data-speed="0.06">
+          <span class="placeholder-label">Bild kommer</span>
+          <span class="postcard-tag">Före / efter</span>
+          <span class="postcard-note">Bal</span>
+        </li>
+        <li class="postcard postcard--pending" style="--rot:-4deg; --py:0px" data-speed="-0.05">
+          <span class="placeholder-label">Bild kommer</span>
+          <span class="postcard-tag">Före / efter</span>
+          <span class="postcard-note">Skäggtrim</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Boka — DEMO-kalender, bokar aldrig på riktigt ===== -->
+  <section id="boka" class="band band--paper" aria-labelledby="boka-rubrik">
+    <div class="shell">
+      <p class="eyebrow">Boka tid</p>
+      <h2 id="boka-rubrik" class="display swap-title" data-outline>Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+      <p><span class="demo-badge">Demo — ingen bokning genomförs</span></p>
+      <div class="booking-layout">
+        <p class="cal-legend" aria-hidden="true">
+          <span><i class="sw sw--free"></i> Demo-ledig</span>
+          <span><i class="sw sw--taken"></i> Demo-upptagen</span>
+        </p>
+        <div class="cal-root" data-calendar-root>
+          <noscript><p class="note">Kalendern kräver JavaScript. Riktig bokning sker alltid
+            via telefon eller Instagram — se Kontakt.</p></noscript>
+          <!-- Kalendergridet byggs av js/booking-mock.js i cal-root:ens enda .cal-grid. -->
+        </div>
+        <p class="note">Schemat är demo. Öppettider och verkliga tider bekräftas snart av
+          salongen — bokning sker via telefon eller Instagram.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kontakt ===== -->
+  <section id="kontakt" aria-labelledby="kontakt-rubrik">
+    <div class="shell kontakt-grid">
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <h2 id="kontakt-rubrik" class="display swap-title" data-outline>Hitta mig eller skriv till mig</h2>
+        <address class="address">
+          <p><strong>Müllers. — Karlskrona</strong><br>
+            Landbrogatan 11, 371 35 Karlskrona</p>
+          <p><a class="inline-link" href="tel:+46721554860">072-155 48 60</a><br>
+            <a class="inline-link" href="mailto:Anny.mullerskarlskrona@gmail.com">Anny.mullerskarlskrona@gmail.com</a><br>
+            <a class="inline-link" href="https://www.instagram.com/mullers.anny/" rel="me noopener" target="_blank">@mullers.anny</a></p>
+          <p>Öppettider: (bekräftas snart)</p>
+        </address>
+      </div>
+      <form class="contact-form" data-contact-form novalidate>
+        <p class="demo-badge demo-badge--form">Demo — ingen backend är kopplad, meddelandet skickas inte</p>
+        <label>Namn
+          <input type="text" name="namn" autocomplete="name" required>
+        </label>
+        <label>E-post
+          <input type="email" name="epost" autocomplete="email" required>
+        </label>
+        <label>Meddelande
+          <textarea name="meddelande" rows="4" required></textarea>
+        </label>
+        <button class="btn btn--pop" type="submit">Skicka <span class="btn-demo">(demo)</span></button>
+        <p class="form-status" role="status" aria-live="polite" data-contact-status></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <p class="footer-brand">Anny Morin <span aria-hidden="true">✦</span></p>
+      <p class="footer-note">Klippning, färg och vård med lugn och omsorg — på Müllers.,
+        Landbrogatan 11, Karlskrona.</p>
+    </div>
+    <nav aria-label="Sidfotens meny">
+      <ul role="list" class="footer-nav">
+        <li><a href="#om">Om mig</a></li>
+        <li><a href="#tjanster">Tjänster</a></li>
+        <li><a href="#galleri">Galleri</a></li>
+        <li><a href="#boka">Boka tid</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="https://www.instagram.com/mullers.anny/" rel="me noopener" target="_blank">Instagram @mullers.anny</a></li>
+      </ul>
+    </nav>
+    <p class="footer-note">Telefon <a class="inline-link" href="tel:+46721554860">072-155 48 60</a>
+      · <a class="inline-link" href="mailto:Anny.mullerskarlskrona@gmail.com">Anny.mullerskarlskrona@gmail.com</a></p>
+  </div>
+</footer>
+
+<!-- Bokningsdialog: nativ <dialog>, öppnas av js/booking-mock.js -->
+<dialog class="booking-dialog" data-booking-dialog aria-labelledby="dialog-rubrik">
+  <h3 id="dialog-rubrik">Tiden är vald — nu bokar du på riktigt</h3>
+  <p data-dialog-slot>Valkd tid visas här.</p>
+  <p>Det här är en demo — ingen bokning genomförs. Riktig bokning sker via telefon eller
+    Instagram.</p>
+  <p class="dialog-cta">
+    <a class="btn btn--pop btn--sm" href="tel:+46721554860">Ring 072-155 48 60</a>
+    <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/mullers.anny/" rel="noopener" target="_blank">DM:a @mullers.anny</a>
+  </p>
+  <button class="btn btn--quiet btn--sm" type="button" data-dialog-close>Stäng</button>
+</dialog>
+</body>
+</html>
