@@ -1,0 +1,59 @@
+/* Papper & sax — tema 03. Enda stället för värden (C1).
+   Ljussida: varmt papper + hårgrid. Mörk Boka-sektion: [data-theme="dark"] byter
+   semantiska variabler — samma komponenter, ny botten. */
+
+:root {
+  /* palett (research §5, riktning 03) */
+  --paper: #f6f1e7;
+  --ink: #211d1a;
+  --sage: #8a8f76;          /* dekor: regler, underlag — aldrig brödtext */
+  --sage-ink: #5e6350;      /* 5.5:1 på papper — textur */
+  --terra: #b45f2e;         /* 4.0:1 — endast stor/bold text och grafik */
+  --terra-ink: #96491f;     /* 5.7:1 på papper — små länkar */
+  --muted: #5f5950;         /* 6.2:1 på papper */
+
+  /* semantiska lager — byts i mörkt tema */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --link: var(--terra-ink);
+  --accent: var(--terra);
+  --accent-text: var(--terra-ink);
+  --rule: rgba(33, 29, 26, 0.16);
+  --rule-strong: rgba(33, 29, 26, 0.34);
+  --deco: var(--sage);
+  --field-bg: #fbf8f0;
+  --slot-off: #efe8da;
+  --slot-off-ink: #8a8274;
+
+  /* typografi — Google Fonts med system-fallback (nät- rule) */
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --fs-body: 1.0625rem;
+  --lh-body: 1.7;
+
+  /* rytm */
+  --gap: 1.5rem;
+  --pad-y: clamp(4.5rem, 12vh, 8rem);
+  --maxw: 68rem;
+
+  /* rörelse */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Mörkt tema: endast Boka-sektionen (research §2 bonus, light/dark-växling).
+   Alla kontraster kontrollerade AA mot #211d1a i bygget: papper 14.9,
+   dämpad #cfc6b4 9.9, länk #e09160 6.7, sage-ljus #b9bda6 8.7. */
+[data-theme="dark"] {
+  --bg: var(--ink);
+  --fg: var(--paper);
+  --link: #e09160;
+  --accent: #e09160;
+  --accent-text: #e09160;
+  --muted: #cfc6b4;
+  --rule: rgba(246, 241, 231, 0.24);
+  --rule-strong: rgba(246, 241, 231, 0.45);
+  --deco: #b9bda6;
+  --field-bg: #2b2622;
+  --slot-off: #2b2622;
+  --slot-off-ink: #a09789;   /* 5.2:1 på #2b2622 — uppetagna tider */
+}

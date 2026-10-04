@@ -1,0 +1,278 @@
+/* Papper & sax — komponenter: knappar, pappersramar, parallax-porträtt,
+   tjänsteförteckning, galleri, demokalender (mörkt band), dialog, formulär,
+   reveal-teknik. Alla färger via semantiska tokens — mörkt tema är gratis. */
+
+/* ---------- knappar ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--fg);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+.btn--primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.btn--primary:hover { background: #3a332c; }
+.btn--ghost:hover { background: rgba(33, 29, 26, 0.06); }
+[data-theme="dark"] .btn--primary { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+[data-theme="dark"] .btn--primary:hover { background: #e9e1d0; }
+[data-theme="dark"] .btn--ghost { border-color: var(--fg); }
+[data-theme="dark"] .btn--ghost:hover { background: rgba(246, 241, 231, 0.1); }
+
+/* ---------- pappersramar (delad motiv: dubbel hårline + etikett) ---------- */
+.paper-label {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ---------- porträtt: enda stora rörelsen (layered parallax) ---------- */
+.portrait { position: relative; padding: 1.25rem 0 3.5rem; }
+.portrait-underlay {
+  position: absolute;
+  inset: 2.4rem 0 2rem 2.2rem;
+  border: 1px solid var(--deco);
+}
+.portrait-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--rule-strong);
+  background: var(--field-bg);
+  box-shadow: inset 0 0 0 6px var(--bg), inset 0 0 0 7px var(--rule);
+  display: grid;
+  place-items: center;
+}
+.portrait-cap {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 1rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- tjänster: numrerad hårlist (Swiss-japanese lugn) ---------- */
+.service-list { border-top: 1px solid var(--rule); }
+.service {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 0.3rem 1.2rem;
+  padding-block: 1.8rem;
+  border-bottom: 1px solid var(--rule);
+}
+.service-no {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent-text);
+  padding-top: 0.35rem;
+}
+.service-body h3 { margin-bottom: 0.3rem; }
+.service-body p { color: var(--muted); max-width: 44ch; }
+.price {
+  grid-column: 2;
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage-ink);
+  margin-top: 0.6rem;
+}
+@media (min-width: 48rem) {
+  .service { grid-template-columns: 3.2rem 1fr 8rem; align-items: start; }
+  .price { grid-column: 3; text-align: right; margin-top: 0.35rem; }
+}
+
+/* ---------- galleri: ramar i jämnt grid ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 1.4rem;
+}
+@media (min-width: 56rem) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.paper-frame { position: relative; padding: 0.55rem 0.55rem 0; }
+.paper-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--rule);
+  pointer-events: none;
+}
+.paper-frame img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.paper-frame figcaption {
+  padding-block: 0.75rem 0.6rem;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+.tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  border-bottom: 1px solid var(--accent);
+}
+.frame-slot {
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 28px, var(--rule) 28px 29px),
+    var(--field-bg);
+}
+
+/* ---------- demo-märkning ---------- */
+.demo-badge {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px dashed var(--accent);
+  color: var(--accent-text);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------- demokalender (mörkt band) ---------- */
+.cal-legend { display: flex; gap: 1.6rem; margin-bottom: 1.2rem; font-size: 0.86rem; color: var(--muted); }
+.sw { display: inline-block; width: 0.75rem; height: 0.75rem; vertical-align: -1px; margin-right: 0.4rem; }
+.sw--free { border: 1px solid var(--deco); }
+.sw--taken { background: var(--slot-off); border: 1px solid var(--slot-off-ink); }
+
+.cal-grid { border: 1px solid var(--rule); }
+.cal-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.cal-head { border-bottom: 1px solid var(--rule-strong); }
+.cal-head span {
+  padding: 0.6rem 0.3rem;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cal-cell { border-bottom: 1px solid var(--rule); }
+.cal-row:last-child .cal-cell { border-bottom: 0; }
+.cal-cell + .cal-cell { border-left: 1px solid var(--rule); }
+
+.slot {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.55rem 0.2rem;
+  font: inherit;
+  font-size: 0.84rem;
+  background: transparent;
+  color: var(--fg);
+  border: 0;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.slot:hover { background: rgba(246, 241, 231, 0.08); text-decoration: underline; }
+.slot--taken {
+  color: var(--slot-off-ink);
+  background: var(--slot-off);
+  cursor: default;
+  text-decoration: line-through;
+}
+.slot--taken:hover { background: var(--slot-off); text-decoration: line-through; }
+
+.cal-note { margin-top: 1.2rem; color: var(--muted); font-size: 0.92rem; max-width: 52ch; }
+
+@media (max-width: 27rem) {
+  .slot { font-size: 0.72rem; padding-inline: 0.1rem; }
+  .cal-head span { font-size: 0.62rem; letter-spacing: 0.06em; }
+}
+
+/* ---------- kontakt: formulär + uppräkningar ---------- */
+.data-list li { padding-block: 0.25rem; }
+
+.contact-form .field { margin-bottom: 1.1rem; }
+.contact-form label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  background: var(--field-bg);
+  color: var(--fg);
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+}
+.contact-form textarea { resize: vertical; }
+.field-error { margin-top: 0.35rem; color: var(--accent-text); font-size: 0.88rem; }
+.form-note { color: var(--muted); font-size: 0.88rem; max-width: 44ch; }
+.form-status { color: var(--sage-ink); font-weight: 600; }
+
+/* ---------- dialog (native <dialog>) ---------- */
+.booking-dialog {
+  width: min(100% - 2rem, 30rem);
+  padding: 1.6rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 0 0 6px rgba(33, 29, 26, 0.06);
+}
+.booking-dialog::backdrop { background: rgba(33, 29, 26, 0.55); }
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1.1rem;
+}
+.dialog-close {
+  border: 0;
+  background: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+}
+.dialog-slot {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.dialog-note { color: var(--muted); margin-bottom: 1rem; }
+.dialog-contact { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.3rem; border-top: 1px solid var(--rule); }
+.dialog-actions { display: flex; gap: 0.8rem; margin-top: 1.4rem; flex-wrap: wrap; }
+.dialog-actions--center { justify-content: center; }
+
+/* ---------- fade-in-on-view, ENA gång (js/reveal.js sätter klassen) ----------
+   Utan JS sätts aldrig .reveal-ready → allt syns direkt (progressive enhancement). */
+html.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+}
+html.reveal-ready [data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
