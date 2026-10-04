@@ -1,0 +1,163 @@
+/* 13-91-tal decor layer: scroll-rotated confetti (N4), marquee strip,
+   draggable sticker cards, polaroid gallery frames. Loaded after style.css. */
+
+/* ---------- confetti field (N4) ---------- */
+.confetti-field { position: absolute; inset: 0; pointer-events: none; }
+.confetti {
+  position: absolute;
+  display: inline-block;
+  --r0: -25deg; --r1: 155deg;
+}
+.confetti svg { display: block; }
+.c1 { top: 12%; left: 6%; }
+.c2 { top: 22%; right: 9%; }
+.c3 { top: 70%; left: 11%; }
+.c4 { top: 80%; right: 14%; }
+.c5 { bottom: 6%; left: 42%; }
+.c6 { top: 8%; left: 46%; }
+.c7 { top: 4%; right: 6%; --r0: 15deg; --r1: -160deg; }
+.c8 { top: 38%; left: 3%; --r0: 10deg; --r1: -120deg; }
+.c9 { bottom: 10%; right: 4%; --r0: -40deg; --r1: 120deg; }
+.c10 { top: 6%; left: 8%; --r0: 20deg; --r1: -140deg; }
+.c11 { bottom: 8%; right: 10%; --r0: -15deg; --r1: 170deg; }
+
+@supports (animation-timeline: view()) {
+  .confetti {
+    animation: confetti-spin linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+  @keyframes confetti-spin {
+    from { transform: rotate(var(--r0)) translateY(46px); }
+    to   { transform: rotate(var(--r1)) translateY(-46px); }
+  }
+}
+
+/* IO fallback: JS marks <html> when scroll-timelines are unavailable */
+html.io-fallback .confetti { opacity: 0; transition: opacity .5s ease; }
+html.io-fallback .confetti.seen { opacity: 1; animation: confetti-pop .6s ease both; }
+@keyframes confetti-pop {
+  from { transform: rotate(var(--r0)) scale(.5); }
+  to   { transform: rotate(0deg) scale(1); }
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  background: var(--blue);
+  color: var(--yellow);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  overflow: hidden;
+  transform: rotate(-1deg) scale(1.02);
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  font-family: var(--display);
+  font-size: clamp(.9rem, 2.6vw, 1.25rem);
+  letter-spacing: .06em;
+  padding: .55rem 0;
+  width: max-content;
+  animation: marquee-run 26s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span { padding-right: 1rem; }
+@keyframes marquee-run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------- tjänster (sticker cards) ---------- */
+.sticker-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1.6rem;
+  position: relative;
+}
+.sticker {
+  border: 3px solid var(--ink);
+  padding: 1.2rem 1.2rem 1rem;
+  box-shadow: 6px 6px 0 var(--ink);
+  transform: rotate(var(--tilt, 0deg)) translate(var(--dx, 0px), var(--dy, 0px));
+}
+.sticker h3 { font-family: var(--display); font-size: 1.02rem; margin: 0 0 .5rem; }
+.sticker p { margin: 0 0 .6rem; font-size: .98rem; }
+.sticker .price {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  border-top: 3px solid var(--ink);
+  padding-top: .5rem;
+  margin-top: .8rem;
+}
+.s-red { background: var(--red); }
+.s-yellow { background: var(--yellow); }
+.s-blue { background: var(--blue); color: #fff; }
+.s-blue a { color: #fff; }
+.s-white { background: #fff; }
+.s-mint { background: #d9f2ec; }
+html.drag-ready .sticker { cursor: grab; touch-action: none; user-select: none; }
+html.drag-ready .sticker.dragging { cursor: grabbing; box-shadow: 10px 10px 0 var(--ink); z-index: 3; }
+
+/* ---------- galleri ---------- */
+.photo-grid {
+  list-style: none;
+  margin: 0;
+  padding: .5rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: clamp(1.6rem, 4vw, 2.4rem);
+}
+.polaroid {
+  position: relative;
+  background: #fff;
+  border: 3px solid var(--ink);
+  padding: 12px 12px 26px;
+  box-shadow: 6px 6px 0 rgba(23, 23, 27, .85);
+  transform: rotate(var(--tilt, 0deg));
+}
+.polaroid img { border: 2px solid var(--ink); }
+.tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 84px;
+  height: 26px;
+  transform: translateX(-50%) rotate(-3deg);
+  border: 2px solid var(--ink);
+  opacity: .95;
+}
+.tape-red { background: var(--red); }
+.tape-yellow { background: var(--yellow); }
+.tape-blue { background: var(--blue); }
+.coming-soon {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  background: var(--mint);
+  border-style: dashed;
+  box-shadow: none;
+}
+.soon-label {
+  font-family: var(--display);
+  font-size: 1rem;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  padding: .5rem .8rem;
+  transform: rotate(-2deg);
+}
+
+
+/* ---------- small screens ---------- */
+@media (max-width: 640px) {
+  .marquee { transform: rotate(-1.2deg) scale(1.04); }
+}
+
+/* ---------- reduced motion: decorations fully static ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .confetti { animation: none !important; transform: none !important; opacity: 1 !important; }
+  .marquee-track { animation: none; width: auto; flex-wrap: wrap; white-space: normal; }
+  .sticker, html.io-fallback .confetti.seen { transition: none; animation: none; }
+}

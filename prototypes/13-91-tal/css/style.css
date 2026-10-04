@@ -1,0 +1,315 @@
+/* 13-91-tal — "91-tal": 90s Memphis paper-cutout theme for Anny Morin.
+   Text pairs measured (WCAG): ink #17171b on mint #bfe6dd 13.3:1,
+   ink on yellow #ffd23f 12.4:1, ink on red #ff5a5f 5.9:1,
+   white on blue #2b3a8c 10.1:1, mint on ink 13.3:1, ink on paper #fffdf7 17.6:1.
+   Red/yellow on mint appear in decorative geometry only (aria-hidden). */
+
+:root {
+  --mint: #bfe6dd;
+  --ink: #17171b;
+  --red: #ff5a5f;
+  --yellow: #ffd23f;
+  --blue: #2b3a8c;
+  --paper: #fffdf7;
+  --display: "Rubik Mono One", "Arial Black", Impact, sans-serif;
+  --body: "Epilogue", "Trebuchet MS", Verdana, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--mint);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--ink);
+  color: #fff;
+  padding: .6rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* ---------- topbar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem 1rem;
+  padding: .6rem clamp(.8rem, 3vw, 2rem);
+  background: var(--yellow);
+  border-bottom: 3px solid var(--ink);
+}
+.brand {
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: .02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+.navlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem .9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 800;
+  font-size: .95rem;
+}
+.navlist a { text-decoration: none; border-bottom: 3px solid transparent; }
+.navlist a:hover { border-bottom-color: var(--ink); }
+
+/* ---------- shared bits ---------- */
+.section {
+  position: relative;
+  padding: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 4vw, 3rem);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.sec-head {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 4.2vw, 2.2rem);
+  line-height: 1.25;
+  margin: 0 0 1.6rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.head-chip {
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: 1rem;
+  border: 3px solid var(--ink);
+  padding: .1rem .55rem;
+  box-shadow: 4px 4px 0 var(--ink);
+  flex: none;
+}
+.chip-red { background: var(--red); }
+.chip-yellow { background: var(--yellow); }
+.chip-blue { background: var(--blue); color: #fff; }
+
+.section-note { margin: 0 0 1.6rem; max-width: 56ch; }
+.dash {
+  display: inline-block;
+  border: 3px solid var(--ink);
+  background: #fff;
+  padding: 0 .5rem;
+  font-weight: 800;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: .65rem 1.3rem;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
+.btn-red { background: var(--red); }
+.btn-yellow { background: var(--yellow); }
+.btn-blue { background: var(--blue); color: #fff; }
+
+.demo-badge {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--yellow);
+  font-weight: 800;
+  font-size: .85rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: .3rem .8rem;
+  border: 3px solid var(--ink);
+  transform: rotate(-1.2deg);
+  margin: 0 0 1rem;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: clamp(3.5rem, 10vw, 7rem) 1rem clamp(3rem, 8vw, 5rem);
+  overflow: hidden;
+}
+.eyebrow {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .85rem;
+  padding: .35rem .9rem;
+  border: 3px solid var(--ink);
+  transform: rotate(-1.5deg);
+  margin: 0 0 1.2rem;
+}
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 11vw, 6rem);
+  line-height: .95;
+  margin: 0 0 1rem;
+  text-shadow: 5px 5px 0 var(--red);
+}
+.hero-sub { font-size: 1.15rem; max-width: 34ch; margin: 0 auto 1.8rem; }
+.hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+/* ---------- om ---------- */
+.om-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+.om-text p:first-child { margin-top: 0; }
+.portrait {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--red);
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  transform: rotate(1.6deg);
+}
+.portrait-label {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  text-align: center;
+  color: var(--ink);
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  padding: .6rem 1rem;
+  transform: rotate(-2deg);
+}
+
+/* ---------- boka ---------- */
+.slot-grid {
+  display: grid;
+  grid-template-columns: minmax(80px, auto) repeat(4, minmax(72px, 1fr));
+  gap: .6rem;
+  align-items: center;
+  max-width: 720px;
+}
+.slot-day {
+  font-family: var(--display);
+  font-size: .85rem;
+  margin: 0;
+}
+.slot {
+  font: inherit;
+  font-weight: 800;
+  background: #fff;
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  padding: .5rem .3rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+.slot:hover { background: var(--yellow); }
+.slot[aria-pressed="true"] { background: var(--red); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+/* ---------- kontakt ---------- */
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+.contact-card {
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--yellow);
+  padding: 1.4rem 1.5rem;
+  transform: rotate(-1deg);
+}
+.contact-card h3 { font-family: var(--display); font-size: 1.05rem; margin: 0 0 .8rem; }
+.contact-card p { margin: 0 0 .7rem; overflow-wrap: anywhere; }
+.hours { font-style: italic; }
+.contact-form {
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--red);
+  padding: 1.4rem 1.5rem;
+  transform: rotate(.8deg);
+  display: grid;
+  gap: .9rem;
+}
+.contact-form label { display: grid; gap: .3rem; font-weight: 600; }
+.contact-form input, .contact-form textarea {
+  font: inherit;
+  background: #fff;
+  border: 3px solid var(--ink);
+  padding: .5rem .6rem;
+  width: 100%;
+}
+.contact-form textarea { resize: vertical; }
+.form-hint {
+  margin: 0;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  padding: .6rem .8rem;
+  font-weight: 600;
+}
+
+/* ---------- footer + dialog ---------- */
+.footer {
+  border-top: 3px solid var(--ink);
+  background: var(--ink);
+  color: var(--mint);
+  padding: 1.4rem clamp(1rem, 4vw, 3rem);
+  font-size: .9rem;
+}
+.footer a { color: var(--mint); }
+
+dialog {
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  max-width: min(440px, calc(100vw - 2rem));
+  padding: 1.4rem 1.5rem;
+}
+dialog::backdrop { background: rgba(23, 23, 27, .65); }
+dialog h3 { font-family: var(--display); font-size: 1.05rem; margin: 0 0 .8rem; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 640px) {
+  .om-grid { grid-template-columns: 1fr; }
+  .portrait { min-height: 220px; }
+  .slot-grid { grid-template-columns: 1fr; gap: .4rem; }
+  .slot-day { margin-top: .8rem; }
+  .slot { width: 100%; }
+}
