@@ -60,13 +60,52 @@ def img_srcs(html):
     return p.srcs
 
 
-def galleri_slice(html):
-    """Markup from id="galleri" up to the next section, for scope-limited copy checks."""
-    start = re.search(r'id="galleri"', html)
+def section_slice(html, sec):
+    """Markup from id="<sec>" up to the NEXT REQUIRED section id (or </body>).
+    Stopping at any id= would end the slice at nested heading ids like
+    id="galleri-rubrik" and cut off the section's own content."""
+    start = re.search(rf'id="{sec}"', html)
     if not start:
         return ""
-    nxt = re.compile(r"<section[^>]*id=|</body", re.IGNORECASE).search(html, start.end())
+    others = "|".join(s for s in REQUIRED_IDS if s != sec)
+    nxt = re.compile(rf'id="(?:{others})"|</body', re.IGNORECASE).search(html, start.end())
     return html[start.start(): nxt.start() if nxt else len(html)]
+
+
+def galleri_slice(html):
+    return section_slice(html, "galleri")
+
+
+class TextOnly(html.parser.HTMLParser):
+    """Visible-text approximation: tags dropped, <script>/<style> skipped,
+    comments never reach handle_data. Hidden-by-class spans still yield text —
+    the check targets silent copy edits (the DA-c2 hidden-span attack on a raw
+    substring assert), not a deliberately forged file."""
+
+    SKIP = {"script", "style"}
+
+    def __init__(self):
+        super().__init__()
+        self._skip = 0
+        self.chunks = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.SKIP:
+            self._skip += 1
+
+    def handle_endtag(self, tag):
+        if tag in self.SKIP and self._skip:
+            self._skip -= 1
+
+    def handle_data(self, data):
+        if not self._skip and data.strip():
+            self.chunks.append(data)
+
+
+def visible_text(html):
+    p = TextOnly()
+    p.feed(html)
+    return " ".join(p.chunks).lower()
 
 
 def assert_gallery_evidence(d, html):
@@ -81,11 +120,22 @@ def assert_gallery_evidence(d, html):
             f"(illustrationer/typspecimen/utan foto)"
         )
     else:
-        got = {s.split("/")[-1] for s in img_srcs(html) if PHOTO_RE.search(s)}
+        got = {s.split("/")[-1] for s in img_srcs(galleri_slice(html))
+               if PHOTO_RE.search(s)}
         assert len(got) >= 4, (
-            f"{d.name}: gallery photos missing — found {sorted(got) or 'none'}; "
-            f"BRIEF.md requires gal-01..04"
+            f"{d.name}: gallery photos missing from #galleri — found "
+            f"{sorted(got) or 'none'}; BRIEF.md requires gal-01..04"
         )
+
+
+def assert_demo_honesty(d, html):
+    """'demo' must live in the VISIBLE TEXT of #boka (booking is a mock), not
+    anywhere in the file — the raw-substring assert let themes pass with the
+    label stripped to a comment or moved out of the section (DA-c2 finding 5)."""
+    for sec in ("boka", "kontakt"):
+        scope = visible_text(section_slice(html, sec))
+        assert scope, f"{d.name}: empty #{sec}"
+        assert "demo" in scope, f"{d.name}: #{sec} lacks a visible demo/mock label"
 
 
 def test_brief_and_assets():
@@ -110,8 +160,7 @@ def test_each_prototype_structure():
         assert "mailto:" in html.lower(), d.name
         assert "instagram.com/mullers.anny" in html, d.name
         assert_gallery_evidence(d, html)
-        # demo honesty: booking is labelled demo/mock somewhere
-        assert re.search(r"demo|mock", low), f"{d.name}: booking mock not labelled"
+        assert_demo_honesty(d, html)
 
 
 def _serve_root():
