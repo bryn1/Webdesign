@@ -1,0 +1,284 @@
+/* 11 · Aindyp — "Blå färgbrunn" (aizome-indigo tema för Anny Morin, MC 10088).
+   Palett: indigo #1c2a45 / yta #16213a / washi #f2ede3 / vermilion #d94f30.
+   Vermilion klarar 3.49:1 mot indigo → ENDAST dekorativt/stor text; länkar och
+   smått använder text-säkra #ef8a66 (5.8:1). Muted #6b7a99 = dekorativt; små
+   metadata använder #93a2be (5.6:1). scroll-snap = CSS (N2), counter-scroll (N1)
+   bakom @supports (animation-timeline: view()) med IO-fallback i main.js. */
+
+:root {
+  --bg: #1c2a45;
+  --bg-deep: #16213a;
+  --surface: #16213a;
+  --ink: #f2ede3;
+  --accent: #d94f30;        /* dekorativt + rubriksstorlek (>24px) */
+  --link: #ef8a66;          /* text-säker variant, AA mot båd bg/yta */
+  --muted: #6b7a99;         /* dekorativt, stora tal */
+  --meta: #93a2be;          /* små metadata, AA */
+  --line: rgba(242, 237, 227, 0.18);
+  --disp: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Segoe UI", system-ui, sans-serif;
+  --pad: clamp(1.25rem, 5vw, 4.5rem);
+  --head-h: 3.75rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  scroll-padding-top: calc(var(--head-h) + 1rem);
+  scroll-snap-type: y proximity;            /* N2 — rent CSS, kräver ej JS */
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; }          /* nedbrytning: sektioner staplas fritt */
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  font: 400 1.0625rem/1.75 var(--body);
+  color: var(--ink);
+  background:
+    radial-gradient(120% 70% at 50% -10%, #24365a 0%, var(--bg) 55%) fixed;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 { font-family: var(--disp); font-weight: 600; line-height: 1.15; margin: 0 0 .6em; }
+h1 { font-size: clamp(3.2rem, 11vw, 7.5rem); font-weight: 900; letter-spacing: .02em; }
+h2 { font-size: clamp(1.9rem, 4.5vw, 3.1rem); }
+h3 { font-size: 1.4rem; }
+p { margin: 0 0 1.1em; }
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 99;
+  background: var(--ink); color: var(--bg); padding: .6em 1.2em; font-weight: 700;
+}
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* ===== Sidhuvud ===== */
+.site-head {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  min-height: var(--head-h);
+  padding: .4rem var(--pad);
+  background: rgba(22, 33, 58, 0.88);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-family: var(--disp); font-size: 1.3rem; font-weight: 900; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.brand-sub { font-family: var(--body); font-weight: 400; font-size: .8rem; color: var(--meta); }
+.site-nav { display: flex; flex-wrap: wrap; gap: .35rem 1.15rem; }
+.site-nav a {
+  color: var(--ink); text-decoration: none; font-size: .95rem; padding: .3em .15em;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover, .site-nav a[aria-current="true"] { border-bottom-color: var(--accent); }
+.site-nav a[aria-current="true"] { color: var(--link); }
+
+/* ===== Sektioner (N2 snap) ===== */
+.hero, .section {
+  scroll-snap-align: start;
+  position: relative;
+  display: flex; align-items: center;
+  min-height: 100svh;
+  padding: calc(var(--head-h) + 3rem) var(--pad) 4.5rem;
+  overflow-x: clip;                          /* banden får sticka utan scroll */
+}
+.wrap { width: min(1100px, 100%); margin-inline: auto; }
+.eyebrow {
+  font-size: .8rem; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--meta); margin-bottom: 1.4em;
+}
+.eyebrow::before { content: "︱"; color: var(--accent); margin-right: .5em; }
+.note { color: var(--meta); font-size: .9rem; }
+.two-col { display: grid; gap: clamp(2rem, 6vw, 5rem); align-items: center;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+
+/* ===== Knappar ===== */
+.btn {
+  display: inline-block; background: var(--ink); color: var(--bg-deep);
+  font: 700 1rem/1 var(--body); text-decoration: none; cursor: pointer;
+  padding: .9em 1.6em; border: 1px solid var(--ink); border-radius: 2px;
+}
+.btn:hover { background: #fff; }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--ghost:hover { border-color: var(--ink); background: rgba(242, 237, 227, .08); }
+
+/* ===== Seigaiha-band (dekor, cubic-C-kedjor) ===== */
+.wave-band {
+  position: absolute; left: -10%; width: 120%; height: clamp(46px, 8vw, 90px);
+  pointer-events: none;
+}
+.wave-band { color: var(--ink); } /* patharna bär stroke=currentColor + opacity-attr:
+   CSS-selectorer når inte in i <use>-shadow och properties ärver in. */
+.hero__band { bottom: 8vh; }
+.kontakt__band { top: 10vh; }
+
+/* ===== Hero ===== */
+.hero__inner { position: relative; max-width: 46ch; }
+.seal {
+  display: grid; place-items: center;
+  width: 4.2rem; height: 4.2rem; margin-bottom: 1.6rem;
+  background: var(--accent); color: var(--ink);
+  font-family: var(--disp); font-size: 2.1rem;
+  border-radius: 50%; box-shadow: 0 0 0 2px rgba(217, 79, 48, .35), inset 0 0 0 2px rgba(22,33,58,.25);
+}
+.hero__sub { font-size: 1.25rem; color: var(--ink); }
+.hero__cta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2.2rem; }
+
+/* ===== Om mig ===== */
+.portrait {
+  aspect-ratio: 3 / 4; display: grid; place-items: center;
+  background:
+    linear-gradient(178deg, transparent 0 34%, rgba(56, 92, 148, .55) 34% 47%,
+      rgba(38, 64, 110, .8) 47% 68%, #2e5288 68% 100%),
+    var(--bg-deep);
+  border: 1px solid var(--line);
+}
+.portrait__label, .dip__label {
+  background: rgba(22, 33, 58, .82); color: var(--meta);
+  font-size: .85rem; letter-spacing: .12em; padding: .5em 1em; border: 1px solid var(--line);
+}
+.prose h2 { margin-top: .2em; }
+address { font-style: normal; margin: 0 0 1.4em; }
+
+/* ===== Tjänster: N1 sticky rubrik + motdriftande kolumn ===== */
+.tjanster { align-items: flex-start; padding-block: clamp(4rem, 14vh, 10rem); }
+.split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 7vw, 6rem); align-items: start; }
+.split__head { position: sticky; top: calc(var(--head-h) + 2rem); }
+.split__band { position: static; width: 100%; margin: 1.4rem 0 0; opacity: .9; }
+.services { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.service {
+  background: linear-gradient(var(--surface), var(--surface)) padding-box;
+  border-top: 1px solid var(--line); padding: 1.9rem 1.4rem;
+}
+.service:last-child { border-bottom: 1px solid var(--line); }
+.service h3 { display: flex; align-items: baseline; gap: .7rem; margin-bottom: .35em; }
+.service__num { font-size: 1rem; color: var(--meta); }           /* dekorativ glyph */
+.service__price { color: var(--meta); font-size: .9rem; margin: .6em 0 0; }
+
+/* Scroll-timeline: kolumnen driver MOT scrollrickningen; banden parallaxar. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .split__drift {
+      animation: counter-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: transform;
+    }
+    @keyframes counter-drift {
+      from { transform: translateY(-6%); }
+      to   { transform: translateY(7%); }
+    }
+    .wave-band {
+      animation: band-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    @keyframes band-drift {
+      from { transform: translateX(5%); }
+      to   { transform: translateX(-5%); }
+    }
+  }
+}
+/* IO-fallback (main.js sätter .seen): engångsdrift, endast icke-reducerad rörelse */
+@media (prefers-reduced-motion: no-preference) {
+  .js .wave-band.seen { animation: band-nudge 2.6s ease-out 1; }
+  @keyframes band-nudge {
+    from { transform: translateX(4%); }
+    to   { transform: translateX(0); }
+  }
+}
+
+/* ===== Galleri ===== */
+.gallery { list-style: none; margin: 2.2rem 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1.4rem; }
+.shot { margin: 0; }
+.shot img, .dip { aspect-ratio: 3 / 4; width: 100%; height: auto; object-fit: cover; border: 1px solid var(--line); }
+.dip { display: grid; place-items: center;
+  background:
+    linear-gradient(176deg, transparent 0 40%, rgba(56, 92, 148, .5) 40% 55%,
+      rgba(38, 64, 110, .85) 55% 80%, #2e5288 80% 100%),
+    var(--bg-deep); }
+.shot__cap { font-size: .92rem; color: var(--meta); margin: .7em 0 0; }
+.tag { display: inline-block; background: var(--accent); color: #0b1120;
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; padding: .25em .7em;
+  margin-right: .5em; }              /* #0b1120 på vermilion = 4.6:1, AA för smått */
+.tag--fore { background: transparent; color: var(--meta); border: 1px solid var(--line); }
+
+/* ===== Boka (demo) ===== */
+.demo-badge {
+  display: inline-block; border: 1px dashed var(--accent); color: var(--link);
+  font-size: .82rem; letter-spacing: .06em; padding: .35em .9em; border-radius: 2px;
+}
+.cal-legend { display: flex; gap: 1.4rem; margin: 1.6rem 0 .9rem; color: var(--meta); font-size: .88rem; }
+.sw { display: inline-block; width: .9em; height: .9em; margin-right: .35em; vertical-align: -1px; }
+.sw--free { background: var(--ink); }
+.sw--taken { background: var(--muted); }
+.cal { overflow-x: auto; }
+.cal-grid { display: grid; grid-template-columns: minmax(3.2em, max-content) repeat(5, minmax(4.6em, 1fr));
+  gap: .4rem; min-width: 34rem; }
+.cal-day { font-size: .8rem; color: var(--meta); letter-spacing: .1em; padding: .4em .2em; text-align: center; }
+.cal-time { font-size: .85rem; color: var(--meta); padding: .55em .4em; }
+.slot {
+  font: 500 .88rem var(--body); padding: .6em .3em; border-radius: 2px; cursor: pointer;
+  background: var(--ink); color: var(--bg-deep); border: 1px solid var(--ink);
+}
+.slot:hover { background: #fff; }
+.slot[disabled] {
+  background: transparent; color: var(--muted); border-color: var(--line); cursor: not-allowed;
+}
+dialog {
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 3px; padding: 2rem; max-width: 30rem; margin: auto;
+}
+dialog::backdrop { background: rgba(12, 19, 34, .78); }
+dialog h3 { margin-bottom: .4em; }
+.dialog-cta { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.4rem 0 1rem; }
+
+/* ===== Kontakt ===== */
+.contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .7em; }
+.contact-form { display: grid; gap: .4rem; background: var(--surface);
+  border: 1px solid var(--line); padding: clamp(1.4rem, 4vw, 2.4rem); }
+.contact-form label { font-size: .85rem; color: var(--meta); margin-top: .8em; }
+.contact-form input, .contact-form textarea {
+  font: 400 1rem var(--body); color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 2px; padding: .65em .8em;
+}
+.contact-form .btn { margin-top: 1.2em; justify-self: start; }
+
+/* ===== Sidfot ===== */
+.site-foot { border-top: 1px solid var(--line); padding: 2.2rem var(--pad); color: var(--meta); font-size: .9rem; }
+
+/* ===== Reveal (progressive enhancement: syns alltid utan JS) ===== */
+.js .reveal { opacity: 0; transform: translateY(1.4rem);
+  transition: opacity .8s ease, transform .8s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===== Mobil: counter-scroll kollapsar till normal flöde ===== */
+@media (max-width: 720px) {
+  .two-col, .split { grid-template-columns: 1fr; }
+  .split__head { position: static; top: auto; }
+  .split__drift { animation: none; transform: none; }
+  .wave-band { animation: none; transform: none; }
+  .hero, .section { min-height: auto; padding-top: calc(var(--head-h) + 2.6rem); }
+  .portrait { max-width: 60%; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .split__drift, .wave-band { animation: none !important; transform: none !important; }
+}
