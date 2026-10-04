@@ -1,0 +1,285 @@
+/* Layout & grund: reset, typografi, sidhuvud, sektioner, sidfot, kladdar. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip; /* sidledes: kladdar får inte skapa horizontal scrollbar */
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: clip;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: 0.005em;
+}
+
+h1 {
+  font-size: var(--fs-hero);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  margin-bottom: var(--space-2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+
+a {
+  color: var(--mist-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--rose-ink);
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--glass-fallback-strong);
+  color: var(--ink);
+  padding: var(--space-1) var(--space-2);
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* ---------- Sidhuvud (glas) ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: var(--header-h);
+  background: var(--glass-fallback);
+  border-bottom: 1px solid rgba(63, 74, 68, 0.08);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .site-header {
+    background: var(--glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+}
+
+.site-header__inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 0.7rem var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.site-nav a:not(.btn) {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.site-nav a:not(.btn):hover {
+  color: var(--rose-ink);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .site-nav .nav-desktop-only {
+    display: none;
+  }
+}
+
+/* ---------- Sektionsram ---------- */
+
+.section {
+  position: relative;
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-3);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rose-ink);
+  margin-bottom: var(--space-2);
+}
+
+.section__lede {
+  max-width: 56ch;
+  color: var(--muted);
+}
+
+/* ---------- Hjälte ---------- */
+
+.hero {
+  position: relative;
+  padding: calc(var(--space-6) + var(--space-3)) var(--space-3) var(--space-6);
+  max-width: var(--content-w);
+  margin: 0 auto;
+}
+
+.hero-sub {
+  max-width: 44ch;
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-top: var(--space-2);
+}
+
+.hero-cta {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+/* Bakgrundsfield med kladdar — alltid bakom allt innehåll. */
+.bg-field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    linear-gradient(160deg, #f2f3ee 0%, var(--bg) 45%, #e7ece8 100%);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  will-change: transform;
+}
+
+.blob--rose {
+  width: 46vmax;
+  height: 46vmax;
+  top: -14vmax;
+  right: -12vmax;
+  background: radial-gradient(circle, var(--blob-rose), transparent 70%);
+}
+
+.blob--mist {
+  width: 40vmax;
+  height: 40vmax;
+  top: 32%;
+  left: -16vmax;
+  background: radial-gradient(circle, var(--blob-mist), transparent 70%);
+}
+
+.blob--sage {
+  width: 44vmax;
+  height: 44vmax;
+  bottom: -18vmax;
+  right: -10vmax;
+  background: radial-gradient(circle, var(--blob-sage), transparent 70%);
+}
+
+/* ---------- Sidfot ---------- */
+
+.site-footer {
+  border-top: 1px solid rgba(63, 74, 68, 0.1);
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.site-footer__inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.site-footer a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: var(--fs-small);
+  max-width: 34ch;
+}

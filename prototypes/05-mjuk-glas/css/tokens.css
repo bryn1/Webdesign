@@ -1,0 +1,62 @@
+/* 05 Mjuk glas — "Svala toner": enda källan för design-token.
+   Kontrastpar kontrollerade mot WCAG AA (ink på glas-yta ≈ 8.5:1,
+   rose-ink på bakgrund ≈ 5.3:1). */
+
+:root {
+  /* Palett — research.md §5 direction 05 */
+  --bg: #eef0ea;
+  --ink: #3f4a44;
+  --rose: #c9a7a0;          /* dekorativt: kanter, prickar, blobbar — ej brödtext */
+  --rose-ink: #7d5a54;      /* textvariant, AA mot --bg (5.3:1) */
+  --mist: #a7bcc3;
+  --mist-ink: #52707b;      /* textvariant, AA mot --bg (~4.8:1) */
+  --muted: #5f6b64;         /* sekundär brödtext, AA mot glas-yta */
+
+  /* Glas — dekorativ yta; kontrasten alltid ink mot ett ljust underlag */
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.72);
+  --glass-fallback: #f7f8f4;         /* utan backdrop-filter: opakt kort */
+  --glass-fallback-strong: #ffffff;
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-shadow: 0 18px 40px -18px rgba(63, 74, 68, 0.28);
+  --blur: 14px;
+
+  /* Typografi — Google Fonts med systemfallback (tål frånkopplat läge) */
+  --font-body: "DM Sans", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --fs-hero: clamp(2.6rem, 8vw, 4.6rem);
+  --fs-h2: clamp(1.9rem, 5vw, 2.9rem);
+  --fs-h3: 1.25rem;
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+  --lh-body: 1.65;
+
+  /* Mått och rytm */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6.5rem;
+  --radius: 22px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --content-w: 1080px;
+  --header-h: 64px;
+
+  /* Interaktion */
+  --focus-ring: 3px solid var(--mist-ink);
+  --ease-soft: cubic-bezier(0.25, 0.8, 0.35, 1);
+  --dur: 0.45s;
+
+  /* Kladdar (parallax) — mjusa toner, alltid bakom innehåll */
+  --blob-rose: rgba(201, 167, 160, 0.5);
+  --blob-mist: rgba(167, 188, 195, 0.55);
+  --blob-sage: rgba(210, 220, 200, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 0.01ms; /* animationer/övergångar kvittas globalt */
+  }
+}
