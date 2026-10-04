@@ -1,0 +1,223 @@
+/* ============================================================
+   GALLERIVÄGGEN — bas: palett, typografi, signallage, knappar.
+   Palett (research-2 §6/19): mustardvägg, kolbläck, ramvit, mässing.
+   Kontraster (uppmätta, WCAG): bläck på mustard 7.7:1 · bläck på ramvit
+   16.3:1 · äggvit på mässing 4.7:1 · äggvit på bläck 17.9:1 ·
+   guld på bläck 10.1:1 · dämpad #43350f på mustard 4.9:1.
+   Text #fffaf0 på mustard mättes till 2.3:1 — ANVÄNDS EJ som text.
+   ============================================================ */
+
+:root {
+  --mustard: #c9a227;        /* väggen */
+  --mustard-deep: #b8921e;   /* band på väggen */
+  --ink: #171208;            /* kolkrita / mörkt rum */
+  --text: #fffaf0;           /* äggvit — ENDAST mot mörk yta */
+  --frame-white: #f5efe2;    /* passepartout och kort */
+  --brass: #8a6d1f;          /* skyltplåt */
+  --brass-dark: #6b5416;     /* kant, text på ramvit (6.3:1) */
+  --brass-hi: #a98a35;       /* metallisk högdagrar */
+  --gold: #e8b923;           /* duotone-ljus + länk i mörka rummet (10.1:1) */
+  --muted: #43350f;          /* sekundär text på mustard (4.9:1) */
+  --muted-dark: #241c06;     /* sekundär text på mörkare band (5.3:1) */
+  --shadow: 0 22px 34px -14px rgba(23, 18, 8, 0.5);
+  --display: "Syne", "Futura", "Trebuchet MS", sans-serif;
+  --body: "IBM Plex Sans", system-ui, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background:
+    /* diskret gardintextil: två kryssade strebraster */
+    repeating-linear-gradient(48deg, rgba(23, 18, 8, 0.045) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(-48deg, rgba(255, 250, 240, 0.05) 0 1px, transparent 1px 9px),
+    radial-gradient(120% 60% at 50% -8%, rgba(255, 250, 240, 0.22), transparent 62%),
+    var(--mustard);
+  overflow-x: hidden; /* garant: sidan skalas aldrig horisontellt */
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0 0 0.5em; }
+h1 { font-size: clamp(2.6rem, 9vw, 5.2rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.8rem, 4.6vw, 3rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 700; }
+p { margin: 0 0 1em; }
+a { color: inherit; }
+
+.wrap {
+  width: min(1080px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+
+.display { font-family: var(--display); }
+
+/* Väggetiketten: liten versalrubrik bränd mot väggen */
+.wall-label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.6em;
+}
+.wall-label--dark { color: var(--gold); }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 20;
+  background: var(--ink);
+  color: var(--text);
+  padding: 0.7em 1.2em;
+  border-radius: 0 0 6px 0;
+}
+.skip-link:focus { left: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--brass-dark);
+  outline-offset: 2px;
+}
+.section--dark :focus-visible,
+.site-footer :focus-visible,
+.signage :focus-visible {
+  outline-color: var(--gold);
+}
+
+::selection { background: var(--brass); color: var(--text); }
+
+/* ---------- Signallage (sidhuvud) — mässingslist överst ---------- */
+.signage {
+  background: var(--ink);
+  border-bottom: 4px solid var(--brass);
+  color: var(--text);
+}
+.signage__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 0;
+}
+.signage__brand {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  margin-right: auto;
+}
+.signage__nav ul {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.signage__nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+.signage__nav a:hover { border-bottom-color: var(--gold); }
+
+/* ---------- Knappar ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.7em 1.35em;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+}
+.btn--ink { background: var(--ink); color: var(--text); }          /* 17.9:1 */
+.btn--ink:hover { background: var(--brass-dark); border-color: var(--brass-dark); }
+.btn--outline { background: transparent; color: var(--ink); }      /* 7.7:1 på mustard */
+.btn--outline:hover { background: rgba(23, 18, 8, 0.08); }
+.btn--gold { background: var(--gold); color: var(--ink); border-color: var(--ink); }
+.btn--text {
+  background: none;
+  border: none;
+  color: var(--brass-dark);
+  padding: 0.4em 0.2em;
+  text-decoration: underline;
+}
+
+/* ---------- Demo-markeringar och notiser ---------- */
+.badge {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.3em 0.8em;
+  border: 1.5px dashed var(--brass-dark);
+  color: var(--brass-dark);
+  background: var(--frame-white);
+}
+.section--dark .badge { color: var(--gold); border-color: var(--gold); background: transparent; }
+.badge--demo::before { content: "● "; }
+
+.note {
+  font-size: 0.9rem;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.section--dark .note { color: #d8cdb4; } /* på bläck: 11.8:1 */
+.muted { color: var(--muted); }
+.section--dark .muted { color: #d8cdb4; }
+
+/* ---------- Sidfot — golvlisten ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--text);
+  border-top: 4px solid var(--brass);
+  padding: 2rem 0 2.4rem;
+  font-size: 0.95rem;
+}
+.site-footer__inner { display: grid; gap: 1rem; }
+.site-footer ul {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-footer a { color: var(--gold); }
+.site-footer .muted { color: #d8cdb4; } /* 11.8:1 mot golvet (bläck) */
+
+/* ---------- Sektioner på väggen ---------- */
+.section {
+  padding: clamp(3.2rem, 9vw, 6rem) 0;
+  overflow-x: clip;   /* lampskens-dekorationer får inte breda ut sidan */
+}
+.section--band {
+  background:
+    linear-gradient(rgba(23, 18, 8, 0.05), rgba(23, 18, 8, 0.05)),
+    var(--mustard-deep);
+  border-block: 1px solid rgba(107, 84, 22, 0.55);
+}
+/* På bandet (effektiv #af8b1c) klarar inte den vanliga dämpade
+   färgen AA (3.7:1) — byt till mörkare variant (5.3:1). */
+.section--band .wall-label,
+.section--band .note,
+.section--band .legend,
+.section--band .muted { color: var(--muted-dark); }

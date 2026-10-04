@@ -1,0 +1,215 @@
+/* ============================================================
+   GALLERIVÄGGEN — sektionerna: entré (hero), väggtext (om),
+   etiketter (tjänster), biljettluckan (boka), mörka rummet
+   (kontakt) och dialogen. All text på kort står på ramvit
+   (bläck 16.3:1) eller i det mörka rummet (äggvit 17.9:1).
+   ============================================================ */
+
+/* ---------- Entréhall: titel målad på väggen ---------- */
+.hero {
+  position: relative;
+  padding: clamp(4rem, 13vw, 8.5rem) 0 clamp(3.4rem, 10vw, 6.5rem);
+  border-bottom: 1px solid rgba(107, 84, 22, 0.55);
+  overflow: hidden;
+}
+.hero__light {
+  position: absolute;
+  inset: -30% 20% auto 20%;
+  height: 70%;
+  pointer-events: none;
+  background: radial-gradient(50% 90% at 50% 0%, rgba(255, 250, 240, 0.5), transparent 70%);
+}
+.hero__inner { position: relative; }
+.hero h1 { margin-bottom: 0.15em; }
+.hero__sub {
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  font-weight: 500;
+  max-width: 34ch;
+}
+.hero__actions { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.4em; }
+.hero__salong {
+  font-size: 0.95rem;
+  color: var(--muted);
+  padding-top: 0.9em;
+  border-top: 1px solid rgba(107, 84, 22, 0.5);
+  max-width: 46ch;
+}
+
+/* ---------- Om mig: väggtext på platta + porträtthållare ---------- */
+.om-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .om-grid { grid-template-columns: 1fr; }
+}
+.walltext {
+  background: var(--frame-white);
+  border: 1px solid var(--brass-dark);
+  box-shadow: var(--shadow);
+  padding: clamp(1.6rem, 4vw, 2.8rem);
+  max-width: 62ch;
+}
+.walltext h2 { margin-top: 0.1em; }
+.walltext p:last-child { margin-bottom: 0; }
+.walltext a { color: var(--brass-dark); font-weight: 600; }
+
+/* ---------- Tjänster: museumsetiketter i rad ---------- */
+.labels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: 1.4rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.label-card {
+  background: var(--frame-white);
+  border: 1px solid var(--brass-dark);
+  border-top: 5px solid var(--brass);
+  box-shadow: 0 12px 22px -12px rgba(23, 18, 8, 0.45);
+  padding: 1.3rem 1.3rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.label-card h3 {
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.label-card p { font-size: 0.95rem; margin: 0; }
+.label-card__price {
+  margin-top: auto;
+  padding-top: 0.7em;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--brass-dark);
+}
+
+/* ---------- Biljettluckan: demotider på passepartout ---------- */
+.legend {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.legend span { display: inline-flex; align-items: center; gap: 0.45em; }
+.swatch {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1.5px solid var(--ink);
+}
+.swatch--free { background: var(--frame-white); }
+.swatch--taken { background: rgba(23, 18, 8, 0.25); }
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 1.1rem;
+  margin: 1.4rem 0 1.6rem;
+}
+.day {
+  background: var(--frame-white);
+  border: 1px solid var(--brass-dark);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.5rem;
+}
+.day__name {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 0.2em;
+  color: var(--brass-dark);
+}
+.slot {
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5em 0.8em;
+  background: var(--frame-white);
+  color: var(--ink);                 /* 16.3:1 */
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+}
+.slot:hover { background: var(--gold); }
+.slot--taken {
+  background: rgba(23, 18, 8, 0.16);
+  color: var(--muted);               /* mot bandet: ≥4.5, uppmätt */
+  border-color: var(--muted);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* ---------- Mörka rummet: kontakt ---------- */
+.section--dark {
+  background:
+    radial-gradient(110% 70% at 50% 0%, rgba(232, 185, 35, 0.09), transparent 60%),
+    var(--ink);
+  color: var(--text);
+  border-top: 4px solid var(--brass);
+}
+.section--dark h2, .section--dark h3 { color: var(--text); }
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .kontakt-grid { grid-template-columns: 1fr; }
+}
+.contact-card {
+  border: 1px solid var(--brass);
+  background: rgba(255, 250, 240, 0.05);
+  padding: 1.4rem;
+  margin-top: 1rem;
+}
+.contact-card address { font-style: normal; color: var(--text); }
+.contact-lines { display: grid; gap: 0.45em; margin: 0.9em 0 0; }
+.contact-lines a { color: var(--gold); font-weight: 600; }   /* 10.1:1 */
+
+.contact-form {
+  border: 1px solid var(--brass);
+  background: rgba(255, 250, 240, 0.05);
+  padding: 1.4rem;
+}
+.contact-form label { display: block; font-weight: 600; margin-bottom: 0.25em; }
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--frame-white);
+  border: 1.5px solid var(--brass-dark);
+  padding: 0.55em 0.7em;
+  margin-bottom: 0.9em;
+}
+.form-note {
+  border: 1.5px dashed var(--gold);
+  padding: 0.8em 1em;
+  font-size: 0.95rem;
+}
+.form-note a { color: var(--gold); }
+
+/* ---------- Dialog: vald tid visas på vit skylt ---------- */
+dialog {
+  border: 2px solid var(--brass-dark);
+  border-top: 8px solid var(--brass);
+  background: var(--frame-white);
+  color: var(--ink);
+  padding: clamp(1.4rem, 4vw, 2.2rem);
+  width: min(480px, calc(100% - 2rem));
+  box-shadow: 0 30px 60px -20px rgba(23, 18, 8, 0.7);
+}
+dialog::backdrop { background: rgba(23, 18, 8, 0.65); }
+dialog h2 { font-size: 1.5rem; }
+.dialog__actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+dialog .btn--outline { border-color: var(--ink); }

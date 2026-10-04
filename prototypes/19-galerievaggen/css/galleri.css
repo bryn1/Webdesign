@@ -1,0 +1,171 @@
+/* ============================================================
+   GALLERIVÄGGEN — själva väggen: ramar, passepartout, mässings-
+   skyltar, N8-duotone (ren CSS) och N9-lutning (ren förbättring).
+   Utan JS, vid grov pekare eller reducerad rörelse finns ingen
+   transform alls — ramarna är fullt synliga i vila.
+   ============================================================ */
+
+/* ---------- Väggen: rutnät med förskjutna upphängningar ---------- */
+.wall {
+  list-style: none;
+  margin: 2.2rem 0 0;
+  padding: 0.4rem 0.2rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2rem, 5vw, 4rem) clamp(1.6rem, 4vw, 3.5rem);
+  perspective: 1100px;          /* djup för lutningen — påthållaren */
+}
+.hang { min-width: 0; }
+.hang:nth-child(2n) { margin-top: clamp(2.5rem, 6vw, 5.5rem); }
+.hang:nth-child(3n) { margin-top: clamp(1rem, 2.5vw, 2rem); }
+
+@media (max-width: 860px) and (min-width: 701px) {
+  .wall { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- mobil: samma vägg som horisontellt snap-band ---------- */
+@media (max-width: 700px) {
+  .wall {
+    display: flex;
+    gap: 1.6rem;
+    overflow-x: auto;
+    padding-top: 4.25rem;   /* plats för bildlampornas sken i bandet */
+    padding-bottom: 1.4rem;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-color: var(--brass) rgba(23, 18, 8, 0.15);
+  }
+  .hang { flex: 0 0 min(76%, 300px); margin-top: 0 !important; scroll-snap-align: center; }
+}
+.galleri__hint { display: none; }
+@media (max-width: 700px) {
+  .galleri__hint {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+}
+
+/* ---------- Verket: mässingkant → passepartout → duk ---------- */
+.work {
+  position: relative;
+  margin: 0;
+  background: linear-gradient(135deg,
+    var(--brass-hi) 0%, var(--brass) 34%, #6a5214 58%, var(--brass-hi) 86%, var(--brass) 100%);
+  padding: 7px;
+  box-shadow: var(--shadow);
+  transform: none;              /* vila = ingen transform alls */
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+.work.is-tilting { transition: transform 0.1s linear; }
+
+/* bildlampans sken på väggen ovanför ramen */
+.work__light {
+  position: absolute;
+  top: -64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 104px;
+  pointer-events: none;
+  background: radial-gradient(52% 92% at 50% 6%, rgba(255, 250, 240, 0.5), transparent 72%);
+}
+
+.work__matte {
+  background: var(--frame-white);
+  padding: clamp(12px, 2.4vw, 22px);
+  outline: 1px solid rgba(107, 84, 22, 0.6);
+  outline-offset: -1px;
+}
+
+/* spik + hänge: liten mässingsprick överst */
+.work::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--brass-hi), var(--brass-dark) 75%);
+  box-shadow: 0 2px 3px rgba(23, 18, 8, 0.5);
+}
+
+/* ---------- N8 · duotone — ren CSS, ingen JS ----------
+   Steg 1: bilden gråskalas. Steg 2: screen mot kolduk (svart→kol,
+   vitt→vitt). Steg 3: multiply guld ovanpå (vitt→guld). Resultat:
+   bildens ljusstyrka styrs mot kolkrita→guld. */
+.duo {
+  position: relative;
+  isolation: isolate;
+  background: var(--ink);
+  overflow: hidden;
+}
+.duo img {
+  width: 100%;
+  filter: grayscale(1) contrast(1.1) brightness(1.14);
+  mix-blend-mode: screen;
+}
+.duo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #f4d265 0%, var(--gold) 46%, #c99b12 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* ---------- tomt gallerihang (F1: färre än fem bilder finns) ---------- */
+.canvas--empty {
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, rgba(138, 109, 31, 0.07) 0 8px, transparent 8px 16px),
+    var(--frame-white);
+  border: 2px dashed var(--brass);
+}
+.canvas__coming {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+  background: var(--frame-white);
+  padding: 0.5em 0.9em;
+  border: 1.5px solid var(--brass-dark);
+}
+
+/* ---------- mässingsskylt (museumetikett) under verket ---------- */
+.plaque {
+  display: grid;
+  gap: 0.15em;
+  margin: 1rem auto 0;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  background:
+    linear-gradient(180deg, var(--brass-hi) 0%, var(--brass) 18%, #77601c 82%, var(--brass) 100%);
+  color: var(--text);           /* 4.7:1 mot mässing — AA godkänt */
+  padding: 0.55em 1.1em 0.65em;
+  border: 1px solid #5c4a13;
+  box-shadow: 0 4px 8px rgba(23, 18, 8, 0.4), inset 0 1px 0 rgba(255, 250, 240, 0.35);
+}
+.plaque__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.plaque__meta {
+  font-size: 0.78rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* porträtthållaren i „Om mig“ får egen bredd */
+.work--portrait { width: min(100%, 340px); justify-self: center; }
