@@ -71,7 +71,9 @@ def galleri_slice(html):
 
 def assert_gallery_evidence(d, html):
     if d.name in PHOTO_FREE:
-        assert "gal-0" not in img_srcs(html), f"{d.name}: brief says photo-free"
+        assert not any(PHOTO_RE.search(s) for s in img_srcs(html)), (
+            f"{d.name}: brief says photo-free, but real photos are embedded"
+        )
         scope = galleri_slice(html)
         assert scope, f"{d.name}: empty #galleri"
         assert PHOTO_FREE_STATEMENT.search(scope), (
