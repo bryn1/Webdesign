@@ -1,0 +1,202 @@
+/* components.css — sektioners komponenter: om, tjänster (stackade siffror),
+   galleri, boka-mock, kontakt. 04 Brutalt tryck. */
+
+/* ---------- Om mig ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--gap-4);
+  align-items: start;
+}
+.about-copy p { max-width: 60ch; }
+
+.portrait-slot {
+  border: var(--rule) dashed var(--bg);
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: var(--gap-2);
+  background: repeating-linear-gradient(-45deg, transparent 0 14px, rgba(231, 229, 228, 0.14) 14px 16px);
+}
+.portrait-slot .portrait-mark { font-family: var(--font-display); font-size: 2rem; color: var(--red); }
+.portrait-slot .portrait-label { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85rem; color: var(--stone); }
+
+@media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Tjänster: stackade jättesiffror (Milkshake-mönster, CSS-only) ---------- */
+.services-stack { margin-top: var(--gap-3); }
+
+.svc {
+  position: sticky;
+  background: var(--bg);
+  border: var(--rule) solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  padding: clamp(1rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(0.75rem, 3vw, 2.5rem);
+  align-items: center;
+  margin-bottom: var(--gap-3);
+}
+/* varje kort staplas över föregående med förskjuten sticky-top */
+.svc:nth-child(1) { top: calc(var(--nav-h) + 0.75rem); }
+.svc:nth-child(2) { top: calc(var(--nav-h) + 1.6rem); }
+.svc:nth-child(3) { top: calc(var(--nav-h) + 2.45rem); }
+.svc:nth-child(4) { top: calc(var(--nav-h) + 3.3rem); }
+.svc:nth-child(5) { top: calc(var(--nav-h) + 4.15rem); }
+
+.svc:nth-child(even) { background: var(--ink); color: var(--bg); }
+.svc:nth-child(even) .svc-num { color: transparent; -webkit-text-stroke: 3px var(--red); }
+.svc:nth-child(even) .svc-price { color: var(--stone); }
+
+.svc-num {
+  font-family: var(--font-display);
+  font-size: var(--f-num);
+  line-height: 0.8;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+}
+.svc-body { min-width: 0; }
+.svc-title { font-size: clamp(1.5rem, 4.5vw, 2.6rem); margin-bottom: 0.6rem; text-transform: uppercase; }
+.svc-text { margin: 0; max-width: 52ch; }
+.svc-price { font-weight: 700; margin: 0.6rem 0 0; letter-spacing: 0.06em; }
+
+@media (max-width: 640px) {
+  .svc { grid-template-columns: 1fr; gap: 0.25rem; box-shadow: 5px 5px 0 var(--ink); }
+  .svc-num { font-size: clamp(3.5rem, 24vw, 6rem); }
+}
+
+/* ---------- Galleri: horisontell snap-scroller ---------- */
+.gal-scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(min(100%, 20rem), 24rem);
+  gap: var(--gap-2);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding-bottom: var(--gap-2);
+  scrollbar-color: var(--red) transparent;
+}
+.gal-card {
+  margin: 0;
+  scroll-snap-align: start;
+  border: var(--rule) solid var(--bg);
+  background: var(--ink);
+}
+.gal-media { aspect-ratio: 4 / 5; overflow: hidden; border-bottom: var(--rule) solid var(--bg); }
+.gal-media img { width: 100%; height: 100%; object-fit: cover; }
+.gal-placeholder { /* CSS-ritad platshållare — ingen bild, inget 404 */
+  height: 100%;
+  display: grid;
+  place-content: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: var(--gap-2);
+  background: repeating-linear-gradient(45deg, #171717 0 16px, #0a0a0a 16px 32px);
+  color: var(--stone);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+.gal-placeholder .gal-placeholder-x { font-family: var(--font-display); font-size: 2rem; color: var(--red); }
+.gal-body { display: flex; align-items: center; gap: var(--gap-1); padding: 0.65rem 0.8rem; }
+.gal-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--bg); /* 4.63:1 mot #e11d48 — AA även för liten 700-vikt */
+  padding: 0.15rem 0.5rem;
+}
+.gal-title { font-weight: 700; }
+
+.gal-nav { display: flex; gap: var(--gap-1); margin-bottom: var(--gap-2); }
+.gal-btn {
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--rule) solid var(--bg);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  padding: 0.3rem 0.9rem;
+  box-shadow: 4px 4px 0 var(--red);
+}
+.gal-btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--red); }
+
+/* ---------- Boka (mock på rött fält) ---------- */
+.boka-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--gap-2); margin-bottom: var(--gap-3); }
+.boka-lead { max-width: 55ch; }
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: var(--gap-1);
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--gap-2);
+}
+.slots legend { font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: var(--gap-1); }
+.slot {
+  background: var(--bg);
+  color: var(--ink);
+  border: var(--rule) solid var(--ink);
+  padding: 0.7rem 0.4rem;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.slot:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.slot[aria-pressed="true"] { background: var(--ink); color: var(--bg); outline: 3px solid var(--bg); }
+
+.boka-real { font-weight: 700; margin-top: var(--gap-3); }
+
+/* Dialog — vald tid (native <dialog>, PoC-mönster) */
+.boka-dialog {
+  border: var(--rule) solid var(--ink);
+  border-radius: 0;
+  box-shadow: 10px 10px 0 var(--ink);
+  padding: var(--gap-3);
+  max-width: min(92vw, 32rem);
+  background: var(--bg);
+  color: var(--ink);
+}
+.boka-dialog::backdrop { background: rgba(10, 10, 10, 0.75); }
+.boka-dialog h3 { font-size: 1.6rem; margin-bottom: var(--gap-2); text-transform: uppercase; }
+.boka-dialog .demo-badge { color: var(--red); margin-bottom: var(--gap-2); }
+
+/* ---------- Kontakt ---------- */
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--gap-4);
+  align-items: start;
+}
+@media (max-width: 780px) { .kontakt-grid { grid-template-columns: 1fr; } }
+
+.kontakt-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-2); }
+.kontakt-list .k-label { display: block; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); font-weight: 700; } /* stone-on-ink 15.8:1 */
+.kontakt-list a { font-size: 1.05rem; }
+
+.demo-form { display: grid; gap: var(--gap-1); }
+.demo-form label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.demo-form input,
+.demo-form textarea {
+  font: inherit;
+  font-family: var(--font-mono);
+  background: var(--ink);
+  color: var(--bg);
+  border: var(--rule) solid var(--bg);
+  border-radius: 0;
+  padding: 0.6rem;
+  width: 100%;
+}
+.demo-form input:focus-visible,
+.demo-form textarea:focus-visible { outline-color: var(--red); background: #171717; }
+.demo-form .form-status { font-weight: 700; min-height: 1.4em; }
+
+@media (max-width: 640px) {
+  .boka-dialog { padding: var(--gap-2); }
+}

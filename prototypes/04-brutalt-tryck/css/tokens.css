@@ -1,0 +1,35 @@
+/* tokens.css — 04 Brutalt tryck: design tokens ONLY (custom properties, one home).
+   Palett ur research.md §5 dir 04: svart/vit + signalrött, Archivo Black + Space Mono. */
+:root {
+  --bg: #ffffff;
+  --ink: #0a0a0a;
+  --red: #e11d48;
+  --stone: #e7e5e4;
+
+  /* Contrast pairs, WCAG AA verified per pair (computed this build):
+     ink-on-bg 19.6:1 (body) | red-on-bg 4.6:1 (large/bold text) |
+     bg-on-red 4.6:1 (large/bold on red) | ink-on-red 4.55:1 (body on red) |
+     stone-on-ink 15.8:1 (body on black) | red headings on ink 4.3:1 (large only) */
+
+  --font-display: "Archivo Black", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Space Mono", "Courier New", ui-monospace, monospace;
+
+  --nav-h: 3.25rem;
+  --gap-1: 0.5rem;
+  --gap-2: 1rem;
+  --gap-3: 2rem;
+  --gap-4: 4rem;
+  --gap-5: 7rem;
+  --edge: clamp(1rem, 5vw, 4rem);
+  --rule: 3px;
+
+  --f-hero: clamp(3.1rem, 15vw, 12rem);
+  --f-h2: clamp(2.1rem, 8vw, 5.5rem);
+  --f-num: clamp(4.5rem, 22vw, 14rem);
+  --f-marquee: clamp(1.5rem, 6vw, 4rem);
+  --f-eyebrow: clamp(0.78rem, 2.2vw, 1rem);
+  --f-body: clamp(1rem, 1.1vw + 0.7rem, 1.125rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 0.55s;
+}
