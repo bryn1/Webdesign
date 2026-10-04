@@ -1,0 +1,73 @@
+/* 02 Mörk neon — tokens only (C1: custom properties live here).
+   Dark base; one light block reused for painted sections (.theme-light)
+   and for page chrome while such a section owns the viewport centre
+   (html.theme-invert, toggled by js/theme-sync.js — CSS tokens do the swap). */
+:root {
+  --bg: #0c0a09;
+  --bg-raised: #161311;
+  --surface: #292524;
+  --surface-hi: #3a3433;
+  --line: #44403c;
+  --text: #f5f5f4;
+  --text-muted: #a8a29e;
+  --accent: #c8f542;
+  --accent-ink: #0c0a09;
+  --link: #c8f542;
+  --focus: #c8f542;
+  --progress: #c8f542;
+  --slot-free: #292524;
+  --slot-free-border: #c8f542;
+  --slot-taken: #1c1917;
+  --slot-taken-text: #9a938e;
+  --header-bg: rgba(12, 10, 9, 0.88);
+  --backdrop: rgba(0, 0, 0, 0.72);
+  --font-display: "Space Grotesk", "Futura", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --header-h: 58px;
+  --radius: 8px;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5.5rem;
+  --maxw: 72rem;
+}
+
+/* Light block: painted sections + chrome while they are centred. */
+.theme-light,
+.theme-invert {
+  --bg: #f5f5f4;
+  --bg-raised: #eceae8;
+  --surface: #e7e5e4;
+  --surface-hi: #dcd9d6;
+  --line: #c9c5c1;
+  --text: #0c0a09;
+  --text-muted: #57534e;
+  --link: #1c1917;
+  --focus: #0c0a09;
+  --progress: #0c0a09;
+  --slot-free: #ffffff;
+  --slot-free-border: #0c0a09;
+  --slot-taken: #e0ddd9;
+  --slot-taken-text: #5f5a54;
+  --header-bg: rgba(245, 245, 244, 0.88);
+  --backdrop: rgba(12, 10, 9, 0.6);
+}
+
+/* Dark sections keep dark tokens even while chrome is inverted. */
+section:not(.theme-light) {
+  --bg: #0c0a09;
+  --bg-raised: #161311;
+  --surface: #292524;
+  --surface-hi: #3a3433;
+  --line: #44403c;
+  --text: #f5f5f4;
+  --text-muted: #a8a29e;
+  --link: #c8f542;
+  --focus: #c8f542;
+  --slot-free: #292524;
+  --slot-free-border: #c8f542;
+  --slot-taken: #1c1917;
+  --slot-taken-text: #9a938e;
+  --backdrop: rgba(0, 0, 0, 0.72);
+}
