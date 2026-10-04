@@ -1,0 +1,49 @@
+/* Theme 06 "Möt dig i spegeln" — design tokens.
+   Custom properties ONLY in this file (PoC rule C1). No selectors beyond :root. */
+:root {
+  /* Palett (research.md §5 dir 06). --text-muted är lyft från #5c6672 till 7.3:1
+     mot --bg för AA på liten text; #5c6672 finns kvar som --rule (icke-text). */
+  --bg: #111213;
+  --surface: #1a1c1e;
+  --surface-2: #22252a;
+  --text: #eae6df;
+  --text-muted: #9aa3ad;
+  --accent: #c8a15e;
+  --accent-deep: #a07f45;
+  --line: #33373b;
+  --rule: #5c6672;
+  --ink-on-accent: #111213;
+
+  /* Typografi: Cormorant Garamond + Manrope, system-fallback för offline. */
+  --font-display: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  --font-body: "Manrope", "Helvetica Neue", Arial, sans-serif;
+
+  /* Fluid type — klarar 375 px utan overflow. */
+  --step--1: clamp(0.78rem, 0.74rem + 0.18vw, 0.88rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+  --step-3: clamp(2.2rem, 1.5rem + 3.4vw, 4.2rem);
+  --step-4: clamp(3.2rem, 2rem + 6vw, 7rem);
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 7rem;
+
+  --wrap: 72rem;
+  --header-h: 4.25rem;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Champagne-metalj till spegelramen (rena CSS/SVG-shapes, inget foto). */
+  --frame: linear-gradient(135deg,
+      #8a6b3a 0%, #e7cf9a 20%, #c8a15e 38%,
+      #6e5426 60%, #d9bc80 80%, #9c7a41 100%);
+  --glass: linear-gradient(160deg,
+      #17181a 0%, #23272e 34%, #191b1e 62%, #262a31 100%);
+  --interior: radial-gradient(60% 70% at 50% 62%,
+      rgba(200, 161, 94, 0.5) 0%, rgba(120, 92, 48, 0.22) 42%,
+      rgba(17, 18, 19, 0) 78%);
+}

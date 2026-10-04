@@ -1,0 +1,336 @@
+/* Theme 06 — komponenter: header, preloader, tjänster, galleri, om,
+   boknings-mock + dialog, kontakt-formulär, footer. */
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(17, 18, 19, 0.78);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease-out);
+}
+.site-header.is-scrolled { border-bottom-color: var(--line); }
+.site-header__inner {
+  width: min(100% - 1.5rem, var(--wrap));
+  margin-inline: auto;
+  min-height: var(--header-h);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-2);
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  letter-spacing: 0.12em;
+  color: var(--text);
+  text-decoration: none;
+  padding-block: 0.35rem;
+}
+.brand:hover { color: var(--accent); }
+.site-nav__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.6rem, 2.4vw, 1.6rem);
+  padding: 0.35rem 0;
+  margin: 0;
+  align-items: center;
+}
+.site-nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.site-nav a:hover { color: var(--accent); }
+.nav-cta {
+  border: 1px solid var(--accent);
+  padding: 0.45rem 0.9rem;
+  color: var(--accent) !important;
+}
+.nav-cta:hover { background: rgba(200, 161, 94, 0.14); }
+
+/* ===== Preloader (max 1,2 s, alltid skippbar, syns aldrig utan JS) ===== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+.preloader[hidden] { display: none; }
+.preloader.is-out { opacity: 0; visibility: hidden; }
+.preloader__inner { text-align: center; }
+.preloader__word {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.preloader__tag {
+  font-size: var(--step--1);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+.preloader__bar {
+  display: block;
+  width: min(220px, 60vw);
+  height: 1px;
+  margin: 1.2rem auto 0;
+  background: var(--line);
+  overflow: hidden;
+}
+.preloader__bar::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: pre-bar var(--pre-dur, 0.55s) var(--ease-out) both;
+}
+@keyframes pre-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ===== Tjänster ===== */
+.services { margin-top: var(--space-4); }
+.service {
+  display: grid;
+  grid-template-columns: minmax(3.2rem, 7.5rem) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+  padding-block: clamp(1.4rem, 3.5vw, 2.4rem);
+  align-items: baseline;
+}
+.service__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1;
+  color: var(--accent);
+  font-style: italic;
+}
+.service__price {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+/* ===== Galleri ===== */
+.gallery {
+  margin-top: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-3);
+}
+.gallery__card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+.gallery__card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out), filter 0.7s var(--ease-out);
+  filter: saturate(0.9) brightness(0.96);
+}
+.gallery__card:hover img { transform: scale(1.04); filter: none; }
+.gallery__card .placeholder-card { border: 0; }
+.gallery__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 0.9rem 1rem;
+}
+.gallery__tag {
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.gallery__title { font-family: var(--font-display); font-size: var(--step-1); }
+
+/* ===== Om mig ===== */
+.om__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+.om__portrait {
+  aspect-ratio: 3 / 4;
+  max-width: 24rem;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(80% 70% at 50% 30%, var(--surface-2), var(--surface) 75%);
+  border: 1px solid var(--rule);
+  border-radius: 999px 999px 4px 4px;
+}
+.om__body p + p { margin-top: var(--space-2); }
+@media (min-width: 48rem) {
+  .om__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+}
+
+/* ===== Boka (demo) ===== */
+.demo-badge {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 0.35rem 0.8rem;
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.booking { margin-top: var(--space-3); }
+.booking__note { color: var(--text-muted); max-width: 55ch; }
+.booking__grid { margin-top: var(--space-3); }
+.booking__day {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, 7rem) minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: center;
+  padding-block: 0.45rem;
+  border-top: 1px solid var(--line);
+}
+.booking__day-label {
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.booking__slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.slot {
+  font: inherit;
+  font-size: var(--step--1);
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+}
+.slot:hover { border-color: var(--accent); color: var(--accent); }
+.slot[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-on-accent);
+}
+
+/* ===== Dialog ===== */
+dialog.booking-dialog {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  padding: var(--space-4);
+  width: min(92vw, 28rem);
+  margin: auto; /* återställ UA-centreringen som * { margin:0 } nollställer */
+  border-radius: 6px;
+}
+dialog.booking-dialog::backdrop { background: rgba(6, 7, 8, 0.8); }
+.booking-dialog__links,
+.booking-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* ===== Kontakt ===== */
+.kontakt__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+@media (min-width: 52rem) {
+  .kontakt__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+}
+.kontakt-form { margin-top: var(--space-3); }
+.form-demo-note {
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  padding: 0.6rem 0.9rem;
+  margin-bottom: var(--space-3);
+}
+.field { margin-bottom: var(--space-3); }
+.field label {
+  display: block;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0.7rem 0.8rem;
+}
+.field textarea { min-height: 7rem; resize: vertical; }
+.field input:focus-visible,
+.field textarea:focus-visible { border-color: var(--accent); }
+.field-error {
+  color: #f0b9a2; /* ljus variant: AA mot ytan i mörkt tema */
+  font-size: var(--step--1);
+  margin-top: 0.35rem;
+}
+.form-status { margin-top: var(--space-2); color: var(--accent); }
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+}
+.info-list li { padding-block: 0.3rem; overflow-wrap: anywhere; }
+.kontakt__info-alt { margin-top: var(--space-5); }
+
+/* ===== Footer ===== */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding-block: var(--space-5);
+  background: #0d0e0f;
+}
+.site-footer__note {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+  margin-top: 0.5rem;
+}
+.site-footer__nav ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+.site-footer__nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.site-footer__nav a:hover { color: var(--accent); }
