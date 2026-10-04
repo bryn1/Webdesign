@@ -1,0 +1,394 @@
+/* ============================================================
+   17 · Mörka akademien — statisk dräkt (static theme)
+   Palett: äggplånsfält #2b1d20, parchment #e9dfc9, brun #5a4038,
+   guldpenna #a98d5f. Scroll-koreografi ligger i motion.css.
+   Kontrast (uppmätt WCAG, 2026-10-04):
+     #e9dfc9 på #2b1d20 = 12.21:1  (AAA)
+     #a98d5f på #2b1d20 = 5.13:1   (AA, även för liten text)
+     #a98d5f på #362529 = 4.58:1   (AA)
+     #5a4038 på #2b1d20 = 1.71:1   (decor: regler/ornament, ej text)
+   ============================================================ */
+
+:root {
+  --bg: #2b1d20;
+  --panel: #362529;
+  --ink: #e9dfc9;
+  --brown: #5a4038;
+  --gold: #a98d5f;
+  --display: "EB Garamond", "Georgia", "Times New Roman", serif;
+  --body: "Spectral", "Georgia", "Times New Roman", serif;
+  --measure: 62ch;
+  --gap: clamp(1rem, 4vw, 2.5rem);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 400;
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.14rem);
+  line-height: 1.72;
+  overflow-x: clip;
+}
+
+/* bläckvignett över hela fältet — mörknar mot brämna */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(120% 90% at 50% 12%, transparent 55%, rgba(16, 9, 10, 0.42) 100%);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--gold); color: var(--bg); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.12; }
+h1 { font-size: clamp(3rem, 2rem + 7vw, 6.2rem); margin: 0.4rem 0; letter-spacing: 0.01em; }
+h2 { font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3rem); margin: 0.2rem 0 1.4rem; }
+h3 { font-size: 1.32rem; margin: 0 0 0.35rem; }
+
+address { font-style: normal; margin-block: 0.4rem 0.9rem; }
+.hours { margin-block: 0.4rem 0.9rem; }
+
+/* ── huvud ──────────────────────────────────────────────── */
+
+.masthead {
+  position: relative;
+  z-index: 4;
+  border-bottom: 1px solid var(--brown);
+  background: color-mix(in srgb, var(--bg) 88%, black);
+}
+.masthead-inner {
+  max-width: 74rem;
+  margin-inline: auto;
+  padding: 0.85rem var(--gap);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+}
+.wordmark {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.topnav { display: flex; flex-wrap: wrap; gap: 0.2rem 1.15rem; }
+.topnav a {
+  font-family: var(--display);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  text-decoration: none;
+  padding-block: 0.15rem;
+}
+.topnav a:hover, .topnav a:focus-visible { color: var(--ink); text-decoration: underline; }
+
+/* ── hero ───────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 82vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: clamp(3rem, 10vh, 7rem) var(--gap);
+  border-bottom: 1px solid var(--brown);
+}
+.hero-inner { max-width: var(--measure); }
+.hero-sub { font-size: 1.22rem; font-style: italic; color: var(--ink); }
+.hero-cta { font-family: var(--display); font-size: 1.3rem; }
+.pen-link { color: var(--gold); }
+.middot { color: var(--brown); padding-inline: 0.5rem; }
+.hero-mark, .colophon-mark { font-size: 1.4rem; color: var(--gold); margin: 1.4rem 0 0; }
+.hero::before, .hero::after {
+  content: "";
+  display: block;
+  width: min(210px, 52%);
+  height: 1px;
+  margin: 1.5rem auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ── sektioner ──────────────────────────────────────────── */
+
+.section {
+  position: relative;
+  padding: clamp(3.4rem, 9vh, 6.5rem) var(--gap);
+  border-bottom: 1px solid var(--brown);
+}
+.section-panel { background: var(--panel); }
+.section-inner { max-width: var(--measure); margin-inline: auto; }
+
+.eyebrow {
+  font-family: var(--display);
+  font-variant: small-caps;
+  letter-spacing: 0.22em;
+  font-size: 0.95rem;
+  color: var(--gold);
+  margin: 0 0 0.3rem;
+}
+.section-lead { max-width: 56ch; }
+
+.demo-badge {
+  display: inline-block;
+  font-family: var(--display);
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 0.05rem 0.55rem 0.1rem;
+  border-radius: 2px;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+}
+
+/* ── marginalia ─────────────────────────────────────────── */
+
+.annotated { position: relative; }
+
+.marginalia {
+  margin-block: 1.1rem 1.8rem;
+  padding: 0.35rem 0.9rem;
+  border-left: 2px solid var(--gold);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+@media (min-width: 76rem) {
+  .marginalia {
+    position: absolute;
+    top: 0.4rem;
+    left: calc(100% + 2.6rem);
+    width: 14.5rem;
+    margin: 0;
+    padding-left: 0.75rem;
+  }
+}
+
+/* ── om mig ─────────────────────────────────────────────── */
+
+.om-grid { display: grid; gap: 2.6rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 56rem) {
+  .om-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 15.5rem);
+    align-items: start;
+  }
+}
+
+/* förgylld tom ram — platshållare */
+.gilt {
+  position: relative;
+  border: 1px solid var(--gold);
+  outline: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+  outline-offset: 6px;
+  background:
+    linear-gradient(160deg, rgba(255, 240, 210, 0.05), transparent 40%),
+    var(--brown);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+}
+.gilt.empty {
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.plate {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--ink);
+  padding: 1rem;
+}
+.portrait-frame { margin: 0; }
+.portrait-frame .gilt { aspect-ratio: 3 / 4; display: grid; place-content: center; }
+
+/* ── tjänster: katalogposter ────────────────────────────── */
+
+.entries { list-style: none; margin: 0; padding: 0; }
+.entry {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.4rem 0.8rem;
+  padding: 1.3rem 0;
+  border-bottom: 1px dotted var(--brown);
+}
+.entry:last-child { border-bottom: none; }
+.entry-no { font-family: var(--display); font-size: 1.5rem; color: var(--gold); line-height: 1.1; padding-top: 0.15rem; }
+.entry h3 { font-variant: small-caps; letter-spacing: 0.04em; }
+.price-line { font-size: 0.95rem; color: var(--gold); margin: 0.3rem 0 0; }
+.price { color: var(--ink); padding-left: 0.35rem; }
+
+/* ── galleri ────────────────────────────────────────────── */
+
+.gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 2.1rem 1.6rem;
+}
+.frame-cell { margin: 0; }
+.gallery figure { margin: 0; }
+
+.kb-frame {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--bg);
+}
+.kb-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.16) saturate(0.82) brightness(0.94);
+}
+/* bläckvignette över varje foto */
+.kb-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(115% 92% at 50% 42%, transparent 52%, rgba(18, 10, 11, 0.62) 100%);
+}
+.vignette-cap {
+  position: absolute;
+  z-index: 2;
+  left: 0.7rem;
+  bottom: 0.55rem;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  background: rgba(20, 12, 13, 0.62);
+  padding: 0.08rem 0.55rem;
+}
+
+/* ── boka ───────────────────────────────────────────────── */
+
+.booking-week {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
+  gap: 1.4rem;
+  margin-block: 1.6rem 0.8rem;
+}
+.booking-day h3 {
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 0.25rem;
+}
+.tid-gau { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-top: 0.2rem; }
+
+button.tid, .tid {
+  font-family: var(--body);
+  font-size: 0.98rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  padding: 0.42rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+button.tid:hover { background: var(--gold); color: var(--bg); }
+.booking-note { font-size: 0.92rem; font-style: italic; color: var(--ink); }
+
+/* ── kontakt ────────────────────────────────────────────── */
+
+.kontakt-grid { display: grid; gap: 2.8rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 56rem) {
+  .kontakt-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); align-items: start; }
+}
+.contact-list { list-style: none; margin: 0.4rem 0 1rem; padding: 0; }
+.contact-list li { margin-block: 0.3rem; }
+
+.letter {
+  border: 1px solid var(--brown);
+  outline: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  outline-offset: 5px;
+  padding: 1.4rem 1.5rem 1.6rem;
+  display: grid;
+  gap: 0.95rem;
+  background: var(--panel);
+}
+.letter label {
+  display: grid;
+  gap: 0.3rem;
+  font-family: var(--display);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+}
+.letter input, .letter textarea {
+  font: inherit;
+  font-family: var(--body);
+  font-variant: normal;
+  letter-spacing: normal;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--brown);
+  padding: 0.5rem 0.7rem;
+  resize: vertical;
+}
+.form-demo { margin: 0 0 0.3rem; font-size: 0.92rem; color: var(--ink); }
+.form-note { margin: 0; font-style: italic; font-size: 0.95rem; color: var(--gold); }
+
+/* ── colophon & dialog ──────────────────────────────────── */
+
+.colophon {
+  text-align: center;
+  padding: 2.6rem var(--gap) 3rem;
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--ink);
+}
+.colophon-small { font-size: 0.88rem; color: var(--gold); font-style: normal; }
+
+dialog {
+  border: 1px solid var(--gold);
+  outline: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  outline-offset: 5px;
+  background: var(--panel);
+  color: var(--ink);
+  max-width: 30rem;
+  padding: 1.6rem 1.7rem 1.7rem;
+  margin: auto;
+}
+dialog::backdrop { background: rgba(10, 5, 6, 0.78); }
+.dialog-body { display: grid; gap: 0.7rem; }
+.dialog-vald { font-family: var(--display); font-size: 1.2rem; }
+.dialog-tid { color: var(--gold); }
+.dialog-close { justify-self: end; }
