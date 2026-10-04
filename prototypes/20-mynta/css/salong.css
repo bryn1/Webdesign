@@ -1,0 +1,284 @@
+/* ============================================================
+   MYNTA — tema 20 «Pixelhall» (MC 10088) — SALONGSKOMPONENTER
+   Sektionerna: hero, bildskärmar, om, tjänstemeny, galleri,
+   boka (INSERT COIN-demo) och kontakt. Grund: se style.css.
+   ============================================================ */
+
+/* ---------- hero ---------- */
+.hero {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(4.5rem, 14vw, 8rem) clamp(1rem, 5vw, 2.5rem) clamp(3.5rem, 10vw, 6rem);
+  text-align: center;
+}
+.hero__status {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .3rem 1.6rem;
+  margin: 0 0 clamp(1.6rem, 6vw, 3rem);
+  font-family: var(--f-display);
+  font-size: .75rem;
+  color: var(--text-dim);
+}
+.eyebrow {
+  font-size: .75rem;
+  color: var(--green);
+  margin: 0;
+}
+.hero__name {
+  font-size: clamp(1.15rem, 5.4vw, 2.5rem);
+  margin: .6em 0 .5em;
+  overflow-wrap: anywhere;
+}
+.hero__sub {
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+  color: var(--text);
+  margin: 0 auto 1.8rem;
+  max-width: 34ch;
+}
+.hero__actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem; }
+.hero__press {
+  margin: 2.6rem 0 0;
+  font-size: .75rem;
+  color: var(--magenta);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blink { animation: blink 1.15s steps(1) infinite; }
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- bildskärm med pixeltrappade hörn ---------- */
+.screen {
+  background: var(--cyan);
+  clip-path: var(--clip-screen);
+  padding: 4px;
+}
+.screen__inner {
+  background: var(--panel-deep);
+  clip-path: var(--clip-screen);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 12rem;
+  overflow: hidden;
+}
+.screen__inner img { width: 100%; height: 100%; object-fit: cover; }
+.screen--empty { background: var(--magenta); }
+
+/* ---------- om ---------- */
+.om-grid {
+  display: grid;
+  gap: clamp(1.4rem, 4vw, 2.4rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .om-grid { grid-template-columns: minmax(14rem, 20rem) 1fr; align-items: start; }
+}
+.om-portrait__inner { min-height: 16rem; gap: .4rem; padding: 1rem; text-align: center; }
+.om-portrait .px { font-size: .75rem; color: var(--cyan); margin: 0; }
+.om-portrait__note { color: var(--text-dim); margin: 0; }
+.om-text p:first-child { margin-top: 0; }
+
+/* ---------- tjänster: arkadmeny ---------- */
+.menu { margin: 0; padding: 0; list-style: none; }
+.menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.1rem 1rem 1.1rem .6rem;
+  margin-bottom: .9rem;
+  border: 2px solid rgba(49, 225, 255, .4);
+  clip-path: var(--clip-screen);
+  background: var(--panel);
+  position: relative;
+}
+.menu-item::before {
+  content: "▶";
+  position: absolute;
+  left: -1.6rem;
+  color: var(--green);
+  opacity: 0;
+  text-shadow: 0 0 8px rgba(61, 252, 103, .7);
+}
+.menu-item:hover, .menu-item:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 18px rgba(61, 252, 103, .22);
+}
+.menu-item:hover::before, .menu-item:focus-within::before { opacity: 1; left: .55rem; }
+.menu-item:hover .menu-item__no,
+.menu-item:focus-within .menu-item__no { color: var(--green); }
+.menu-item__no {
+  flex: none;
+  font-size: .75rem;
+  color: var(--text-dim);
+  margin: .45rem 0 0;
+  transition: color .12s steps(2);
+}
+.menu-item__body { flex: 1; min-width: 0; }
+.menu-item__body h3 { margin: 0 0 .3rem; }
+.menu-item__body p { margin: 0 0 .4rem; }
+.price {
+  font-family: var(--f-display);
+  font-size: .75rem;
+  color: var(--cyan);
+}
+.menu-item__pick {
+  flex: none;
+  align-self: center;
+  font-size: .75rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: .4rem .2rem;
+}
+.menu-item__pick:hover, .menu-item__pick:focus { color: var(--green); }
+@media (max-width: 560px) {
+  .menu-item { flex-wrap: wrap; }
+  .menu-item__pick { order: 3; margin-left: auto; }
+}
+
+/* ---------- galleri: high score-skärmar ---------- */
+.gallery {
+  margin: 0; padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1.4rem;
+}
+.gallery .screen__inner { aspect-ratio: 4 / 3; min-height: 0; }
+.caption {
+  font-size: .75rem;
+  color: var(--text-dim);
+  margin: .6rem 0 0;
+}
+.cartridge { gap: .35rem; padding: 1rem; text-align: center; }
+.cartridge__big { font-size: clamp(.8rem, 2.6vw, 1rem); color: var(--magenta); margin: 0; }
+.cartridge__sub { font-size: .625rem; color: var(--text-dim); margin: 0; }
+.cartridge__note { color: var(--text); margin: .5rem 0 0; }
+
+/* ---------- boka: INSERT COIN-demo ---------- */
+.demo-banner {
+  display: inline-block;
+  font-size: .75rem;
+  color: var(--magenta);
+  border: 2px solid var(--magenta);
+  padding: .5rem .8rem;
+  clip-path: var(--clip-screen);
+  margin: 0 0 1.1rem;
+}
+.boka-lead { max-width: 52ch; }
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .5rem;
+  margin: 1.4rem 0 1rem;
+}
+.slot-grid__head {
+  margin: 0;
+  text-align: center;
+  font-family: var(--f-display);
+  font-size: .6875rem;
+  color: var(--cyan);
+  letter-spacing: 0;
+}
+.slot {
+  min-height: 44px;
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--text);
+  background: var(--panel);
+  border: 2px solid rgba(49, 225, 255, .45);
+  cursor: pointer;
+}
+.slot:hover:not(:disabled) {
+  color: #06170b;
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 14px rgba(61, 252, 103, .4);
+}
+.slot:disabled {
+  color: rgba(230, 246, 238, .38);
+  background: var(--panel-deep);
+  border-color: rgba(49, 225, 255, .16);
+  border-style: dotted;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+@media (max-width: 640px) {
+  .slot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .slot-grid__head { display: none; }
+}
+.boka-note { color: var(--text-dim); max-width: 56ch; }
+
+/* ---------- INSERT COIN-dialog ---------- */
+.coin-dialog {
+  width: min(92vw, 32rem);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+}
+.coin-dialog::backdrop { background: rgba(4, 5, 10, .82); }
+.coin-dialog__box {
+  display: block;
+  background: var(--panel-deep);
+  border: 3px solid var(--cyan);
+  clip-path: var(--clip-screen);
+  box-shadow: 0 0 24px rgba(49, 225, 255, .25);
+}
+.coin-dialog__box > * { margin-left: 1rem; margin-right: 1rem; }
+.coin-dialog__box > :first-child { margin-top: 1.4rem; }
+.coin-dialog__box > :last-child { margin-bottom: 1.4rem; }
+.coin-dialog__title { font-size: .9375rem; color: var(--green); }
+.coin-dialog__picked {
+  font-weight: 700;
+  background: var(--panel-deep);
+  border: 1px dashed rgba(49, 225, 255, .4);
+  padding: .5rem .8rem;
+}
+.coin-dialog__demo { font-size: .6875rem; color: var(--magenta); }
+.coin-dialog__text { color: var(--text); }
+.coin-dialog__actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.coin-dialog__actions .btn { font-size: .85rem; }
+
+/* ---------- kontakt ---------- */
+.kontakt-grid {
+  display: grid;
+  gap: clamp(1.6rem, 5vw, 2.6rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 780px) {
+  .kontakt-grid { grid-template-columns: 1fr 1fr; }
+}
+.kontakt-info h3 { font-size: .8125rem; }
+.kontakt-info address { font-style: normal; line-height: 2; }
+.kontakt-form h3 { font-size: .8125rem; }
+.form-demo-note {
+  font-size: .6875rem;
+  color: var(--magenta);
+  border: 2px solid var(--magenta);
+  padding: .5rem .7rem;
+  clip-path: var(--clip-screen);
+}
+.kontakt-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: .9rem;
+}
+.kontakt-form input, .kontakt-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: .3rem;
+  padding: .6rem .7rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-deep);
+  border: 2px solid rgba(49, 225, 255, .45);
+}
+.kontakt-form input:focus-visible, .kontakt-form textarea:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 1px;
+}
+.form-result { color: var(--green); min-height: 1.4em; font-weight: 600; }
