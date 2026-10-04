@@ -1,0 +1,222 @@
+/* ============================================================
+   MYNTA — tema 20 «Pixelhall» (MC 10088) — GRUND
+   Arkadkabinett: CRT-navy, neon, scanlines. Tryck Start 2P =
+   ENDAST display/meta (min 12px). Brödtext: Chakra Petch.
+   Scanlines/glow är statisk CSS — överlever JS-från och från nät.
+   Sektionskomponenter: se salong.css.
+   ============================================================ */
+
+:root {
+  --bg: #0b0d17;          /* CRT-navy */
+  --panel: #131728;
+  --panel-deep: #0e1120;
+  --green: #3dfc67;       /* 14.1:1 mot --bg (AA/AAA) */
+  --magenta: #ff2ec4;     /* 5.9:1 mot --bg (AA) */
+  --cyan: #31e1ff;        /* 12.3:1 mot --bg (AA/AAA) */
+  --text: #e6f6ee;        /* 17.3:1 mot --bg (AAA) */
+  --text-dim: rgba(230, 246, 238, .78);
+  --f-display: 'Press Start 2P', 'Courier New', monospace;
+  --f-body: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+  /* pixeltrappade hörn (8 px notcher) — bildskärmsram */
+  --clip-screen: polygon(
+    0 8px, 8px 8px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px,
+    100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px));
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 9rem; }
+@media (min-width: 720px) { html { scroll-padding-top: 5.5rem; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* alla rörelreeffekter av — blink, CRT-glimt, transitions.
+     Innehållet förblir fullt synligt; ingen effekt bär information. */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* ---------- fokus & skip ---------- */
+:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 1001;
+  padding: .7rem 1.1rem;
+  background: var(--green);
+  color: #06170b;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* ---------- CRT-lager: scanlines + vignett (statisk CSS) ---------- */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 58%, rgba(2, 3, 8, .38) 100%),
+    repeating-linear-gradient(to bottom,
+      rgba(2, 3, 8, .26) 0 1px,
+      rgba(2, 3, 8, 0) 1px 3px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .crt { animation: crt-flicker 3.2s infinite steps(1); }
+}
+@keyframes crt-flicker {
+  0%, 92%, 94%, 98%, 100% { opacity: 1; }
+  93% { opacity: .82; }
+  97% { opacity: .9; }
+}
+
+/* ---------- pixel-stegad scrollprogress (JS sätter bredd i steg) ---- */
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  z-index: 998;
+  background: var(--panel-deep);
+  border-bottom: 1px solid rgba(49, 225, 255, .25);
+}
+.progress__bar {
+  width: 0;
+  height: 100%;
+  background:
+    repeating-linear-gradient(to right,
+      var(--green) 0 10px,
+      rgba(61, 252, 103, .55) 10px 13px);
+  box-shadow: 0 0 10px rgba(61, 252, 103, .6);
+}
+
+/* ---------- marquee (header) ---------- */
+.marquee {
+  position: sticky;
+  top: 8px;
+  z-index: 900;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem 1.2rem;
+  padding: .8rem clamp(.8rem, 4vw, 2.5rem);
+  background: rgba(11, 13, 23, .92);
+  border-bottom: 2px solid var(--magenta);
+  box-shadow: 0 4px 18px rgba(255, 46, 196, .18);
+}
+.logo {
+  font-family: var(--f-display);
+  font-size: .875rem;                 /* 14px — display, ej brödtext */
+  color: var(--green);
+  text-decoration: none;
+  text-shadow: 0 0 8px rgba(61, 252, 103, .55);
+  letter-spacing: .05em;
+}
+.logo__coin { color: var(--magenta); margin-left: .35em; }
+
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .15rem .9rem;
+  margin: 0; padding: 0;
+  list-style: none;
+}
+.nav a {
+  display: inline-block;
+  padding: .35rem .15rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav a:hover { color: var(--cyan); text-shadow: 0 0 8px rgba(49, 225, 255, .6); }
+
+/* ---------- typografi ---------- */
+.px {
+  font-family: var(--f-display);
+  line-height: 1.9;
+  letter-spacing: .02em;
+}
+h1, h2, h3 { margin: .4em 0 .5em; }
+h2 {
+  font-size: clamp(1.45rem, 4.2vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--text);
+}
+h3 { font-size: 1.15rem; letter-spacing: .02em; }
+a { color: var(--cyan); }
+a:hover { color: var(--green); }
+
+.glow-g { text-shadow: 0 0 8px rgba(61, 252, 103, .55); }
+.glow-m { text-shadow: 0 0 8px rgba(255, 46, 196, .55); }
+.glow-c { text-shadow: 0 0 8px rgba(49, 225, 255, .5); }
+
+/* ---------- knappar ---------- */
+.btn {
+  display: inline-block;
+  padding: .65rem 1.1rem;
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  color: #06170b;
+  background: var(--green);
+  border: 2px solid var(--green);
+  clip-path: var(--clip-screen);
+  box-shadow: 0 0 14px rgba(61, 252, 103, .35);
+}
+.btn:hover { filter: brightness(1.15); }
+.btn--ghost {
+  color: var(--cyan);
+  background: transparent;
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(49, 225, 255, .25);
+}
+.btn--ghost:hover { color: #06170b; background: var(--cyan); }
+.btn__key { opacity: .75; font-weight: 400; }
+
+/* ---------- sektionsskal ---------- */
+.section {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 5rem) clamp(1rem, 5vw, 2.5rem);
+  border-bottom: 2px dotted rgba(49, 225, 255, .28);
+}
+.section__meta {
+  font-size: .75rem;                  /* 12px — minsta PS2P, meta */
+  color: var(--cyan);
+  margin: 0 0 .9rem;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  text-align: center;
+  padding: clamp(2.4rem, 8vw, 4rem) 1.2rem;
+}
+.footer .px { font-size: .75rem; color: var(--green); margin-top: 0; }
+.footer p:last-child { color: var(--text-dim); font-size: .9rem; max-width: 52ch; margin: 0 auto; }
