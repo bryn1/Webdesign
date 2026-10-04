@@ -1,1 +1,101 @@
-<!DOCTYPE html><html lang="sv"><head><meta charset="utf-8"><title>Scroll-bibliotek — bygges</title></head><body><h1>Scroll-design-biblioteket bygges just nu</h1><p>Tio prototyper visas h&#228;r strax.</p></body></html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anny Morin — scroll-design-bibliotek (10 teman)</title>
+<meta name="description" content="Tio scroll-designteman för frisörsajten Anny Morin — samma svenska innehåll, olika design. Prototyper för kundvisning.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1c1917; --muted:#6f675f; --paper:#f7f3ee; --card:#ffffff; --line:#e7e2da; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:'Inter',system-ui,sans-serif; line-height:1.5; }
+  .wrap { max-width: 62rem; margin:0 auto; padding: 3.5rem 1.25rem 4rem; }
+  header h1 { font-family:'Fraunces',Georgia,serif; font-weight:700;
+              font-size:clamp(1.9rem,4.5vw,3rem); margin:0 0 .5rem; }
+  header p { color:var(--muted); max-width: 46rem; margin:0 0 2.25rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(17rem,1fr)); gap:1rem; }
+  a.card { display:flex; flex-direction:column; gap:.75rem; text-decoration:none;
+           background:var(--card); border:1px solid var(--line); border-radius:14px;
+           padding:1.1rem 1.15rem; color:inherit; transition:transform .15s ease, box-shadow .15s ease; }
+  a.card:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(28,25,23,.08); }
+  .num { font-size:.8rem; letter-spacing:.08em; color:var(--muted); }
+  .name { font-family:'Fraunces',Georgia,serif; font-size:1.25rem; font-weight:600; }
+  .desc { font-size:.9rem; color:var(--muted); margin:0; }
+  .swatches { display:flex; gap:.3rem; margin-top:auto; }
+  .sw { width:1.15rem; height:1.15rem; border-radius:50%; border:1px solid rgba(0,0,0,.12); }
+  footer { margin-top:2.5rem; color:var(--muted); font-size:.85rem; }
+  footer a { color:#9a3f1f; }
+  @media (prefers-reduced-motion: reduce) { a.card { transition:none; } a.card:hover { transform:none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Tio designteman — ett innehåll</h1>
+  <p>Prototyper för <strong>Anny Morin, frisör i Karlskrona</strong>. Alla teman använder samma
+     svenska innehåll, sidsektioner och kontaktuppgifter — det som skiljer är design, typografi,
+     palett och scroll-koreografi. Bokning och kontaktformulär är märkta <em>demo</em> (ingen
+     backend är kopplad). Öppna temana både på mobil och dator — alla fungerar utan JavaScript
+     och med reducerad rörelse.</p>
+</header>
+<nav class="grid" aria-label="Temaval">
+  <a class="card" href="01-mullers-editorial/">
+    <span class="num">01</span><span class="name">Müllers-editorial</span>
+    <p class="desc">Rolig editorial i varm sten — stor serif, lugora avslöjanden, ord-byggande hero.</p>
+    <span class="swatches"><i class="sw" style="background:#faf6f1"></i><i class="sw" style="background:#9a3f1f"></i><i class="sw" style="background:#1c1917"></i></span>
+  </a>
+  <a class="card" href="02-mork-neon/">
+    <span class="num">02</span><span class="name">Salongen efter mörkret</span>
+    <p class="desc">Nästan svart salong med en syra-accent — temat växlar ljust/mörkt medan du scrollar.</p>
+    <span class="swatches"><i class="sw" style="background:#0c0a09"></i><i class="sw" style="background:#c8f542"></i><i class="sw" style="background:#f5f5f4"></i></span>
+  </a>
+  <a class="card" href="03-varmt-papper/">
+    <span class="num">03</span><span class="name">Papper &amp; sax</span>
+    <p class="desc">Varmt papper, hårda rutlinjer och lugn — en enda långsam parallax, mörk bokningssida.</p>
+    <span class="swatches"><i class="sw" style="background:#f6f1e7"></i><i class="sw" style="background:#8a8f76"></i><i class="sw" style="background:#b45f2e"></i></span>
+  </a>
+  <a class="card" href="04-brutalt-tryck/">
+    <span class="num">04</span><span class="name">Klipp det korta</span>
+    <p class="desc">Poster-brutalist: jättesiffror för tjänsterna, svart/vitt och signalrött, dragbar klisterlapp.</p>
+    <span class="swatches"><i class="sw" style="background:#0a0a0a"></i><i class="sw" style="background:#e11d48"></i><i class="sw" style="background:#ffffff"></i></span>
+  </a>
+  <a class="card" href="05-mjuk-glas/">
+    <span class="num">05</span><span class="name">Svala toner</span>
+    <p class="desc">Mjukt pastellglas — frostiga kort svävar över dammig gradient, galleri som glaspostkort.</p>
+    <span class="swatches"><i class="sw" style="background:#eef0ea"></i><i class="sw" style="background:#c9a7a0"></i><i class="sw" style="background:#a7bcc3"></i></span>
+  </a>
+  <a class="card" href="06-cinematiskt/">
+    <span class="num">06</span><span class="name">Möt dig i spegeln</span>
+    <p class="desc">Filmiskt helbläck — scrollen zoomar in genom spegeln och tonar vidare in i historien.</p>
+    <span class="swatches"><i class="sw" style="background:#111213"></i><i class="sw" style="background:#c8a15e"></i><i class="sw" style="background:#eae6df"></i></span>
+  </a>
+  <a class="card" href="07-retrofilm/">
+    <span class="num">07</span><span class="name">Silverkorn</span>
+    <p class="desc">70-talsfilm: filmkorn, oxblood och en kurör som vänder bilderna under sig.</p>
+    <span class="swatches"><i class="sw" style="background:#f3ecdc"></i><i class="sw" style="background:#8f2d24"></i><i class="sw" style="background:#3f5c55"></i></span>
+  </a>
+  <a class="card" href="08-organiskt-hantverk/">
+    <span class="num">08</span><span class="name">Uppväxt i Blekinge</span>
+    <p class="desc">Handgjort varmt — handritade understreck ritar sig när du scrollar, mjuka vågdelare.</p>
+    <span class="swatches"><i class="sw" style="background:#f4efe6"></i><i class="sw" style="background:#33402e"></i><i class="sw" style="background:#c26d3d"></i></span>
+  </a>
+  <a class="card" href="09-schweizertag/">
+    <span class="num">09</span><span class="name">Rutinerat</span>
+    <p class="desc">Schweiziskt rutnät, numrerade sektioner och kobolt — scroll-teknik i ren CSS, nästan ingen JS.</p>
+    <span class="swatches"><i class="sw" style="background:#1e40ff"></i><i class="sw" style="background:#111111"></i><i class="sw" style="background:#ffffff"></i></span>
+  </a>
+  <a class="card" href="10-magasincollage/">
+    <span class="num">10</span><span class="name">Före &amp; efter, omaka</span>
+    <p class="desc">Magasincollage: snedrivna postkort, rubriker som blir konturer medan bilderna svävar förbi.</p>
+    <span class="swatches"><i class="sw" style="background:#7c3aed"></i><i class="sw" style="background:#facc15"></i><i class="sw" style="background:#fbf7f2"></i></span>
+  </a>
+</nav>
+<footer>Delade bilder: <a href="_assets/gal-01.jpeg">_assets/gal-01…04.jpeg</a> (riktiga salongsbilder från Anny).
+  Porträtt och vissa galleriplatser är märkta ”Bild kommer” — de fylls när fler riktiga bilder finns.
+  Statiska HTML/CSS/JS-prototyper utan build-step. Bokning och formulär: demo.</footer>
+</div>
+</body>
+</html>
