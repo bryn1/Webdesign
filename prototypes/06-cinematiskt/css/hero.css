@@ -1,0 +1,177 @@
+/* Theme 06 — hero "Möt dig i spegeln".
+   Scroll-zoom av spegelfönstret: (1) CSS scroll-driven timeline där webbläsaren
+   stöder animation-timeline: scroll(root), annars (2) rAF-scrub i js/hero-zoom.js
+   som sätter --zoom/--out på <html>. Utan JS och med prefers-reduced-motion:
+   statisk hero i viloläge — fullt läsbar. */
+
+.hero {
+  position: relative;
+  min-height: 140svh; /* scroll-sträcka för zoomen */
+  display: grid;
+  overflow: clip; /* clip (ej hidden): skapar ingen scroll-container — sticky lever */
+  background:
+    radial-gradient(120% 90% at 50% 20%, #17191c 0%, var(--bg) 70%);
+}
+/* Skala + textlager staplas i samma rutcell, båda sticky över första viewporten. */
+.hero__scaler,
+.hero__copy { grid-column: 1; grid-row: 1; }
+
+/* Det som zoomas: spegel + glöd. Skalan styrs av --zoom (default 1 = viloläge). */
+.hero__scaler {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  z-index: 0;
+  pointer-events: none;
+  transform: scale(var(--zoom, 1));
+  transform-origin: 50% 52%;
+  will-change: transform;
+}
+
+/* Interiören som crossfadeas in bakom spegeln när man "går in genom glaset". */
+.hero__interior {
+  position: absolute;
+  inset: 0;
+  background: var(--interior);
+  opacity: var(--out, 0);
+}
+
+.hero__halo {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(42% 34% at 50% 46%,
+      rgba(200, 161, 94, 0.16) 0%, rgba(200, 161, 94, 0) 70%);
+}
+
+/* --- Spegelfönstret: ren CSS/SVG-form, inget foto (F1) --- */
+.mirror {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(30rem, 76vw);
+  filter: drop-shadow(0 40px 90px rgba(0, 0, 0, 0.6));
+}
+.mirror__frame {
+  padding: clamp(7px, 1.2vw, 12px);
+  border-radius: 999px 999px 8px 8px; /* spegelvalv */
+  background: var(--frame);
+  box-shadow: inset 0 0 0 1px rgba(17, 18, 19, 0.45);
+}
+.mirror__glass {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 3.1;
+  border-radius: 999px 999px 4px 4px;
+  background: var(--glass);
+}
+/* ljusspeglingar i glaset */
+.mirror__streak {
+  position: absolute;
+  top: -12%;
+  left: 14%;
+  width: 26%;
+  height: 124%;
+  rotate: 18deg;
+  background: linear-gradient(180deg,
+      rgba(234, 230, 223, 0) 0%, rgba(234, 230, 223, 0.14) 40%,
+      rgba(234, 230, 223, 0.03) 70%, rgba(234, 230, 223, 0) 100%);
+}
+.mirror__streak--thin {
+  left: 46%;
+  width: 9%;
+  rotate: 14deg;
+  opacity: 0.6;
+}
+/* salongsstolen som tonar fram i reflectionen — ren CSS-shape */
+.mirror__chair {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  translate: -50% 0;
+  width: 46%;
+  height: 44%;
+  background:
+    radial-gradient(36% 60% at 50% 12%, rgba(200, 161, 94, 0.5), transparent 70%),
+    linear-gradient(180deg, rgba(234, 230, 223, 0.16) 0%, rgba(234, 230, 223, 0.06) 55%,
+      rgba(234, 230, 223, 0) 100%);
+  clip-path: polygon(28% 0, 72% 0, 82% 46%, 92% 100%, 8% 100%, 18% 46%);
+  opacity: 0.85;
+}
+.mirror__stand {
+  width: 12%;
+  height: clamp(16px, 3vw, 30px);
+  margin: -1px auto 0;
+  background: var(--frame);
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+}
+
+/* --- Textlagret: tonar bort medan spegeln zoomas in --- */
+.hero__copy {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  opacity: calc(1 - var(--out, 0));
+  padding-block: var(--space-4);
+}
+.hero__title { margin-bottom: var(--space-2); }
+.hero__sub {
+  color: var(--text-muted);
+  font-size: var(--step-1);
+  margin-inline: auto;
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-top: var(--space-4);
+}
+
+.hero__scrollcue {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 85svh;
+  z-index: 2;
+  text-align: center;
+  font-size: var(--step--1);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.hero__scrollcue::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 2.2rem;
+  margin: 0.6rem auto 0;
+  background: linear-gradient(180deg, var(--accent), transparent);
+}
+
+/* --- Scroll-scrubben: CSS scroll-driven där den stöds (Chrome/Edge/Safari 26).
+       Root-scroll-timeline: --zoom 1→1.9, --out 0→1 över den första 140svh. --- */
+@supports (animation-timeline: scroll(root)) {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      animation: hero-zoom linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0svh 100svh;
+    }
+  }
+}
+
+/* JS-scrubben (hero-zoom.js) sätter exakt samma variabler — samma keyframe-värden. */
+@keyframes hero-zoom {
+  from { --zoom: 1; --out: 0; }
+  to   { --zoom: 1.9; --out: 1; }
+}
+
+/* --zoom/--out måste få delta i calc — registrera dem som tal. */
+@property --zoom { syntax: "<number>"; inherits: true; initial-value: 1; }
+@property --out  { syntax: "<number>"; inherits: true; initial-value: 0; }
