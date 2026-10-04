@@ -1,0 +1,71 @@
+/* ============================================================
+   17 · Mörka akademien — scroll-koreografi (progressive)
+   Allt är låst bakom .js (satts av main.js) OCH
+   @media (prefers-reduced-motion: no-preference):
+   utan JS eller med reducerad rörelse är ALLT fullt synligt,
+   Ken Burns-fryst (bild i skala 1), marginalier synliga.
+   Scrubbahierarki: animation-timeline: view() där det stöds,
+   annars IO-fallback via .is-visible (satt av main.js).
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  html.js { scroll-behavior: smooth; }
+
+  /* IO-fallback-undantillstånd (gäller där view() saknas) */
+  .js .reveal,
+  .js .marginalia {
+    opacity: 0;
+    transform: translateY(1.4rem);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .js .reveal.is-visible,
+  .js .marginalia.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @supports (animation-timeline: view()) {
+    /* scrubbat undantillstånd ersätter fallback-låset */
+    .js .reveal,
+    .js .marginalia {
+      transition: none;
+      animation: ink-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 65%;
+    }
+
+    /* Ken Burns: långsam inzooming scrubbad över bildens väg
+       genom vyn — ingen korsupplösning, ingen dramatik. */
+    .js .kb-frame img {
+      transform-origin: 50% 46%;
+      animation: breathe linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes ink-reveal {
+  from { opacity: 0; transform: translateY(1.4rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes breathe {
+  from { transform: scale(1); }
+  to   { transform: scale(1.07); }
+}
+
+/* dialog: toning i stället för satsens standard */
+dialog {
+  opacity: 0;
+  transition: opacity 0.35s ease, overlay 0.35s ease, display 0.35s ease allow-discrete;
+}
+dialog[open] { opacity: 1; }
+@starting-style {
+  dialog[open] { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog, dialog[open] { transition: none; }
+}
