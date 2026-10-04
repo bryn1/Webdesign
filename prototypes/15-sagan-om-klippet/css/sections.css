@@ -1,0 +1,125 @@
+/* Bilderboken — sections: story (nalat bild), tjanster, galleri, boka, kontakt, footer, dialog. */
+
+/* ---- kapitel 2: storytelling (nalat illustration + rullande text) ---- */
+.story{background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 34%)}
+.story-grid{display:grid;gap:clamp(26px,4.5vw,50px);align-items:start}
+.story-stage{
+  margin:0 auto;padding:clamp(20px,3vw,34px);width:min(100%,360px);
+  background:var(--paper);border:3px solid var(--ink);border-radius:var(--r-lg);
+  box-shadow:7px 8px 0 var(--violet);
+}
+.stage-art{width:100%}
+.stage-cap{text-align:center;margin-top:8px;font-family:var(--hand);font-size:1.08rem;min-height:1.5em}
+.story-flow>.chapter{
+  position:relative;background:var(--paper);padding:clamp(18px,3vw,30px);
+  margin-bottom:clamp(20px,3.4vw,40px);
+}
+.story-flow>.chapter::before{
+  content:"";position:absolute;left:-3px;right:-3px;top:50%;height:34%;
+  background:rgba(255,143,171,.22);z-index:-1;border-radius:14px;transform:rotate(-.35deg);
+}
+.portrait-card{
+  padding:clamp(16px,3vw,26px);text-align:center;
+  border:3px dashed var(--ink);box-shadow:6px 7px 0 var(--green);
+}
+.portrait-card svg{width:120px;margin:0 auto 6px}
+
+/* ---- kapitel 3: vanliga (tjanster) ---- */
+.svc-grid{display:grid;gap:clamp(18px,2.6vw,26px);grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.svc{
+  background:var(--paper);border:3px solid var(--ink);border-radius:var(--r-lg);
+  box-shadow:6px 7px 0 var(--ink);padding:clamp(18px,2.6vw,26px);
+  display:flex;flex-direction:column;gap:4px;
+}
+.svc svg{width:74px;height:74px;margin-bottom:10px}
+.svc p{font-size:.99rem}
+.svc .price{margin-top:auto;padding-top:8px;border-top:2px dashed var(--pink);color:var(--ink)}
+.svc:nth-child(odd){transform:rotate(-.5deg)}
+.svc:nth-child(even){transform:rotate(.45deg)}
+
+/* ---- kapitel 4: tavlan (illustrationsplattor) ---- */
+.illo-note{
+  max-width:58ch;font-family:var(--hand);font-size:1.16rem;
+  background:var(--paper);border:3px solid var(--ink);border-radius:var(--r-md);
+  padding:14px 18px;margin:0 0 clamp(26px,4vw,40px);box-shadow:5px 6px 0 var(--pink);
+}
+.plates{display:grid;gap:clamp(22px,3.4vw,34px);grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.plate figure{
+  margin:0;background:var(--paper);border:3px solid var(--ink);border-radius:var(--r-lg);
+  box-shadow:6px 7px 0 var(--ink);padding:clamp(14px,2vw,20px);
+}
+.plate svg{border-radius:var(--r-md);background:var(--rose);border:2px solid var(--ink)}
+.plate figcaption{padding:12px 4px 2px;font-size:.98rem}
+.plates .plate:nth-child(odd) figure{transform:rotate(-1deg)}
+.plates .plate:nth-child(even) figure{transform:rotate(1.1deg)}
+
+/* ---- kapitel 5: boka (demo) ---- */
+.booking .wrap{
+  background:var(--paper);border:3px solid var(--ink);border-radius:var(--r-lg);
+  box-shadow:8px 9px 0 var(--violet);padding:clamp(24px,4vw,46px);
+}
+.slots{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.8vw,14px);margin:clamp(20px,3vw,30px) 0 18px}
+.slot-day{
+  font-family:var(--hand);font-size:1.06rem;text-align:center;padding-bottom:2px;
+  border-bottom:3px solid var(--ink);
+}
+.slot{
+  background:var(--rose);border:2.5px solid var(--ink);border-radius:var(--r-md);
+  font-family:var(--display);font-weight:700;font-size:clamp(.82rem,2.1vw,1rem);
+  padding:.62em .2em;cursor:pointer;transition:background .15s ease,transform .15s var(--bounce);
+}
+.slot:hover{background:var(--pink);transform:translateY(-2px)}
+.slot[aria-pressed="true"]{background:var(--ink);color:var(--rose)}
+.demo-note{
+  font-size:.92rem;background:rgba(6,214,160,.28);border:2px dashed var(--ink);
+  border-radius:var(--r-md);padding:10px 14px;max-width:62ch;
+}
+
+/* ---- kapitel 6: kontakt ---- */
+.c-grid{display:grid;gap:clamp(18px,2.8vw,28px);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));align-items:start}
+.c-card,.c-form{padding:clamp(18px,2.8vw,28px)}
+.c-card svg{width:66px;height:66px;margin-bottom:10px}
+.c-card a{font-weight:700;overflow-wrap:anywhere}
+.c-form label{display:block;font-family:var(--display);font-weight:700;font-size:.92rem;margin-bottom:12px}
+.c-form input,.c-form textarea{
+  display:block;width:100%;margin-top:4px;font:inherit;font-weight:400;
+  background:var(--rose);border:2.5px solid var(--ink);border-radius:var(--r-md);padding:10px 12px;
+}
+.c-form textarea{resize:vertical}
+.c-form .btn{margin-top:4px}
+.c-form .demo-note{margin:14px 0 0}
+
+/* ---- slutblad ---- */
+.site-foot{background:var(--ink);color:var(--rose);padding:clamp(30px,5vw,52px) 0;border-top:4px solid var(--pink)}
+.site-foot a{color:var(--rose)}
+.site-foot a:hover{color:var(--pink)}
+.site-foot .soft{color:rgba(253,234,242,.82)}
+.foot-grid{display:grid;gap:10px 26px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:center}
+.foot-grid p{margin:0}
+.foot-grid .brand-ic{display:inline-block;width:22px;height:22px}
+
+/* ---- demo-dialog ---- */
+#demo-dialog{
+  width:min(430px,94vw);margin:0 auto;background:var(--paper);color:var(--ink);
+  border:3px solid var(--ink);border-radius:var(--r-lg);box-shadow:8px 9px 0 var(--green);
+  padding:clamp(20px,4vw,32px);
+}
+#demo-dialog svg{width:54px;height:54px;margin-bottom:8px}
+#demo-dialog .dd-box{display:flex;flex-direction:column;gap:6px}
+.dd-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.dd-links .btn{font-size:.92rem;box-shadow:0 4px 0 var(--pink)}
+.dd-links .btn-ghost{box-shadow:0 4px 0 var(--violet)}
+
+/* ---- brett: nar plats finns ---- */
+@media (min-width:860px){
+  .hero-grid{grid-template-columns:1.02fr .98fr}
+  .svc-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .svc-grid>.svc:last-child{grid-column:span 2}
+  .svc-grid>.svc:last-child{flex-direction:row;align-items:center;gap:22px;text-align:left}
+  .svc-grid>.svc:last-child svg{margin:0}
+}
+@media (max-width:520px){
+  .site-head{justify-content:center;text-align:center}
+  .svc-grid>.svc:last-child{grid-column:auto}
+  .slot{padding:.55em .1em}
+}

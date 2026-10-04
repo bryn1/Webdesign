@@ -1,0 +1,54 @@
+/* Bilderboken — motion: bounce-in-reveal, SVG line-draw, nalat storytelling, nollstallning.
+   All rorelse ar en forstarkning: utan JS (klass .js uteblir) och vid
+   prefers-reduced-motion ar allt synligt i slutlage och sektionerna staplade. */
+
+/* ---- bounce-in-reveal: gals only med JS, only utan reducerad rorelse ---- */
+@media (prefers-reduced-motion: no-preference){
+  .js [data-reveal]{
+    opacity:0;transform:translateY(22px) scale(.965);
+    transition:opacity .5s ease,transform .62s var(--bounce);
+  }
+  .js [data-reveal].in{opacity:1;transform:none}
+  .js [data-reveal].in:nth-child(2){transition-delay:.06s}
+  .js [data-reveal].in:nth-child(3){transition-delay:.12s}
+  .js [data-reveal].in:nth-child(4){transition-delay:.18s}
+
+  /* SVG line-draw: ritning av konturlinjer (inline paths med pathLength="1") */
+  .js .squiggle path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.05s ease .15s}
+  .js .squiggle.in path{stroke-dashoffset:0}
+  .js .hero-art .lineart{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s ease .5s}
+  .js .hero-art.in .lineart{stroke-dashoffset:0}
+
+  /* hovningarna: stickers vridning ror pa tangenten */
+  .svc,.plate figure{transition:transform .22s var(--bounce)}
+  .svc:hover,.plate:hover figure{transform:rotate(0deg) translateY(-3px)}
+}
+
+/* ---- nalat bild + rullande text (kapitel 2) ----
+   Nalningen kravd endast nar sidan ar vid, JS kor OCH nagon inte bett om
+   reducerad rorelse — annars ligger bild och text staplade som vanligt. */
+@media (min-width:900px) and (prefers-reduced-motion: no-preference){
+  .js .story-grid{grid-template-columns:minmax(300px,.85fr) 1.15fr;column-gap:clamp(40px,6vw,80px)}
+  .js .story-stage{position:sticky;top:96px;width:100%}
+  .js .story-flow>.chapter{opacity:.78;transition:opacity .4s ease}
+  .js .story-flow>.chapter.active{opacity:1}
+}
+
+/* ---- reduced motion: inga overgangar, allt i slutlage ---- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+  .btn:hover,.btn:active,.slot:hover{transform:none}
+}
+
+/* ---- dialog: in/ut utan att lasa rorelse ---- */
+#demo-dialog{opacity:0;transform:translateY(10px) scale(.97);transition:opacity .22s ease,transform .3s var(--bounce)}
+#demo-dialog.is-open{opacity:1;transform:none}
+#demo-dialog::backdrop{background:rgba(29,35,64,.55)}
+#demo-dialog:not([open]){display:none}
+
+/* ---- tryck och flotning: inget overflode i fickformat ---- */
+@media (max-width:420px){
+  .story-stage{width:100%}
+  .hero-art svg{width:min(100%,420px);margin-inline:auto}
+}
