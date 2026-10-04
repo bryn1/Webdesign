@@ -1,0 +1,230 @@
+/* Scroll-koreografi: tjänster-stableg (sticky), galleri (snap + skala vid
+   tillnärmning), bokningsmock. Del av component-lagret för 400-radsaket. */
+
+/* ---------- Tjänster: stableg av klistrande glaskort ---------- */
+
+.service-stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.service-card {
+  position: sticky;
+  top: calc(var(--header-h) + 0.75rem + (var(--stack-i, 0) * 16px));
+  min-height: 170px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-3);
+  background: var(--glass-fallback-strong);
+  align-content: start;
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .service-card {
+    background: var(--glass-strong);
+  }
+}
+
+.service-card:nth-child(2) { --stack-i: 1; }
+.service-card:nth-child(3) { --stack-i: 2; }
+.service-card:nth-child(4) { --stack-i: 3; }
+.service-card:nth-child(5) { --stack-i: 4; }
+
+.service-num {
+  grid-row: span 2;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rose-ink);
+}
+
+.service-card p {
+  color: var(--muted);
+}
+
+.price-line {
+  font-size: var(--fs-small);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Utan scroll-effekt (reduced motion) och på liten skärm: vanlig flödeslista. */
+@media (prefers-reduced-motion: reduce), (max-width: 700px) {
+  .service-card {
+    position: static;
+    min-height: 0;
+  }
+}
+
+/* ---------- Galleri: vångrullning med skala vid tillnärmning ---------- */
+
+.gallery-shell {
+  position: relative;
+}
+
+.gallery-scroller {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  scroll-padding-inline: var(--space-3);
+}
+
+.gallery-card {
+  flex: 0 0 min(72vw, 300px);
+  scroll-snap-align: center;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.gallery-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-card__body {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+}
+
+.gallery-card__tag {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mist-ink);
+}
+
+.gallery-card__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+/* Skala vid tillnärmning: CSS scroll-driven där det stöds … */
+@supports (animation-timeline: view()) {
+  @media not (prefers-reduced-motion: reduce) {
+    .gallery-card {
+      animation: card-approach linear both;
+      animation-timeline: view(inline);
+      animation-range: cover 0% cover 100%;
+    }
+
+    @keyframes card-approach {
+      0% { transform: scale(0.88); }
+      50% { transform: scale(1); }
+      100% { transform: scale(0.88); }
+    }
+  }
+}
+
+/* … annars IO-klasser från js/gallery.js (data-js-scale sätts av skriptet). */
+.gallery-scroller[data-js-scale] .gallery-card {
+  transform: scale(0.9);
+  transition: transform var(--dur) var(--ease-soft);
+}
+
+.gallery-scroller[data-js-scale] .gallery-card.is-near {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-scroller[data-js-scale] .gallery-card,
+  .gallery-scroller[data-js-scale] .gallery-card.is-near {
+    transform: none;
+  }
+}
+
+.gallery-nav {
+  display: flex;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
+}
+
+.gallery-nav .btn {
+  padding: 0.4rem 1rem;
+}
+
+/* ---------- Boka: demo-kalender + dialog ---------- */
+
+.booking-grid {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.booking-day__head {
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.booking-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.slot {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(63, 74, 68, 0.2);
+  background: var(--glass-fallback-strong);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease-soft), border-color var(--dur) var(--ease-soft);
+}
+
+.slot:hover {
+  transform: translateY(-2px);
+  border-color: var(--rose);
+}
+
+.slot[aria-pressed="true"] {
+  background: var(--rose-ink);
+  border-color: var(--rose-ink);
+  color: #ffffff;
+}
+
+.booking-dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  max-width: 26rem;
+  width: calc(100vw - 2rem);
+  background: var(--glass-fallback-strong);
+  color: var(--ink);
+  box-shadow: var(--glass-shadow);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(63, 74, 68, 0.4);
+}
+
+.booking-dialog h3 {
+  margin-bottom: var(--space-2);
+}
+
+.booking-dialog p + p {
+  margin-top: var(--space-2);
+}
+
+.booking-dialog__close {
+  margin-top: var(--space-3);
+}

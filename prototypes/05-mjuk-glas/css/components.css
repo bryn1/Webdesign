@@ -1,0 +1,209 @@
+/* Komponenter: glaskort, knappar/märken, no-JS-lägen, Om mig, kontakt.
+   Scroll-koreografi (tjänster/galleri/boka) ligger i scroll.css.
+   All brödtext står på ljus glas-yta (AA). */
+
+/* ---------- Glaskort (fallback: opakt utan backdrop-filter) ---------- */
+
+.glass-card {
+  background: var(--glass-fallback);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: var(--glass-shadow);
+  padding: var(--space-3);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+}
+
+/* ---------- Knappar och märken ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.3rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease-soft), box-shadow var(--dur) var(--ease-soft);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn--accent {
+  background: var(--rose-ink); /* vit text 4.7:1 */
+  color: #ffffff;
+}
+
+.btn--accent:hover {
+  color: #ffffff;
+}
+
+.btn--ghost {
+  background: var(--glass-fallback);
+  border-color: rgba(63, 74, 68, 0.18);
+  color: var(--ink);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .btn--ghost {
+    background: var(--glass);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+.demo-badge {
+  display: inline-block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--mist-ink);
+  border: 1px dashed var(--mist);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.7rem;
+  margin-bottom: var(--space-2);
+}
+
+.placeholder-figure {
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  background:
+    linear-gradient(140deg, rgba(167, 188, 195, 0.35), rgba(201, 167, 160, 0.35));
+  color: var(--ink);
+  font-weight: 600;
+  text-align: center;
+  padding: var(--space-2);
+}
+
+/* ---------- Utställning utan JS (styrs av html.js / html.js-reveal) ---------- */
+
+html:not(.js) .only-js {
+  display: none;
+}
+
+html.js .needs-js-note {
+  display: none;
+}
+
+html.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--dur) var(--ease-soft), transform var(--dur) var(--ease-soft);
+}
+
+html.js-reveal [data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Om mig ---------- */
+
+.om-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.om-text p + p {
+  margin-top: var(--space-2);
+}
+
+.portrait-frame {
+  aspect-ratio: 4 / 5;
+  max-width: 340px;
+  border: 2px dashed var(--mist);
+  border-radius: var(--radius);
+}
+
+@media (min-width: 760px) {
+  .om-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+/* ---------- Kontakt ---------- */
+
+.kontakt-grid {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+@media (min-width: 760px) {
+  .kontakt-grid {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.contact-label {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mist-ink);
+}
+
+.contact-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.contact-form input,
+.contact-form textarea {
+  font: inherit;
+  color: var(--ink);
+  background: #ffffff;
+  border: 1px solid rgba(63, 74, 68, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  width: 100%;
+}
+
+.contact-form textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.form-honesty {
+  font-size: var(--fs-small);
+  color: var(--rose-ink);
+  font-weight: 600;
+}
+
+.form-status {
+  font-weight: 600;
+  min-height: 1.5em;
+}
