@@ -1,0 +1,56 @@
+/* kinetic.css — rörelselagen för tema 18, separerad från layout av skäl:
+   allt här är progressiv förstärkning. Utan JS (ingen .js-klass) finns
+   inga av dessa tillstånd alltså — texten står redan i sin slutstat.
+   Under prefers-reduced-motion: reduce ryms inget av det i no-preference-
+   felet nedan, och marquee-rails sätts statiska (kvar, synliga, stilla). */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Kinetic headline-morph.
+     1) IO-fallback: .morph startar litet/tonat, .morph-in = slutstat via transition.
+     2) Native scroll-timeline (@supports) återskriverer detta med scrub.
+     Anton har en enda vikt — morfologin går därför i skala + bokstavsavstånd,
+     vilket är läsbarhetsmässigt ekvivalent med en tyngd-morf. */
+  .js .morph {
+    opacity: 0.12;
+    transform: scale(0.84);
+    transform-origin: 0 60%;
+  }
+  .js .morph.morph-in {
+    opacity: 1;
+    transform: scale(1);
+    transition:
+      opacity 0.7s ease,
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      letter-spacing 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @supports (animation-timeline: view()) {
+    .js .morph,
+    .js .morph.morph-in {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: morph-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 68%;
+    }
+  }
+}
+
+@keyframes morph-grow {
+  from {
+    opacity: 0.12;
+    transform: scale(0.84);
+    letter-spacing: 0.06em;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    letter-spacing: 0.015em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Rails stannar men är kvar — första ordet syns stilla i vyn. */
+  .rail__track { animation: none; }
+}
