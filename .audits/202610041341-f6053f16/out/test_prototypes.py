@@ -43,7 +43,9 @@ def test_each_prototype_structure():
         assert "tel:+46721554860" in html, d.name
         assert "mailto:" in html.lower(), d.name
         assert "instagram.com/mullers.anny" in html, d.name
-        assert "gal-0" in html, f"{d.name}: gallery images not referenced"
+        # gallery evidence: real shared photos, or the honest "Bild kommer"
+        # placeholder copy BRIEF.md requires for shots Anny has not delivered
+        assert "gal-0" in html or "bild kommer" in low, f"{d.name}: no gallery evidence"
         # demo honesty: booking is labelled demo/mock somewhere
         assert re.search(r"demo|mock", low), f"{d.name}: booking mock not labelled"
 
