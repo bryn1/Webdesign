@@ -1,0 +1,97 @@
+/* tokens.css — design-tokens + reset + typografi-bas för tema 01 "Müllers-editorial".
+   En sak per fil: detta är endast token och bas, ingen layout. */
+
+:root {
+  /* Palett (research.md §5 riktning 01) */
+  --paper: #faf6f1;
+  --paper-tint: #f2ece3;
+  --ink: #1c1917;
+  --ink-soft: #44403c;
+  --muted: #78716c;
+  --copper: #9a3f1f;
+  --copper-deep: #7c3219;
+  --line: #d9d0c4;
+  --line-strong: #b8ad9e;
+  --white: #fffdfb;
+
+  /* Demo-kalender (legend-färger) */
+  --slot-free: #e8ddd0;
+  --slot-free-hover: #d9c8b2;
+  --slot-taken: #efe9e1;
+
+  /* Typografi — Google Fonts med systemfallback (offlinäk) */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", -apple-system, "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+
+  --fs-hero: clamp(3.4rem, 12vw, 9rem);
+  --fs-h2: clamp(1.9rem, 4.5vw, 3.2rem);
+  --fs-h3: 1.25rem;
+  --fs-body: 1.0625rem;
+  --fs-meta: 0.78rem;
+  --lh-body: 1.65;
+  --lh-display: 0.98;
+
+  /* Mått */
+  --wrap: 76rem;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --sec-pad: clamp(4rem, 10vw, 8.5rem);
+  --hair: 1px;
+  --header-h: 3.6rem;
+  --radius: 2px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.75rem);
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: hidden; /* försäkringsnät mot horisontell overflow */
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+button, input, textarea { font: inherit; color: inherit; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-optical-sizing: auto;
+  line-height: var(--lh-display);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+p { overflow-wrap: anywhere; }
+
+/* ---- Länkar & fokus ---- */
+a { color: var(--copper); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { color: var(--copper-deep); }
+:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+/* ---- Språkverktyg ---- */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 60;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0.75rem; color: var(--paper); }
