@@ -9,3 +9,4 @@
 | c3 | independent re-verify of gate fix | fresh test child reproduces red-proofs A/B/C + green control | TEST-verdict-c3.md PASS (JUDGED 1a4f774e) |
 | c4 | gate v3 re-verify (section-slicing + visible-text demo binding) | fresh test child, 20/20 green control + 5 red probes | TEST-verdict-c4.md PASS (JUDGED c802d6b1), accepted ec3e0d4; loop misclassification ruled away |
 | c3-DA | final adversarial gate over repaired tree | fresh devils-advocate child: verify c2 findings closed, hunt fix-regressions, attack gate v3 | DA-verdict-c3.md pending (94fab8f7 running) |
+| c3-DA verdict | final adversarial gate | all 7 c2 findings closed by own probes; gate attacks red; paint-verified demo labels 20/20 | DA-verdict-c3.md SHIP (JUDGED c802d6b1). G1/G2 pre-authorized close-out fixes applied (card-19 swatches+phrasing); G3-G5 P4 notes recorded |
