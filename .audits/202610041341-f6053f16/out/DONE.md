@@ -1,0 +1,57 @@
+# DONE — scroll-design prototype library (MC 10088)
+Ledger of acceptance claims. STATUS vocabulary: PASS | FAIL | BLOCKED | N/A | UNVERIFIED.
+Every PASS row was checked by the orchestrator's own tools this session unless the evidence
+text names the measuring child. Final gate: DA-verdict-c3.md `# VERDICT: SHIP`
+(JUDGED c802d6b1) + TEST-verdict-c4.md `# VERDICT: PASS` (same hash).
+
+## A — Research
+| ID | claim | STATUS | evidence |
+|---|---|---|---|
+| A1 | batch-1 research: both YouTube clips + top scroll-design sites, cited per claim | PASS | out/research.md (committed, per-claim VERIFIED/INFERRED tags, firecrawl payloads in out/.tmp/) |
+| A2 | batch-2 research: 10 non-colliding fresh directions (11–20), fetched refs, §7 collision matrix | PASS | out/research-2.md @ 694df69; includes honest CONTRADICTED row: vercel.com now serves a LIGHT page — dropped as reference |
+| A3 | research adversarial gate (batch 1) | PASS | DA-verdict.md (cycle-1) |
+
+## B — Product: 20 themes, identical BRIEF content, Swedish, demo-honest
+| ID | theme | STATUS | evidence (all: curl 200 + BRIEF strings + sweep console=0/overflow=0 at 1280+375) |
+|---|---|---|---|
+| C-01 | 01-mullers-editorial | PASS | 317c5d0 |
+| C-02 | 02-mork-neon | PASS | 05ed388 |
+| C-03 | 03-varmt-papper | PASS | e7296d3 |
+| C-04 | 04-brutalt-tryck | PASS | 82efccd |
+| C-05 | 05-mjuk-glas | PASS | de6f1b4 |
+| C-06 | 06-cinematiskt | PASS | abbd8bf |
+| C-07 | 07-retrofilm | PASS | 716471b |
+| C-08 | 08-organiskt-hantverk | PASS | d8903a3 (+454-line header reason f5b2de9) |
+| C-09 | 09-schweizertag | PASS | 40a53ef |
+| C-10 | 10-magasincollage | PASS | a1c37fb |
+| C-11 | 11-blaa-fargbrunn | PASS | 601415d |
+| C-12 | 12-forgyllda-salongen | PASS | 58b5f4a |
+| C-13 | 13-91-tal | PASS | c804259 |
+| C-14 | 14-dagens-frisyr | PASS | ec8d937 |
+| C-15 | 15-sagan-om-klippet (photo-free by brief) | PASS | 5a6de26; honest in-section statement gate-enforced |
+| C-16 | 16-gradientljus | PASS | e457eb8 |
+| C-17 | 17-mork-akademien | PASS | ebaed02 |
+| C-18 | 18-bara-typsnitt (photo-free by brief) | PASS | 986c412; favicon stray-node fix a010eaa, re-probed 0/20 leaks |
+| C-19 | 19-galerievaggen | PASS | 4b15273 |
+| C-20 | 20-mynta | PASS | 589984b |
+
+## C — Integration & gates
+| ID | claim | STATUS | evidence |
+|---|---|---|---|
+| D1 | gallery index: 20 cards ↔ 20 dirs bijection, every href 200, card copy matches built themes (incl. card 18/19 rewrite + swatch fix) | PASS | 900c0d7, 5fb345f, a010eaa, f4b3b98; DA-c3 F4/G1/G2 closed by code-inspection |
+| D2 | pytest gate 5/5 green AND provably red: img-src parse, section-bound gallery, visible-text demo labels in #boka+#kontakt, ≥20 dirs, photo-free honesty in-section | PASS | TEST-verdict-c2 PASS (flipped on fix) + TEST-verdict-c3 PASS + TEST-verdict-c4 PASS; independent red-proofs 5/5 by fresh tester |
+| D3 | adversarial gate final: all c2 findings closed, no new P0/P1 from fixes | PASS | DA-verdict-c2.md FIX (7 findings) → DA-verdict-c3.md SHIP (own probes, gate attacks RED) |
+| D4 | browser sweeps: load-only 1280+375 20/20 console=0 overflow=0 (stdout.json per theme); SCROLLING pass 20/20 0 errors; stray visible-text nodes 0/20 | PASS | out/.tmp/sweep/*-stdout.json, orch-scroll-sweep.log (SCROLL_SWEEP_CLEAN 20/20), stray_probe re-run post-fix |
+| D5 | demo-honesty PAINTED (not just present): demo label visibly painted in #boka + #kontakt in all 20 themes | PASS | DA-c3 paint-verification probe, incl. theme 20 below-fold reveal |
+| D6 | live service on 192.168.5.231:8090 (PORT file committed) | PASS | curl 200 re-checked every verification turn; pytest live-HTTP tests |
+| D7 | WCAG AA contrast per theme | PASS (builder-measured) | per-theme computed ledgers in builder DONE records (theme 19 full ledger re-checked via computed styles); DA spot-checks passed. Not re-measured wholesale by orchestrator — residual risk low, labels are tool-computed |
+
+## D — Open / N/A / limitations
+| ID | item | STATUS | note |
+|---|---|---|---|
+| E1 | arch phase | N/A | never a declared phase for this task; ruled on record (2026-10-04) |
+| E2 | push to github.com/bryn1/Webdesign | → this session | see MC trail close row |
+| E3 | Google Fonts remain CDN links; vendoring needed before real adoption | OPEN (owner decision) | non-blocking for LAN demo; fonts degrade to fallback stacks offline |
+| L1 | 4 real photos only; other gallery slots = honest "Bild kommer" frames | BY DESIGN | BRIEF delivery reality |
+| L2 | hidden-node demo-label tricks survive the STATIC gate (deliberate-forgery class) | ACCEPTED P4 | DA-c3 judged not cycle-worthy; browser paint sweeps cover; accidental-edit class goes RED |
+| L3 | G3/G5 P4 notes (card-18 loose tail wording; theme-20 scramble glyphs transiently include < > for ~1.5 s) | RECORDED P4 | no action; stray-check tooling waits for settle |
