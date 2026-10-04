@@ -1,0 +1,117 @@
+/* base.css — tema 14 "Dagens frisyr": palett, reset, typografi, a11y-golv.
+   Palett vald enligt research-2.md §6. Kontraster (WCAG AA uppfyllt):
+   #141414 på #e8e5de = 14.6:1 · #b3261e på #e8e5de = 5.2:1 · #4b4b4b = 6.9:1
+   · #5c5a54 = 5.5:1 · #f4f2ec på #b3261e = 6.5:1. */
+
+:root {
+  --bg: #e8e5de;          /* kall tidningsyta */
+  --surface: #f4f2ec;     /* ljusare annonsruta */
+  --ink: #141414;         /* presscolor */
+  --rule: #4b4b4b;        /* hårlinjer, kolumnregler */
+  --muted: #5c5a54;       /* undertexter (5.5:1 mot bg) */
+  --press: #b3261e;       /* pressrött (5.2:1 mot bg — även brödtext OK) */
+  --paper-line: #d8d4cb;  /* svaga rutnatslinjer */
+  --font-display: "Libre Bodoni", "Didot", "Bodoni MT", Georgia, serif;
+  --font-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --measure: 74ch;
+  --gap: clamp(1rem, 3vw, 2.25rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  /* svaga tryckfiber-ränder — rent nyhetspapper, ingen bild behövs */
+  background-image: repeating-linear-gradient(
+    0deg, rgba(20, 20, 20, 0.016) 0 1px, transparent 1px 4px);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.02;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+p { margin: 0 0 1em; overflow-wrap: break-word; }
+
+a { color: var(--ink); text-decoration-color: var(--rule); text-underline-offset: 0.15em; }
+a:hover { color: var(--press); text-decoration-color: currentColor; }
+
+address { font-style: normal; line-height: 1.7; }
+
+img { max-width: 100%; height: auto; }
+
+figure { margin: 0; }
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+
+::selection { background: var(--ink); color: var(--bg); }
+
+/* --- fokus: alltid synligt, pressrött på alla element --- */
+:focus-visible {
+  outline: 3px solid var(--press);
+  outline-offset: 2px;
+}
+
+/* --- skip-link --- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+  color: var(--bg);
+}
+
+/* --- knappar: nedtonade till papperston --- */
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+
+fieldset { border: 0; margin: 0; padding: 0; }
+legend { padding: 0; }
+
+input, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 0.5rem 0.6rem;
+  width: 100%;
+}
+textarea { resize: vertical; }
+
+/* --- brödtextsmått --- */
+main p, .colophon p { max-width: var(--measure); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
