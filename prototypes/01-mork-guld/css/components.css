@@ -1,0 +1,317 @@
+/* components.css — återkommande bitar: knappar, skyltar (plates), platshållare,
+   tjänster, demo-märke, bokningskalender, dialog, formulär. En sak: utseende,
+   inte sidans struktur (layout.css) och inte rörelse (motion.css). */
+
+/* ---- Knappar ---- */
+.btn {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius);
+  border: var(--hair) solid var(--copper);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.btn--solid { background: var(--copper); color: var(--white); }
+.btn--solid:hover { background: var(--copper-deep); border-color: var(--copper-deep); color: var(--white); }
+.btn--outline { background: transparent; color: var(--copper); }
+.btn--outline:hover { border-color: var(--copper-deep); color: var(--copper-deep); }
+
+/* ---- Rubriker & smått ---- */
+.demo-badge {
+  display: inline-block;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  border: var(--hair) dashed var(--copper);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.4rem;
+}
+.demo-badge--soft {
+  display: block;
+  background: var(--paper-tint);
+  border-style: solid;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.2rem;
+}
+
+/* ---- Bildskyltar (galleri + porträtt) ---- */
+.plates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.6rem, 5vw, 3.4rem);
+}
+.plate { min-width: 0; }
+.plate--offset { margin-top: clamp(1.6rem, 6vw, 4.5rem); }
+.plate__media {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--paper-tint);
+  border: var(--hair) solid var(--line);
+  border-radius: var(--radius);
+}
+.plate__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.plate__caption {
+  margin-top: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+.plate__tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-right: 0.7em;
+  vertical-align: 0.1em;
+}
+@media (max-width: 640px) {
+  .plates { grid-template-columns: 1fr; }
+  .plate--offset { margin-top: 0; }
+}
+
+/* ---- Platshållare (CSS-ritad, ingen trasig bild) ---- */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(-45deg,
+      transparent 0 14px,
+      color-mix(in srgb, var(--copper) 8%, transparent) 14px 15px),
+    var(--paper-tint);
+  border: var(--hair) dashed var(--line-strong) !important;
+}
+.placeholder__label {
+  background: var(--paper);
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.9rem;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+.plate__media--portrait { aspect-ratio: 3 / 4; }
+
+/* ---- Tjänster (redaktoriell lista) ---- */
+.services { border-top: var(--hair) solid var(--line-strong); }
+.service {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) 6rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding-block: clamp(1.3rem, 3vw, 2rem);
+  border-bottom: var(--hair) solid var(--line);
+}
+.service__num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--copper);
+  font-variant-numeric: tabular-nums;
+}
+.service__main h3 { font-size: var(--fs-h3); margin-bottom: 0.35rem; }
+.service__main p { color: var(--ink-soft); max-width: 52ch; }
+.service__price {
+  font-size: var(--fs-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 640px) {
+  .service { grid-template-columns: 2.4rem minmax(0, 1fr); }
+  .service__price { grid-column: 2; text-align: left; margin-top: 0.4rem; }
+}
+
+/* ---- Bokningskalender (demo) ---- */
+.booking__legend {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-size: var(--fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.booking__legend .dot {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  margin-right: 0.45em;
+  vertical-align: -0.05em;
+  border: var(--hair) solid var(--line-strong);
+}
+.dot--free { background: var(--slot-free); }
+.dot--taken { background: var(--slot-taken); }
+.booking__wrap { overflow-x: auto; } /* rullar invändigt, ingen sidoverflow */
+.cal {
+  display: grid;
+  grid-template-columns: 4.4rem repeat(5, minmax(4.6rem, 1fr));
+  gap: 0.45rem;
+  min-width: 22rem;
+}
+.cal__corner, .cal__day {
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.3rem 0;
+  border-bottom: var(--hair) solid var(--line-strong);
+  text-align: center;
+}
+.cal__time {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+}
+.cal__slot {
+  min-height: 2.4rem;
+  border-radius: var(--radius);
+  border: var(--hair) solid var(--line-strong);
+  background: var(--slot-free);
+  color: var(--copper);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.cal__slot:hover { background: var(--slot-free-hover); }
+.cal__slot[aria-disabled="true"] {
+  background: var(--slot-taken);
+  color: var(--muted);
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.booking__note {
+  margin-top: 1.2rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+/* ---- Dialog ---- */
+.dlg {
+  width: min(30rem, calc(100vw - 2rem));
+  margin: auto;
+  padding: 0;
+  background: var(--white);
+  color: var(--ink);
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 60px -24px rgba(28, 25, 23, 0.45);
+}
+.dlg::backdrop { background: rgba(28, 25, 23, 0.55); }
+.dlg__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.3rem 1.4rem 0;
+}
+.dlg__head h3 { font-size: 1.3rem; }
+.dlg__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.1rem 0.35rem;
+}
+.dlg__close:hover { color: var(--ink); }
+.dlg [data-dialog-view] { padding: 0.9rem 1.4rem 1.4rem; }
+.dlg__slot {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--copper);
+}
+.dlg__note { color: var(--ink-soft); margin-top: 0.5rem; }
+.dlg__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.6rem;
+  border-bottom: var(--hair) solid var(--line);
+  font-size: 0.95rem;
+}
+.dlg__row strong { letter-spacing: 0.08em; text-transform: uppercase; font-size: var(--fs-meta); color: var(--muted); }
+.dlg__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: flex-end;
+  margin-top: 1.3rem;
+}
+.dlg__actions .btn { padding: 0.6rem 1.1rem; font-size: 0.8rem; }
+
+/* ---- Kontaktformular ---- */
+.contact-form .field { margin-bottom: 1.1rem; }
+.contact-form label {
+  display: block;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  background: var(--white);
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.8rem;
+}
+.contact-form textarea { resize: vertical; }
+.contact-form input[aria-invalid="true"],
+.contact-form textarea[aria-invalid="true"] { border-color: var(--copper); }
+.field__error { color: var(--copper-deep); font-size: 0.85rem; margin-top: 0.3rem; }
+.form-status {
+  margin-top: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--paper-tint);
+  border-left: 2px solid var(--copper);
+  font-size: 0.95rem;
+}
+
+/* ---- Kontakt-fakta ---- */
+.contact-grid__info h3 { font-size: 1.3rem; }
+.facts { margin-top: 1.2rem; border-top: var(--hair) solid var(--line); }
+.facts dt {
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.9rem;
+}
+.facts dd { margin: 0.15rem 0 0 0; }
+.facts .pending { color: var(--muted); font-style: italic; }
