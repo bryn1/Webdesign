@@ -1,0 +1,302 @@
+/* sections.css — sektionerna: hero, om, tjänster, galleri-typspecimen,
+   boka-demo, kontakt. All skala i clamp() — ingen horisontell overflow vid
+   375 px. Layout: en kolumn, breddvaksen grid. */
+
+.section {
+  padding: clamp(4rem, 12vw, 8.5rem) var(--pad);
+  scroll-margin-top: 4.5rem;
+}
+
+.section__title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 9vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1.8rem, 5vw, 3.2rem);
+}
+.section__title--calm { font-size: clamp(1.5rem, 4.6vw, 3rem); line-height: 1.05; }
+
+/* ===== Hero ===== */
+#top {
+  min-height: calc(100svh - 3.6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 8vh, 5rem) var(--pad) clamp(3rem, 10vh, 6rem);
+  scroll-margin-top: 4.5rem;
+}
+
+.hero__name {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 20vw, 14rem);
+  line-height: 0.86;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(1.2rem, 3vw, 2rem);
+}
+.hero__line { display: block; }
+
+.hero__sub {
+  max-width: 34ch;
+  color: var(--grey);
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.hero__cta { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+/* ===== Om ===== */
+.om__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 48rem) { .om__grid { grid-template-columns: minmax(0, 1.4fr) minmax(12rem, 0.6fr); } }
+
+.om__text { max-width: 56ch; }
+.om__text p { margin-bottom: 1.1rem; }
+.om__text a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.portrait {
+  border: 1px solid var(--hair);
+  min-height: clamp(14rem, 40vw, 20rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+.portrait__glyph {
+  font-family: var(--display);
+  font-size: clamp(6rem, 18vw, 10rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--grey);
+}
+.portrait__cap {
+  font: 600 0.75rem/1.4 var(--body);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* ===== Tjänster — satslista med hårlinjer ===== */
+.svc { border-top: 1px solid var(--hair); }
+
+.svc__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 2.8rem);
+  align-items: baseline;
+  padding: clamp(1.6rem, 4vw, 2.6rem) 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.svc__num {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  line-height: 1;
+  color: var(--hair);
+}
+
+.svc__name {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 5vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+
+.svc__text { max-width: 52ch; margin-bottom: 0.6rem; }
+
+.svc__price {
+  color: var(--grey);
+  font: 600 0.78rem/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+/* ===== Galleri — typspecimen i stället för foto ===== */
+.galleri__honest {
+  max-width: 52ch;
+  color: var(--grey);
+  font-style: italic;
+  margin: -1.2rem 0 clamp(2.2rem, 5vw, 3.4rem);
+}
+
+.specimen { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+.specimen__row {
+  border-top: 1px solid var(--hair);
+  padding: clamp(1.4rem, 4vw, 2.4rem) 0;
+}
+.specimen__row:last-child { border-bottom: 1px solid var(--hair); }
+
+.specimen__pair {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 3vw, 1.6rem);
+  font-family: var(--display);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.specimen__fore {
+  font-size: clamp(1.4rem, 5.5vw, 3.2rem);
+  color: var(--grey);
+}
+.specimen__arrow {
+  font-size: clamp(1.2rem, 4vw, 2.4rem);
+  color: var(--hair);
+}
+.specimen__after {
+  font-size: clamp(2.4rem, 10vw, 6.5rem);
+  color: var(--ink);
+}
+.specimen__cap {
+  font: 600 0.75rem/1.4 var(--body);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.specimen-block { border: 1px solid var(--hair); padding: clamp(1.2rem, 4vw, 2.4rem); }
+.specimen-block__meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--grey);
+  font: 600 0.7rem/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin: 1rem 0 0.4rem;
+}
+.specimen-block__meta:first-child { margin-top: 0; }
+.specimen-block__display {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 6vw, 3.4rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+}
+.specimen-block__body {
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  color: var(--grey);
+  font-weight: 300;
+}
+
+/* ===== Boka ===== */
+.boka-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  color: var(--grey);
+  font-size: 0.85rem;
+  margin-bottom: 1.4rem;
+}
+.demo-key {
+  display: inline-block;
+  width: 0.8rem; height: 0.8rem;
+  border: 1px solid var(--ink);
+}
+.demo-key--taken { border-color: var(--hair); background: var(--hair); }
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+  margin-bottom: 1.6rem;
+}
+
+.booking-day { border: 1px solid var(--hair); padding: 1.1rem; min-width: 0; }
+.booking-day legend {
+  padding: 0 0.5rem;
+  font: 600 0.8rem/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.booking-day .note { color: var(--grey); letter-spacing: 0.1em; }
+
+.slot {
+  display: inline-block;
+  min-width: 4.6rem;
+  margin: 0.3rem;
+  padding: 0.55rem 0.4rem;
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font: 500 0.95rem/1.2 var(--body);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.slot:hover, .slot:focus-visible { background: var(--ink); color: var(--bg); }
+
+.slot--taken {
+  border-color: var(--hair);
+  color: var(--grey);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.slot--taken:hover, .slot--taken:focus-visible { background: transparent; color: var(--grey); }
+
+.boka-note { max-width: 62ch; color: var(--grey); }
+
+/* ===== Kontakt ===== */
+.kontakt__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 48rem) { .kontakt__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+.kontakt__addr { font-style: normal; }
+.kontakt__big {
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 6vw, 3rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.kontakt__addr p { margin-bottom: 0.8rem; }
+.kontakt__addr a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.kontakt__form label {
+  display: block;
+  font: 600 0.72rem/1.4 var(--body);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 0.35rem;
+}
+.kontakt__form input,
+.kontakt__form textarea {
+  width: 100%;
+  max-width: 34rem;
+  padding: 0.7rem 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--hair);
+  color: var(--ink);
+  font: 400 1rem/1.5 var(--body);
+}
+.kontakt__form input:focus-visible,
+.kontakt__form textarea:focus-visible { border-color: var(--ink); outline-offset: 1px; }
+.kontakt__form p { margin-bottom: 1.1rem; }
+#form-status {
+  border: 1px solid var(--ink);
+  padding: 0.8rem 1rem;
+  max-width: 44rem;
+}
