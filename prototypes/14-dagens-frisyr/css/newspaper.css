@@ -1,0 +1,300 @@
+/* newspaper.css — tidningsstrukturen: sticky miniband, masthead, springande
+   datrad, leadsida, kolumnrutnät med hårlinjer, halfton-behandling (N5) och
+   pressfotoramar. Allt fungerar utan JS. */
+
+/* ===== sticky miniband ===== */
+.paperbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.45rem clamp(0.75rem, 3vw, 2rem);
+  background: var(--bg);
+  border-bottom: 3px double var(--ink);
+}
+
+.paperbar__brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.paperbar__dateline {
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: 0.78rem;
+  font-variant: all-small-caps;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paperbar__nav ul {
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 1.4rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-variant: all-small-caps;
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+}
+.paperbar__nav a { text-decoration: none; }
+.paperbar__cta {
+  border: 1px solid var(--ink);
+  padding: 0.1rem 0.55rem;
+}
+.paperbar__cta:hover { background: var(--ink); color: var(--bg); }
+
+/* ===== masthead ===== */
+.masthead {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 1.2rem clamp(0.75rem, 3vw, 2rem) 0;
+}
+
+.masthead__edition {
+  text-align: center;
+  font-size: 0.75rem;
+  font-variant: all-small-caps;
+  letter-spacing: 0.14em;
+  color: var(--press);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.masthead__nameplate {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 12vw, 7.5rem);
+  line-height: 0.95;
+  text-align: center;
+  letter-spacing: 0.01em;
+  margin: 0.1em 0 0.15em;
+}
+
+.masthead__rule { border-top: 1px solid var(--ink); margin: 0.3rem 0; }
+.masthead__rule--thick {
+  border-top-width: 3px;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+}
+
+.masthead__dateline {
+  text-align: center;
+  font-size: 0.82rem;
+  font-variant: all-small-caps;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 0.25rem 0;
+}
+
+/* ===== leadsidan ===== */
+.lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--gap);
+  padding: 1.6rem 0 2.2rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.lead__main { border-right: 1px solid var(--rule); padding-right: var(--gap); }
+
+.kicker {
+  color: var(--press);
+  font-variant: all-small-caps;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.lead__headline {
+  font-size: clamp(2.8rem, 9vw, 5.5rem);
+  margin-bottom: 0.35em;
+}
+
+.lead__deck {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.byline {
+  font-variant: all-small-caps;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+  padding: 0.35rem 0;
+}
+
+.lead__cta { margin-bottom: 1.2em; }
+
+.cutline-btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-variant: all-small-caps;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--bg);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 0.5rem 1.1rem;
+  margin: 0 0.5rem 0.5rem 0;
+}
+.cutline-btn:hover { background: var(--press); border-color: var(--press); color: var(--surface); }
+.cutline-btn--ghost { background: transparent; color: var(--ink); }
+.cutline-btn--ghost:hover { background: var(--ink); color: var(--bg); }
+
+.lead__body { color: var(--muted); font-size: 0.95em; }
+
+/* ===== sektioner med tidningsrubrik ===== */
+main > section {
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 2.2rem clamp(0.75rem, 3vw, 2rem) 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+main > section:last-of-type { border-bottom: 0; }
+
+.section-flag {
+  color: var(--press);
+  font-variant: all-small-caps;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--press);
+  display: inline-block;
+  padding-bottom: 0.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.section-headline {
+  font-size: clamp(1.9rem, 5.5vw, 3.4rem);
+  margin-bottom: 1.1rem;
+}
+
+/* ===== reportaget: fler kolumner med kolumnregler (pure CSS) ===== */
+.om-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--gap);
+}
+
+.om-cols {
+  columns: 2;
+  column-gap: var(--gap);
+  column-rule: 1px solid var(--rule);
+  column-fill: balance;
+}
+
+.om-cols .lede {
+  column-span: all;
+  font-size: 1.12em;
+}
+.om-cols .lede::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.1em;
+  line-height: 0.8;
+  float: left;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--press);
+}
+
+.om-pull {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15em;
+  border-top: 3px double var(--ink);
+  border-bottom: 3px double var(--ink);
+  padding: 0.5em 0;
+}
+
+/* ===== pressfoto + N5-halfton ===== */
+.press-photo {
+  border: 1px solid var(--ink);
+  padding: 6px;
+  background: var(--surface);
+}
+
+.press-photo .halftone { position: relative; overflow: hidden; background: #ddd9d0; }
+
+.press-photo .halftone img {
+  display: block;
+  width: 100%;
+  filter: grayscale(1) contrast(1.25) brightness(1.04);
+}
+
+/* prikdunderlag: prickar via repeating-gradient som blandas med fotot
+   bakom via mix-blend-mode (multiply = mörkning, som raster i trycket) */
+.press-photo .halftone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1.5px 1.5px,
+                    rgba(20, 20, 20, 0.5) 1px, transparent 1.7px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+}
+
+.cutline {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+  padding: 0.45rem 0.1rem 0.15rem;
+  max-width: none;
+}
+
+/* tomt pressfotoram — "bild kommer" i stället för 404 */
+.press-frame {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 12px,
+      rgba(20, 20, 20, 0.05) 12px 13px),
+    var(--bg);
+  outline: 2px dashed var(--rule);
+  outline-offset: -10px;
+}
+
+.press-frame__text {
+  font-variant: all-small-caps;
+  letter-spacing: 0.18em;
+  font-size: 0.95rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 0.35rem 0.8rem;
+  transform: rotate(-3deg);
+}
+
+/* ===== mobil: kolumner faller — hårlinjerna blir vågräta, syns fortfarande ===== */
+@media (max-width: 680px) {
+  .lead { grid-template-columns: 1fr; }
+  .lead__main {
+    border-right: 0;
+    padding-right: 0;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: var(--gap);
+  }
+  .om-grid { grid-template-columns: 1fr; }
+  .om-cols { columns: 1; }
+  .paperbar__dateline { display: none; }
+}
