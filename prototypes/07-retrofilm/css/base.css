@@ -1,0 +1,172 @@
+/* Silverkorn — base: reset, typografi, layout, sidskal. One concern: page skeleton. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.65;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0 0 var(--space-2);
+  letter-spacing: 0.005em;
+}
+h1 { font-size: clamp(2.6rem, 8vw, 4.6rem); }
+h2 { font-size: clamp(1.9rem, 5vw, 3rem); }
+h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
+
+p { margin: 0 0 var(--space-2); max-width: var(--measure); }
+
+a { color: var(--oxblood); text-underline-offset: 0.18em; }
+a:hover { color: var(--teal); }
+
+:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--oxblood);
+  color: var(--bg);
+}
+
+/* typewriter meta — IBM Plex Mono, glesat, ojämn baslinje */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wrap {
+  width: min(100% - 2.5rem, var(--content-max));
+  margin-inline: auto;
+}
+
+section[id] { padding: var(--space-6) 0; position: relative; }
+
+section[id] > .wrap > h2 { margin-top: var(--space-1); }
+
+/* Sektnumsring — "scen"-känsla utan att bluffa innehåll */
+.reel-mark {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* Skip-link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: var(--space-1);
+  background: var(--ink);
+  color: var(--bg);
+  padding: var(--space-1) var(--space-2);
+  z-index: 1000;
+}
+.skip-link:focus { left: var(--space-1); }
+
+/* Sidhuvud */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(243, 236, 220, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: var(--hairline);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.7rem 0;
+  flex-wrap: wrap;
+}
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.brand em { color: var(--oxblood); font-style: normal; }
+
+.site-nav ul {
+  display: flex;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 0.3rem 0.1rem;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--oxblood); border-bottom-color: var(--oxblood); }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.65rem 1.1rem;
+  border: 2px solid var(--ink);
+  background: var(--oxblood);
+  color: var(--bg);
+  cursor: pointer;
+}
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn--ghost { background: transparent; color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--bg); }
+
+/* Sidfot */
+.site-footer {
+  background: var(--ink);
+  color: var(--bg);
+  padding: var(--space-5) 0 var(--space-4);
+  border-top: 4px solid var(--oxblood);
+}
+.site-footer h2 { font-size: 1.6rem; }
+.site-footer a { color: var(--bg); text-decoration-color: var(--oxblood); }
+.site-footer .mono { color: var(--bg); opacity: 0.75; }
+.footer-grid {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.footer-list { list-style: none; margin: 0; padding: 0; }
+.footer-list li { margin-bottom: 0.4rem; }
+.footer-note {
+  margin-top: var(--space-4);
+  border-top: 1px solid rgba(243, 236, 220, 0.25);
+  padding-top: var(--space-2);
+}

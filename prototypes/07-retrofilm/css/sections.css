@@ -1,0 +1,267 @@
+/* Silverkorn — sections: hero, om, tjanster, galleri (filmramar), boka, kontakt.
+   One concern: per-section layout + skin. Effects live in effects.css. */
+
+/* ===== Hero ===== */
+.hero { padding-top: var(--space-5); }
+.hero .wrap {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center;
+}
+@media (max-width: 720px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+}
+.hero-eyebrow {
+  color: var(--oxblood);
+  margin-bottom: var(--space-2);
+}
+.hero h1 { text-transform: uppercase; letter-spacing: 0.01em; }
+.hero-sub { font-size: 1rem; color: var(--ink); }
+.hero-cta { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* filmleader-hörnan: dekorativ SVG i hero, ej innehåll */
+.hero-leader { text-align: center; }
+.hero-leader svg { width: min(100%, 17rem); margin-inline: auto; }
+
+/* ===== sprocket band — perforerad filmremsa som section-divider ===== */
+.sprocket {
+  height: 26px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--ink) 0 14px, transparent 14px 34px) center / 34px 12px repeat-x;
+  background-color: var(--frame);
+  border-block: 3px solid var(--frame);
+}
+
+/* ===== Om mig ===== */
+.om-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: start;
+}
+@media (max-width: 720px) {
+  .om-grid { grid-template-columns: 1fr; }
+}
+.portrait-slot {
+  aspect-ratio: 4 / 5;
+  border: 3px solid var(--frame);
+  background: var(--bg-soft);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: var(--space-2);
+}
+.portrait-slot .mono { color: var(--teal); }
+
+/* ===== Tjänster — fem "assets" i rutnät ===== */
+.services-grid {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+.service-card {
+  border: 2px solid var(--frame);
+  background: var(--bg-soft);
+  padding: var(--space-3);
+  position: relative;
+}
+.service-card .asset-no {
+  color: var(--oxblood);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+.service-card p:last-child { margin-bottom: 0; }
+.price-line { color: var(--teal); }
+
+/* ===== Galleri — filmramar med Ken-Burns (effekten i effects.css) ===== */
+.gallery-hint { color: var(--teal); margin-bottom: var(--space-2); }
+.gallery-tools { display: flex; gap: var(--space-1); margin-bottom: var(--space-2); }
+.gallery-tools .btn { padding: 0.45rem 0.8rem; }
+
+.gallery-scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(88%, 26rem);
+  gap: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: var(--space-2) 0 var(--space-3);
+  scrollbar-color: var(--oxblood) var(--bg-soft);
+}
+.gallery-scroller > figure { scroll-snap-align: start; margin: 0; }
+
+.film-frame {
+  border: 3px solid var(--frame);
+  background: var(--frame);
+  padding: 22px 10px;
+  position: relative;
+}
+/* perforering överst och nertill */
+.film-frame::before,
+.film-frame::after {
+  content: "";
+  position: absolute;
+  inset-inline: 6px;
+  height: 12px;
+  background: repeating-linear-gradient(90deg,
+    var(--bg) 0 9px, transparent 9px 22px) left center / 22px 7px repeat-x;
+}
+.film-frame::before { top: 5px; }
+.film-frame::after { bottom: 5px; }
+
+.film-frame__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--frame);
+}
+.film-frame__media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* F1: saknade bilder = tomma filmruter, aldrig 404 */
+.film-frame--gap .film-frame__media {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(243, 236, 220, 0.06) 0 12px, transparent 12px 24px),
+    var(--frame);
+  color: var(--bg);
+  padding: var(--space-2);
+}
+.film-frame--gap .frame-gap__no { color: var(--bg); opacity: 0.8; }
+
+.film-frame figcaption {
+  background: var(--bg);
+  border-top: 2px solid var(--bg);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-1);
+  align-items: baseline;
+  padding: 0.55rem 0.7rem;
+}
+.frame-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--oxblood);
+  padding: 0.15rem 0.45rem;
+  white-space: nowrap;
+}
+.frame-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+/* ===== Boka — oxblood-band, kremtext (6.95:1, AA) ===== */
+.boka-band {
+  background: var(--oxblood);
+  color: var(--bg);
+  border-block: 4px solid var(--frame);
+}
+.boka-band h2, .boka-band h3 { color: var(--bg); }
+.boka-band a { color: var(--bg); }
+.boka-band .reel-mark { color: var(--bg); opacity: 0.8; }
+
+.demo-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 2px dashed var(--bg);
+  padding: 0.4rem 0.7rem;
+  margin-bottom: var(--space-3);
+}
+
+.cal-legend {
+  display: flex;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+.cal-legend i {
+  display: inline-block;
+  width: 0.9em; height: 0.9em;
+  border: 1px solid var(--bg);
+  margin-right: 0.35rem;
+  vertical-align: baseline;
+}
+
+.cal-wrap { max-width: 46rem; }
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.2rem, 1fr));
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cal-slot {
+  font: inherit;
+  font-size: 0.78rem;
+  text-align: left;
+  background: var(--bg);
+  color: var(--ink);
+  border: 2px solid var(--frame);
+  padding: 0.5rem 0.55rem;
+  cursor: pointer;
+  line-height: 1.35;
+}
+.cal-slot small { display: block; color: var(--teal); }
+.cal-slot:hover { border-color: var(--bg); background: var(--bg-soft); }
+.cal-slot[disabled] {
+  background: var(--slot-taken-bg);
+  color: var(--bg);
+  cursor: not-allowed;
+  text-decoration: line-through;
+  border-color: rgba(42, 21, 18, 0.5);
+}
+.cal-slot[disabled] small { color: var(--bg); opacity: 0.8; }
+.cal-slot[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+.cal-slot[aria-pressed="true"] small { color: var(--bg); }
+
+.boka-note { margin-top: var(--space-3); opacity: 0.92; }
+
+/* ===== Kontakt ===== */
+.contact-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+@media (max-width: 720px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+.contact-form {
+  border: 2px solid var(--frame);
+  background: var(--bg-soft);
+  padding: var(--space-3);
+}
+.field { margin-bottom: var(--space-2); }
+.field label {
+  display: block;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.field input, .field textarea {
+  width: 100%;
+  font: inherit;
+  background: var(--bg);
+  color: var(--ink);
+  border: 2px solid var(--frame);
+  padding: 0.55rem;
+}
+.field textarea { min-height: 6.5rem; resize: vertical; }
+.field-error { color: var(--oxblood); font-size: 0.8rem; margin: 0.25rem 0 0; }
+.form-status { font-size: 0.85rem; margin: var(--space-1) 0 0; }
