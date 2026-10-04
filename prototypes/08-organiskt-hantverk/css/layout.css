@@ -1,0 +1,166 @@
+/* Layout, base typography, page chrome. Organic vocabulary: soft blobs, wavy
+   dividers, hand-drawn strokes — never a hairline grid. */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  color: var(--ink);
+  background-color: var(--bg);
+  overflow-x: hidden;
+  /* paper grain: tiny feTurbulence tile, opacity kept at 0.05 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+
+p { overflow-wrap: break-word; }
+
+a { color: var(--accent-ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+
+::selection { background: var(--sand); color: var(--ink); }
+
+:focus-visible {
+  outline: 3px dashed var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -4rem;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--on-olive);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--r-soft);
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 1rem; }
+
+.container {
+  width: min(100% - 2 * var(--pad-x), var(--wrap));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--space-5);
+  scroll-margin-top: 5.2rem;
+}
+
+.section-head { max-width: 46ch; margin-bottom: var(--space-3); }
+
+.section-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: var(--space-1);
+}
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 3px solid var(--sand);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding-block: 0.7rem;
+}
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.28rem;
+  color: var(--ink);
+  text-decoration: none;
+  margin-inline-end: auto;
+}
+.brand .brand-dot { color: var(--accent); }
+.site-nav { display: flex; align-items: center; gap: clamp(0.6rem, 2vw, 1.4rem); flex-wrap: wrap; }
+.site-nav a { color: var(--ink-soft); text-decoration: none; font-weight: 500; }
+.site-nav a:hover { color: var(--accent-ink); text-decoration: underline; }
+.site-nav .nav-cta {
+  background: var(--ink);
+  color: var(--on-olive);
+  padding: 0.45rem 1rem;
+  border-radius: var(--r-soft);
+  text-decoration: none;
+}
+.site-nav .nav-cta:hover { background: var(--olive-deep); color: var(--on-olive); }
+
+/* ---------- wavy hand-drawn dividers ---------- */
+.wave-divider { overflow: hidden; line-height: 0; }
+.wave-divider svg { display: block; width: 200%; height: 2.4rem; }
+.wave-line { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+.wave-divider.is-olive .wave-line { stroke: color-mix(in srgb, var(--ink) 58%, var(--accent)); }
+.wave-divider .wave-track { animation: wave-drift 34s linear infinite; }
+.wave-divider.is-slow .wave-track { animation-duration: 52s; }
+@media (prefers-reduced-motion: reduce) {
+  .wave-divider .wave-track { animation: none; }
+}
+@keyframes wave-drift { to { transform: translateX(-50%); } }
+
+/* ---------- footer ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--on-olive);
+  padding-block: var(--space-4) var(--space-3);
+  margin-top: var(--space-4);
+}
+.site-footer h2 { color: var(--on-olive); font-size: var(--step-1); }
+.site-footer a { color: var(--on-olive); }
+.site-footer .section-eyebrow { color: var(--sand); }
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin-block: var(--space-2);
+}
+.footer-note { color: color-mix(in srgb, var(--sand) 88%, var(--on-olive)); font-size: var(--step--1); }
+
+/* ---------- reveal (progressive enhancement: visible without JS) ---------- */
+[data-reveal] { opacity: 1; transform: none; }
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.1rem) rotate(-0.3deg);
+  transition: opacity var(--dur-soft) var(--ease-organic), transform var(--dur-soft) var(--ease-organic);
+}
+.js [data-reveal].is-revealed { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
