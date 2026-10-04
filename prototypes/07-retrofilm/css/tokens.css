@@ -1,0 +1,27 @@
+/* Silverkorn — design tokens. 70s film-promo palette, one concern: values only. */
+:root {
+  --bg: #f3ecdc;            /* cream film base */
+  --ink: #2a1512;           /* deep sepia ink */
+  --oxblood: #8f2d24;       /* 70s promo red */
+  --teal: #3f5c55;          /* faded teal */
+  --bg-soft: #eae1cc;       /* aged cream panel */
+  --frame: #2a1512;         /* film frame stock = ink */
+
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6.5rem;
+
+  --measure: 62ch;
+  --content-max: 72rem;
+  --hairline: 2px solid var(--ink);
+
+  /* booking-mock slots (kept as tokens so booking.js can paint the legend) */
+  --slot-free-bg: var(--bg);
+  --slot-taken-bg: rgba(243, 236, 220, 0.16);
+}
