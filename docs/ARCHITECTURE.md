@@ -147,8 +147,10 @@ verdicts).
 4. Theme 11 IO reveal remnant — P2, queued for next touch (§4 table); cite DONE S-F3.
 5. Google Fonts stay CDN — owner decision pending (DONE E3, BLOCKED); fonts degrade to fallback
    stacks offline; non-blocking for LAN demo.
-6. Repo-root `out/` is an **empty stray dir** (untracked, contents only an empty `.tmp/`) — the
-   real out dir is `.audits/<run>/out/`. Flagged in ARCH-verdict for removal; do not use.
+6. ~~Repo-root `out/` stray dir~~ — **RESOLVED 2026-10-05**: an empty scratch leftover (only an
+   empty `.tmp/`, git-invisible) left when a test child ran from the repo root with the relative
+   path `out/.tmp/…`; removed via `rmdir` after file-count 0 was confirmed. The only out dir is
+   `.audits/<run>/out/`. Verified absent this session (`ls -d .../out` → No such file).
 7. `concepts/` + `.audits/202610051009-workflow-explode/` — a different, newer run (MC 10140)
    living legitimately in the same repo; not product surface of MC 10088.
 
