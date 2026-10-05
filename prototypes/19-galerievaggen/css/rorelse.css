@@ -1,0 +1,54 @@
+/* ============================================================
+   GALLERIVÄGGEN — rörelseattribution: rekvisiten som js/scroll.js
+   sätter in först inuti no-preference-gränsen: strålkastaren
+   (wall-spot), golvlisterna (floor-line), hängtrådarna (hang-wire)
+   och rubrikorden (.ord). Utan JS och vid reducerad rörelse finns
+   inga av dessa noder alls — därför behöver ingen av dem något
+   vila-läge: inget dolt finns utanför grinden. Färgerna är desamma
+   som på väggen från bas: inga nya text-mot-bakgrund-par, så
+   kontrastlistan gäller oförändrad.
+   ============================================================ */
+
+/* ---------- strålkastaren: ett krämljusfölje som följer scroll ned
+   längs väggen (fixed, z-index 1 — skiner bara på den nakna väggen,
+   aldrig på innehållet som ligger på z-2). ---------------------------- */
+.wall-spot {
+  position: fixed;
+  inset: -12% 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(70% 46% at 50% 50%,
+    rgba(255, 250, 240, 0.34), rgba(255, 250, 240, 0.1) 46%, transparent 74%);
+}
+
+/* ---------- golvlist: mässingslisten ritas ut (scaleX-scrub) när man
+   går förbi varje rum — golvdetaljen som binder ihop väggarna. ------ */
+.section { position: relative; }        /* fäste för golvlisten */
+.floor-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    var(--brass-dark) 0%, var(--brass-hi) 40%, var(--brass) 70%, var(--brass-dark) 100%);
+}
+
+/* ---------- hängtråd: den tunna mässingstråden mellan spiken och
+   rabbens rygg — ritas (scaleY-scrub) när ramen lyfts in. ------------ */
+.hang-wire {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  margin-left: -1px;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--brass-dark), var(--brass-hi));
+}
+
+/* ---------- rubrikorden: klips av js/scroll.js (texten ord för ord
+   orörd) och lyfts rad-för-rad i scrub — inline-block för att kunna
+   transformeras utan att flytta grannarna ur flytningen. ------------- */
+.ord { display: inline-block; }
