@@ -1,0 +1,41 @@
+/* 02 Mörk neon — DENSITY-03a: dekorativa scroll-lager (scanlines, neonnät,
+   extra glödklumpar). All rörelse registreras i js/scroll-motion.js — den här
+   filen definierar endast lagrens vila-tillstånd. Allt är aria-hidden med
+   pointer-events: none; under reduce ligger lagren stilla som svag textur,
+   utan JS är de statisk kuliss — inget innehåll göms någonsin. */
+
+/* CRT-scanlines över hela mörkret. GSAP drar lagret 60 px över helsidan —
+   plankans rutnät är 6 px, så förskjutningen är ett heltal plankor:
+   sömlöst ur flödet i varje läge. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  pointer-events: none;
+  opacity: 0.05;   /* samma lågintensitet som .grain — golvarelets AA värst-par klarar det */
+  background: repeating-linear-gradient(0deg,
+    rgba(200, 245, 66, 0.3) 0 1px, transparent 1px 6px);
+}
+
+/* hårfint neonnät i de mörka sektionerna — gattar emot innehållet.
+   Inset -12% ger drift-ytan tak och golv utan blottade kanter;
+   sidledes noll: lagret vidgar aldrig dokumentet. */
+.neon-grid {
+  position: absolute;
+  inset: -12% 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, rgba(200, 245, 66, 0.05) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg, rgba(56, 189, 248, 0.04) 0 1px, transparent 1px 96px);
+}
+
+/* extra glödklump: herons varma halo (de övriga varianterna i components.css) */
+.haze--hero {
+  inset: 8% auto auto 6%;
+  width: min(24rem, 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanlines { display: none; }   /* stilla sidor behöver ingen CRT-kuliss */
+}
