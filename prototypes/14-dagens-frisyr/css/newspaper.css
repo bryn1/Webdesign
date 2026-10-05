@@ -303,8 +303,9 @@ main > section:last-of-type { border-bottom: 0; }
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: var(--ink);
-  opacity: 0;
+  /* synligt slutläge utan JS/reduce: GSAP nollar bakgrunden i no-preference-
+     grenen och tvättar in 6 % press svart genom upplagan (AA omräknat) */
+  background: rgba(20, 20, 20, 0.06);
 }
 
 /* hårregler som GSAP ritar ut (scaleX från vänster) */

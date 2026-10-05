@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/newspaper.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/motion.css">
 <script defer src="js/dateline.js"></script>
 <script defer src="js/booking.js"></script>
 <script defer src="js/contact-form.js"></script>
@@ -31,6 +32,9 @@
 <!-- scroll-bakgrundslager: tryffelpapper + pressfärgad tvätt (dekor, aria-hidden) -->
 <div class="dot-field" aria-hidden="true"></div>
 <div class="ink-wash" aria-hidden="true"></div>
+<!-- tryckräler + ritbara kolumnregler (dekor, aria-hidden, pointer-events: none) -->
+<div class="press-rail press-rail--l" aria-hidden="true"></div>
+<div class="press-rail press-rail--r" aria-hidden="true"></div>
 
 <a class="skip-link" href="#main">Hoppa till innehåll</a>
 
@@ -69,6 +73,7 @@
       </p>
       <p class="lead__body">Reportaget om årets mest omskrivna salongsbesök fortsätter på sida två —
         scrolla vidare för reportaget, annonsbilagan och bilderna.</p>
+      <span class="col-rule col-rule--lead" aria-hidden="true"></span>
     </div>
     <figure class="press-photo press-photo--lead">
       <div class="halftone"><img src="../_assets/gal-01.jpeg" alt="Salongsbild använd som illustrationsfoto i temaupplagan." loading="lazy" width="1200" height="900"></div>
@@ -100,8 +105,11 @@
         </div>
         <figcaption class="cutline">Porträtt: Anny Morin i salongen. Egen bild, publicerad av @mullers.anny.</figcaption>
       </figure>
+      <span class="col-rule col-rule--mid" aria-hidden="true"></span>
     </div>
   </section>
+
+  <div class="tone-band" aria-hidden="true"></div>
 
   <!-- ===== Tjänster = annonsbilagan ===== -->
   <section id="tjanster" aria-labelledby="tjanster-rubrik">
@@ -134,6 +142,8 @@
         <p>Klippning och skäggtrim med kniv och kam, i lugn och ro.</p>
         <p class="ad__price">Pris: –</p>
       </article>
+      <span class="col-rule col-rule--a1" aria-hidden="true"></span>
+      <span class="col-rule col-rule--a2" aria-hidden="true"></span>
     </div>
   </section>
 
@@ -173,6 +183,8 @@
       </figure>
     </div>
   </section>
+
+  <div class="tone-band" aria-hidden="true"></div>
 
   <!-- ===== Boka = tidsannonsen (demo) ===== -->
   <section id="boka" aria-labelledby="boka-rubrik">
@@ -218,6 +230,8 @@
     <p class="boka-note">Schemat är demo — tiderna är påhittade för uppvisningen.
       Öppettider och verkliga tider bekräftas av salongen; bokning sker via telefon eller Instagram.</p>
   </section>
+
+  <div class="tone-band" aria-hidden="true"></div>
 
   <!-- ===== Kontakt = annonsbyrån ===== -->
   <section id="kontakt" aria-labelledby="kontakt-rubrik">
