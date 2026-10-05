@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv" class="no-js">
+<html lang="sv">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,6 @@
 <meta name="description" content="Anny Morin, frisör i Karlskrona. Klippning, färg och vård med lugn och omsorg, på salongen Müllers, Landbrogatan 11. Bokning via telefon eller Instagram.">
 <!-- Tema 01 "Müllers-editorial": redaktoriell serie — stor serif (Fraunces), lugna
      avslöjanden, kopparaccent. Innehåll enligt BRIEF.md (PoC: sibbamala.com/anny/). -->
-<script>document.documentElement.className = "js";</script>
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="%239a3f1f"/><text x="16" y="23" font-family="Georgia,serif" font-size="19" font-weight="bold" text-anchor="middle" fill="%23faf6f1">A</text></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +16,9 @@
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/motion.css">
-<script defer src="js/reveal.js"></script>
+<script defer src="../_assets/vendor/gsap.min.js"></script>
+<script defer src="../_assets/vendor/ScrollTrigger.min.js"></script>
+<script defer src="js/scroll-motion.js"></script>
 <script defer src="js/booking.js"></script>
 <script defer src="js/contact-form.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main">
 
-  <!-- ===== Hero — namnet byggs ord för ord (js/reveal.js + motion.css) ===== -->
+  <!-- ===== Hero — namnet byggs ord för ord (js/scroll-motion.js, GSAP) ===== -->
   <section class="hero" id="top" aria-label="Välkommen">
     <div class="hero__inner">
       <p class="hero__meta" aria-hidden="true">
@@ -80,6 +81,7 @@
     <div class="section__inner">
       <div class="section__head">
         <p class="section__kicker"><span class="section__num">01</span> Om mig</p>
+        <span class="rule" aria-hidden="true"></span>
       </div>
       <div class="section__body">
         <h2 class="mask-line" data-mask id="om-rubrik">Hår som känns som ditt</h2>
@@ -112,6 +114,7 @@
     <div class="section__inner">
       <div class="section__head">
         <p class="section__kicker"><span class="section__num">02</span> Tjänster</p>
+        <span class="rule" aria-hidden="true"></span>
       </div>
       <div class="section__body">
         <h2 class="mask-line" data-mask id="tjanster-rubrik">Det här kan jag</h2>
@@ -170,6 +173,7 @@
     <div class="section__inner">
       <div class="section__head">
         <p class="section__kicker"><span class="section__num">03</span> Galleri</p>
+        <span class="rule" aria-hidden="true"></span>
       </div>
       <div class="section__body">
         <h2 class="mask-line" data-mask id="galleri-rubrik">Före &amp; efter</h2>
@@ -224,6 +228,7 @@
     <div class="section__inner">
       <div class="section__head">
         <p class="section__kicker"><span class="section__num">04</span> Boka tid</p>
+        <span class="rule" aria-hidden="true"></span>
       </div>
       <div class="section__body">
         <h2 class="mask-line" data-mask id="boka-rubrik">Välj en tid — sedan bokar du
@@ -253,6 +258,7 @@
     <div class="section__inner">
       <div class="section__head">
         <p class="section__kicker"><span class="section__num">05</span> Kontakt</p>
+        <span class="rule" aria-hidden="true"></span>
       </div>
       <div class="section__body">
         <h2 class="mask-line" data-mask id="kontakt-rubrik">Hitta mig eller skriv

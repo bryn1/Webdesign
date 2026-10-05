@@ -1,90 +1,53 @@
-/* motion.css — scroll-koreografi för tema 01: hero word-build, line-mask reveal,
-   fade-up reveals, CSS scroll-driven progress-hårstrå.
-   En sak: rörelse ALLENA. Alla tillstånd som döljer innehåll ligger bakom
-   BÅDE html.js (JS finns) OCH prefers-reduced-motion: no-preference — med JS
-   avstängt eller reducerad rörelse är sidan fullt synlig utan animationer. */
+/* motion.css — rörelsens statiska förutsättningar för tema 01. Själva rörelsen
+   ägs av js/scroll-motion.js (GSAP + ScrollTrigger, lokalt vendor — MC 10088,
+   ägarens JS-regel 2026-10-05): inga animation-timeline- eller
+   övergångsbaserade dolda tillstånd finns i CSS. Alla startlägen sätts av JS
+   ENDAST inuti (prefers-reduced-motion: no-preference) — med JS avstängt
+   eller reducerad rörelse är sidan fullt synlig från första bildrutan. */
 
-/* ---- Grundton: lugna övergångar där de används ---- */
-@media (prefers-reduced-motion: no-preference) {
-
-  /* 1) Fade-up reveals (IntersectionObserver sätter .is-in, js/reveal.js) */
-  .js [data-reveal] {
-    opacity: 0;
-    transform: translateY(1.5rem);
-    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
-  }
-  .js [data-reveal].is-in {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* Mjuk stagring i listor utan att JS räknar index */
-  .js .services [data-reveal]:nth-child(2) { transition-delay: 0.08s; }
-  .js .services [data-reveal]:nth-child(3) { transition-delay: 0.16s; }
-  .js .services [data-reveal]:nth-child(4) { transition-delay: 0.24s; }
-  .js .services [data-reveal]:nth-child(5) { transition-delay: 0.32s; }
-  .js .plates [data-reveal]:nth-child(odd) { transition-delay: 0.06s; }
-  .js .plates [data-reveal]:nth-child(even) { transition-delay: 0.18s; }
-
-  /* 2) Hero word-build: varje ord lyfts ur sin linje-mask.
-     padding/margin-kompensation: masken får inte klippa underlinor (t.ex. "y"). */
-  .hero__title .word {
-    display: inline-block;
-    overflow: hidden;
-    padding-bottom: 0.16em;
-    margin-bottom: -0.16em;
-  }
-  .js .hero__title .word__i {
-    display: inline-block;
-    transform: translateY(130%);
-    opacity: 0;
-    transition:
-      transform 1.05s var(--ease-out),
-      opacity 0.75s ease-out;
-    transition-delay: calc(var(--w, 0) * 140ms + 60ms);
-    will-change: transform, opacity;
-  }
-  .js .hero__title.is-in .word__i {
-    transform: none;
-    opacity: 1;
-  }
-
-  /* 3) Line-mask reveal för sektionsrubriker: koppar-wipe från vänster */
-  .js [data-mask] {
-    clip-path: inset(-0.15em 100% -0.15em 0);
-    transition: clip-path 1.15s var(--ease-out);
-  }
-  .js [data-mask].is-in {
-    clip-path: inset(-0.15em -0.15em -0.15em -0.15em);
-  }
+/* Hero word-build: orden lyfts ur sin linje-mask av GSAP (.word__i).
+   padding/margin-kompensation: masken får inte klippa underlinor (t.ex. "y").
+   Utan JS står orden i sin naturliga position — synliga. */
+.hero__title .word {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.hero__title .word__i {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
-/* ---- Scroll-hårstrål under sidhuvudet (ren CSS, Chrome/Edge/Safari 26+) ---- */
-.progress { display: none; }
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .progress {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      z-index: 50;
-      background: var(--copper);
-      transform-origin: 0 50%;
-      transform: scaleX(0);
-      animation: progress-grow linear both;
-      animation-timeline: scroll(root block);
-    }
-  }
-  @keyframes progress-grow {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
+/* Framdrags-hårstrå under sidhuvudet: dekorativ (aria-hidden), syns först när
+   GSAP gör den synlig och scrubbarskalier den mot sidans scroll. Utan JS:
+   display:none — ingen halvanimerad linje. */
+.progress {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 50;
+  background: var(--copper);
+  transform-origin: 0 50%;
 }
 
-/* ---- Reducerad rörelse: ingen rörelse alls, allt synligt ---- */
+/* Kopparregler under sektionskickern: GSAP scrubbbar scaleX 0→1 från vänster
+   (linje-ritning). Utan JS: fullbredd synlig — slutläget är CSS-läget. */
+.rule {
+  display: block;
+  height: 2px;
+  width: min(100%, 13rem);
+  background: var(--copper);
+  margin-top: 0.9rem;
+  transform-origin: 0 50%;
+}
+
+/* ---- Reducerad rörelse: ingen rörelse alls, allt synligt ----
+   GSAP-rörelsen registreras aldrig i reduce-läget (matchMedia-grenen);
+   dessa regler dämpar dessutom de återstående CSS-övergångarna (knappar). */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
