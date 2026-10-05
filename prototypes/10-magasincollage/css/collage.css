@@ -1,5 +1,5 @@
 /* collage.css — magasincollaget för tema 10 (MC 10088).
-   Allt här är progressiv förstärkning: utan JS sätter inte collage.js
+   Allt här är progressiv förstärkning: utan JS sätter inte js/scroll-motion.js
    html[data-motion], och gallret står som ett vanligt, synligt rutnät utan
    rotation. Under prefers-reduced-motion stannar effekterna ur samma spärrr. */
 
@@ -41,9 +41,30 @@
 .postcard--pending .postcard-tag { position: static; width: fit-content; margin: 12px 0 0; }
 .postcard--pending .postcard-note { margin-top: 0.4rem; }
 
-/* --- Collage-läget: endast när js/collage.js tänt html[data-motion] ---
-   Parallax (JS skriver --py per kort), drag (--dx/--dy) och rotation
-   --rot (satt per kort i HTML) — allt i en och samma transform. */
+/* --- Rivlinjer: taggade kanter som ritas av scroll-motion.js (draw).
+   Utan JS/under reduce står linjen redan fullt tecknad — dekor, aldrig innehåll. --- */
+.tear-rule { display: block; width: 100%; height: 16px; margin: var(--sp-1) 0 var(--sp-2); color: var(--c-line); }
+.tear-rule--pop { color: var(--c-yellow); }
+.tear-rule path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linejoin: miter; }
+
+/* --- Porträttet som tejpad tidningsklipp (kollagets eget språk) --- */
+.portrait-card { position: relative; }
+.portrait-card::before { /* gul tejp snett över ramen — samma tejp som vykorten */
+  content: ""; position: absolute; left: 50%; top: -12px; z-index: 2;
+  width: 96px; height: 26px; transform: translateX(-50%) rotate(2.5deg);
+  background: rgb(250 204 21 / 0.85); border-inline: 1px dashed rgb(20 20 20 / 0.15);
+  box-shadow: 0 1px 3px rgb(20 20 20 / 0.18);
+}
+.portrait-frame img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  object-position: 25% 12%; /* ansiktet i bild: övre vänstra tredjan hålls i bild även 375 px */
+  border-radius: 2px;
+}
+
+/* --- Collage-läget: endast när js/scroll-motion.js tänt html[data-motion] ---
+   Parallax-axeln --py skrivs av GSAP (scrubbad motdrift), drag av
+   js/collage.js (--dx/--dy) och rotation --rot (satt per kort i HTML) —
+   allt i en och samma transform, rotationen räknas aldrig om. */
 @media (prefers-reduced-motion: no-preference) {
   html[data-motion] .postcard {
     transform: translate(var(--dx), calc(var(--dy) + var(--py, 0px)))
