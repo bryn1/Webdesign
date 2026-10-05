@@ -87,6 +87,7 @@ a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3p
 /* ---------- shared bits ---------- */
 .section {
   position: relative;
+  overflow: clip;
   padding: clamp(3rem, 8vw, 5.5rem) clamp(1rem, 4vw, 3rem);
   max-width: 1100px;
   margin: 0 auto;
