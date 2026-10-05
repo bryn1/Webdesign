@@ -1,0 +1,53 @@
+/* tokens.css — custom properties ONLY (CONCEPT.md §6). One concern: the token table.
+   Palette = theme 12 "Förgyllda salongen", hexes read 2026-10-05 read-only from
+   prototypes/12-forgyllda-salongen/css/style.css (owner ruling supersedes theme-06 #111213). */
+:root {
+  /* colors — verbatim from theme 12 */
+  --emerald: #0d211b;
+  --ink: #0a1512;
+  --gold: #c9a55a;
+  --paper: #f4ead8;
+  --blush: #7d4a45;
+  --gold-dim: rgba(201, 165, 90, .42);
+  --gold-faint: rgba(201, 165, 90, .16);
+
+  /* stage surfaces (theme-12 dark greens, replacing §2's theme-06 #0d0c0b) */
+  --stage-bg: var(--ink);
+  --panel-bg: #0f2a22;
+  --card-bg: #123026;
+  --line: rgba(244, 234, 216, .14);
+
+  /* board state colors — invented MC-style, readable on dark */
+  --state-queued: #8a9b93;
+  --state-running: var(--gold);
+  --state-verified: #7fb28f;
+
+  /* type — system stack only, repo offline rule (§5.5) */
+  --font-body: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --fs-body: 1.05rem;      /* 16.8px */
+  --fs-min: .95rem;        /* 15.2px floor for other body text (F2) */
+  --fs-cap: 2.1rem;        /* scene caption headline */
+  --fs-eyebrow: .95rem;    /* 15.2px */
+
+  /* space */
+  --sp-1: .375rem;
+  --sp-2: .75rem;
+  --sp-3: 1.25rem;
+  --sp-4: 2rem;
+  --sp-5: 3.5rem;
+  --radius: 10px;
+
+  /* hero geometry — matches assets/hero-12.png (1280×900) */
+  --hero-ar: 1280 / 900;
+  --chrome-bar-h: 2.4rem;
+
+  /* hub geometry (JS reads nothing from here; kept visual-only) */
+  --wire-w: 2px;
+
+  /* motion */
+  --pin-len: 7200px;
+  --ease-out: cubic-bezier(.22, .61, .36, 1);
+
+  color-scheme: dark;
+}
