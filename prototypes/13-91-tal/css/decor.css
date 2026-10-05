@@ -207,19 +207,6 @@ html.drag-ready .sticker.dragging { cursor: grabbing; box-shadow: 10px 10px 0 va
   background: var(--ink);
   transform-origin: left center;
 }
-.year-chip {
-  font-weight: 800;
-  font-size: .95rem;
-  border: 3px solid var(--ink);
-  padding: .15rem .5rem;
-  box-shadow: 3px 3px 0 var(--ink);
-}
-.yc1 { background: var(--yellow); transform: rotate(-2deg); }
-.yc2 { background: #fff; transform: rotate(1.5deg); }
-.yc3 { background: var(--red); transform: rotate(-1deg); }
-.yc4 { background: #fff; transform: rotate(2deg); }
-.yc5 { background: #d9f2ec; transform: rotate(-1.5deg); }
-.yc6 { background: var(--yellow); transform: rotate(1deg); }
 
 /* ordmasker: byggs av JS inuti no-preference-gaten — finns inte annars. */
 .w-mask {
