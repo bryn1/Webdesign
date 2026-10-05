@@ -1,8 +1,8 @@
 /* Scroll-driven chrome theme switch: while a light section owns the viewport
    centre, <html> gets .theme-invert and the CSS tokens flip header/body/progress.
-   Also the fallback driver for the progress hairline when the browser lacks
-   CSS scroll timelines (@supports handles the CSS path). Guarded: page works
-   fully without this file — sections swap themes in pure CSS regardless. */
+   Guarded: page works fully without this file — sections swap themes in pure
+   CSS regardless. (The progress hairline is driven solely by GSAP
+   ScrollTrigger in js/scroll-motion.js since 2026-10-05 — one mechanism.) */
 (function () {
   'use strict';
   var doc = document.documentElement;
@@ -26,25 +26,4 @@
     }, { rootMargin: '-45% 0px -45% 0px' });
     Array.prototype.forEach.call(lights, function (el) { io.observe(el); });
   }
-
-  var bar = document.querySelector('.scroll-progress');
-  if (!bar) { return; }
-  if (window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll(root)')) {
-    return; /* CSS scrubs it; no JS needed */
-  }
-  var raf = null;
-  function update() {
-    raf = null;
-    var root = doc;
-    var max = root.scrollHeight - window.innerHeight;
-    var p = max > 0 ? Math.min(1, Math.max(0, window.pageYOffset / max)) : 0;
-    bar.style.setProperty('--scroll-prog', String(p));
-  }
-  window.addEventListener('scroll', function () {
-    if (!raf) { raf = window.requestAnimationFrame(update); }
-  }, { passive: true });
-  window.addEventListener('resize', function () {
-    if (!raf) { raf = window.requestAnimationFrame(update); }
-  }, { passive: true });
-  update();
 }());

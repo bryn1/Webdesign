@@ -113,6 +113,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 .section { padding-block: var(--space-5); }
 
+/* painting ground for the drifting haze layers; content stacks above them */
+.section { position: relative; }
+.section > .container { position: relative; z-index: 1; }
+
 .section-head { margin-bottom: var(--space-4); }
 
 .eyebrow {
@@ -147,6 +151,8 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: -0.02em;
   text-transform: uppercase;
   margin-bottom: var(--space-2);
+  /* the lit-neon base treatment; scroll-motion dims it as the hero powers down */
+  text-shadow: 0 0 18px rgba(200, 245, 66, 0.55), 0 0 52px rgba(200, 245, 66, 0.28);
 }
 
 .hero-sub {
