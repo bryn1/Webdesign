@@ -5,9 +5,10 @@
   /* Palett (research.md §5 riktning 01) */
   --paper: #faf6f1;
   --paper-tint: #f2ece3;
+  --paper-deep: #f0e2cf; /* FÄRG-slutpunkt: GSAP scrubbbar papperet hit (AA: se nedan) */
   --ink: #1c1917;
   --ink-soft: #44403c;
-  --muted: #78716c;
+  --muted: #6b645d; /* AA>=4.5 på paper, tint OCH paper-deep (4.57:1 i djupändan) */
   --copper: #9a3f1f;
   --copper-deep: #7c3219;
   --line: #d9d0c4;
