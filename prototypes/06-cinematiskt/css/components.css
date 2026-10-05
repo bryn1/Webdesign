@@ -126,6 +126,34 @@
   margin-top: 0.5rem;
 }
 
+/* ===== Citat — pinnat filmdrag (rörelsen i js/scroll-motion.js) ===== */
+.citat {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+}
+.citat__stage {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  text-align: center;
+}
+.citat__hair {
+  width: min(26rem, 80%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule) 18%, var(--rule) 82%, transparent);
+  transform-origin: 50% 50%; /* håret ritas ut från mitten */
+}
+.citat__quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-3);
+  line-height: 1.25;
+  color: var(--text);
+  max-width: 26ch;
+}
+
 /* ===== Galleri ===== */
 .gallery {
   margin-top: var(--space-4);

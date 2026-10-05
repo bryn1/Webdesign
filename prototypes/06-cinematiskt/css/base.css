@@ -114,17 +114,9 @@ a:hover { text-decoration-color: currentColor; }
   text-align: center;
 }
 
-/* --- Reveal: döljs ENDAST när JS kört och rörelse är tillåten.
-       Utan JS eller med prefers-reduced-motion är allt synligt. --- */
-html.js-motion [data-reveal] {
-  opacity: 0;
-  transform: translateY(1.25rem);
-  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
-}
-html.js-motion [data-reveal].is-in {
-  opacity: 1;
-  transform: none;
-}
+/* --- Reveal: avslöjandena styrs av js/scroll-motion.js (GSAP, scrub/toggle).
+       Bas-CSS:n döljer ingenting: utan JS eller med prefers-reduced-motion
+       är allt synligt i slutläge. --- */
 
 /* --- Filkorn över hela sidan (≤0.05, interaktionslös) --- */
 .grain {
@@ -148,7 +140,6 @@ html.js-motion [data-reveal].is-in {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  html.js-motion [data-reveal] { opacity: 1; transform: none; }
   .hero__scrollcue { display: none; }
 }
 

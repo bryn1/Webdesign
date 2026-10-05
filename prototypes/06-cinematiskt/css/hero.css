@@ -1,8 +1,7 @@
 /* Theme 06 — hero "Möt dig i spegeln".
-   Scroll-zoom av spegelfönstret: (1) CSS scroll-driven timeline där webbläsaren
-   stöder animation-timeline: scroll(root), annars (2) rAF-scrub i js/hero-zoom.js
-   som sätter --zoom/--out på <html>. Utan JS och med prefers-reduced-motion:
-   statisk hero i viloläge — fullt läsbar. */
+   Scroll-zoom av spegelfönstret sköts av js/scroll-motion.js (GSAP + Scroll-
+   Trigger, scrub) som sätter transform/opacity inline på lager nedan. Utan JS
+   och med prefers-reduced-motion: statisk hero i viloläge — fullt läsbar. */
 
 .hero {
   position: relative;
@@ -16,24 +15,23 @@
 .hero__scaler,
 .hero__copy { grid-column: 1; grid-row: 1; }
 
-/* Det som zoomas: spegel + glöd. Skalan styrs av --zoom (default 1 = viloläge). */
+/* Det som zoomas: spegel + glöd. Viloläge skala 1; zoomen sätts inline av
+   js/scroll-motion.js (GSAP-transform på samma element). */
 .hero__scaler {
   position: sticky;
   top: 0;
   height: 100svh;
   z-index: 0;
   pointer-events: none;
-  transform: scale(var(--zoom, 1));
   transform-origin: 50% 52%;
-  will-change: transform;
 }
 
-/* Interiören som crossfadeas in bakom spegeln när man "går in genom glaset". */
+/* Interiören som tonas fram bakom spegeln när man "går in genom glaset". */
 .hero__interior {
   position: absolute;
   inset: 0;
   background: var(--interior);
-  opacity: var(--out, 0);
+  opacity: 0;
 }
 
 .hero__halo {
@@ -106,7 +104,8 @@
   clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
 }
 
-/* --- Textlagret: tonar bort medan spegeln zoomas in --- */
+/* --- Textlagret: tonar bort medan spegeln zoomas in (opaciteten sköts av
+       js/scroll-motion.js; viloläge = fullt synligt). --- */
 .hero__copy {
   position: sticky;
   top: 0;
@@ -116,7 +115,6 @@
   align-content: center;
   justify-items: center;
   text-align: center;
-  opacity: calc(1 - var(--out, 0));
   padding-block: var(--space-4);
 }
 .hero__title { margin-bottom: var(--space-2); }
@@ -153,25 +151,3 @@
   margin: 0.6rem auto 0;
   background: linear-gradient(180deg, var(--accent), transparent);
 }
-
-/* --- Scroll-scrubben: CSS scroll-driven där den stöds (Chrome/Edge/Safari 26).
-       Root-scroll-timeline: --zoom 1→1.9, --out 0→1 över den första 140svh. --- */
-@supports (animation-timeline: scroll(root)) {
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      animation: hero-zoom linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0svh 100svh;
-    }
-  }
-}
-
-/* JS-scrubben (hero-zoom.js) sätter exakt samma variabler — samma keyframe-värden. */
-@keyframes hero-zoom {
-  from { --zoom: 1; --out: 0; }
-  to   { --zoom: 1.9; --out: 1; }
-}
-
-/* --zoom/--out måste få delta i calc — registrera dem som tal. */
-@property --zoom { syntax: "<number>"; inherits: true; initial-value: 1; }
-@property --out  { syntax: "<number>"; inherits: true; initial-value: 0; }
