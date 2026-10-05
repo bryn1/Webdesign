@@ -14,8 +14,9 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/scroll.css">
 <script>document.documentElement.classList.add("js");</script>
-<script src="js/enhance.js" defer></script>
-<script src="js/parallax.js" defer></script>
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll-motion.js" defer></script>
 <script src="js/gallery.js" defer></script>
 <script src="js/booking.js" defer></script>
 <script src="js/contact.js" defer></script>
@@ -28,6 +29,10 @@
   <div class="blob blob--mist" data-speed="0.06"></div>
   <div class="blob blob--sage" data-speed="-0.08"></div>
 </div>
+
+<!-- Frosttong: fast tvättlager som js/scroll-motion.js värmer mot rosaton med
+     scrollen. Utan JS förblir det genomskinligt — ingen effekt, inget fel. -->
+<div class="frost-tone" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="site-header__inner">
@@ -54,12 +59,14 @@
       <a class="btn btn--accent" href="#boka">Boka tid</a>
       <a class="btn btn--ghost" href="#kontakt">Hitta mig</a>
     </p>
+    <hr class="rule-glass" aria-hidden="true">
   </section>
 
   <!-- Om mig -->
   <section class="section" id="om" aria-labelledby="om-rubrik">
     <p class="eyebrow" data-reveal>Om mig</p>
     <h2 id="om-rubrik" data-reveal>Hår som känns som ditt</h2>
+    <hr class="rule-glass" aria-hidden="true">
     <div class="om-grid">
       <div class="om-text" data-reveal>
         <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
@@ -83,6 +90,7 @@
   <section class="section" id="tjanster" aria-labelledby="tjanster-rubrik">
     <p class="eyebrow" data-reveal>Tjänster</p>
     <h2 id="tjanster-rubrik" data-reveal>Det här kan jag</h2>
+    <hr class="rule-glass" aria-hidden="true">
     <ul class="service-stack">
       <li>
         <article class="glass-card service-card" aria-labelledby="tj-1">
@@ -143,8 +151,11 @@
 
   <!-- Galleri: glass vykort i vångrullning -->
   <section class="section" id="galleri" aria-labelledby="galleri-rubrik">
-    <p class="eyebrow" data-reveal>Galleri</p>
-    <h2 id="galleri-rubrik" data-reveal>Före &amp; efter</h2>
+    <div class="galleri-head">
+      <p class="eyebrow" data-reveal>Galleri</p>
+      <h2 id="galleri-rubrik" data-reveal>Före &amp; efter</h2>
+      <hr class="rule-glass" aria-hidden="true">
+    </div>
     <div class="gallery-shell" data-reveal>
       <div class="gallery-scroller glass-card" data-gallery-scroller role="group"
            tabindex="0" aria-label="Galleri med före- och efterbilder, rullbar">
@@ -210,6 +221,7 @@
   <section class="section" id="boka" aria-labelledby="boka-rubrik">
     <p class="eyebrow" data-reveal>Boka</p>
     <h2 id="boka-rubrik" data-reveal>Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+    <hr class="rule-glass" aria-hidden="true">
     <p class="demo-badge">Demo — ingen bokning genomförs</p>
     <p class="needs-js-note">Kalendern är en mock som behöver JavaScript för tiderval.
       Boka direkt på <a href="tel:+46721554860">072-155&nbsp;48&nbsp;60</a> eller
@@ -248,6 +260,7 @@
   <section class="section" id="kontakt" aria-labelledby="kontakt-rubrik">
     <p class="eyebrow" data-reveal>Kontakt</p>
     <h2 id="kontakt-rubrik" data-reveal>Hitta mig eller skriv till mig</h2>
+    <hr class="rule-glass" aria-hidden="true">
     <div class="kontakt-grid">
       <div class="glass-card" data-reveal>
         <ul class="contact-list">

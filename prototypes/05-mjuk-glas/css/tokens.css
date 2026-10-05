@@ -9,8 +9,8 @@
   --rose: #c9a7a0;          /* dekorativt: kanter, prickar, blobbar — ej brödtext */
   --rose-ink: #7d5a54;      /* textvariant, AA mot --bg (5.3:1) */
   --mist: #a7bcc3;
-  --mist-ink: #52707b;      /* textvariant, AA mot --bg (~4.8:1) */
-  --muted: #5f6b64;         /* sekundär brödtext, AA mot glas-yta */
+  --mist-ink: #46636e;      /* textvariant, AA äggast mörkaste frosttoning-stopp (4.8:1) */
+  --muted: #556057;         /* sekundär brödtext, AA mot glas-yta och mörkaste stoppet */
 
   /* Glas — dekorativ yta; kontrasten alltid ink mot ett ljust underlag */
   --glass: rgba(255, 255, 255, 0.55);

@@ -1,5 +1,6 @@
-/* Scroll-koreografi: tjänster-stableg (sticky), galleri (snap + skala vid
-   tillnärmning), bokningsmock. Del av component-lagret för 400-radsaket. */
+/* Scroll-koreografi: tjänster-stableg (sticky), galleri (snap), bokningsmock
+   + scroll-lagen (frosttong, hårper, galleri-pin) som js/scroll-motion.js
+   (GSAP) driver. Del av component-lagret för 400-radsaket. */
 
 /* ---------- Tjänster: stableg av klistrande glaskort ---------- */
 
@@ -117,39 +118,9 @@
   font-size: 1.2rem;
 }
 
-/* Skala vid tillnärmning: CSS scroll-driven där det stöds … */
-@supports (animation-timeline: view()) {
-  @media not (prefers-reduced-motion: reduce) {
-    .gallery-card {
-      animation: card-approach linear both;
-      animation-timeline: view(inline);
-      animation-range: cover 0% cover 100%;
-    }
-
-    @keyframes card-approach {
-      0% { transform: scale(0.88); }
-      50% { transform: scale(1); }
-      100% { transform: scale(0.88); }
-    }
-  }
-}
-
-/* … annars IO-klasser från js/gallery.js (data-js-scale sätts av skriptet). */
-.gallery-scroller[data-js-scale] .gallery-card {
-  transform: scale(0.9);
-  transition: transform var(--dur) var(--ease-soft);
-}
-
-.gallery-scroller[data-js-scale] .gallery-card.is-near {
-  transform: scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gallery-scroller[data-js-scale] .gallery-card,
-  .gallery-scroller[data-js-scale] .gallery-card.is-near {
-    transform: none;
-  }
-}
+/* Tillnärmningsskalan på korten drivs av js/scroll-motion.js (GSAP, scrubbard
+   mot den horisontella rullaren). Ingen CSS-deklaration behövs: utan JS eller
+   vid reduced motion står korten i sitt slutläge (scale 1, fullbredd). */
 
 .gallery-nav {
   display: flex;
@@ -159,6 +130,52 @@
 
 .gallery-nav .btn {
   padding: 0.4rem 1rem;
+}
+
+/* ---------- Scroll-lager för js/scroll-motion.js (GSAP) ---------- */
+
+/* Frosttong: fast tvättlager bakom innehållet — GSAP skiftar färg/skugga. */
+.frost-tone {
+  position: fixed;
+  inset: 0;
+  z-index: -1;               /* efter .bg-field i DOM: målas ovanpå det, under innehåll */
+  pointer-events: none;
+  background-color: rgba(167, 188, 195, 0); /* slutläge utan JS: osynligt */
+}
+
+/* Glashårper: ritas fram av GSAP (scaleX 0→1, scrubbar). Utan JS/rörelse:
+   fullbredd hairline — synlig från start, ingen animation att vänta på. */
+.rule-glass {
+  height: 1px;
+  border: 0;
+  margin: var(--space-2) 0 var(--space-3);
+  background: linear-gradient(90deg,
+    rgba(125, 90, 84, 0.45), rgba(167, 188, 195, 0.55), rgba(167, 188, 195, 0));
+  transform-origin: left center;
+}
+
+/* Gallerirubrik: GSAP fäster den under sidhuvudet (pin) och klär den i frost
+   genom is-frozen-klassen — ett litet frostat band, ingen blur på stora ytor. */
+.galleri-head {
+  position: relative;
+}
+
+.galleri-head.is-frozen::before {
+  content: "";
+  position: absolute;
+  inset: -0.7rem -0.9rem;
+  z-index: -1;
+  border-radius: var(--radius);
+  background: var(--glass-fallback);
+  box-shadow: var(--glass-shadow);
+}
+
+@supports (backdrop-filter: blur(4px)) {
+  .galleri-head.is-frozen::before {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 /* ---------- Boka: demo-kalender + dialog ---------- */
