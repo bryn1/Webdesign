@@ -26,7 +26,9 @@
 
 .nav-cta { padding: 0.45rem 0.95rem; }
 
-/* ---------- scroll progress hairline under the header (§2 item 1) ---------- */
+/* ---------- scroll progress hairline under the header (§2 item 1).
+   Base = collapsed; js/scroll-motion.js scrubs scaleX with ScrollTrigger —
+   one mechanism, no CSS scroll timelines, no rAF fallback. ---------- */
 .scroll-progress {
   position: absolute;
   left: 0;
@@ -34,34 +36,15 @@
   width: 100%;
   height: 2px;
   transform-origin: 0 50%;
-  transform: scaleX(var(--scroll-prog, 0));
+  transform: scaleX(0);
   background: var(--progress);
 }
 
-@supports (animation-timeline: scroll(root)) {
-  .scroll-progress {
-    transform: scaleX(0);
-    animation: progress-grow linear both;
-    animation-timeline: scroll(root);
-  }
-  @keyframes progress-grow {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-}
-
-/* ---------- reveals: hidden initial states exist only when reveal.js is alive
-   (html.js.reveal-live) — if the script never loads, everything stays visible ---------- */
-html.js.reveal-live [data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-html.js.reveal-live [data-reveal].is-in { opacity: 1; transform: none; }
-
-/* bar-sweep text reveal (Lando pattern, research §2 item 7).
-   overflow hides the bar's travel; the padding/margin pair restores glyph room
-   so descenders are not clipped, and no page-level overflow is created. */
+/* ---------- reveals: bar-sweep headings + [data-reveal] copy.
+   Everything sits in its VISIBLE base state in CSS; js/scroll-motion.js
+   sets the pre-reveal states itself inside the no-preference matchMedia
+   branch only. No JS / reduce-motion / missing GSAP => base state stands
+   and all content is visible. ---------- */
 .sweep {
   position: relative;
   display: block;
@@ -72,25 +55,64 @@ html.js.reveal-live [data-reveal].is-in { opacity: 1; transform: none; }
 .sweep__bar {
   position: absolute;
   inset: 0;
+  left: -101%;            /* parked off-stage via position, transform is GSAP's */
   background: var(--accent);
-  transform: translateX(-101%);
   pointer-events: none;
 }
-html.js.reveal-live .sweep .sweep__text { opacity: 0; }
-html.js.reveal-live .sweep.is-in .sweep__text { opacity: 1; transition: opacity 0.1s linear 0.22s; }
-html.js.reveal-live .sweep.is-in .sweep__bar { animation: sweep-run 0.46s ease-in-out both; }
-@keyframes sweep-run {
-  0% { transform: translateX(-101%); }
-  50% { transform: translateX(0); }
-  100% { transform: translateX(101%); }
+
+/* neon underline that draws itself in (scaleX) when its section enters */
+.neon-rule {
+  width: min(16rem, 60%);
+  height: 2px;
+  margin: -0.4em 0 var(--space-3);
+  background: var(--accent);
+  transform-origin: 0 50%;
+  box-shadow: 0 0 12px rgba(200, 245, 66, 0.55);
+}
+.theme-light .neon-rule { background: var(--text); box-shadow: none; }
+
+/* drifting glow layers inside dark sections (counter-scroll parallax).
+   Anchored inside the section's own box — never widens the document. */
+.haze {
+  position: absolute;
+  inset: 18% 2% auto auto;
+  width: min(30rem, 60%);
+  aspect-ratio: 1 / 1;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(200, 245, 66, 0.16), rgba(200, 245, 66, 0) 62%);
+}
+.haze--cool {
+  inset: 30% auto auto 0;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(56, 189, 248, 0.11), rgba(56, 189, 248, 0) 60%);
+}
+
+/* pinned neon sign moment (Galleri) */
+.neon-frame {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-2);
+}
+.neon-sign {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 3.4vw, 1.9rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 99px;
+  padding: 0.55rem 1.5rem;
+  background: rgba(12, 10, 9, 0.82);
+  text-shadow: 0 0 10px rgba(200, 245, 66, 0.8), 0 0 34px rgba(200, 245, 66, 0.42);
+  box-shadow: 0 0 16px rgba(200, 245, 66, 0.35), inset 0 0 12px rgba(200, 245, 66, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.js.reveal-live [data-reveal],
-  html.js.reveal-live [data-reveal].is-in { opacity: 1; transform: none; transition: none; }
-  html.js.reveal-live .sweep .sweep__text { opacity: 1; transition: none; }
-  html.js.reveal-live .sweep.is-in .sweep__bar { animation: none; }
-  .sweep__bar { display: none; }
+  html.js .sweep__bar { display: none; }   /* nothing sweeps; park it away */
   .scroll-progress { display: none; }
 }
 
