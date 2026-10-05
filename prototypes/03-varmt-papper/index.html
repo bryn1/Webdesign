@@ -12,11 +12,15 @@
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
-  <script defer src="js/reveal.js"></script>
-  <script defer src="js/parallax.js"></script>
   <script defer src="js/booking.js"></script>
+  <script defer src="../_assets/vendor/gsap.min.js"></script>
+  <script defer src="../_assets/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="js/scroll-motion.js"></script>
 </head>
 <body>
+  <!-- Papperstonen: fast tvättlager som js/scroll-motion.js varmar och skuggar
+       med scrollen. Utan JS förblir det genomskinligt — ingen effekt, inget fel. -->
+  <div class="paper-tone" aria-hidden="true"></div>
   <a class="skip-link" href="#innehall">Hoppa till innehåll</a>
 
   <header class="site-head">
@@ -61,6 +65,7 @@
         <header class="section-head" data-reveal>
           <p class="eyebrow">01 — Om mig</p>
           <h2 id="om-rubrik" class="display display--sm">Hår som känns som ditt</h2>
+          <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="split">
           <div class="prose" data-reveal>
@@ -74,7 +79,9 @@
               <a href="https://www.instagram.com/mullers.anny/" rel="me noopener"
                  target="_blank">@mullers.anny</a>.</p>
           </div>
-          <!-- Enda stora rörelsen: layered parallax-porträtt (js/parallax.js) -->
+          <!-- Lagerdrift: matte-underlag och ram driver åt var sitt håll
+               (js/scroll-motion.js, scrubbat) — ramen och dess dubbla
+               hairline-matte lämnas orörd, bara bilden zoom-sätts inuti. -->
           <div class="portrait" data-parallax>
             <div class="portrait-underlay" data-parallax-depth="0.5" aria-hidden="true"></div>
             <figure class="portrait-frame" data-parallax-depth="-0.4">
@@ -94,6 +101,7 @@
         <header class="section-head" data-reveal>
           <p class="eyebrow">02 — Tjänster</p>
           <h2 id="tjanster-rubrik" class="display display--sm">Det här kan jag</h2>
+          <hr class="rule rule--draw" data-draw-ride aria-hidden="true">
         </header>
         <ul class="service-list">
           <li class="service" data-reveal>
@@ -150,26 +158,35 @@
         <header class="section-head" data-reveal>
           <p class="eyebrow">03 — Galleri</p>
           <h2 id="galleri-rubrik" class="display display--sm">Före &amp; efter</h2>
+          <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="gallery-grid">
           <figure class="paper-frame" data-reveal>
-            <img src="../_assets/gal-01.jpeg" width="1536" height="2048" loading="lazy"
-                 alt="Arbetsexempel: långt blont, före">
+            <div class="frame-media">
+              <img src="../_assets/gal-01.jpeg" width="1536" height="2048" loading="lazy"
+                   alt="Arbetsexempel: långt blont, före">
+            </div>
             <figcaption><span class="tag">Före</span> Långt blont</figcaption>
           </figure>
           <figure class="paper-frame" data-reveal>
-            <img src="../_assets/gal-02.jpeg" width="1536" height="2048" loading="lazy"
-                 alt="Arbetsexempel: långt blont, efter">
+            <div class="frame-media">
+              <img src="../_assets/gal-02.jpeg" width="1536" height="2048" loading="lazy"
+                   alt="Arbetsexempel: långt blont, efter">
+            </div>
             <figcaption><span class="tag">Efter</span> Långt blont</figcaption>
           </figure>
           <figure class="paper-frame" data-reveal>
-            <img src="../_assets/gal-03.jpeg" width="1536" height="2048" loading="lazy"
-                 alt="Arbetsexempel: kortare blont, före">
+            <div class="frame-media">
+              <img src="../_assets/gal-03.jpeg" width="1536" height="2048" loading="lazy"
+                   alt="Arbetsexempel: kortare blont, före">
+            </div>
             <figcaption><span class="tag">Före</span> Kortare blont</figcaption>
           </figure>
           <figure class="paper-frame" data-reveal>
-            <img src="../_assets/gal-04.jpeg" width="1536" height="2048" loading="lazy"
-                 alt="Arbetsexempel: kortare blont, efter">
+            <div class="frame-media">
+              <img src="../_assets/gal-04.jpeg" width="1536" height="2048" loading="lazy"
+                   alt="Arbetsexempel: kortare blont, efter">
+            </div>
             <figcaption><span class="tag">Efter</span> Kortare blont</figcaption>
           </figure>
           <figure class="paper-frame is-placeholder" data-reveal>
@@ -192,6 +209,7 @@
           <h2 id="boka-rubrik" class="display display--sm">Välj en tid — sedan bokar du
             via telefon eller Instagram</h2>
           <p class="demo-badge">Demo — ingen bokning genomförs</p>
+          <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="cal-legend" data-reveal>
           <span><i class="sw sw--free" aria-hidden="true"></i> Demo-ledig</span>
@@ -214,6 +232,7 @@
           <p class="eyebrow">05 — Kontakt</p>
           <h2 id="kontakt-rubrik" class="display display--sm">Hitta mig eller skriv
             till mig</h2>
+          <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="split split--contact">
           <div data-reveal>

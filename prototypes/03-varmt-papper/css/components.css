@@ -1,6 +1,6 @@
 /* Papper & sax — komponenter: knappar, pappersramar, parallax-porträtt,
    tjänsteförteckning, galleri, demokalender (mörkt band), dialog, formulär,
-   reveal-teknik. Alla färger via semantiska tokens — mörkt tema är gratis. */
+   scroll-rörelse-lager. Alla färger via semantiska tokens — mörkt tema är gratis. */
 
 /* ---------- knappar ---------- */
 .btn {
@@ -118,7 +118,7 @@
   border: 1px solid var(--rule);
   pointer-events: none;
 }
-.paper-frame img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.paper-frame img { width: 100%; height: 100%; object-fit: cover; }
 .paper-frame figcaption {
   padding-block: 0.75rem 0.6rem;
   font-size: 0.95rem;
@@ -272,14 +272,48 @@
 .dialog-actions { display: flex; gap: 0.8rem; margin-top: 1.4rem; flex-wrap: wrap; }
 .dialog-actions--center { justify-content: center; }
 
-/* ---------- fade-in-on-view, ENA gång (js/reveal.js sätter klassen) ----------
-   Utan JS sätts aldrig .reveal-ready → allt syns direkt (progressive enhancement). */
-html.reveal-ready [data-reveal] {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+/* ---------- scroll-rörelse (js/scroll-motion.js — GSAP + ScrollTrigger) ----------
+   Utan JS eller med prefers-reduced-motion står allt här i sitt SLUT-tillstånd:
+   tvättlagret är genomskinligt, hairlinerna fullbredda, ramarna orörda.
+   Ingen rörelse registreras alls under reduce (matchMedia-gren i JS). */
+
+/* Papperston + ambient skugga: fast lager bakom allt innehåll; JS värmer
+   upp bakgrundsfärgen och drar in kantskuggan med scrollen. */
+.paper-tone {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: rgba(180, 95, 46, 0);   /* slutläge utan JS: ingen ton */
 }
-html.reveal-ready [data-reveal].is-visible { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  html.reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; }
+
+/* Ritad hairline under varje sektionshuvud: ligger ovanpå sektionens svaga
+   grå linje och dras fram från vänster (scaleX). Utan JS: hel, synlig. */
+.section-head { position: relative; }
+.rule--draw {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  margin: 0;
+  border-top: 1px solid var(--rule-strong);
+  transform-origin: left center;
 }
+
+/* Galleribilderna zoom-sätts inuti sina ramar — beskuret i .frame-media,
+   så pappersramens hairline och bildcaption förblir orörda. */
+.frame-media { overflow: hidden; aspect-ratio: 3 / 4; }
+.frame-media > img { height: 100%; }
+
+/* Klistrat tjänsterhuvud: rider sektionen medan listan rinner förbi —
+   sticky i CSS, så läget funkar även utan JS och utan rörelse. */
+@media (min-width: 56rem) {
+  #tjanster .section-head {
+    position: sticky;
+    top: 4.25rem;
+    z-index: 2;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(4px);
+  }
+}
+
