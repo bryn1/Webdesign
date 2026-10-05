@@ -61,4 +61,24 @@ gold #c9a55a, paper #f4ead8.
 .audits/, docs/, .tmp/ untouched by git. No `git config`, no `git add -A`, no spawn tools used.
 No harness-misfire handback demands encountered this session.
 
-# RESULT: 4259ea6d72aeac7c7c398a8c5eade04191e2acab — workflow-explode mock built per CONCEPT §6, served :8092 200, screenshot passes clean (0 console/0 page errors, no 375 overflow, top+deep), reduced-motion + JS-off readable, committed scoped to concepts/
+Original build: `# RESULT: 4259ea6d72aeac7c7c398a8c5eade04191e2acab` (above sections).
+
+## FIX cycle 1 (CALIBRATION.md FAIL, MC 10140 owner calibration)
+A1–A4 (one root cause — GSAP fromTo targets painting before their cue under global
+`immediateRender:false`): fixed with the in-build `html.js … { opacity: 0 }` CSS pattern for
+exactly the animated selectors (.code-panel/.wf-node/.wf-link/.flow__loop path/.kan-col/
+.task-card/.hub/.spoke/.wire), scenes.css; counters' final HTML digits zeroed at the 40s reveal
+by a one-line `tl.set` in scenes.js (no-JS view keeps the final digits). A5/A5b mobile: SC3
+board = one row, horizontally scrollable, all six cards readable and above the caption (§5.3
+"one column" can't fit 6 cards + headers above the caption at the 15px floor; the calibration
+brief grants "scrollable board"); SC4 pills kept one-line (.94rem ≥ F2 15px floor) and cascaded
+below the hub via mobile-only explicit dx/dy targets (a 375px stage physically cannot place
+3 ~208px pills on §5.3's literal 180° arc without piling — stated reading), counters moved to a
+top strip. P4 favicon: `<link rel="icon" href="data:,">`. Beat map + desktop geometry untouched.
+Re-check evidence (reused calib sweep + targeted posshot; checks green: pm 13/13 + iter-m 15/15,
+pd 9/9 + iter-d 10/10; board EMPTY @3600, staggered mid-flight @3960, no pile @4800/4950/5100,
+one panel @m-960, no caption overlaps @m-2880/3840; screenshot.mjs top pass clean both widths,
+failed_requests [] — favicon 404 gone; JS-off DOM complete; m-6000 clamps to doc max 5673):
+`.audits/202610051009-workflow-explode/.tmp/fix-c1/`.
+
+# RESULT: f6223df1213cb911c36bb4a9925a2fd824b32393 — fix c1 committed: A1–A4 html.js opacity-0 defaults + counter zero-set, A5/A5b mobile board-row + spoke cascade + top counters, favicon 404 killed; all re-check + regression frames green
