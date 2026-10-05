@@ -1,0 +1,57 @@
+/* 12 · Den förgyllda salongen — scroll-koreografi, stiler (MC 10088)
+   Rörelsen drivs av js/scroll.js (GSAP + ScrollTrigger, lokalt vendor).
+   BEGÄR: inga scroll-timeline-deklarationer i CSS — spåret är omgjort hit.
+   Default-vsynlighet: alla baskoder visar SLUTLÄGET; JS lägger bara på rörelse.
+   Kontrast vid fullt ambient-läge (beräknat, verifierat i run):
+   guld/text #f4ead8 över glöd #2b1c07 + film .2 = 4.84:1 ✓ AA,
+   guld över smaragd + film .2 = 5.43:1 ✓, guld över bläck + film = 6.5:1 ✓. */
+
+/* ---------- Ambient lager: smaragd → djupt guld med scrollprogress ---------- */
+.amb-glow{
+  position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:0;
+  background:linear-gradient(180deg, rgba(43,28,7,0) 0%, rgba(43,28,7,.55) 55%, #2b1c07 100%);
+}
+.amb-film{
+  position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0;
+  background:#c9a55a; mix-blend-mode:normal;
+}
+
+/* ---------- Guld-deco-linjer: växer ut från mitten (skala-x, scrub) ---------- */
+.deco-rule{display:flex; align-items:center; justify-content:center; gap:.75rem;
+  margin:0 auto 2.4rem; max-width:34rem; padding:0 1.4rem}
+.deco-rule__line{display:block; height:1px; flex:1 1 0; min-width:0;
+  background:linear-gradient(90deg,var(--gold-faint),var(--gold));
+  transform:scaleX(1); transform-origin:right center}
+.deco-rule__line--r{background:linear-gradient(90deg,var(--gold),var(--gold-faint));
+  transform-origin:left center}
+.deco-rule__fan{color:var(--gold); font-size:.9rem; line-height:1; letter-spacing:0}
+
+/* ---------- Galleri: lämn-axel med mässings-solfjäder (pinn-ögonblick) ---------- */
+.galleri-wrap{display:grid; grid-template-columns:3.4rem minmax(0,1fr); gap:1.2rem;
+  align-items:stretch}
+.pin-rail{position:relative}
+.pin-plate{position:sticky; top:calc(50svh - 3.4rem); width:3.4rem;
+  display:flex; flex-direction:column; align-items:center; gap:.4rem}
+.pin-sun{width:3.4rem; height:3.4rem; color:var(--gold); opacity:.85;
+  fill:none; stroke:currentColor}
+.pin-plate__label{writing-mode:vertical-rl; text-orientation:mixed;
+  color:var(--gold); font-family:var(--display); font-size:.72rem;
+  letter-spacing:.18em; text-transform:uppercase; border:1px solid var(--gold-dim);
+  padding:.6rem .18rem; background:rgba(10,21,18,.72)}
+
+/* ---------- Ramar (scale-in med övergångsstud): bas = slutläge i style.css ---------- */
+
+/* ---------- Reduced motion: rörelsen HOPPAS ÖVER (js/scroll.js registrerar
+   aldrig triggers) — allt nedan är redan slutläge. Kvarvarande klock-animation
+   (nav-sweep) kvittas i style.css. ---------- */
+@media (prefers-reduced-motion: reduce){
+  .amb-glow,.amb-film{opacity:0 !important}
+  .deco-rule__line{transform:scaleX(1) !important}
+}
+
+/* ---------- Mobil 375 px ---------- */
+@media (max-width:640px){
+  .galleri-wrap{grid-template-columns:minmax(0,1fr)}
+  .pin-rail{display:none}
+  .deco-rule{max-width:100%; margin-bottom:1.8rem}
+}
