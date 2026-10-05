@@ -18,7 +18,13 @@ Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår
    går ut dörren." + "Just nu arbetar jag på Müllers., salongen på Landbrogatan 11 i
    centrala Karlskrona. Vi arbetar med bland annat ammoniakfri färg, balayage och
    vårdande behandlingar." + "Vill du se mitt dagliga arbete? Följ mig på Instagram
-   @mullers.anny." Porträtt: plats-hållare med text "Porträtt — bild kommer".
+   @mullers.anny." Porträtt: bilden finns — `../_assets/anny-portrait.jpg` (Anny själv,
+   spegelselfie i salongen, från hennes publika Instagram-inlägg
+   instagram.com/mullers.anny/p/DbGN8NoIgX3/, ägarens uppdrag 2026-10-05; provenans i
+   `_assets/anny-portrait.ATTRIBUTION.md`). Alla teman visar den i Om-sektionen, inramad
+   enligt temat, alt "Anny Morin, frisör på Müllers i Karlskrona".
+   Undantag 15 + 18: foto-fria teman (research-2 §6) behåller plats-hållaren
+   "Porträtt — bild kommer" — "helt utan foto" är deras poäng.
 3. Tjänster — `id="tjanster"` — rubrik "Det här kan jag". Fem tjänster (titel + PoC-text):
    Klippning · Färg & balayage · Vård & håranalys · Bröllop & bal · Barbering & skägg.
    Pris: `–` (placeholder — sätter ej pris, PoC-regel I1).
