@@ -1,0 +1,75 @@
+/* motion.css — DENSITY-02c-dekorationer (MC 10088, 2026-10-05): tryckrälsband
+   längs kanterna, halfton-tonband mellan sektionerna och ritbara kolumnregler.
+   ALLT är synligt i sitt slutläge från CSS — för-lägena (scaleY 0, drift,
+   bokstavssplitt) läggs enbart av js/scroll-motion.js inuti no-preference-
+   grenen. Reduce eller JS bort ⇒ sidan ser ut som en vanlig statisk tidning. */
+
+/* ===== tryckräler: halvtonstextur längs papperets kanter (fixed = motdrift) ===== */
+.press-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 3px 3px,
+                    rgba(20, 20, 20, 0.07) 1.4px, transparent 2.1px);
+  background-size: 10px 10px;
+}
+.press-rail--l { left: 6px; }
+.press-rail--r { right: 6px; }
+
+/* ===== tonband: halftonremsa med dubbelregler — banderollerna som motåker ===== */
+.tone-band {
+  height: 46px;
+  margin: 1.6rem 0;
+  border-top: 3px double var(--ink);
+  border-bottom: 3px double var(--ink);
+  background-image: radial-gradient(circle at 2px 2px,
+                    rgba(20, 20, 20, 0.10) 1.3px, transparent 2.2px);
+  background-size: 7px 7px;
+}
+
+/* ===== ritbara kolumnregler (skalar upp med scrollen i JS-grenen) ===== */
+.lead__main,
+.om-grid,
+.om-cols,
+.ads-grid { position: relative; }
+
+/* reportagets kolumnrule bärs nu av den ritade .col-rule--mid (synlig från
+   CSS utan JS/reduce) — CSS-regeln stängs av så dragningen inte dubblar */
+.om-cols { column-rule: none; }
+
+.col-rule {
+  position: absolute;
+  width: 1px;
+  background: var(--rule);
+  transform-origin: 50% 0;
+  pointer-events: none;
+}
+.col-rule--lead { top: 0; bottom: 0; right: 0; }              /* leadsidans hårlinje */
+.col-rule--mid  { top: 34%; bottom: 0; left: calc((100% - var(--gap)) / 3); }  /* reportagets kolumngräns */
+.col-rule--a1   { top: 0; bottom: 0; left: calc(100% / 3); }  /* annonskolonnsgränser */
+.col-rule--a2   { top: 0; bottom: 0; left: calc(200% / 3); }
+
+/* ord-/bokstavsspaltarna skapas enbart av scroll-motion.js i no-preference-
+   grenen — transform kräver inline-block; utan JS finns spansen inte alls */
+.split-word, .split-letter { display: inline-block; }
+.split-letter { will-change: transform; }
+
+/* ===== responsivt: dekor förenklar med rutnätet ===== */
+@media (min-width: 681px) {
+  .lead__main { border-right: 0; }
+}
+@media (min-width: 901px) {
+  .ads-grid .ad { border-left: 0; }
+}
+@media (max-width: 1100px) {
+  .press-rail { display: none; }        /* räls behövs bara utanför 82rem-ytan */
+}
+@media (max-width: 680px) {
+  .col-rule--lead, .col-rule--mid { display: none; }
+}
+@media (max-width: 900px) {
+  .col-rule--a1, .col-rule--a2 { display: none; }
+}
