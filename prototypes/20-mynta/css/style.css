@@ -69,17 +69,15 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .skip-link:focus { left: .5rem; top: .5rem; }
 
-/* ---------- CRT-lager: scanlines + vignett (statisk CSS) ---------- */
+/* ---------- CRT-lager: vignett + glimt (scanlines: se motion.css,
+    .crt__lines — där drivs de i sakta skrubbad vertikal drift) ------- */
 .crt {
   position: fixed;
   inset: 0;
   z-index: 999;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at center, transparent 58%, rgba(2, 3, 8, .38) 100%),
-    repeating-linear-gradient(to bottom,
-      rgba(2, 3, 8, .26) 0 1px,
-      rgba(2, 3, 8, 0) 1px 3px);
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, transparent 58%, rgba(2, 3, 8, .38) 100%);
 }
 @media (prefers-reduced-motion: no-preference) {
   .crt { animation: crt-flicker 3.2s infinite steps(1); }

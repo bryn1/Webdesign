@@ -1,0 +1,115 @@
+/* ============================================================
+   MYNTA — tema 20 «Pixelhall» (MC 10088 · DENSITY-01b) — RÖRELSE-DEKOR
+   Stilar för de scrubbade dekorlagren i scroll-motion.js: pixelgrid,
+   scanline-drift, sprite-rails, HUD-räknare och stage-wipe.
+   Alla lägen är skrivna så att utan JS (och vid reduce) står allt
+   stilla men fullt synligt — ingen effekt bär information, allt är
+   aria-hidden dekor. Registreringen sker i scroll-motion.js, ENDAST
+   under (prefers-reduced-motion: no-preference).
+   ============================================================ */
+
+/* ---------- pixelgrid: kabinettens bakgrundsmynstor ---------- */
+.pixgrid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.pixgrid__dots,
+.pixgrid__lines {
+  position: absolute;
+  left: -10%; right: -10%;
+  top: -25%;
+  display: block;
+  height: 155%;
+}
+.pixgrid__dots {
+  background-image:
+    linear-gradient(rgba(61, 252, 103, .10) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(61, 252, 103, .10) 2px, transparent 2px);
+  background-size: 28px 28px;
+}
+.pixgrid__lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(49, 225, 255, .07) 0 3px,
+    transparent 3px 42px);
+}
+
+/* ---------- scanlines i eget driftlager (under .crt-vignetten) ---- */
+.crt__lines {
+  position: absolute;
+  left: 0; right: 0;
+  top: -25%;
+  display: block;
+  height: 160%;
+  background: repeating-linear-gradient(to bottom,
+    rgba(2, 3, 8, .26) 0 1px,
+    rgba(2, 3, 8, 0) 1px 3px);
+}
+
+/* ---------- sprite-rails: attract-lägets marcherade, bottenkant ---- */
+.sprite-rail {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 0;
+  z-index: 997;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sprite-rail__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4vw;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.sprite-rail__row span { display: inline-block; }
+.sprite-rail__row--a { color: rgba(61, 252, 103, .34); }
+.sprite-rail__row--b { color: rgba(255, 46, 196, .30); }
+
+/* ---------- HUD: poäng + level i marquee-n (dekora, aria-hidden) --- */
+.marquee__hud {
+  margin: 0 0 0 auto;
+  font-size: .75rem;                  /* 12px — minsta PS2P, meta */
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
+.hud-num {
+  display: inline-block;
+  color: var(--cyan);
+  text-shadow: 0 0 8px rgba(49, 225, 255, .5);
+}
+.hud-sep { margin: 0 .55em; color: var(--magenta); }
+@media (max-width: 719px) {
+  .marquee__hud { margin-left: 0; }   /* radbryter i own rad i headern */
+}
+
+/* ---------- stage-head + coin-op-wipe: neonlisten åker över rubriken
+    (spåret klipper — inget läge skapar horisontell overflow) --------- */
+.stage-head { position: relative; }
+.head-wipe {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.head-wipe__bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  display: block;
+  width: 16%;
+  transform: translateX(-115%);       /* utan JS: utanför synfältet */
+  background: linear-gradient(90deg,
+    rgba(49, 225, 255, 0) 0%,
+    rgba(49, 225, 255, .10) 35%,
+    rgba(61, 252, 103, .34) 92%,
+    rgba(61, 252, 103, .7) 100%);
+}
