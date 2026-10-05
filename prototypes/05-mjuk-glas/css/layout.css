@@ -247,6 +247,52 @@ a:hover {
   background: radial-gradient(circle, var(--blob-sage), transparent 70%);
 }
 
+/* DENSITY-03b: tre smärre glanskladdar + två tvättlager bakom glaskorten —
+   derasblur gör kontradriften mjuk. Alltid bakom allt innehåll. */
+.blob--glint {
+  width: 18vmax;
+  height: 18vmax;
+  top: 18%;
+  right: 22%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.55), transparent 70%);
+}
+
+.blob--heath {
+  width: 26vmax;
+  height: 26vmax;
+  bottom: 26%;
+  left: 18%;
+  background: radial-gradient(circle, rgba(210, 220, 200, 0.5), transparent 70%);
+}
+
+.blob--dew {
+  width: 22vmax;
+  height: 22vmax;
+  top: 58%;
+  right: -6vmax;
+  background: radial-gradient(circle, rgba(167, 188, 195, 0.45), transparent 70%);
+}
+
+.wash {
+  position: absolute;
+  inset: -10% -14%;
+  border-radius: 50%;
+  filter: blur(70px);
+}
+
+/* Alferna medvetet nära-vita: tvätten LYSAR upp fältet — alla textfärger
+   (mörka på ljust) klarar WCAG AA även vid full kontradrift + frosttonens
+   mörkaste stopp (evidence/05b AA-beräkning). */
+.wash--a {
+  background: linear-gradient(115deg,
+    rgba(246, 236, 233, 0.4), transparent 55%, rgba(236, 242, 245, 0.4));
+}
+
+.wash--b {
+  background: linear-gradient(295deg,
+    rgba(236, 242, 245, 0.4), transparent 55%, rgba(246, 236, 233, 0.4));
+}
+
 /* ---------- Sidfot ---------- */
 
 .site-footer {

@@ -154,6 +154,13 @@
   transform-origin: left center;
 }
 
+/* DENSITY-03b: ordspann för rubrikernas scrubbar klipp-reveal. Spannen
+   skapas av js/scroll-motion.js ENDAST i no-preference-blocket — utan JS
+   eller vid reduced motion finns de aldrig och rubriktexten står orörd. */
+.mw {
+  display: inline-block;
+}
+
 /* Gallerirubrik: GSAP fäster den under sidhuvudet (pin) och klär den i frost
    genom is-frozen-klassen — ett litet frostat band, ingen blur på stora ytor. */
 .galleri-head {
