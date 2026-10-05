@@ -22,6 +22,27 @@
   animation-play-state: paused;
 }
 
+/* --- DENSITY-04b-atomer (spans finns blott där JS bygger dem) ----------
+   .mw  = rubrikord som glider var för ord (scrub i scroll-motion.js);
+   .sq  = koboltkloss vid hårlinjens baslinje (x-glid, breda axeln ≥701);
+   .drift-sq = ensam accentkloss i ett vittfält (y-drift, alla bredder).
+   All rörelse sker i JS — dessa deklarerar blott viloläget. */
+
+.sec { position: relative; }          /* ankar .drift-sq — layout orörd */
+.mw { display: inline-block; }        /* y-lyft kräver block-i-flödet */
+.sq {
+  flex: 0 0 auto;
+  width: 10px; height: 10px;
+  background: var(--cobalt);
+  pointer-events: none;
+}
+.drift-sq {
+  position: absolute;
+  right: 4px; top: 46%;
+  width: 14px; height: 14px;
+  pointer-events: none;
+}
+
 /* --- reduced motion: kill the only CSS animation, JS branch is in
        scroll-motion.js (matchMedia no-preference bygger noll triggers) ---- */
 
