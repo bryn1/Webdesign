@@ -20,8 +20,17 @@
 <script defer src="js/dateline.js"></script>
 <script defer src="js/booking.js"></script>
 <script defer src="js/contact-form.js"></script>
+<!-- Rörelse: lokalt vendor GSAP + ScrollTrigger (MC 10088) — endast i
+     no-preference-grenen, ingen rörelse utan JS eller vid reduce. -->
+<script defer src="../_assets/vendor/gsap.min.js"></script>
+<script defer src="../_assets/vendor/ScrollTrigger.min.js"></script>
+<script defer src="js/scroll-motion.js"></script>
 </head>
 <body>
+
+<!-- scroll-bakgrundslager: tryffelpapper + pressfärgad tvätt (dekor, aria-hidden) -->
+<div class="dot-field" aria-hidden="true"></div>
+<div class="ink-wash" aria-hidden="true"></div>
 
 <a class="skip-link" href="#main">Hoppa till innehåll</a>
 
@@ -74,6 +83,7 @@
   <section id="om" aria-labelledby="om-rubrik">
     <p class="section-flag">Reportage</p>
     <h2 id="om-rubrik" class="section-headline">Hår som känns som ditt</h2>
+    <div class="draw-rule" aria-hidden="true"></div>
     <div class="om-grid">
       <div class="om-cols">
         <p class="lede">Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att
@@ -84,11 +94,11 @@
         <p class="om-pull">Vill du se mitt dagliga arbete? Följ mig på Instagram
           <a href="https://www.instagram.com/mullers.anny/" rel="me noopener" target="_blank">@mullers.anny</a>.</p>
       </div>
-      <figure class="press-photo press-photo--empty">
-        <div class="press-frame" role="img" aria-label="Plats för porträtt: bild kommer">
-          <span class="press-frame__text">Porträtt — bild kommer</span>
+      <figure class="press-photo press-photo--portrait">
+        <div class="halftone">
+          <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
         </div>
-        <figcaption class="cutline">Modell: undertecknad. Fotograf: väntas levereras av byrån.</figcaption>
+        <figcaption class="cutline">Porträtt: Anny Morin i salongen. Egen bild, publicerad av @mullers.anny.</figcaption>
       </figure>
     </div>
   </section>
@@ -97,6 +107,7 @@
   <section id="tjanster" aria-labelledby="tjanster-rubrik">
     <p class="section-flag">Annonsbilaga</p>
     <h2 id="tjanster-rubrik" class="section-headline">Det här kan jag</h2>
+    <div class="draw-rule" aria-hidden="true"></div>
     <div class="ads-grid">
       <article class="ad">
         <h3 class="ad__title">Klippning</h3>
@@ -130,6 +141,7 @@
   <section id="galleri" aria-labelledby="galleri-rubrik">
     <p class="section-flag">Bildbilaga</p>
     <h2 id="galleri-rubrik" class="section-headline">Före &amp; efter</h2>
+    <div class="draw-rule" aria-hidden="true"></div>
     <div class="gallery-grid">
       <figure class="press-photo">
         <div class="halftone"><img src="../_assets/gal-01.jpeg" alt="Bildeframe 1 ur bildarkivet, halvtont som tryckt pressfoto." loading="lazy" width="1200" height="900"></div>
@@ -166,6 +178,7 @@
   <section id="boka" aria-labelledby="boka-rubrik">
     <p class="section-flag">Tidsannons — demo</p>
     <h2 id="boka-rubrik" class="section-headline">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+    <div class="draw-rule" aria-hidden="true"></div>
     <p class="demo-badge">Demo — ingen bokning genomförs</p>
     <p class="boka-legend"><span class="demo-slot-demo">■</span> demo-ledig &nbsp; <span class="demo-slot-taken">■</span> demo-upptagen</p>
     <div class="booking-grid">
@@ -210,6 +223,7 @@
   <section id="kontakt" aria-labelledby="kontakt-rubrik">
     <p class="section-flag">Annonsbyrån</p>
     <h2 id="kontakt-rubrik" class="section-headline">Hitta mig eller skriv till mig</h2>
+    <div class="draw-rule" aria-hidden="true"></div>
     <div class="kontakt-grid">
       <div class="kontakt-card">
         <h3 class="kontakt-card__title">Müllers. — Karlskrona</h3>
