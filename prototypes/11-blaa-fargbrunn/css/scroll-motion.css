@@ -1,0 +1,60 @@
+/* 11 · Blå färgbrunn — styling för de scroll-rörliga lagren (MC 10088).
+   Rörelsen drives av js/scroll-motion.js (GSAP + ScrollTrigger). Detta är
+  undantagslöst decoration: utan JS eller med prefers-reduced-motion står
+   alla element i sitt SLUT-tillstånd (fullt synliga, orörda) — inget innehåll
+   göms bakom en drivare som saknas. */
+
+/* Djupningslagret: fast indigo-ton som JS tonar in med opacity genom sidan.
+   Opacitet 0 = sidan ser ut som förut (utgångsläget utan JS/reducerad rörelse). */
+.ai-deep {
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none;
+  background: #060d1b;             /* djup ai — botten av färgbadet */
+  opacity: 0;
+}
+
+/* Bläckhår: en per sektion, dras fram från vänster av ScrollTrigger (scaleX).
+   Utan JS: fullbred synlig hairline — alltid ett synligt slutläge. */
+.ink-rule {
+  display: block;
+  grid-column: 1 / -1;             /* spelar som rad över kolumnerna i rutnäten */
+  height: 1px;
+  margin: 0 0 1.8rem;
+  background: linear-gradient(90deg,
+    var(--accent) 0, var(--accent) 2.4rem,
+    rgba(242, 237, 227, .55) 2.4rem, rgba(242, 237, 227, .32) 100%);
+  transform-origin: left center;
+}
+
+/* Galleri: klistrad 藍-sidoetikett som rider hela sektionen (CSS sticky =
+   nålen fungerar även utan JS och utan rörelse; JS förseglar bara in den). */
+.galleri-wrap {
+  display: grid;
+  grid-template-columns: clamp(2.5rem, 6vw, 5.5rem) minmax(0, 1fr);
+  gap: clamp(1.2rem, 4vw, 3.2rem);
+  align-items: start;
+}
+.pin-rail {
+  grid-column: 1;
+  position: sticky;
+  top: calc(var(--head-h) + 18vh);
+  align-self: start;
+}
+.pin-seal {
+  display: grid; place-items: center;
+  width: clamp(2.6rem, 5vw, 3.4rem); aspect-ratio: 1;
+  border: 1px solid var(--line); border-radius: 50%;
+  background: rgba(22, 33, 58, .6); color: var(--link);
+  font-family: var(--disp); font-size: 1.7rem;
+}
+.galleri-main { grid-column: 2; min-width: 0; }
+
+/* Zoom-sättningen beskärs i bildramen (GSAP-animerar scale på media). */
+.shot { overflow: hidden; }
+
+/* Mobil: nålen åker bort (dekor), rutnätet enklastaplat. */
+@media (max-width: 720px) {
+  .galleri-wrap { grid-template-columns: 1fr; }
+  .pin-rail { display: none; }
+  .galleri-main { grid-column: 1; }
+}

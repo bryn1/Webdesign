@@ -1,15 +1,15 @@
 /* 11 · Blå färgbrunn — progressive enhancement (MC 10088).
-   Allt här är förbättring: sidan läses fullt utan JS. Ingen global; allt i IIFE. */
+   Allt här är förbättring: sidan läses fullt utan JS. Ingen global; allt i IIFE.
+   Scroll-rörelsen ligger i js/scroll-motion.js (GSAP + ScrollTrigger). */
 (function () {
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hasTimeline = CSS.supports('animation-timeline', 'view()');
 
   /* ---- Reveal + aria-current i nav (IntersectionObserver) ---- */
   var reveals = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    reveals.forEach(function (el) { el.classList.add('in'); });
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in'); });   // slutläge direkt
   } else {
     var revealIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -37,16 +37,6 @@
     var sec = document.getElementById(id);
     if (sec) navIO.observe(sec);
   });
-
-  /* ---- Seigaiha-band: IO-fallback när scroll-timeline saknas ---- */
-  if (!hasTimeline && !reduced && 'IntersectionObserver' in window) {
-    var bandIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('seen'); bandIO.unobserve(e.target); }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.wave-band').forEach(function (b) { bandIO.observe(b); });
-  }
 
   /* ---- Boknings-mock (DEMO, ingen backend) ---- */
   var DAYS = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre'];

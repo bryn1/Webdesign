@@ -2,8 +2,9 @@
    Palett: indigo #1c2a45 / yta #16213a / washi #f2ede3 / vermilion #d94f30.
    Vermilion klarar 3.49:1 mot indigo → ENDAST dekorativt/stor text; länkar och
    smått använder text-säkra #ef8a66 (5.8:1). Muted #6b7a99 = dekorativt; små
-   metadata använder #93a2be (5.6:1). scroll-snap = CSS (N2), counter-scroll (N1)
-   bakom @supports (animation-timeline: view()) med IO-fallback i main.js. */
+   metadata använder #93a2be (5.6:1). scroll-snap = CSS (N2). All rörelse är
+   JS-driven: js/scroll-motion.js (GSAP + ScrollTrigger, lokalt vendor) —
+   styling för de rörliga lagren ligger i css/scroll-motion.css. */
 
 :root {
   --bg: #1c2a45;
@@ -24,7 +25,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  background: var(--bg);
+  background: radial-gradient(120% 70% at 50% -10%, #24365a 0%, var(--bg) 55%) fixed,
+              var(--bg);          /* måleren ligger på rot-elementet: .ai-deep
+                                     (z-index -1) må få måla OFVANför denna */
   color-scheme: dark;
   scroll-padding-top: calc(var(--head-h) + 1rem);
   scroll-snap-type: y proximity;            /* N2 — rent CSS, kräver ej JS */
@@ -40,8 +43,7 @@ body {
   margin: 0;
   font: 400 1.0625rem/1.75 var(--body);
   color: var(--ink);
-  background:
-    radial-gradient(120% 70% at 50% -10%, #24365a 0%, var(--bg) 55%) fixed;
+  background: transparent;                  /* djupningslagret syns genom flödet */
   text-rendering: optimizeLegibility;
 }
 
@@ -137,15 +139,16 @@ img { max-width: 100%; display: block; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2.2rem; }
 
 /* ===== Om mig ===== */
-.portrait {
-  aspect-ratio: 3 / 4; display: grid; place-items: center;
-  background:
-    linear-gradient(178deg, transparent 0 34%, rgba(56, 92, 148, .55) 34% 47%,
-      rgba(38, 64, 110, .8) 47% 68%, #2e5288 68% 100%),
-    var(--bg-deep);
+.portrait {                                    /* ramar Annys porträttfoto (3:4) */
+  aspect-ratio: 3 / 4; overflow: hidden;
+  background: var(--bg-deep);
   border: 1px solid var(--line);
 }
-.portrait__label, .dip__label {
+.portrait img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: 25% 12%;                    /* ansiktet i övre vänstra tredelen */
+}
+.dip__label {
   background: rgba(22, 33, 58, .82); color: var(--meta);
   font-size: .85rem; letter-spacing: .12em; padding: .5em 1em; border: 1px solid var(--line);
 }
@@ -168,38 +171,9 @@ address { font-style: normal; margin: 0 0 1.4em; }
 .service__num { font-size: 1rem; color: var(--meta); }           /* dekorativ glyph */
 .service__price { color: var(--meta); font-size: .9rem; margin: .6em 0 0; }
 
-/* Scroll-timeline: kolumnen driver MOT scrollrickningen; banden parallaxar. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .split__drift {
-      animation: counter-drift linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-      will-change: transform;
-    }
-    @keyframes counter-drift {
-      from { transform: translateY(-6%); }
-      to   { transform: translateY(7%); }
-    }
-    .wave-band {
-      animation: band-drift linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
-    @keyframes band-drift {
-      from { transform: translateX(5%); }
-      to   { transform: translateX(-5%); }
-    }
-  }
-}
-/* IO-fallback (main.js sätter .seen): engångsdrift, endast icke-reducerad rörelse */
-@media (prefers-reduced-motion: no-preference) {
-  .js .wave-band.seen { animation: band-nudge 2.6s ease-out 1; }
-  @keyframes band-nudge {
-    from { transform: translateX(4%); }
-    to   { transform: translateX(0); }
-  }
-}
+/* Scroll-rörelsen (counter-drift, band-parallax) styrs av js/scroll-motion.js
+   via ScrollTrigger — ingen CSS-animation här; utan JS ligger allt i vila. */
+
 
 /* ===== Galleri ===== */
 .gallery { list-style: none; margin: 2.2rem 0 0; padding: 0;
@@ -270,15 +244,11 @@ dialog h3 { margin-bottom: .4em; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* ===== Mobil: counter-scroll kollapsar till normal flöde ===== */
+/* ===== Mobil: sticky-rubrik kollapsar till normal flöde ===== */
 @media (max-width: 720px) {
   .two-col, .split { grid-template-columns: 1fr; }
   .split__head { position: static; top: auto; }
-  .split__drift { animation: none; transform: none; }
-  .wave-band { animation: none; transform: none; }
   .hero, .section { min-height: auto; padding-top: calc(var(--head-h) + 2.6rem); }
   .portrait { max-width: 60%; margin-inline: auto; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .split__drift, .wave-band { animation: none !important; transform: none !important; }
-}
+
