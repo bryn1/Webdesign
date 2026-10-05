@@ -34,8 +34,10 @@
 .svc svg{width:74px;height:74px;margin-bottom:10px}
 .svc p{font-size:.99rem}
 .svc .price{margin-top:auto;padding-top:8px;border-top:2px dashed var(--pink);color:var(--ink)}
-.svc:nth-child(odd){transform:rotate(-.5deg)}
-.svc:nth-child(even){transform:rotate(.45deg)}
+/* lutningen pa egen rotate-egenskap: GSAP skriver transform utan att
+   ta bort lutningen, och hover nollstaller den via motion.css */
+.svc:nth-child(odd){rotate:-.5deg}
+.svc:nth-child(even){rotate:.45deg}
 
 /* ---- kapitel 4: tavlan (illustrationsplattor) ---- */
 .illo-note{
@@ -50,8 +52,8 @@
 }
 .plate svg{border-radius:var(--r-md);background:var(--rose);border:2px solid var(--ink)}
 .plate figcaption{padding:12px 4px 2px;font-size:.98rem}
-.plates .plate:nth-child(odd) figure{transform:rotate(-1deg)}
-.plates .plate:nth-child(even) figure{transform:rotate(1.1deg)}
+.plates .plate:nth-child(odd) figure{rotate:-1deg}
+.plates .plate:nth-child(even) figure{rotate:1.1deg}
 
 /* ---- kapitel 5: boka (demo) ---- */
 .booking .wrap{
