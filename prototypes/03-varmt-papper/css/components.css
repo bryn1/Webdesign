@@ -317,3 +317,82 @@
   }
 }
 
+/* Pappergryn: fast texturlager (bara CSS-gradienter, ingen bildfil) som
+   långsamt driver bakåt mot läsningen. Standbild utan JS = synlig, orörd. */
+.paper-grain {
+  position: fixed;
+  top: -25vh;
+  left: 0;
+  width: 100%;
+  height: 175vh;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(94, 62, 34, 0.055) 1px, transparent 1.6px),
+    radial-gradient(rgba(122, 74, 36, 0.04) 1px, transparent 1.4px);
+  background-size: 7px 9px, 11px 13px;
+  background-position: 0 0, 3px 5px;
+}
+
+/* Varm tvätt: två mjuka glöd som tänds under färden (opacity scrubbad
+   0 → 0.45; max effektiv alpha ≤ 0.063 — papperets kontraster påverkas ej
+   nämnvärt, se evidence/03-aa-worst.py: sämsta stopp 4.6:1). Standläge: opacity 0. */
+.warm-wash {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(120% 80% at 80% 8%, rgba(180, 95, 46, 0.14), transparent 62%),
+    radial-gradient(110% 90% at 6% 100%, rgba(122, 74, 36, 0.12), transparent 55%);
+}
+
+/* Stygntråd: kant-sömmen till vänster om innehållet, ritas utmed hela
+   sidan (scaleY scrubbad). Luftigt: 1px streckad linje i uthärdat sage. */
+.stitch-thread {
+  position: fixed;
+  top: 6vh;
+  bottom: 6vh;
+  left: 0.5rem;
+  width: 0;
+  border-left: 1px dashed var(--deco);
+  opacity: 0.45;
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 40rem) { .stitch-thread { display: none; } }
+
+/* Slit-/deckelkant: fibrig hairline-band vid sektionernas huvud — driver
+   parallax med olika tunga hastigheter (data-deckle i HTML). */
+.deckle {
+  height: 9px;
+  margin-bottom: 1.6rem;
+  opacity: 0.55;
+  pointer-events: none;
+  background: repeating-linear-gradient(135deg,
+    var(--deco) 0 1.5px, transparent 1.5px 7px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Stygnhårline under hero-CTA: ritas från vänster (scaleX). Utan JS: hel. */
+.rule--stitch {
+  border-top: 1px dashed var(--deco);
+  max-width: 9rem;
+  margin-left: 0;
+  transform-origin: left center;
+}
+
+/* Rubriksrad-byggnad: linjen reser sig bakom en klippt mask (y scrubbad).
+   Utan JS/under reduce: viloläge — texten är aldrig dold. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.line-rise { display: block; }
+
+
