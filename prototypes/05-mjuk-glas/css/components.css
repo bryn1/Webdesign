@@ -84,7 +84,10 @@
   padding: var(--space-2);
 }
 
-/* ---------- Utställning utan JS (styrs av html.js / html.js-reveal) ---------- */
+/* ---------- Utan JS (styrs av html.js) ----------
+   Reveal-effekten ärvdes av js/scroll-motion.js (GSAP): startläget sätts av
+   GSAP i webbläsaren — utan JS finns aldrig någon dolt tillstånd, allt är
+   synligt från start. Därför finns ingen [data-reveal]-döljning i CSS. */
 
 html:not(.js) .only-js {
   display: none;
@@ -92,24 +95,6 @@ html:not(.js) .only-js {
 
 html.js .needs-js-note {
   display: none;
-}
-
-html.js-reveal [data-reveal] {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity var(--dur) var(--ease-soft), transform var(--dur) var(--ease-soft);
-}
-
-html.js-reveal [data-reveal].revealed {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.js-reveal [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* ---------- Om mig ---------- */
