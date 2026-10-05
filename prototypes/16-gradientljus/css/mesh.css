@@ -126,6 +126,44 @@
   }
 }
 
+/* ---------- Rubriks radsplitt (js/scroll-motion.js bygger spanen ENDELIGEN i
+   no-preference-gatet — utan JS/reducerad rörelse finns inga split-spans och
+   rubriken står i sin vanliga text + gradient). Row-wrap klipper, inner glider. ---------- */
+
+.split-wrap {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .16em;      /* frigör dödaren (j, hä) från clip:en */
+  margin-bottom: -.16em;      /* … men utan att ändra radrymden */
+}
+.split-inner { display: block; will-change: transform; }
+.grad-text.is-split { background-image: none; }   /* gradienten flyttar till inner */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .grad-text.is-split .split-inner {
+    background-image: linear-gradient(105deg,
+      var(--txt-violet) 0%, var(--txt-rose) 34%, var(--txt-amber) 62%, var(--txt-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---------- Aura-blobbar: mjuka dekorativa ljuskroppar som driver mot
+   varandra i sektionerna (aria-hidden + pointer-events:none i HTML). ---------- */
+
+.aura {
+  position: absolute;
+  z-index: 0;
+  width: 44vmax; height: 34vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(8px);
+  will-change: transform;
+}
+.aura--rose   { top: 18%;  right: -20vmax; background: radial-gradient(closest-side, rgba(236, 72, 153, .12), rgba(236, 72, 153, 0) 70%); }
+.aura--violet { bottom: 12%; left: -18vmax; top: auto; right: auto; background: radial-gradient(closest-side, rgba(124, 58, 237, .13), rgba(124, 58, 237, 0) 70%); }
+.aura--blue   { top: 55%;  left: -22vmax;  right: auto; background: radial-gradient(closest-side, rgba(99, 102, 241, .12), rgba(99, 102, 241, 0) 72%); }
+
 /* ---------- prefers-reduced-motion: ingen rörelse — allt redan i slutläge ---------- */
 
 @media (prefers-reduced-motion: reduce) {
