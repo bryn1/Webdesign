@@ -1,27 +1,10 @@
-/* 12 · Den förgyllda salongen — progressiv förbättring (MC 10088)
-   Ingen global: allt i IIFE. Utan JS är hela sidan fullt läsbar;IO-klassen sätts
-   bara om view()-timeline saknas och IntersectionObserver finns. */
+/* 12 · Den förgyllda salongen — funktions-js (MC 10088)
+   Ingen global: allt i IIFE. Scroll-koreografin bor i js/scroll.js (GSAP).
+   Här: demobokning + demo-kontaktformulär — ingen backend. */
 (function () {
   'use strict';
 
   var doc = document;
-
-  /* ---------- reveal: IO-fallback endast utan view()-stöd ---------- */
-  var viewSupported = window.CSS && CSS.supports &&
-    CSS.supports('animation-timeline', 'view()');
-  if (!viewSupported && 'IntersectionObserver' in window) {
-    doc.documentElement.classList.add('js-io');
-    var targets = doc.querySelectorAll('.sec-head, .plate');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
-    targets.forEach(function (el) { io.observe(el); });
-  }
 
   /* ---------- Boka: demomock — ingen bokning genomförs ---------- */
   var dialog = doc.getElementById('book-dialog');

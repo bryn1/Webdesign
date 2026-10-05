@@ -10,10 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Marcellus&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="%230d211b"/><path d="M16 5 27 16 16 27 5 16Z" fill="%23c9a55a"/></svg>'>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/scroll.css">
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll.js" defer></script>
 <script src="js/main.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#huvudinnehall">Hoppa till innehållet</a>
+<div class="amb-glow" aria-hidden="true"></div>
+<div class="amb-film" aria-hidden="true"></div>
 
 <header class="nav" id="top">
   <div class="nav__inner">
@@ -71,6 +77,11 @@
       <p class="eyebrow">Om mig</p>
       <h2 id="om-rubrik">Hår som känns som ditt</h2>
     </header>
+    <div class="deco-rule" aria-hidden="true">
+      <span class="deco-rule__line"></span>
+      <span class="deco-rule__fan">✦</span>
+      <span class="deco-rule__line deco-rule__line--r"></span>
+    </div>
     <div class="om-grid">
       <div class="om-text">
         <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
@@ -82,8 +93,8 @@
            <a href="https://www.instagram.com/mullers.anny/">@mullers.anny</a>.</p>
       </div>
       <figure class="goldframe goldframe--portrait">
-        <span class="goldframe__plate">Porträtt — bild kommer</span>
-        <figcaption class="sr-only">Porträttplats för Anny Morin — bilden kommer senare.</figcaption>
+        <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
+        <figcaption class="sr-only">Porträtt av Anny Morin i salongen på Müllers.</figcaption>
       </figure>
     </div>
   </section>
@@ -97,6 +108,11 @@
       <p class="eyebrow">Tjänster</p>
       <h2 id="tjanster-rubrik">Det här kan jag</h2>
     </header>
+    <div class="deco-rule" aria-hidden="true">
+      <span class="deco-rule__line"></span>
+      <span class="deco-rule__fan">✦</span>
+      <span class="deco-rule__line deco-rule__line--r"></span>
+    </div>
     <ul class="svc-grid">
       <li class="svc">
         <h3>Klippning</h3>
@@ -135,6 +151,46 @@
       <p class="eyebrow">Galleri</p>
       <h2 id="galleri-rubrik">Före &amp; efter</h2>
     </header>
+    <div class="deco-rule" aria-hidden="true">
+      <span class="deco-rule__line"></span>
+      <span class="deco-rule__fan">✦</span>
+      <span class="deco-rule__line deco-rule__line--r"></span>
+    </div>
+    <div class="galleri-wrap">
+    <div class="pin-rail" aria-hidden="true">
+      <div class="pin-plate">
+        <svg class="pin-sun" viewBox="0 0 100 100">
+          <path d="M74 50 L90 50"  stroke-width="1"/>
+          <path d="M70.8 62 L84.6 70"  stroke-width="1"/>
+          <path d="M62 70.8 L70 84.6"  stroke-width="1"/>
+          <path d="M50 74 L50 90"  stroke-width="1"/>
+          <path d="M38 70.8 L30 84.6"  stroke-width="1"/>
+          <path d="M29.2 62 L15.4 70"  stroke-width="1"/>
+          <path d="M26 50 L10 50"  stroke-width="1"/>
+          <path d="M29.2 38 L15.4 30"  stroke-width="1"/>
+          <path d="M38 29.2 L30 15.4"  stroke-width="1"/>
+          <path d="M50 26 L50 10"  stroke-width="1"/>
+          <path d="M62 29.2 L70 15.4"  stroke-width="1"/>
+          <path d="M70.8 38 L84.6 30"  stroke-width="1"/>
+          <path d="M73.2 56.2 L80.9 58.3" stroke-width=".5"/>
+          <path d="M67 67 L72.6 72.6"     stroke-width=".5"/>
+          <path d="M56.2 73.2 L58.3 80.9" stroke-width=".5"/>
+          <path d="M43.8 73.2 L41.7 80.9" stroke-width=".5"/>
+          <path d="M33 67 L27.4 72.6"     stroke-width=".5"/>
+          <path d="M26.8 56.2 L19.1 58.3" stroke-width=".5"/>
+          <path d="M26.8 43.8 L19.1 41.7" stroke-width=".5"/>
+          <path d="M33 33 L27.4 27.4"     stroke-width=".5"/>
+          <path d="M43.8 26.8 L41.7 19.1" stroke-width=".5"/>
+          <path d="M56.2 26.8 L58.3 19.1" stroke-width=".5"/>
+          <path d="M67 33 L72.6 27.4"     stroke-width=".5"/>
+          <path d="M73.2 43.8 L80.9 41.7" stroke-width=".5"/>
+          <circle cx="50" cy="50" r="20" stroke-width="1"/>
+          <circle cx="50" cy="50" r="26" stroke-width=".4"/>
+          <path d="M50 44 56 50 50 56 44 50Z" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="pin-plate__label">Före &amp; efter</span>
+      </div>
+    </div>
     <div class="gallery">
       <figure class="goldframe plate">
         <img class="iris" src="../_assets/gal-01.jpeg" width="1536" height="2048"
@@ -157,6 +213,7 @@
         <figcaption>Mjuka vågor, naturlig övergång</figcaption>
       </figure>
     </div>
+    </div>
   </section>
 
   <!-- ===== Boka — DEMO (mock, ingen backend) ===== -->
@@ -168,6 +225,11 @@
       <p class="eyebrow">Boka tid</p>
       <h2 id="boka-rubrik">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
     </header>
+    <div class="deco-rule" aria-hidden="true">
+      <span class="deco-rule__line"></span>
+      <span class="deco-rule__fan">✦</span>
+      <span class="deco-rule__line deco-rule__line--r"></span>
+    </div>
 
     <p class="demo-badge">Demo — ingen bokning genomförs</p>
     <p class="boka-legend"><span class="dot dot--ledig"></span> Demo-ledig&ensp;
@@ -228,6 +290,11 @@
       <p class="eyebrow">Kontakt</p>
       <h2 id="kontakt-rubrik">Hitta mig eller skriv till mig</h2>
     </header>
+    <div class="deco-rule" aria-hidden="true">
+      <span class="deco-rule__line"></span>
+      <span class="deco-rule__fan">✦</span>
+      <span class="deco-rule__line deco-rule__line--r"></span>
+    </div>
     <div class="kontakt-grid">
       <form class="cf" id="cf" autocomplete="name">
         <p class="demo-badge">Demo — ingen backend är kopplad till formuläret</p>

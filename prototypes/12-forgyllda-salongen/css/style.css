@@ -43,7 +43,7 @@ p{margin:0 0 1rem}
   transform:scaleX(1); transform-origin:left; animation:sweep 1.4s cubic-bezier(.2,.8,.2,1) both}
 @keyframes sweep{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-/* ---------- Grund: sektioner + deco-ram (hairline, stroke-draw sekundärt) ---------- */
+/* ---------- Grund: sektioner + deco-ram (hairline; ritas ut av js/scroll.js) ---------- */
 .sec{max-width:72rem; margin:0 auto; padding:4.6rem 1.25rem 4.2rem}
 .sec--ink{background:var(--ink)}
 .sec-head{position:relative; text-align:center; padding:2.1rem 1.4rem; margin-bottom:2.6rem;
@@ -51,12 +51,10 @@ p{margin:0 0 1rem}
 .sec-frame{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
 .sec-frame__rect{fill:none; stroke:var(--gold); stroke-width:1;
   vector-effect:non-scaling-stroke; stroke-dasharray:1; stroke-dashoffset:0}
-.sec-frame::before{content:""}
 .eyebrow{font-family:var(--body); color:var(--gold); text-transform:uppercase;
   letter-spacing:.42em; font-size:.76rem; margin:0 0 .55rem; text-indent:.42em}
 .sec-head .eyebrow::before{content:"✦  "; letter-spacing:0}
 .sec-head .eyebrow::after{content:"  ✦"; letter-spacing:0}
-.diamond{width:100%; height:12px; margin:.85rem auto 0; display:block; color:var(--gold)}
 
 /* ---------- Hero ---------- */
 .hero{position:relative; min-height:92svh; display:flex; flex-direction:column;
@@ -92,10 +90,8 @@ p{margin:0 0 1rem}
   pointer-events:none}
 .goldframe figcaption{margin-top:.7rem; text-align:center; color:var(--gold);
   font-size:.82rem; letter-spacing:.18em; text-transform:uppercase}
-.goldframe--portrait{aspect-ratio:4/5; display:flex; align-items:center; justify-content:center}
-.goldframe--portrait img{width:100%; height:100%; object-fit:cover}
-.goldframe__plate{color:var(--gold); font-family:var(--display); letter-spacing:.14em;
-  font-size:.95rem; text-align:center; padding:1rem}
+.goldframe--portrait{aspect-ratio:4/5; overflow:hidden}
+.goldframe--portrait img{width:100%; height:100%; object-fit:cover; object-position:30% 16%}
 
 /* ---------- Tjänster ---------- */
 .svc-grid{list-style:none; margin:0; padding:0;
@@ -173,37 +169,13 @@ p{margin:0 0 1rem}
 .foot__orn{color:var(--gold); letter-spacing:1.1em; text-indent:1.1em}
 .foot__note{color:var(--text); opacity:.85; font-size:.82rem; max-width:32rem; margin:.6rem auto 0}
 
-/* ---------- Rörelse: kvittning (slutTILLSTÅND = fullt synligt utan JS/animering) ---------- */
+/* ---------- Rörelse: kvittning (slutTILLSTÅND = fullt synligt utan JS/rörelse;
+   själva koreografin ligger i js/scroll.js, CSS scroll-timeline är omgjort dit) ---------- */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none !important; transition:none !important}
-  .sec-frame__rect{stroke-dashoffset:0 !important}
-  .iris{clip-path:circle(75% at 50% 50%) !important}
   .nav__sweep{transform:scaleX(1) !important}
 }
-
-/* Primärt spår: view()-timeline (Chromium). Utan stöd: IO-fallback nedan. */
-@supports (animation-timeline: view()){
-  .sec-frame__rect{
-    animation:draw-frame linear both;
-    animation-timeline:view();
-    animation-range:entry 12% cover 42%;
-  }
-  .plate .iris{
-    animation:iris-open linear both;
-    animation-timeline:view();
-    animation-range:entry 0% cover 38%;
-  }
-}
-@keyframes draw-frame{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes iris-open{from{clip-path:circle(0% at 50% 50%)}to{clip-path:circle(75% at 50% 50%)}}
-
-/* IO-fallback: js lägger klassen ENDAST om view()-stöd saknas och IO finns.
-   Utan JS sätts aldrig .js-io → allt syns direkt. */
-.js-io .sec-frame__rect{stroke-dashoffset:1; transition:stroke-dashoffset 1.5s ease}
-.js-io .sec-frame.in-view .sec-frame__rect{stroke-dashoffset:0}
-.js-io .plate .iris{clip-path:circle(0% at 50% 50%); transition:clip-path 1.15s cubic-bezier(.2,.75,.25,1)}
-.js-io .plate.in-view .iris{clip-path:circle(75% at 50% 50%)}
 
 /* ---------- Mobil 375 px: ingen horisontell overflow ---------- */
 @media (max-width:640px){
