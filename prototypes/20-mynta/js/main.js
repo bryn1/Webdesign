@@ -8,30 +8,7 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- 1 · Pixel-stegad scrollprogress ----------
-     Bredden sätts i diskreta steg (pixels), ingen transition. */
-  var bar = document.getElementById('progress-bar');
-  if (bar) {
-    var STEPS = 40;
-    var ticking = false;
-    var updateProgress = function () {
-      ticking = false;
-      var doc = document.documentElement;
-      var max = doc.scrollHeight - doc.clientHeight;
-      var p = max > 0 ? doc.scrollTop / max : 0;
-      bar.style.width = (Math.round(p * STEPS) / STEPS * 100).toFixed(2) + '%';
-    };
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(updateProgress);
-      }
-    }, { passive: true });
-    window.addEventListener('resize', updateProgress, { passive: true });
-    updateProgress();
-  }
-
-  /* ---------- 2 · Scramble-avkodning på hero-ordet ----------
+  /* ---------- 1 · Scramble-avkodning på hero-ordet ----------
      Originaltexten står redan i markupen (läsbar utan JS och vid
      reduced-motion). JS kodar bara om tillfälligt, sedan decoded. */
   var GLYPHS = '▚▞░▒▓#@%&*+=<>/\\|ABCDEFGHKMNPRSTVXZ0123456789';
@@ -64,7 +41,7 @@
     }
   }
 
-  /* ---------- 3 · INSERT COIN-dialog (demo-bokning) ---------- */
+  /* ---------- 2 · INSERT COIN-dialog (demo-bokning) ---------- */
   var dialog = document.getElementById('coin-dialog');
   var picked = document.getElementById('coin-picked');
   var slots = document.querySelectorAll('.slot:not(.slot--full)');
@@ -78,7 +55,7 @@
     }
   }
 
-  /* ---------- 4 · Kontaktformulär (demo, ingen backend) ---------- */
+  /* ---------- 3 · Kontaktformulär (demo, ingen backend) ---------- */
   var form = document.getElementById('kontakt-form');
   var result = document.getElementById('form-result');
   if (form && result) {
