@@ -76,15 +76,29 @@ const Scenes = (() => {
     tl.to(".kan-col", { opacity: 0, duration: 1.6 }, 38.6);
   }
 
-  // Hub-and-spoke geometry: desktop spokes at 210°/330°/90° (§1), mobile on a 180° arc (§5.3).
+  // Hub-and-spoke geometry: desktop spokes at 210°/330°/90° (§1). Mobile (calib A5b fix): a
+  // downward cascade below the hub, given as direct stage-px — at 375px with the 15px text floor
+  // a mono spoke pill measures ~208px wide, so §5.3's literal 180° arc physically piles pills
+  // on each other and on the hub. Wires stay radial (rot = vector angle). Desktop unchanged.
   function spokeTargets(mobile) {
-    const R = mobile ? 100 : 200;
-    const angles = mobile ? [150, 90, 30] : [210, 330, 90];
+    if (mobile) {
+      return [
+        { dx: -60, dy: 62, rot: 134 },
+        { dx: 60, dy: 112, rot: 62 },
+        { dx: -60, dy: 162, rot: 110 },
+      ];
+    }
+    const R = 200;
+    const angles = [210, 330, 90];
     return angles.map((a) => ({ dx: Math.cos(rad(a)) * R, dy: -Math.sin(rad(a)) * R, rot: -a }));
   }
 
   function scene4(tl, mobile) {
     tl.set(".hubg", { opacity: 1 }, 40);
+    // The <b>s carry their FINAL digits in HTML (the no-JS view must show real data), but with
+    // immediateRender:false they would flash those digits from 40s and snap to 0 when the 43s
+    // tween's onUpdate first writes — same pre-paint class as calib A1–A4. Zero them at reveal.
+    tl.set(".counters b", { textContent: "0" }, 40);
     const tg = spokeTargets(mobile);
     // 40–43s hub scales up at centre; spokes fly outward radially on their wires
     tl.fromTo(".hub", { xPercent: -50, yPercent: -50, scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6, ease: "back.out(1.6)" }, 40.2);

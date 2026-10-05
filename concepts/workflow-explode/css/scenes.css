@@ -74,6 +74,22 @@
     border-radius: 50%; background: var(--gold); opacity: 0; z-index: 35;
   }
 
+  /* ---- GSAP fromTo targets hidden under html.js until their tween runs (calib A1–A4 fix,
+     MC 10140 c1). main.js sets global defaults immediateRender:false, so without these CSS
+     defaults every fromTo target PAINTS FULLY before its cue and then snaps to its from-state
+     (board/poke/panel jump-cut). Same pattern .cap / .docked-shot / .nav-card already use.
+     html.js-scoped only: the no-JS + reduced-motion static views stay complete. Counters are
+     data, not animated from hidden — they stay visible (their 40s zero-set is in scenes.js). ---- */
+  html.js .code-panel { opacity: 0; }
+  html.js .wf-node { opacity: 0; }
+  html.js .wf-link { transform: scaleX(0); transform-origin: left center; }
+  html.js .flow__loop path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  html.js .kan-col { opacity: 0; }
+  html.js .task-card { opacity: 0; }
+  html.js .hub { opacity: 0; }
+  html.js .spoke { opacity: 0; }
+  html.js .wire { transform: scaleX(0); }
+
   /* ---------- mobile variant (max-width 767px, §5.3): same DOM, restacked stage ---------- */
   @media (max-width: 767px) {
     html.js .hero { width: 92vw; height: calc(92vw / (var(--hero-ar)) + var(--chrome-bar-h)); }
@@ -81,11 +97,25 @@
     html.js .code-panel { width: min(86vw, 420px); }
     html.js .flow__row { width: 92vw; }
     html.js .wf-node { font-size: var(--fs-min); }
-    html.js .board { flex-direction: column; }
-    html.js .kan-col { width: min(86vw, 420px); padding: var(--sp-2); }
+    /* SC3 mobile (calib A5 fix): ONE row, horizontally scrollable — all six cards readable at
+       the 15px floor and the board fits 100vh, never under the caption. §5.3's literal "one column
+       of 6" cannot fit 6 cards + headers above the caption at the floor; the calibration brief
+       grants "scrollable board". pointer-events re-enabled (base rule disables) so the user can
+       actually scroll it; the next column peeks past 78vw as the scroll affordance. */
+    html.js .board {
+      flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+      padding: 0 5vw; pointer-events: auto; scrollbar-width: none;
+    }
+    html.js .kan-col { width: min(78vw, 320px); flex: 0 0 auto; padding: var(--sp-2); }
     html.js .kan-col .task-card { margin-bottom: var(--sp-1); }
     html.js .wire { width: 100px; }
-    html.js .counters { bottom: 24%; gap: var(--sp-1) var(--sp-3); font-size: .85rem; }
+    /* calib A5b: keep the mono spoke pill on ONE line at 375 (abs-pos box at left:50% gives
+       187.5px of layout room; "worker-1 · frontend" at .94rem=15.04px measures ~171px text +
+       .3rem padding ⇒ ~182px ≤ 187.5, no wrap, no viewport overflow). .94rem ≥ the 15px F2 floor. */
+    html.js .spoke { padding: .45rem .3rem; font-size: .94rem; }
+    /* SC4 mobile (calib A5b fix): counters ride a strip near the stage TOP — the spoke pills
+       cascade below the hub (targets in scenes.js) and cap4, the longest caption, owns the bottom. */
+    html.js .counters { bottom: 78%; gap: var(--sp-1) var(--sp-3); font-size: .85rem; }
     html.js .outro { flex-direction: column; gap: var(--sp-3); }
     html.js .docked-shot { max-width: 60vw; }
     html.js .nav-cards { justify-content: center; }
