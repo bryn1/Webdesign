@@ -206,9 +206,9 @@
       }
     }
 
-    /* 9 · RÄKNARE — 91-talsbandet: siffrorna klättrar medan bandet korsar
+    /* 9 · RÄKNARE — 91-talsbandet: siffran klättrar medan bandet korsar
            vyn, scrubbade baklänges vid up-scroll, och landar exakt på det
-           verkliga värdet (1991 / 91) när bandet står i centrum. */
+           verkliga värdet (91) när bandet står i centrum. */
     g.utils.toArray('.stat-num').forEach(function (el) {
       var from = parseFloat(el.getAttribute('data-from')) || 0;
       var to = parseFloat(el.getAttribute('data-to'));
@@ -236,15 +236,8 @@
       });
     });
 
-    /* 11 · ÅRSCHIPS — varje årstal får egen parallax-drift + vrid: de glider
-            mot var sitt håll medan bandet rullar förbi. */
-    g.utils.toArray('.year-chip').forEach(function (chip, i) {
-      var dir = (i % 2 === 0) ? 1 : -1;
-      g.fromTo(chip, { y: -22 * dir, rotation: 5 * dir }, {
-        y: 22 * dir, rotation: -5 * dir, ease: 'none',
-        scrollTrigger: { trigger: '.nostalgi', start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-    });
+    /* 11 · (ÅRSCHIPS borttagna i DENSITY-FIX-01 — koptrakt: inga nya
+             årstals-chips fick finnas. Numret lämnas tomt av spårbarhet.) */
 
     /* 12 · RUTMALL — rutpappersfältet i varje sektion motscrollar långsamt
             innehållet (scrubbat y, höjd ±16 % — ligger klippt i sektionen). */

@@ -299,10 +299,20 @@ address { font-style: normal; margin-block: 0.4rem 0.9rem; }
   left: 0.7rem;
   bottom: 0.55rem;
   font-family: var(--display);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   letter-spacing: 0.18em;
-  color: var(--gold);
-  background: rgba(20, 12, 13, 0.62);
+  /* DENSITY-FIX-01: dekorativa siffrorna I–IV på bildplåkorna låg som
+     guldton på halvtransparent chip (rgba .62) ovanför fotot — uppmätt
+     2.36:1 (DA:s pikselmetod, lysande guldton mot chip). Nu: OPPAK
+     guldplåt + mörk siffertest + lite större/bredd typsnitt, så att
+     mörksidan får heldäckelkärna även efter kantutjämning vid cell-
+     parallaxen. Numerals are decorative gallery numbering (the photo's
+     meaning is in its alt text); this clears the ≥3:1 decorative bar
+     measured the same way the finding was, and ~4.5:1 analytically
+     (gold #a98d5f vs #2b1d20). DOM/aria/motion orörda. */
+  color: var(--bg);
+  background: var(--gold);
   padding: 0.08rem 0.55rem;
 }
 

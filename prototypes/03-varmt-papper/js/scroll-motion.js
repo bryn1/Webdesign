@@ -161,19 +161,12 @@
     });
 
     /* 7 · Om mig: brödtexten sjunker tungt, porträttkolumnen lättar emot —
-           kolumnerna motdrift. På breda vyer svajar inledningsstycket som
-           ett citat (x-drift ENAST bakom min-width → 375 px är y-only). */
+           kolumnerna motdrift. Citat-x-svayet på breda vyer ligger nu i 7b
+           på TOPPNIVÅ (DENSITY-FIX-01 — se varför där). */
     var prose = document.querySelector('#om .prose');
     drift(prose, 26);
     g.utils.toArray('#om .section-head .eyebrow').forEach(function (e) { drift(e, 18); });
     drift(document.querySelector('#om .portrait-cap'), -14);
-    var pull = document.querySelector('#om .prose p');
-    mm.add('(prefers-reduced-motion: no-preference) and (min-width: 64rem)', function () {
-      g.fromTo(pull, { x: 24 }, {
-        x: 0, ease: 'none',
-        scrollTrigger: { trigger: prose, start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-    });
 
     /* 8 · Tjänster: varje rad driver med sin egen tyngd och lutar upp till
            1,5° — listanbladrar som lös pappersvatt. Huvudets ögonblick
@@ -240,6 +233,24 @@
                          end: 'bottom bottom', scrub: true }
       });
     }
+  });
+
+  /* 7b · BRODX-SVAY (DRIFT, brett läge): inledningsstycket svajar som ett
+          citat — x-drift ENAST bakom min-width, så 375 px är y-only.
+          DENSITY-FIX-01: detta mm.add låg FÖRUT NESTLAT inuti det yttre
+          no-preference-handlern ovan — varje gång reduce-villkoret toggla
+          kördes handlaren om och STASHADE en ny mm-registrering per gång
+          (probe: handler 1→3→6, triggers 2→3→4). Nu: ett registratoranrop
+          på toppnivå, syster till det yttre — villkoret är ORD FÖR ORD
+          detsamma, så reduce-gaten är orörd (0 triggers vid reduce). */
+  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 64rem)', function () {
+    var prose = document.querySelector('#om .prose');
+    var pull = document.querySelector('#om .prose p');
+    if (!prose || !pull) { return; }
+    g.fromTo(pull, { x: 24 }, {
+      x: 0, ease: 'none',
+      scrollTrigger: { trigger: prose, start: 'top bottom', end: 'bottom top', scrub: true }
+    });
   });
 
   ST.refresh();

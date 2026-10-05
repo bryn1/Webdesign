@@ -87,21 +87,27 @@
       });
     });
 
-    /* 4b · RUBRIKER per rad, scrubbat: neonbaren dras framåt och texten
-           tänds medan rubriken vandrar in i vyn — bakåt spelas raden av. */
+    /* 4b · RUBRIKER per rad, scrubbat: neonbaren dras framåt och TEXTEN
+           tänds FÖRST NÄR BAREN ÄR UTE — bakåt spelas raden av.
+           DENSITY-FIX-01 (AA): förr hann textens opacity bli 1 vid 'top 58%'
+           medan baren fortfarande svepte fram till 'top 50%' → vitt rubrik-
+           text på neonbaren mättes till ~1.2:1 i ett vilande mittläge.
+           Nu: baren är helt utanför rubrikboxen (klippt av .sweep) vid
+           'top 62%' och texten börjar tändas först vid 'top 50%', full
+           opacity vid 'top 38%' — vid varje opacity > 0 är baren borta. */
     g.utils.toArray('.section:not(.hero) .sweep').forEach(function (head) {
       var bar = head.querySelector('.sweep__bar');
       var txt = head.querySelector('.sweep__text');
       if (bar) {
         g.fromTo(bar, { xPercent: -101 }, {
           xPercent: 101, ease: 'none',
-          scrollTrigger: { trigger: head, start: 'top 96%', end: 'top 50%', scrub: true }
+          scrollTrigger: { trigger: head, start: 'top 96%', end: 'top 62%', scrub: true }
         });
       }
       if (txt) {
         g.fromTo(txt, { autoAlpha: 0 }, {
           autoAlpha: 1, ease: 'none',
-          scrollTrigger: { trigger: head, start: 'top 88%', end: 'top 58%', scrub: true }
+          scrollTrigger: { trigger: head, start: 'top 50%', end: 'top 38%', scrub: true }
         });
       }
     });

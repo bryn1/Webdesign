@@ -89,6 +89,45 @@
     return words;
   }
 
+  /* ---- DENSITY-FIX-01 (P2): ORDSAMMANDS-GOLV -----------------------------
+     Motracken i block 21/22 kan trycka ihop grannord till hopskrivet
+     ("BOKARDU VIATELEFON"). Nu clampas varje ords x-amplitud så att gapet
+     till grannen ALDRIG kan krympa under 0.15 em vid något scrub-läge.
+     Mäts i layout-px (offsetLeft/Width är transformfritt; förälders
+     skalaneringar tar ut varandra mot 0.15·fs när min-skalan 0.9
+     bakas in av anroparen). Intra-ord-driften (lodningen, block 2)
+     rör inte villkoret och behåller sin amplitude.
+     Villkor per gräns: amp_i + amp_{i+1} ≤ gap_i − minGap (som mest
+     kör orden varandra till mötes i vars sin ytterposition). */
+  var GAP_MARGIN_PX = 1.5;               // offsetLeft/Width är heltalsavrundade
+  function wordGaps(groups) {
+    var gaps = [];
+    for (var i = 0; i < groups.length - 1; i++) {
+      var a = groups[i][groups[i].length - 1], b = groups[i + 1][0];
+      if (a.offsetTop + a.offsetHeight < b.offsetTop ||
+          b.offsetTop + b.offsetHeight < a.offsetTop) { gaps.push(Infinity); continue; }
+      gaps.push(b.offsetLeft - (a.offsetLeft + a.offsetWidth));
+    }
+    return gaps;
+  }
+  function clampWordAmps(groups, base, minGapPx, extraFn) {
+    var amps = groups.map(function () { return base; });
+    if (groups.length < 2) { return amps; }
+    var gaps = wordGaps(groups);
+    [gaps.map(function (_, i) { return i; }),
+     gaps.map(function (_, i) { return gaps.length - 1 - i; })].forEach(function (order) {
+      order.forEach(function (i) {
+        var slack = gaps[i] - minGapPx - GAP_MARGIN_PX - (extraFn ? extraFn(i) : 0);
+        var sum = amps[i] + amps[i + 1];
+        if (sum <= 0 || sum <= slack) { return; }
+        if (slack <= 0) { amps[i] = 0; amps[i + 1] = 0; return; }
+        var k = slack / sum;
+        amps[i] *= k; amps[i + 1] *= k;
+      });
+    });
+    return amps;
+  }
+
   /* en scrub-timeline per grupp: varje element får egen amplitud (6–14 px),
      alternerande riktning och förskjuten starttid → alltid är en majoritet av
      elementen mid-motion medan sektionen passerar, men aldrig i låstakten. */
@@ -336,7 +375,15 @@
   /* ===== brett läge ≥ 48rem: horisontell motrack — riskfri på dokumentets
      bredd eftersom jättetyget aldrig nuddar högerkanten här ===== */
   mm.add("(prefers-reduced-motion: no-preference) and (min-width: 48rem)", function () {
-    return g.context(function () {
+    /* DENSITY-FIX-01: block 21/22 mäter ordsammandets gap med offsetLeft/
+       offsetWidth — måste ske EFTER webfont-laddning, annars mäts
+       fallback-fontens bredd och clampen blir för snäll (Karlskrona-fallet:
+       ordet fick x-amplitud 10 mot ett för stort uppmätt gap). Block 20 är
+       mätoki och registreras direkt; 21/22 registreras på fonts.ready och
+       dödas av samma städning om villkoret vänder. */
+    var live = true;
+    var laterCtx = null;
+    var heroCtx = g.context(function () {
 
       /* 20 · MOTRACK: ANNY och MORIN glider horisontellt MOT varandra. */
       var lines = g.utils.toArray(".hero__line");
@@ -347,37 +394,72 @@
           { x: -dir * 42, ease: "none",
             scrollTrigger: { trigger: "#top", start: "top top", end: "bottom top", scrub: 0.6 } });
       });
+    });
+    var fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+    fontsReady.then(function () {
+      if (!live) { return; }
+      laterCtx = g.context(function () {
 
-      /* 21 · MOTRACK: titlarnas ord glider mot varandra — varje annorlunda
-             ord halv-annorlunda amplitud. */
-      g.utils.toArray(".section__title").forEach(function (title) {
-        var words = wordsFromChars(title);
-        // varje ord = en grupp tecken som glider tillsammans (spread 0) —
-        // alternerande riktning gör att grannorden kör mot varandra.
-        words.forEach(function (chars, wi) {
-          drift(chars, {
-            trigger: title, start: "top 96%", end: "bottom top",
-            x: 10, dur: 0.5, spread: 0,
-            dir: wi % 2 ? -1 : 1
+        /* 21 · MOTRACK: titlarnas ord glider mot varandra — varje annorlunda
+               ord halv-annorlunda amplitud. DENSITY-FIX-01: amplituden
+               clampas per ordpar så att ordsammandet alltid är ≥ 0.15 em;
+               titlarnas egen skala går ner på 0.9 → minGap/0.9 i layout-px. */
+        g.utils.toArray(".section__title").forEach(function (title) {
+          var words = wordsFromChars(title);
+          // varje ord = en grupp tecken som glider tillsammans (spread 0) —
+          // alternerande riktning gör att grannorden kör mot varandra.
+          var fsPx = parseFloat(window.getComputedStyle(title).fontSize) || 16;
+          var amps = clampWordAmps(words, 10, (0.15 * fsPx) / 0.9);
+          words.forEach(function (chars, wi) {
+            if (!amps[wi]) { return; }
+            drift(chars, {
+              trigger: title, start: "top 96%", end: "bottom top",
+              x: amps[wi], dur: 0.5, spread: 0,
+              dir: wi % 2 ? -1 : 1
+            });
+          });
+        });
+
+        /* 22 · MOTRACK: kontakt-rubrikens ord och sidfotens rader får sin
+               horisontella komponent här. DENSITY-FIX-01: samma golv —
+               kontaktordens pulserande skala (1.04) betalas i extra-slack,
+               sidfotens flex-bredd ger gott om spelrum från början. */
+        g.utils.toArray(".kontakt__big").forEach(function (big) {
+          var groups = Array.prototype.map.call(big.querySelectorAll(".dw"), function (w) { return [w]; });
+          if (!groups.length) { return; }
+          var fsPx = parseFloat(window.getComputedStyle(big).fontSize) || 16;
+          var amps = clampWordAmps(groups, 10, (0.15 * fsPx) / 0.9, function (i) {
+            return 0.02 * (groups[i][0].offsetWidth + groups[i + 1][0].offsetWidth);
+          });
+          groups.forEach(function (grp, wi) {
+            if (!amps[wi]) { return; }
+            g.fromTo(grp[0],
+              { x: (wi % 2 ? -1 : 1) * amps[wi] },
+              { x: (wi % 2 ? 1 : -1) * amps[wi], ease: "none",
+                scrollTrigger: { trigger: big, start: "top 90%", end: "bottom top", scrub: 0.6 } });
+          });
+        });
+        g.utils.toArray(".footer__line").forEach(function (line) {
+          var groups = Array.prototype.map.call(line.querySelectorAll("span"), function (s) { return [s]; });
+          if (!groups.length) { return; }
+          var fsPx = parseFloat(window.getComputedStyle(line).fontSize) || 16;
+          var amps = clampWordAmps(groups, 12, (0.15 * fsPx) / 0.9);
+          groups.forEach(function (grp, wi) {
+            if (!amps[wi]) { return; }
+            g.fromTo(grp[0],
+              { x: (wi % 2 ? -1 : 1) * amps[wi] },
+              { x: (wi % 2 ? 1 : -1) * amps[wi], ease: "none",
+                scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom top", scrub: 0.6 } });
           });
         });
       });
-
-      /* 22 · MOTRACK: kontakt-rubrikens ord och sidfotens rader får sin
-             horisontella komponent här. */
-      g.utils.toArray(".kontakt__big .dw").forEach(function (w, i) {
-        g.fromTo(w,
-          { x: (i % 2 ? -1 : 1) * 10 },
-          { x: (i % 2 ? 1 : -1) * 10, ease: "none",
-            scrollTrigger: { trigger: ".kontakt__big", start: "top 90%", end: "bottom top", scrub: 0.6 } });
-      });
-      g.utils.toArray(".footer__line span").forEach(function (s, i) {
-        g.fromTo(s,
-          { x: (i % 2 ? -1 : 1) * 12 },
-          { x: (i % 2 ? 1 : -1) * 12, ease: "none",
-            scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom top", scrub: 0.6 } });
-      });
+      ST.refresh();
     });
+    return function () {
+      live = false;
+      heroCtx.revert();
+      if (laterCtx) { laterCtx.revert(); }
+    };
   });
 
   ST.refresh();
