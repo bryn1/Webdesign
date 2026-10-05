@@ -45,15 +45,18 @@
   .om-grid { grid-template-columns: 1fr; }
 }
 .portrait-slot {
+  margin: 0;
   aspect-ratio: 4 / 5;
   border: 3px solid var(--frame);
   background: var(--bg-soft);
-  display: grid;
-  place-content: center;
-  text-align: center;
-  padding: var(--space-2);
+  overflow: hidden;
 }
-.portrait-slot .mono { color: var(--teal); }
+.portrait-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* håller ansiktet i bild */
+}
 
 /* ===== Tjänster — fem "assets" i rutnät ===== */
 .services-grid {

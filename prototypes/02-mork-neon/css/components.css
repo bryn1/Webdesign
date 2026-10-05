@@ -94,23 +94,20 @@ html.js.reveal-live .sweep.is-in .sweep__bar { animation: sweep-run 0.46s ease-i
   .scroll-progress { display: none; }
 }
 
-/* ---------- about / portrait placeholder ---------- */
+/* ---------- about / porträtt ---------- */
 .portrait {
+  margin: 0;
   aspect-ratio: 4 / 5;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    repeating-linear-gradient(135deg, transparent 0 22px, var(--line) 22px 23px),
-    var(--surface);
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: var(--text-muted);
-  font-family: var(--font-display);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  padding: var(--space-2);
+  background: var(--surface);
+  overflow: hidden;
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* ansiktet i övre delen beskärs ej */
 }
 
 /* ---------- services ---------- */
