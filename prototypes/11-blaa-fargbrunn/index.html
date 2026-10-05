@@ -10,9 +10,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/scroll-motion.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+
+<!-- Djupningslager: indigo tonas in med scrollen av js/scroll-motion.js. -->
+<div class="ai-deep" aria-hidden="true"></div>
 
 <!-- Dekorativt seigaiha-mönster: explicita kubiska C-kedjor (inga T/S-segment). -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -42,6 +46,7 @@
   <section class="hero" id="top" aria-label="Välkommen">
     <svg class="wave-band hero__band" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><use href="#seigaiha"/></svg>
     <div class="hero__inner">
+      <span class="ink-rule" aria-hidden="true"></span>
       <span class="seal" aria-hidden="true">藍</span>
       <p class="eyebrow">Frisör i Karlskrona</p>
       <h1>Anny Morin</h1>
@@ -56,8 +61,9 @@
   <!-- ===== 2. Om mig ===== -->
   <section class="section" id="om" aria-labelledby="om-rubrik">
     <div class="wrap two-col">
-      <div class="portrait" role="img" aria-label="Porträtt av Anny Morin — bilden är inte på plats än">
-        <span class="portrait__label">Porträtt — bild kommer</span>
+      <span class="ink-rule" aria-hidden="true"></span>
+      <div class="portrait">
+        <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
       </div>
       <div class="prose">
         <p class="eyebrow">Om mig</p>
@@ -77,6 +83,7 @@
   <!-- ===== 3. Tjänster — N1: sticky rubrik + motdriftande kolumn ===== -->
   <section class="section tjanster" id="tjanster" aria-labelledby="tjanster-rubrik">
     <div class="wrap split">
+      <span class="ink-rule" aria-hidden="true"></span>
       <div class="split__head">
         <p class="eyebrow">Tjänster</p>
         <h2 id="tjanster-rubrik">Det här<br>kan jag</h2>
@@ -114,7 +121,10 @@
 
   <!-- ===== 4. Galleri ===== -->
   <section class="section" id="galleri" aria-labelledby="galleri-rubrik">
-    <div class="wrap">
+    <div class="wrap galleri-wrap">
+      <span class="ink-rule" aria-hidden="true"></span>
+      <div class="pin-rail" aria-hidden="true"><span class="pin-seal">藍</span></div>
+      <div class="galleri-main">
       <p class="eyebrow">Galleri</p>
       <h2 id="galleri-rubrik" class="reveal">Före &amp; efter</h2>
       <ul class="gallery" role="list">
@@ -143,12 +153,14 @@
           <p class="shot__cap"><span class="tag">Före / efter</span> Skäggtrim</p>
         </li>
       </ul>
+      </div>
     </div>
   </section>
 
   <!-- ===== 5. Boka (demo) ===== -->
   <section class="section" id="boka" aria-labelledby="boka-rubrik">
     <div class="wrap">
+      <span class="ink-rule" aria-hidden="true"></span>
       <p class="eyebrow">Boka</p>
       <h2 id="boka-rubrik" class="reveal">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
       <p class="reveal"><span class="demo-badge">Demo — ingen bokning genomförs</span></p>
@@ -169,6 +181,7 @@
   <section class="section" id="kontakt" aria-labelledby="kontakt-rubrik">
     <svg class="wave-band kontakt__band" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><use href="#seigaiha"/></svg>
     <div class="wrap two-col">
+      <span class="ink-rule" aria-hidden="true"></span>
       <div class="prose">
         <p class="eyebrow">Kontakt</p>
         <h2 id="kontakt-rubrik" class="reveal">Hitta mig eller skriv till mig</h2>
@@ -216,6 +229,9 @@
   <button class="btn btn--ghost" type="button" data-close>Stäng</button>
 </dialog>
 
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll-motion.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
