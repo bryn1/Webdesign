@@ -1,7 +1,8 @@
-/* 13-91-tal decor layer: scroll-rotated confetti (N4), marquee strip,
-   draggable sticker cards, polaroid gallery frames. Loaded after style.css. */
+/* 13-91-tal decor layer: scroll-driven confetti (js/scroll-motion.js),
+   marquee strip, draggable sticker cards, polaroid gallery frames.
+   Loaded after style.css. */
 
-/* ---------- confetti field (N4) ---------- */
+/* ---------- confetti field ---------- */
 .confetti-field { position: absolute; inset: 0; pointer-events: none; }
 .confetti {
   position: absolute;
@@ -21,24 +22,13 @@
 .c10 { top: 6%; left: 8%; --r0: 20deg; --r1: -140deg; }
 .c11 { bottom: 8%; right: 10%; --r0: -15deg; --r1: 170deg; }
 
-@supports (animation-timeline: view()) {
-  .confetti {
-    animation: confetti-spin linear both;
-    animation-timeline: view();
-    animation-range: entry 0% exit 100%;
-  }
-  @keyframes confetti-spin {
-    from { transform: rotate(var(--r0)) translateY(46px); }
-    to   { transform: rotate(var(--r1)) translateY(-46px); }
-  }
-}
-
-/* IO fallback: JS marks <html> when scroll-timelines are unavailable */
-html.io-fallback .confetti { opacity: 0; transition: opacity .5s ease; }
-html.io-fallback .confetti.seen { opacity: 1; animation: confetti-pop .6s ease both; }
-@keyframes confetti-pop {
-  from { transform: rotate(var(--r0)) scale(.5); }
-  to   { transform: rotate(0deg) scale(1); }
+/* ---------- drawn section rules (dras av scroll-motion.js) ---------- */
+.draw-rule {
+  display: block;
+  height: 5px;
+  margin: -0.8rem 0 1.8rem;
+  background: var(--ink);
+  transform-origin: left center;
 }
 
 /* ---------- marquee ---------- */
@@ -157,7 +147,6 @@ html.drag-ready .sticker.dragging { cursor: grabbing; box-shadow: 10px 10px 0 va
 
 /* ---------- reduced motion: decorations fully static ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .confetti { animation: none !important; transform: none !important; opacity: 1 !important; }
   .marquee-track { animation: none; width: auto; flex-wrap: wrap; white-space: normal; }
-  .sticker, html.io-fallback .confetti.seen { transition: none; animation: none; }
+  .sticker { transition: none; }
 }

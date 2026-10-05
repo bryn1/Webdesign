@@ -194,24 +194,27 @@ a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3p
   align-items: start;
 }
 .om-text p:first-child { margin-top: 0; }
-.portrait {
+.portrait {                                   /* ramar Annys porträttfoto (3:4) */
+  margin: 0;
   background: #fff;
   border: 3px solid var(--ink);
   box-shadow: 8px 8px 0 var(--red);
-  min-height: 300px;
-  display: grid;
-  place-items: center;
+  overflow: hidden;
   transform: rotate(1.6deg);
 }
-.portrait-label {
-  font-family: var(--display);
-  font-size: 1.05rem;
-  text-align: center;
-  color: var(--ink);
+.portrait img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: 25% 12%;                   /* ansiktet i övre vänstra tredelen */
+}
+.portrait figcaption {
+  font-weight: 800;
+  font-size: .85rem;
+  padding: .5rem .8rem;
   background: var(--yellow);
-  border: 3px solid var(--ink);
-  padding: .6rem 1rem;
-  transform: rotate(-2deg);
+  border-top: 3px solid var(--ink);
+  color: var(--ink);                           /* 12.4:1 mot gult */
 }
 
 /* ---------- boka ---------- */
@@ -308,7 +311,6 @@ dialog h3 { font-family: var(--display); font-size: 1.05rem; margin: 0 0 .8rem; 
 /* ---------- small screens ---------- */
 @media (max-width: 640px) {
   .om-grid { grid-template-columns: 1fr; }
-  .portrait { min-height: 220px; }
   .slot-grid { grid-template-columns: 1fr; gap: .4rem; }
   .slot-day { margin-top: .8rem; }
   .slot { width: 100%; }
