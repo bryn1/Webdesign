@@ -6,23 +6,6 @@
   root.classList.add('js');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  /* --- N4 confetti: IntersectionObserver fallback for scroll-rotation ---
-     Primary mechanism is pure CSS view() timelines (@supports in style.css).
-     When unavailable, fade+pop shapes in once as they enter the viewport. */
-  const hasViewTimeline = 'supports' in CSS && CSS.supports('animation-timeline', 'view()');
-  if (!hasViewTimeline && !reducedMotion.matches && 'IntersectionObserver' in window) {
-    root.classList.add('io-fallback');
-    const io = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('seen');
-          io.unobserve(entry.target);
-        }
-      }
-    }, { threshold: 0.35 });
-    document.querySelectorAll('.confetti').forEach((el) => io.observe(el));
-  }
-
   /* --- no-JS note is only meaningful when JS is absent --- */
   const nojsNote = document.getElementById('nojs-note');
   if (nojsNote) nojsNote.hidden = true;
