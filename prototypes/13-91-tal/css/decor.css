@@ -150,3 +150,91 @@ html.drag-ready .sticker.dragging { cursor: grabbing; box-shadow: 10px 10px 0 va
   .marquee-track { animation: none; width: auto; flex-wrap: wrap; white-space: normal; }
   .sticker { transition: none; }
 }
+
+/* ---------- DENSITY-02a: täta scrubbed-lager (js/scroll-motion.js) ---------- */
+
+/* rutpappersfält: ligger BAKOM sektionsinnehållet (negativt z-index målar
+   ovanför papperskanvasen men under allt i flöde), klippt i sektionen. */
+.grid-field {
+  position: absolute;
+  inset: -14%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(23, 23, 27, .11) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(23, 23, 27, .11) 0 1px, transparent 1px 28px);
+}
+
+/* marquee-skal: klipper bandets överflöd och scrubbas vänsterleds av JS. */
+.marquee-shell { position: relative; overflow: clip; }
+
+/* 91-talsband: rent dekor (aria-hidden), slutläget står alltid i HTML/CSS. */
+.nostalgi {
+  position: relative;
+  overflow: clip;
+  pointer-events: none;
+  background: var(--paper);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: clamp(1.4rem, 4vw, 2.4rem) clamp(1rem, 4vw, 3rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 1.8rem;
+}
+.stat { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
+.stat-num {
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  color: var(--ink);
+  text-shadow: 4px 4px 0 var(--red);
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+  text-align: center;
+}
+.stat-lab {
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .75rem;
+  margin-top: .45rem;
+}
+.stat-bar {
+  flex: 1 1 70px;
+  min-width: 70px;
+  height: 6px;
+  background: var(--ink);
+  transform-origin: left center;
+}
+.year-chip {
+  font-weight: 800;
+  font-size: .95rem;
+  border: 3px solid var(--ink);
+  padding: .15rem .5rem;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.yc1 { background: var(--yellow); transform: rotate(-2deg); }
+.yc2 { background: #fff; transform: rotate(1.5deg); }
+.yc3 { background: var(--red); transform: rotate(-1deg); }
+.yc4 { background: #fff; transform: rotate(2deg); }
+.yc5 { background: #d9f2ec; transform: rotate(-1.5deg); }
+.yc6 { background: var(--yellow); transform: rotate(1deg); }
+
+/* ordmasker: byggs av JS inuti no-preference-gaten — finns inte annars. */
+.w-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: .16em;
+  margin-bottom: -.16em;
+}
+.w-in { display: inline-block; }
+.sec-head > .words-holder { display: block; max-width: 100%; }
+.sec-head .head-chip { margin: 0 .7rem .3rem 0; vertical-align: middle; }
+
+@media (max-width: 640px) {
+  .nostalgi { gap: .9rem 1.1rem; }
+  .stat-bar { flex-basis: 40px; min-width: 40px; }
+}
+
