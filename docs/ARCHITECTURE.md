@@ -76,7 +76,13 @@ Reality vs the standard (the warts, stated honestly — this is what the doc mus
 | 12, 19 | `js/scroll.js` | **legacy filename only** — still the single file registering ScrollTrigger (re-grep this pass: sole registrar in each) | cosmetic |
 | 11 | `js/main.js` | **keeps a pre-wave IntersectionObserver reveal engine** beside GSAP (GSAP file registers 0 reveal targets ⇒ no overlap per concern, but two engines in one theme) | P2 queued for next touch — DONE S-F3, DA-c4 P2-1 |
 | 02 | `js/theme-sync.js` | IO-driven section color-invert beside GSAP | P3 accepted (DA-c4) |
+| 05 | `js/scroll-motion.js` | **module-level `gsap.ticker` drift engine** for background layers, besides ScrollTrigger for the rest — built after a mid-build `ScrollTrigger.refresh()`/matchMedia re-run froze stateful mm-scoped registrations; the engine is confined to the mm gate and PROVEN reduce-inert (0 style mutations across scrolls, TEST-c2 + DA). Second drive-mechanism exception — **DEBT-TAG (ARCH c2): do NOT template-copy to new themes**; pure-ScrollTrigger is the doctrine path |
 | 15 | `js/main.js` | scroll-gated chapter-swap IO; disabled under reduce | P4 accepted (DA-c4) |
+
+Convention added by the density wave (ARCH c2 P3-3): convergent drifts tween **±A→0**, never
+±A→∓A — alternating full-amplitude tweens leave grids/rows visibly misaligned at rest (invisible
+mid-scrub, obvious when the reader stops). Held repo-wide after DENSITY-FIX-01; new motion must
+follow it. Wide x-drifts sit behind a `min-width` matchMedia block so 375px keeps 0 overflow.
 
 Every one of the 20 themes has exactly **one** file that registers ScrollTrigger triggers (grep
 this pass: 20 files, 5–12 registration sites each; 02/15's IO uses are non-GSAP helpers, 11's is
@@ -138,9 +144,12 @@ verdicts).
 
 1. **`08-organiskt-hantverk/index.html` = 456 lines** — the only repo file >400. Header reason
    inside the file (ruled 2026-10-05, sha f5b2de9): single-page theme kept whole; CSS/JS already
-   split; fragmenting markup would separate each hand-drawn SVG from its copy. Next-largest file
-   repo-wide: 399 (`17-mork-akademien/css/style.css`) — soft 250-line ceiling is exceeded by ~35
-   hand-authored files (251–399), none above hard 400. Hand-authored ceiling holds.
+   split; fragmenting markup would separate each hand-drawn SVG from its copy. Files >400 lines
+   with header reason lines (density-wave growth, ruled 2026-10-05 ARCH P3-1 re-pin):
+   `17-mork-akademien/css/style.css` **414** (one coherent theme dress) and
+   `18-bara-typsnitt/js/scroll-motion.js` **470** (word-gap safety clamp must stay beside the
+   amplitudes it guards). The ~35-file 251–399 hand-authored band carries no hard-ceiling
+   breaches. Every >400 file states its reason in the header. Ceiling rule holds.
 2. Vendored `_assets/vendor/*.js` are generated/minified — exempt from line hygiene (correctly:
    `wc -l` there is meaningless, ~11 lines of megabytes).
 3. Themes 15 + 18 photo-free — by brief, gate-enforced (see §3).

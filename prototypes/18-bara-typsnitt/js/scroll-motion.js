@@ -6,6 +6,10 @@
    i (prefers-reduced-motion: no-preference): med reduce körs ingenting och allt
    innehåll står redan i CSS i sitt synliga slutläge (regler fullt dragna,
    scramble textad, sidan icke-inverterad). Utan JS/bibliotek händer nada.
+   reason (>400 rader, DENSITY-FIX-01): ordgap-klemen (wordGaps/clampWordAmps) måste bo i samma
+   fil som amplituderna den skyddar — den mäter grann-span i DOM-flödet och delar beräkningen
+   med drift-tweenen; att splita isär skyddet från amplituden skulle kräva delat flyttandes
+   (hygienregeln 2026-10-05: >400 kräver motivering i headern, inte split som sämre alternativ).
    Temat är foto-fritt: typografin ÄR rörelsen — FÄRG (inverteringssteget sveper
    ner genom sidan, sektion för sektion), ZOOM (jättesymlabor som skalar),
    LINJE (hårlinjer som ritas och tjocknar), DRIFT (bokstäver ±6–14 px med
