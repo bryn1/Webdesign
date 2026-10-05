@@ -1,0 +1,95 @@
+/* scenes.css — the js-scoped stage machinery (CONCEPT §2 z-stack). Every rule here is
+   html.js AND (prefers-reduced-motion: no-preference): no JS or reduced-motion readers get
+   the static base.css stack instead (§5.1/§5.2 — one mechanism, never two).
+   Deviation note vs §2: .chrome/.shot are grouped inside a .hero wrapper so the URL pill
+   and the sliced image cannot drift apart; z semantics (chrome below shot) are unchanged. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js #stage {
+    position: relative; height: 100vh; overflow: hidden;
+    padding: 0; background: var(--stage-bg); perspective: 1200px;
+  }
+  html.js .stack {
+    position: absolute; inset: 0; display: block; transform-style: preserve-3d;
+  }
+  html.js .caps { position: absolute; left: var(--sp-4); bottom: var(--sp-4); z-index: 60; width: min(560px, 84vw); margin: 0; pointer-events: none; }
+  html.js .cap { position: absolute; left: 0; bottom: 0; opacity: 0; }
+  html.js .cap[data-scene="0"] { opacity: 1; }
+
+  /* ---- hero (chrome z:10 → shot z:20, inside one non-transformed centering wrapper).
+     translateZ(-160px): inside the preserve-3d .stack, siblings sort by depth, not z-index —
+     the slices tilt up to z:140, so the WHOLE hero plane sits behind the flat scene layers
+     (which flatten at z:0). GSAP decomposes this matrix and keeps z when tweening. ---- */
+  html.js .hero {
+    position: absolute; inset: 0; margin: auto; z-index: 10; transform: translateZ(-160px);
+    width: min(860px, 86vw); transform-style: preserve-3d;
+    height: calc(min(860px, 86vw) / (var(--hero-ar)) + var(--chrome-bar-h));
+  }
+  html.js .chrome { position: absolute; inset: 0; z-index: 1; border: 1px solid var(--gold-dim); border-radius: var(--radius); background: #0e241d; }
+  html.js .chrome__bar { position: absolute; top: 0; left: 0; right: 0; }
+  html.js .shot {
+    position: absolute; left: 1px; right: 1px; bottom: 1px;
+    top: calc(1px + var(--chrome-bar-h)); z-index: 2; transform-style: preserve-3d;
+    border: 0; border-radius: 0; max-width: none; overflow: visible; /* slice tilts must not clip */
+  }
+  html.js .shot-img { backface-visibility: hidden; }
+
+  /* ---- scene layers: one full-bleed flex layer each, z:30, never co-visible (exclusive opacity) ---- */
+  html.js .code, html.js .flow, html.js .board, html.js .hubg {
+    position: absolute; inset: 0; z-index: 30; display: flex;
+    align-items: center; justify-content: center; opacity: 0; pointer-events: none;
+  }
+
+  /* SC1 code panels */
+  html.js .code { gap: clamp(10px, 2.5vw, 28px); }
+  html.js .code-panel { width: min(27vw, 310px); flex: 0 1 auto; }
+
+  /* SC2 chain */
+  html.js .flow { flex-direction: column; gap: var(--sp-2); }
+  html.js .flow__row { width: min(92vw, 980px); justify-content: center; }
+
+  /* SC3 board */
+  html.js .board { gap: clamp(10px, 2vw, 24px); }
+  html.js .kan-col { width: min(24vw, 280px); flex: 0 1 auto; }
+
+  /* SC4 hub-and-spoke (positions set by scenes.js: left/top 50% + xPercent/yPercent centering) */
+  html.js .hub { position: absolute; left: 50%; top: 50%; }
+  html.js .spoke { position: absolute; left: 50%; top: 50%; }
+  html.js .spokes { display: contents; }
+  html.js .wire {
+    position: absolute; left: 50%; top: 50%; width: 200px; height: var(--wire-w);
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    transform-origin: 0 50%; opacity: .9;
+  }
+  html.js .counters { position: absolute; left: 0; right: 0; bottom: 25%; justify-content: center; }
+
+  /* SC5 outro (z:40) */
+  html.js .outro {
+    position: absolute; inset: 0; z-index: 40; display: flex; align-items: center;
+    justify-content: center; gap: clamp(16px, 5vw, 64px); opacity: 0; pointer-events: none;
+  }
+  html.js .docked-shot { opacity: 0; }
+  html.js .nav-card { opacity: 0; }
+  html.js .seed {
+    display: block; position: absolute; inset: 0; margin: auto; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--gold); opacity: 0; z-index: 35;
+  }
+
+  /* ---------- mobile variant (max-width 767px, §5.3): same DOM, restacked stage ---------- */
+  @media (max-width: 767px) {
+    html.js .hero { width: 92vw; height: calc(92vw / (var(--hero-ar)) + var(--chrome-bar-h)); }
+    html.js .code { flex-direction: column; }
+    html.js .code-panel { width: min(86vw, 420px); }
+    html.js .flow__row { width: 92vw; }
+    html.js .wf-node { font-size: var(--fs-min); }
+    html.js .board { flex-direction: column; }
+    html.js .kan-col { width: min(86vw, 420px); padding: var(--sp-2); }
+    html.js .kan-col .task-card { margin-bottom: var(--sp-1); }
+    html.js .wire { width: 100px; }
+    html.js .counters { bottom: 24%; gap: var(--sp-1) var(--sp-3); font-size: .85rem; }
+    html.js .outro { flex-direction: column; gap: var(--sp-3); }
+    html.js .docked-shot { max-width: 60vw; }
+    html.js .nav-cards { justify-content: center; }
+    /* caption ends above the fixed demo chip (§2: chip z:70 never repositions) */
+    html.js .caps { left: var(--sp-2); right: var(--sp-2); width: auto; bottom: 4.2rem; }
+  }
+}

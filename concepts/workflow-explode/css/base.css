@@ -1,0 +1,138 @@
+/* base.css — the STATIC view: readable with JS off AND under prefers-reduced-motion (§5.1/5.2).
+   No absolute/hidden stage rules here: those live in scenes.css scoped to html.js only.
+   DOM order IS the content order (CONCEPT §5.1). */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0; background: var(--emerald); color: var(--paper);
+  font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.55;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.demo-chip {
+  position: fixed; right: var(--sp-2); bottom: var(--sp-2); z-index: 70;
+  margin: 0; padding: .45rem .8rem; border: 1px solid var(--gold-dim); border-radius: 99px;
+  background: rgba(10, 21, 18, .92); color: var(--gold);
+  font-size: var(--fs-min); letter-spacing: .08em; text-transform: uppercase;
+}
+
+/* ---- stage as plain stacked sections in the static view ---- */
+#stage { padding: var(--sp-5) var(--sp-3) var(--sp-4); background: var(--stage-bg); }
+.stack { display: grid; gap: var(--sp-5); max-width: 1100px; margin: 0 auto; }
+.caps { display: grid; gap: var(--sp-2); max-width: 1100px; margin: var(--sp-5) auto 0; }
+
+.cap { border-left: 3px solid var(--gold-dim); padding-left: var(--sp-3); }
+.cap__eyebrow { margin: 0; color: var(--gold); font-size: var(--fs-eyebrow); letter-spacing: .16em; text-transform: uppercase; }
+.cap h2 { margin: .2rem 0 .3rem; font-size: clamp(1.6rem, 4.5vw, var(--fs-cap)); line-height: 1.15; color: var(--paper); }
+.cap__sub { margin: 0; font-size: var(--fs-body); color: rgba(244, 234, 216, .86); max-width: 52ch; }
+
+/* browser chrome + hero */
+.chrome__bar {
+  display: flex; align-items: center; gap: var(--sp-2);
+  height: var(--chrome-bar-h); padding: 0 var(--sp-2);
+  background: #0e241d; border: 1px solid var(--line); border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.chrome__dots { color: var(--gold-dim); letter-spacing: .35em; font-size: .8rem; }
+.chrome__url {
+  flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: .15rem .7rem; border-radius: 99px; background: rgba(244, 234, 216, .08);
+  color: rgba(244, 234, 216, .75); font-family: var(--font-mono); font-size: var(--fs-min);
+}
+.shot {
+  position: relative; aspect-ratio: var(--hero-ar); max-width: 900px;
+  border: 1px solid var(--line); border-radius: 0 0 var(--radius) var(--radius); overflow: hidden;
+}
+.shot-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slice-a { clip-path: inset(0 0 66.6% 0); }
+.slice-b { clip-path: inset(33.3% 0); }
+.slice-c { clip-path: inset(66.6% 0 0 0); }
+
+/* SC1 code panels */
+.code { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-3); }
+.code-panel {
+  background: var(--panel-bg); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: var(--sp-3); min-width: 0;
+}
+.code-panel h3 { margin: 0 0 var(--sp-2); color: var(--gold); font-size: var(--fs-min); letter-spacing: .1em; }
+.code-panel pre {
+  margin: 0; font-family: var(--font-mono); font-size: var(--fs-min); line-height: 1.5;
+  white-space: pre-wrap; overflow-wrap: break-word; color: rgba(244, 234, 216, .92);
+}
+
+/* SC2 workflow chain */
+.flow__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+.wf-node {
+  padding: .55rem 1rem; border: 1px solid var(--gold-dim); border-radius: 99px;
+  background: var(--card-bg); color: var(--paper); font-size: var(--fs-min); white-space: nowrap;
+}
+.wf-node--gate { border-color: var(--blush); }
+.wf-link { flex: 1 1 24px; min-width: 24px; height: 2px; background: var(--gold); opacity: .8; }
+.flow__loop { display: block; width: min(560px, 100%); margin-top: var(--sp-2); color: var(--gold); }
+.flow__loop-label { fill: var(--gold); font-size: 15px; font-family: var(--font-body); }
+.flow__loop path { stroke: var(--gold); stroke-width: 2; fill: none; }
+
+/* SC3 kanban */
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-3); }
+.kan-col { background: rgba(244, 234, 216, .04); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--sp-3); }
+.kan-col h3 { margin: 0 0 var(--sp-2); font-size: var(--fs-min); letter-spacing: .14em; text-transform: uppercase; }
+.kan-col--queued h3 { color: var(--state-queued); }
+.kan-col--running h3 { color: var(--state-running); }
+.kan-col--verified h3 { color: var(--state-verified); }
+.task-card {
+  background: var(--card-bg); border: 1px solid var(--line); border-left-width: 4px;
+  border-radius: 6px; padding: var(--sp-2); margin-bottom: var(--sp-2); font-size: var(--fs-min);
+}
+.task-card:last-child { margin-bottom: 0; }
+.kan-col--queued .task-card { border-left-color: var(--state-queued); }
+.kan-col--running .task-card { border-left-color: var(--state-running); }
+.kan-col--verified .task-card { border-left-color: var(--state-verified); }
+.task-card__id { color: var(--gold); font-family: var(--font-mono); font-size: .85rem; }
+.task-card__type { display: block; color: rgba(244, 234, 216, .6); font-size: .85rem; }
+
+/* SC4 orchestrator */
+.hubg { display: grid; gap: var(--sp-3); justify-items: center; }
+.hub {
+  padding: .8rem 1.4rem; border: 1px solid var(--gold); border-radius: var(--radius);
+  background: var(--panel-bg); color: var(--gold); font-family: var(--font-mono); font-size: var(--fs-min);
+}
+.spokes { display: flex; flex-wrap: wrap; gap: var(--sp-2); justify-content: center; }
+.spoke {
+  padding: .5rem 1rem; border: 1px solid var(--gold-dim); border-radius: 99px;
+  background: var(--card-bg); font-family: var(--font-mono); font-size: var(--fs-min);
+}
+.counters { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); margin: 0; padding: 0; }
+.counters b { color: var(--gold); font-variant-numeric: tabular-nums; }
+
+/* SC5 outro */
+.outro { display: grid; gap: var(--sp-3); }
+.seed { display: none; }
+.docked-shot { max-width: 340px; border: 1px solid var(--gold-dim); border-radius: var(--radius); overflow: hidden; }
+.nav-cards { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.nav-card {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
+  padding: .7rem 1.4rem; border: 1px solid var(--gold); border-radius: var(--radius);
+  color: var(--gold); text-decoration: none; font-size: var(--fs-body);
+}
+.nav-card:hover { background: var(--gold); color: var(--ink); }
+
+/* sections below the pin — honest placeholders, see README */
+.doc-section { max-width: 1100px; margin: 0 auto; padding: var(--sp-5) var(--sp-3); }
+.doc-section h2 { color: var(--gold); font-size: 1.4rem; letter-spacing: .08em; text-transform: uppercase; }
+footer.doc-section { border-top: 1px solid var(--line); font-size: var(--fs-min); color: rgba(244, 234, 216, .7); }
+
+/* 375px floor: nothing wider than the viewport */
+@media (max-width: 480px) {
+  #stage, .doc-section { padding-left: var(--sp-2); padding-right: var(--sp-2); }
+  .code { grid-template-columns: 1fr; }
+  .board { grid-template-columns: 1fr; }
+  .chrome__url { font-size: .8rem; }
+  .demo-chip { font-size: .8rem; }
+}
