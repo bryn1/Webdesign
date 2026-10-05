@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/salong.css">
+<link rel="stylesheet" href="css/motion.css">
 <script src="../_assets/vendor/gsap.min.js" defer></script>
 <script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/scroll-motion.js" defer></script>
@@ -19,9 +20,19 @@
 <body>
 <a class="skip-link" href="#top">Hoppa till innehållet</a>
 
-<!-- CRT-lager: scanlines + glimt, ren CSS, ingen JS -->
-<div class="crt" aria-hidden="true"></div>
+<!-- Pixelgrid: bakgrundslagren som-parallaxeras mot content (JS-scrub).
+     Dekora — syns stilla utan JS, flyttar bara i no-preference-läget. -->
+<div class="pixgrid" aria-hidden="true"><span class="pixgrid__dots"></span><span class="pixgrid__lines"></span></div>
+
+<!-- CRT-lager: vignett + glimt i ren CSS; scanlines i eget driftlager -->
+<div class="crt" aria-hidden="true"><span class="crt__lines"></span></div>
 <div class="progress" aria-hidden="true"><div class="progress__bar" id="progress-bar"></div></div>
+
+<!-- Sprite-rails: dekorativa glyfer som marcherar mot varandra i scrub -->
+<div class="sprite-rail" aria-hidden="true">
+  <div class="sprite-rail__row sprite-rail__row--a"><span>▚</span><span>▞</span><span>▛</span><span>▜</span><span>▄</span><span>█</span><span>▀</span><span>▙</span><span>▟</span><span>░</span><span>▒</span><span>▓</span><span>▛</span><span>▜</span><span>▄</span><span>▀</span><span>▚</span><span>▞</span></div>
+  <div class="sprite-rail__row sprite-rail__row--b"><span>▟</span><span>▙</span><span>▀</span><span>▄</span><span>▜</span><span>▛</span><span>▞</span><span>▚</span><span>▓</span><span>▒</span><span>░</span><span>▟</span><span>▙</span><span>▜</span><span>▛</span><span>▄</span><span>▀</span><span>█</span></div>
+</div>
 
 <header class="marquee">
   <a class="logo" href="#top">MYNTA<span class="logo__coin" aria-hidden="true">◉</span></a>
@@ -35,6 +46,7 @@
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
   </nav>
+  <p class="marquee__hud px" aria-hidden="true">POÄNG <span class="hud-num" id="hud-poang">000000</span><span class="hud-sep">·</span>LEVEL <span class="hud-num" id="hud-level">01</span></p>
 </header>
 
 <main>
@@ -57,6 +69,7 @@
       <p class="section__meta px glow-c">STAGE 01 — PLAYER PROFILE</p>
       <h2>Hår som känns som ditt</h2>
       <div class="stage-rule" aria-hidden="true"></div>
+      <span class="head-wipe" aria-hidden="true"><span class="head-wipe__bar"></span></span>
     </div>
     <div class="om-grid">
       <figure class="om-portrait">
@@ -87,6 +100,7 @@
       <p class="section__meta px glow-c">STAGE 02 — SELECT YOUR SERVICE</p>
       <h2>Det här kan jag</h2>
       <div class="stage-rule" aria-hidden="true"></div>
+      <span class="head-wipe" aria-hidden="true"><span class="head-wipe__bar"></span></span>
     </div>
     <ol class="menu">
       <li class="menu-item">
@@ -143,6 +157,7 @@
       <p class="section__meta px glow-c">STAGE 03 — HIGH SCORE SCREEN</p>
       <h2>Före &amp; efter</h2>
       <div class="stage-rule" aria-hidden="true"></div>
+      <span class="head-wipe" aria-hidden="true"><span class="head-wipe__bar"></span></span>
     </div>
     <ul class="gallery">
       <li>
@@ -198,6 +213,7 @@
       <p class="section__meta px glow-c">STAGE 04 — INSERT COIN</p>
       <h2>Välj en tid — sedan bokar du via telefon eller Instagram</h2>
       <div class="stage-rule" aria-hidden="true"></div>
+      <span class="head-wipe" aria-hidden="true"><span class="head-wipe__bar"></span></span>
     </div>
     <p class="demo-banner px glow-m">DEMO — INGEN BOKNING GENOMFÖRS</p>
     <p class="boka-lead">Kalendern är en demo utan backend. Välj en tid så visar den hur du
@@ -253,6 +269,7 @@
       <p class="section__meta px glow-c">STAGE 05 — END SCREEN</p>
       <h2>Hitta mig eller skriv till mig</h2>
       <div class="stage-rule" aria-hidden="true"></div>
+      <span class="head-wipe" aria-hidden="true"><span class="head-wipe__bar"></span></span>
     </div>
     <div class="kontakt-grid">
       <div class="kontakt-info">
