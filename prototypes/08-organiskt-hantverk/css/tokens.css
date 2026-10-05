@@ -39,7 +39,5 @@
   --r-blob-b: 2.6rem 1.6rem 2.9rem 1.5rem / 1.6rem 2.7rem 1.5rem 2.6rem;
   --r-soft: 0.9rem 0.55rem 0.9rem 0.6rem / 0.6rem 0.9rem 0.55rem 0.9rem;
 
-  --dur-draw: 1.15s;
-  --dur-soft: 0.55s;
   --ease-organic: cubic-bezier(0.25, 0.9, 0.3, 1);
 }

@@ -2,8 +2,9 @@
    booking-demo, dialog and the honest contact form. */
 
 /* ---------- hand-drawn headline underlines ----------
-   Without JS / reduced motion the static stroke is shown. With JS the path is
-   dash-hidden and stroke-drawn by IntersectionObserver (js/stroke-draw.js). */
+   Static stroke is always the CSS default (visible without JS and under
+   prefers-reduced-motion). js/scroll-motion.js scrubs the stroke-draw via GSAP
+   inline styles only — no state classes here anymore. */
 .headline { position: relative; display: inline-block; padding-bottom: 0.15rem; }
 .underline {
   display: block;
@@ -19,18 +20,6 @@
   stroke-linecap: round;
 }
 .underline--wide { width: min(100%, 24rem); }
-.js .underline path.is-drawable {
-  stroke-dasharray: var(--dash);
-  stroke-dashoffset: var(--dash);
-}
-.js .underline path.is-drawn {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset var(--dur-draw) var(--ease-organic);
-}
-@media (prefers-reduced-motion: reduce) {
-  .js .underline path.is-drawable { stroke-dashoffset: 0; transition: none; }
-  .js .underline path.is-drawn { transition: none; }
-}
 
 /* ---------- buttons ---------- */
 .btn {
