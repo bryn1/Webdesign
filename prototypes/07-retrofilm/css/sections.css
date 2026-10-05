@@ -24,14 +24,24 @@
 .hero-leader { text-align: center; }
 .hero-leader svg { width: min(100%, 17rem); margin-inline: auto; }
 
-/* ===== sprocket band — perforerad filmremsa som section-divider ===== */
+/* ===== sprocket band — perforerad filmremsa som section-divider =====
+   Perforeringen bor på .sprocket__strip (dottern), så att den kan
+   motrulla vertikalt mot sidans scroll (registrerad i scroll-motion.js).
+   Utan JS ligger dottern stilla centrerad — bandet ser ut som förut. */
 .sprocket {
   height: 26px;
+  background-color: var(--frame);
+  border-block: 3px solid var(--frame);
+  position: relative;
+  overflow: hidden;
+}
+.sprocket__strip {
+  position: absolute;
+  inset: -28px 0;
   background:
     repeating-linear-gradient(90deg,
       var(--ink) 0 14px, transparent 14px 34px) center / 34px 12px repeat-x;
-  background-color: var(--frame);
-  border-block: 3px solid var(--frame);
+  will-change: transform;
 }
 
 /* ===== Om mig ===== */
@@ -118,8 +128,32 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--frame);
+  position: relative;
 }
 .film-frame__media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Filmgrind — dekorativa kantriter som ritas när rutan kliver in
+   (scaleX/scaleY registrerad i scroll-motion.js; utan JS stilla, synlig). */
+.gate {
+  position: absolute;
+  background: var(--oxblood);
+  pointer-events: none;
+  will-change: transform;
+}
+.gate--x { top: 0; left: 0; right: 0; height: 2px; transform-origin: left center; }
+.gate--y { top: 0; left: 0; bottom: 0; width: 2px; transform-origin: center top; }
+
+/* Rutnummer — dekorativt slangnummer i filmkantens ovansida. */
+.frame-no {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--bg);
+  pointer-events: none;
+  z-index: 1;
+}
 
 /* F1: saknade bilder = tomma filmruter, aldrig 404 */
 .film-frame--gap .film-frame__media {

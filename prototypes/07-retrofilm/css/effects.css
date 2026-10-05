@@ -3,17 +3,39 @@
    Scrollreveal ligger i js/scroll-motion.js (GSAP). One concern: motion &
    pointer effects only. */
 
-/* ===== 1) Filmkorn — inline SVG feTurbulence, opacity ≤ 0.05 ===== */
+/* ===== 1) Filmkorn — inline SVG feTurbulence, opacity ≤ 0.05 =====
+   Infattat utanför viewporten (inset -70 px) så att kornet kan driva
+   diagonalt i sin egen långsamma takt utan att blotta kant (scrub i
+   scroll-motion.js). Skalaten 1.16 sätts av JS i no-preference-grenen. */
 .grain {
   position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -70px;
   pointer-events: none;
   z-index: 200;
   opacity: 0.045;
   mix-blend-mode: multiply;
 }
+
+/* ===== 1b) Papper — bakre lager som motrullar scrollen (längdriktad
+   djupkänsla som en filmbackdrop). Skapas av scroll-motion.js inuti
+   no-preference-grenen; utan JS och vid reduce finns lagret inte alls. */
+.paper-layer {
+  position: fixed;
+  inset: -90px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 95% at 50% 6%, rgba(255, 255, 255, 0.45), transparent 62%),
+    var(--bg);
+  will-change: transform;
+}
+
+/* ===== 1c) Rubrikdelning — ord i radblock, klippta och upptrickande
+   (spannen skapas av scroll-motion.js i no-preference-grenen; utan JS
+   eller vid reduce finns de inte — rubrikerna står i normal textflöde). */
+.word { display: inline-block; }
+.line-clip { display: block; overflow: hidden; }
+.line-rise { display: block; }
 @media (prefers-reduced-motion: reduce) {
   .grain { display: none; }
 }
@@ -107,4 +129,5 @@ figure:focus-within .film-frame__media img {
   .js-fine-pointer .film-frame__media,
   .js-fine-pointer .hero-leader { cursor: auto; }
   .grain { display: none; }
+  .paper-layer { display: none; }
 }
