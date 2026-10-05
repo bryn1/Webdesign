@@ -165,10 +165,9 @@ a:hover { color: var(--grey); }
 .rail__track {
   display: flex;
   width: max-content;
-  animation: rail-slide 34s linear infinite;
+  /* Marquee-rörelsen drivs av js/scroll-motion.js (GSAP, xPercent) — tema 18
+     har inga CSS-animationer alls sedan GSAP-konverteringen 2026-10-05. */
 }
-.rail--reverse .rail__track { animation-duration: 42s; animation-direction: reverse; }
-.rail:hover .rail__track { animation-play-state: paused; }
 
 .rail__half {
   display: flex;
@@ -183,8 +182,6 @@ a:hover { color: var(--grey); }
   white-space: nowrap;
 }
 .rail__half span { color: var(--hair); }
-
-@keyframes rail-slide { to { transform: translateX(-50%); } }
 
 /* ===== Demo-märkning ===== */
 .demo-badge {

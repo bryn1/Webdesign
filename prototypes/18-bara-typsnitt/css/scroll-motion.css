@@ -1,0 +1,36 @@
+/* scroll-motion.css — styling för tema 18:s GSAP-scroll-koreografi (MC 10088).
+   Rörelsen drives av js/scroll-motion.js (GSAP + ScrollTrigger, lokalt vendor).
+   Den här filen är undantagslöst decoration: utan JS eller med
+   prefers-reduced-motion står alla element i sitt SLUT-tillstånd — hårlinjerna
+   fullt dragna, texten decodad, sidan i normal kontrast. Ingen innehållsdel
+   göms bakom en drivare som saknas. */
+
+/* Hårlinje per sektion: ritas från vänster av ScrollTrigger (scaleX 0→1).
+   Utan JS: fullbred synlig hairline — alltid ett synligt slutläge. */
+.type-rule {
+  height: 1px;
+  margin: 0 0 clamp(1.4rem, 4vw, 2.2rem);
+  background: var(--hair);
+  transform-origin: 0 50%;
+}
+
+/* FÄRG-händelsen: sidan inverteras som ett steg medan galleriplåten varar.
+   Paletten är temat redan äger — inga nya färger, bara byta plats på dem:
+   normalände   #050505 botten / #ffffff text / #9a9a9a sekundär (7.24:1)
+   inverterad    #ffffff botten / #050505 text (20.4:1) / #3a3a3a sekundär
+                 (11.4:1, upp mätt i evidence/18-contrast).
+   Steget är omedelbart — inga långa färg-korstoningar som sänker läsbarheten
+   mitt i bytet. */
+body.inverted {
+  --bg: #ffffff;
+  --ink: #050505;
+  --grey: #3a3a3a;
+  --hair: #9a9a9a;
+}
+
+/* Drift-lägena: Före/Efter kolumnerna driver horisontellt åt håll varsitt —
+   ramen klipper det som annars skulle kunna skvalpa över kanten på 375 px. */
+.specimen__row { overflow: hidden; }
+
+/* Marquee-rails drivs av GSAP (xPercent) — spårar lagret diskret. */
+.rail__track { will-change: transform; }
