@@ -1,5 +1,7 @@
 /* ============================================================
    17 · Mörka akademien — statisk dräkt (static theme)
+   reason: en sammanhållen temadräkt per sidmall — en stylesheet,
+   delning skulle splitta pallett/typografi-kopplingen.
    Palett: äggplånsfält #2b1d20, parchment #e9dfc9, brun #5a4038,
    guldpenna #a98d5f. Scroll-koreografi ligger i motion.css.
    Kontrast (uppmätt WCAG, 2026-10-04):
@@ -195,6 +197,9 @@ address { font-style: normal; margin-block: 0.4rem 0.9rem; }
     margin: 0;
     padding-left: 0.75rem;
   }
+  /* I tvåkolumnsgriden (Om/Kontakt) pekar marginalen inåt mot grannkolumnen —
+     där behålls statisk flöde så inget textspöke hamnar bakom porträtt/formulär. */
+  .om-grid .marginalia, .kontakt-grid .marginalia { position: static; width: auto; }
 }
 
 /* ── om mig ─────────────────────────────────────────────── */

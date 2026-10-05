@@ -9,17 +9,51 @@
    js/scroll-motion.js inga triggers alls (slutläge = grundläge).
    ============================================================ */
 
-/* Växtljuslager: fast, värms upp av scroll-djup (GSAP: opacity).
-   Opacitet 0 = sidan ser ut som förut — synligt grundläge. */
+/* Växtljuslager: målat BAKOM innehållet (z 0, före sektionerna i DOM) —
+   texten ritas ovanpå glöden, så kontrasten beräknas mot glödad botten,
+   aldrig mot texten. Opacitet 0 = grundläge utan JS. Intensiteten värms
+   av scroll-djup (GSAP: opacity + långsam x/y-drift). Alfabudgeten är
+   satt efter WCAG: glöd max .035 + glödband .0275 ovanpå mörka lagslinjer
+   = uppmätt #a98d5f 4.57:1 (AA), #e9dfc9 10.9:1 — se .paper och 17-aa. */
 .candle-glow {
   position: fixed;
   inset: 0;
-  z-index: 5;
+  z-index: 0;
   pointer-events: none;
   opacity: 0;
   background:
-    radial-gradient(95% 70% at 50% 34%, rgba(255, 186, 96, 0.16), transparent 60%),
+    radial-gradient(95% 70% at 50% 34%, rgba(255, 186, 96, 0.07), transparent 60%),
     radial-gradient(140% 110% at 50% 55%, transparent 48%, rgba(52, 18, 6, 0.30) 100%);
+}
+
+/* Papperstextur: fasta lagslinjer i mörk brunkol — fibervarven glider
+   långsamt MOT scrollen (GSAP: yPercent) — parchmenten andunder texten.
+   Mörka linjer (alfaber .035/.025, färg #10090a) SÄNKER bottens luminans:
+   uppmätt WCAG med max glöd ovanpå = #a98d5f 4.57:1, #e9dfc9 10.9:1 —
+   utan JS/statisk 5.21:1. Tråden syns i rörelse, aldrig som tvätt. */
+.paper {
+  position: fixed;
+  top: -8%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(16, 9, 10, 0.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(16, 9, 10, 0.025) 0 1px, transparent 1px 5px);
+}
+
+/* Sektionsglöd: varm ljuspool som tänds och släcks scrubbat medan
+   sektionen passerar (GSAP: opacity + y). Endast på mörka fält —
+   panelsektionerna (Tjänster/Boka) hålls rena för guldtextens AA. */
+.glow-band {
+  position: absolute;
+  inset: -6% 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    radial-gradient(86% 52% at 50% 42%, rgba(255, 190, 112, 0.055), transparent 72%);
 }
 
 /* Pennstreck: ett hairline per sektion, ritat från vänster av GSAP
@@ -38,6 +72,59 @@
   margin: 1.6rem auto 0;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
+
+/* Dubbelrule: hairlinje-par som ritas ut från mitten (GSAP: scaleX 0→1).
+   Utan JS: fullt synlig — alltid slutläge = grundläge. */
+.rule-double {
+  display: block;
+  width: min(13rem, 50%);
+  height: 5px;
+  margin: 2.8rem auto -0.9rem;
+  border-top: 1px solid var(--brown);
+  border-bottom: 1px solid var(--brown);
+  transform-origin: center;
+}
+
+/* Fleurons: marginalornament som driver i olika långsamma takter genom
+   sektionen (GSAP: y + rotation). Dolda i smal vy — breddvakt. */
+.fleuron {
+  display: none;
+  position: absolute;
+  top: 3.6rem;
+  right: 2.4rem;
+  font-size: 1.5rem;
+  color: var(--gold);
+  opacity: 0.72;
+  pointer-events: none;
+}
+@media (min-width: 76rem) {
+  .fleuron { display: block; }
+}
+
+/* Fallande initial: bokstaven står i brödtexten även utan JS —
+   GSAP skalar och vridar den blidscrubbat över bandet. */
+.dropcap {
+  float: left;
+  font-family: var(--display);
+  font-size: 3.3em;
+  line-height: 0.76;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--gold);
+}
+
+/* Rad-delning (brödtext): svepda hölje + inre band. Utan JS/reduce:
+   inga svep sätts — texten står orörd i sina spanar med full opacitet. */
+.split-wrap { display: block; overflow: hidden; }
+.split-inner { display: block; padding-bottom: 0.08em; }
+
+/* Porträttet i oval guldbåge med pappersmata — Ken Burns och
+   ram-parallax sköts av scroll-motion.js. */
+.portrait-frame .gilt {
+  border-radius: 50% / 55% 55% 45% 45%;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 6px rgba(233, 223, 201, 0.10);
+}
+.portrait-frame img { object-position: 42% 24%; }
 
 /* Kapitälrubrik som hålls stilla medan tjänstlistan passerar
    (GSAP-pin, endast bred + no-preference). Utan JS: vanlig rubrik. */
