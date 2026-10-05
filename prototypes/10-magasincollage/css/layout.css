@@ -204,5 +204,5 @@ section[id] { scroll-margin-top: 4.5rem; }
 /* ============================================================
    NO-JS / REDUCED-MOTION-FALLBACK: galleriet är redan ett vanligt
    rutnät i collage.css utan html[data-motion] — inget döljs, inget
-   roteras. Collageeffekterna tänds enbart av js/collage.js.
+   roteras. Collageeffekterna tänds enbart av js/scroll-motion.js.
    ============================================================ */
