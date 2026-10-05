@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
   <title>Anny Morin — Klipp det korta | Frisör i Karlskrona</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' text-anchor='middle' fill='%23e11d48'%3E%E2%9C%82%3C/text%3E%3C/svg%3E">
   <meta name="description" content="Anny Morin, frisör i Karlskrona. Klippning, färg och vård på Müllers., Landbrogatan 11. Bokning via telefon 072-155 48 60 eller Instagram @mullers.anny.">
@@ -13,9 +14,17 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/motion.css">
 </head>
 <body>
   <a class="skip-link" href="#top">Hoppa till innehållet</a>
+
+  <!-- Dekorativa scroll-lager (DENSITY-03c): aria-hidden, pointer-events none.
+       Innehåll — aldrig innehåll. -->
+  <div class="grid-rails" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <span class="press-slab" aria-hidden="true"></span>
 
   <header class="site-header">
     <a class="brand" href="#top">Anny Morin<span class="brand-dot">.</span></a>
@@ -32,9 +41,10 @@
   <main>
     <!-- ===== Hero ===== -->
     <section id="top" class="hero" aria-labelledby="hero-rubrik">
+      <span class="slab slab--hero" aria-hidden="true"></span>
       <p class="eyebrow hero-eyebrow" data-reveal>Frisör i Karlskrona ///</p>
       <h1 id="hero-rubrik" class="hero-title" data-reveal>
-        Anny<span class="hero-title-2">Morin</span>
+        <span class="hw">Anny</span><span class="hero-title-2 hw">Morin</span>
       </h1>
       <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
       <p class="hero-cta" data-reveal>
@@ -62,12 +72,14 @@
 
     <!-- ===== Om mig ===== -->
     <section id="om" class="section section--ink" aria-labelledby="om-rubrik">
+      <span class="slab slab--om" aria-hidden="true"></span>
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">/// Om mig</p>
-          <h2 id="om-rubrik" class="section-title">Hår som känns som ditt</h2>
+          <h2 id="om-rubrik" class="section-title"><span class="w-clip"><span class="w">Hår</span></span> <span class="w-clip"><span class="w">som</span></span> <span class="w-clip"><span class="w">känns</span></span> <span class="w-clip"><span class="w">som</span></span> <span class="w-clip"><span class="w">ditt</span></span></h2>
         </div>
         <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
         <div class="about-grid">
           <div class="about-copy" data-reveal>
             <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att
@@ -90,12 +102,14 @@
 
     <!-- ===== Tjänster: stackade jättesiffror ===== -->
     <section id="tjanster" class="section" aria-labelledby="tjanster-rubrik">
+      <span class="slab slab--svc" aria-hidden="true"></span>
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">/// Tjänster</p>
-          <h2 id="tjanster-rubrik" class="section-title">Det här kan jag</h2>
+          <h2 id="tjanster-rubrik" class="section-title"><span class="w-clip"><span class="w">Det</span></span> <span class="w-clip"><span class="w">här</span></span> <span class="w-clip"><span class="w">kan</span></span> <span class="w-clip"><span class="w">jag</span></span></h2>
         </div>
         <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
         <div class="services-stack">
           <article class="svc" data-reveal>
             <span class="svc-num" aria-hidden="true">01</span>
@@ -142,14 +156,19 @@
       </div>
     </section>
 
+    <!-- Dekorativ hårdklossremsa (block-strip): glider i hårda steg vid scroll. -->
+    <div class="block-strip" role="presentation"><div class="block-strip-inner"></div></div>
+
     <!-- ===== Galleri ===== -->
     <section id="galleri" class="section section--ink" aria-labelledby="galleri-rubrik">
+      <span class="slab slab--gal" aria-hidden="true"></span>
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">/// Galleri</p>
-          <h2 id="galleri-rubrik" class="section-title">Före &amp; efter</h2>
+          <h2 id="galleri-rubrik" class="section-title"><span class="w-clip"><span class="w">Före</span></span> <span class="w-clip"><span class="w">&amp;</span></span> <span class="w-clip"><span class="w">efter</span></span></h2>
         </div>
         <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
         <div class="gal-nav">
           <button type="button" class="gal-btn" data-gallery-prev aria-label="Rulla galleriet åt vänster">&#8592;</button>
           <button type="button" class="gal-btn" data-gallery-next aria-label="Rulla galleriet åt höger">&#8594;</button>
@@ -198,15 +217,17 @@
 
     <!-- ===== Boka (DEMO-mock) ===== -->
     <section id="boka" class="section section--red" aria-labelledby="boka-rubrik">
+      <span class="slab slab--boka" aria-hidden="true"></span>
       <div class="wrap">
         <div class="boka-head" data-reveal>
           <div>
             <p class="eyebrow">/// Boka</p>
-            <h2 id="boka-rubrik" class="section-title">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+            <h2 id="boka-rubrik" class="section-title"><span class="w-clip"><span class="w">Välj</span></span> <span class="w-clip"><span class="w">en</span></span> <span class="w-clip"><span class="w">tid</span></span> <span class="w-clip"><span class="w">—</span></span> <span class="w-clip"><span class="w">sedan</span></span> <span class="w-clip"><span class="w">bokar</span></span> <span class="w-clip"><span class="w">du</span></span> <span class="w-clip"><span class="w">via</span></span> <span class="w-clip"><span class="w">telefon</span></span> <span class="w-clip"><span class="w">eller</span></span> <span class="w-clip"><span class="w">Instagram</span></span></h2>
           </div>
           <span class="demo-badge">Demo — ingen bokning genomförs</span>
         </div>
         <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
         <p class="boka-lead" data-reveal>Kalendern nedan är en <strong>demo</strong> utan backend.
           Klicka på en tid för att se hur bokningen skulle gå till — självaste bokningen görs alltid
           på riktigt via telefon eller Instagram.</p>
@@ -244,12 +265,14 @@
 
     <!-- ===== Kontakt ===== -->
     <section id="kontakt" class="section section--ink" aria-labelledby="kontakt-rubrik">
+      <span class="slab slab--kon" aria-hidden="true"></span>
       <div class="wrap">
         <div class="section-head" data-reveal>
           <p class="eyebrow">/// Kontakt</p>
-          <h2 id="kontakt-rubrik" class="section-title">Hitta mig eller skriv till mig</h2>
+          <h2 id="kontakt-rubrik" class="section-title"><span class="w-clip"><span class="w">Hitta</span></span> <span class="w-clip"><span class="w">mig</span></span> <span class="w-clip"><span class="w">eller</span></span> <span class="w-clip"><span class="w">skriv</span></span> <span class="w-clip"><span class="w">till</span></span> <span class="w-clip"><span class="w">mig</span></span></h2>
         </div>
         <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
         <div class="kontakt-grid">
           <ul class="kontakt-list" data-reveal>
             <li><span class="k-label">Salong</span>
@@ -283,7 +306,7 @@
   </main>
 
   <footer class="site-footer">
-    <p class="footer-big">Anny Morin<span style="color:var(--red)">.</span></p>
+    <p class="footer-big"><span class="w-clip"><span class="w">Anny</span></span> <span class="w-clip"><span class="w">Morin</span></span><span style="color:var(--red)">.</span></p>
     <nav aria-label="Sidfotens meny">
       <p class="footer-nav">
         <a href="#top">Toppen</a>
