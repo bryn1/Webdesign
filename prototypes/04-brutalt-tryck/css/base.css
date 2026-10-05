@@ -113,20 +113,11 @@ button {
   padding: 0.25rem 0.6rem;
 }
 
-/* Scroll-reveal: syns alltid utan JS; döljs först när js/reveal.js markerat */
-[data-reveal-ready] [data-reveal] {
-  opacity: 0;
-  translate: 0 1.25rem;
-}
-[data-reveal-ready] [data-reveal].is-in {
-  opacity: 1;
-  translate: 0 0;
-  transition: opacity var(--dur) var(--ease-out), translate var(--dur) var(--ease-out);
-}
+/* Scroll-reveal drivs av GSAP (js/scroll-motion.js): utan JS och vid
+   prefers-reduced-motion finns ingen döljande CSS alls — allt synligt. */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  [data-reveal-ready] [data-reveal] { opacity: 1; translate: none; transition: none; }
   *, *::before, *::after {
     animation-duration: 0.001s !important;
     animation-iteration-count: 1 !important;

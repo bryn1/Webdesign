@@ -1,6 +1,15 @@
 /* components.css — sektioners komponenter: om, tjänster (stackade siffror),
    galleri, boka-mock, kontakt. 04 Brutalt tryck. */
 
+/* ---------- Rubrikreglar: tunga linjer som ritas av GSAP (LINE) ---------- */
+.draw-rule {
+  height: 8px;
+  background: var(--red);
+  margin: 0 0 var(--gap-4);
+}
+.section-head + .draw-rule { margin-top: calc(var(--gap-4) * -1 + var(--gap-2)); }
+.section--red .draw-rule { background: var(--ink); } /* svart på rött — temat */
+
 /* ---------- Om mig ---------- */
 .about-grid {
   display: grid;
