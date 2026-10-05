@@ -11,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/salong.css">
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll-motion.js" defer></script>
 <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -50,15 +53,21 @@
 
   <!-- 2 · OM MIG ─ PLAYER PROFILE ─────────────────────────────────── -->
   <section class="section" id="om">
-    <p class="section__meta px glow-c">STAGE 01 — PLAYER PROFILE</p>
-    <h2>Hår som känns som ditt</h2>
+    <div class="stage-head">
+      <p class="section__meta px glow-c">STAGE 01 — PLAYER PROFILE</p>
+      <h2>Hår som känns som ditt</h2>
+      <div class="stage-rule" aria-hidden="true"></div>
+    </div>
     <div class="om-grid">
-      <div class="screen om-portrait">
-        <div class="screen__inner om-portrait__inner">
-          <p class="px">PORTRÄTT</p>
-          <p class="om-portrait__note">Porträtt — bild kommer</p>
+      <figure class="om-portrait">
+        <div class="screen">
+          <div class="screen__inner om-portrait__inner">
+            <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
+          </div>
         </div>
-      </div>
+        <figcaption class="om-portrait__cap">Anny Morin på Müllers. Foto: Anny Morin
+          (<a href="https://www.instagram.com/mullers.anny/" rel="noopener" target="_blank">@mullers.anny</a>).</figcaption>
+      </figure>
       <div class="om-text">
         <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
           först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
@@ -74,8 +83,11 @@
 
   <!-- 3 · TJÄNSTER ─ SELECT YOUR SERVICE ──────────────────────────── -->
   <section class="section" id="tjanster">
-    <p class="section__meta px glow-c">STAGE 02 — SELECT YOUR SERVICE</p>
-    <h2>Det här kan jag</h2>
+    <div class="stage-head">
+      <p class="section__meta px glow-c">STAGE 02 — SELECT YOUR SERVICE</p>
+      <h2>Det här kan jag</h2>
+      <div class="stage-rule" aria-hidden="true"></div>
+    </div>
     <ol class="menu">
       <li class="menu-item">
         <p class="menu-item__no px" aria-hidden="true">01</p>
@@ -127,8 +139,11 @@
 
   <!-- 4 · GALLERI ─ HIGH SCORE SCREEN ─────────────────────────────── -->
   <section class="section" id="galleri">
-    <p class="section__meta px glow-c">STAGE 03 — HIGH SCORE SCREEN</p>
-    <h2>Före &amp; efter</h2>
+    <div class="stage-head stage-head--pin">
+      <p class="section__meta px glow-c">STAGE 03 — HIGH SCORE SCREEN</p>
+      <h2>Före &amp; efter</h2>
+      <div class="stage-rule" aria-hidden="true"></div>
+    </div>
     <ul class="gallery">
       <li>
         <div class="screen">
@@ -179,8 +194,11 @@
 
   <!-- 5 · BOKA ─ INSERT COIN (DEMO) ────────────────────────────────── -->
   <section class="section" id="boka">
-    <p class="section__meta px glow-c">STAGE 04 — INSERT COIN</p>
-    <h2>Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+    <div class="stage-head">
+      <p class="section__meta px glow-c">STAGE 04 — INSERT COIN</p>
+      <h2>Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+      <div class="stage-rule" aria-hidden="true"></div>
+    </div>
     <p class="demo-banner px glow-m">DEMO — INGEN BOKNING GENOMFÖRS</p>
     <p class="boka-lead">Kalendern är en demo utan backend. Välj en tid så visar den hur du
       bokar på riktigt: per telefon eller Instagram-DM.</p>
@@ -231,8 +249,11 @@
 
   <!-- 6 · KONTAKT ─ END SCREEN ─────────────────────────────────────── -->
   <section class="section" id="kontakt">
-    <p class="section__meta px glow-c">STAGE 05 — END SCREEN</p>
-    <h2>Hitta mig eller skriv till mig</h2>
+    <div class="stage-head">
+      <p class="section__meta px glow-c">STAGE 05 — END SCREEN</p>
+      <h2>Hitta mig eller skriv till mig</h2>
+      <div class="stage-rule" aria-hidden="true"></div>
+    </div>
     <div class="kontakt-grid">
       <div class="kontakt-info">
         <h3 class="px glow-g">MÜLLERS. — KARLSKRONA</h3>

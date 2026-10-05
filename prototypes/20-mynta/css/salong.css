@@ -76,9 +76,15 @@
 @media (min-width: 720px) {
   .om-grid { grid-template-columns: minmax(14rem, 20rem) 1fr; align-items: start; }
 }
-.om-portrait__inner { min-height: 16rem; gap: .4rem; padding: 1rem; text-align: center; }
-.om-portrait .px { font-size: .75rem; color: var(--cyan); margin: 0; }
-.om-portrait__note { color: var(--text-dim); margin: 0; }
+.om-portrait { margin: 0; }
+.om-portrait__inner { min-height: 16rem; }
+/* ansiktet (övre vänstra tredjedelen) hålls i bildytan även smal-cropad */
+.om-portrait__inner img { object-position: 30% 12%; }
+.om-portrait__cap {
+  font-size: .9rem;
+  color: var(--text-dim);             /* ~13:1 mot --bg (AA/AAA) */
+  margin: .7rem 0 0;
+}
 .om-text p:first-child { margin-top: 0; }
 
 /* ---------- tjänster: arkadmeny ---------- */
