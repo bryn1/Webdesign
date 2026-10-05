@@ -1,0 +1,109 @@
+/* motion.css — DENSITY-03c: dekorativa scroll-lager + js-gateda utgångslägen
+   för 04 Brutalt tryck. All rörelse registreras i js/scroll-motion.js; den
+   här filen bär ENDAST: (1) dekorativa aria-hidden-lager, (2) clip-ramar för
+   ordkliver, (3) html.js + no-preference-gateda dolda startlägen — så att
+   JS-av och prefers-reduced-motion:reduce visar allt innehåll. */
+
+/* ---------- Dekorativt rutnät: fasta horisontellinjer med tick-mönster,
+   kontrar-scrollar ett hack i taget (GSAP scrub, steps-ease). ---------- */
+.grid-rails {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  overflow: hidden;
+}
+.grid-rails i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(225, 29, 72, 0.45) 0 12px, transparent 12px 38px);
+}
+.grid-rails i:nth-child(1) { top: 11%; }
+.grid-rails i:nth-child(2) { top: 29%; }
+.grid-rails i:nth-child(3) { top: 47%; }
+.grid-rails i:nth-child(4) { top: 64%; }
+.grid-rails i:nth-child(5) { top: 81%; }
+.grid-rails i:nth-child(6) { top: 95%; }
+
+/* ---------- Tryckmätare: fast regelskiva som slår ifyllt sidan längs. ---- */
+.press-slab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--red);
+  z-index: 55;
+  pointer-events: none;
+  transform-origin: left center;
+}
+
+/* ---------- Sektionsklossar: hårda röda plattor i marginalen, bakom
+   innehållet (.wrap lyfter fram). Döljs < 701px (mobil: ingen bred x). --- */
+.section { position: relative; }
+.wrap { position: relative; z-index: 1; }
+.slab {
+  position: absolute;
+  width: clamp(3.5rem, 10vw, 9rem);
+  background: var(--red);
+  z-index: 0;
+  pointer-events: none;
+}
+.slab--om   { top: 14%; right: -2.5rem; height: 26vh; }
+.slab--svc  { top: 30%; left: -2.5rem;  height: 22vh; }
+.slab--gal  { top: 18%; right: -2.5rem; height: 30vh; }
+.slab--boka { top: 55%; right: -2.5rem; height: 18vh; background: var(--ink); }
+.slab--kon  { top: 24%; left: -2.5rem;  height: 24vh; }
+.slab--hero { top: 8%; left: -2.5rem; width: clamp(3rem, 7vw, 6rem); height: 34vh; }
+@media (max-width: 700px) { .slab { display: none; } }
+
+/* ---------- Lodräta reglar: ritas i full vikt (scaleY-scrub). ---------- */
+.rule-v {
+  position: absolute;
+  left: 0.45rem;
+  top: 10%;
+  width: 6px;
+  height: 30%;
+  background: var(--red);
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: top center;
+}
+.section--red .rule-v { background: var(--ink); }
+@media (max-width: 700px) { .rule-v { display: none; } }
+
+/* ---------- Hårdklossremsa: block som marcherar i hack vid scroll. ------ */
+.block-strip {
+  border-block: var(--rule) solid var(--ink);
+  background: var(--bg);
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+.block-strip-inner {
+  width: 220%;
+  height: 30px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 42px, transparent 42px 96px);
+}
+
+/* ---------- Ordklip: innehållspann som kliver in underifrån i hårda steg. */
+.w-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.w { display: inline-block; }
+.hero-title > .hw { display: inline-block; }
+.hw.hero-title-2 { display: block; }
+
+/* Dolt startläge ENDAST med JS + no-preference — GSAP kliver fram orden
+   via scrub. Utan JS eller vid reduce: helt synligt innehåll. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .w { transform: translateY(115%); }
+}
+
+/* ---------- Gallerifönster: hårt beskurna ramar vars innehåll panerar. -- */
+.gal-media img { scale: 1.22; }
