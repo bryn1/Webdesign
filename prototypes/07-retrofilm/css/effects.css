@@ -1,6 +1,7 @@
 /* Silverkorn — effects: filmkorn, blend-cursor, förhandlare (preloader),
-   Ken-Burns, reveal. All avstängda eller statiska under prefers-reduced-motion.
-   One concern: motion & pointer effects only. */
+   Ken-Burns. All avstängda eller statiska under prefers-reduced-motion.
+   Scrollreveal ligger i js/scroll-motion.js (GSAP). One concern: motion &
+   pointer effects only. */
 
 /* ===== 1) Filmkorn — inline SVG feTurbulence, opacity ≤ 0.05 ===== */
 .grain {
@@ -88,29 +89,20 @@ figure:focus-within .film-frame__media img {
   transform: scale(1.09) translate(-1.5%, 1%);
 }
 
-/* ===== 5) Reveal — en gång vid inkorgling (IntersectionObserver i js/reveal.js) =====
-   Döljning sker ENDAST när js-reveal-klassen satts; utan JS är allt synligt. */
-.js-reveal [data-reveal] {
-  opacity: 0;
-  transform: translateY(1.1rem);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.js-reveal [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
+/* ===== 5) Reveal — flyttad till js/scroll-motion.js (GSAP/ScrollTrigger).
+   Ingen CSS-döljning mer: GSAP sätter sina utgångslägen själv, blott inuti
+   matchMedias no-preference-gren. Utan JS och vid reducerad rörelse finns
+   inget dolt — allt innehåll synligt från start. */
 
 /* ===== Reduced motion: allt ovan staticerat/avstängt ===== */
 @media (prefers-reduced-motion: reduce) {
-  .film-frame__media img,
-  .js-reveal [data-reveal] {
+  .film-frame__media img {
     transition: none;
     transform: none;
     opacity: 1;
   }
   figure:hover .film-frame__media img,
   figure:focus-within .film-frame__media img { transform: none; }
-  .js-reveal [data-reveal]:not(.is-visible) { opacity: 1; transform: none; }
   .blend-cursor { display: none; }
   .js-fine-pointer .film-frame__media,
   .js-fine-pointer .hero-leader { cursor: auto; }
