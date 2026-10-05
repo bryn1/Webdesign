@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/mesh.css">
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll-motion.js" defer></script>
 <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -57,10 +60,12 @@
   <!-- ===== Om mig ===== -->
   <section id="om" class="section" aria-labelledby="om-rubrik">
     <div class="section__glow section__glow--left" aria-hidden="true"></div>
+    <span class="light-rule" aria-hidden="true"></span>
     <div class="container om-grid">
-      <div class="portrait" role="img" aria-label="Porträtt av Anny Morin — bild kommer">
-        <span class="portrait__label">Porträtt — bild kommer</span>
-      </div>
+      <figure class="portrait">
+        <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
+        <figcaption>Anny Morin, frisör på Müllers i Karlskrona.</figcaption>
+      </figure>
       <div>
         <p class="eyebrow">Om mig</p>
         <h2 id="om-rubrik" class="display grad-text">Hår som känns som ditt</h2>
@@ -79,6 +84,7 @@
   <!-- ===== Tjänster ===== -->
   <section id="tjanster" class="section section--tint" aria-labelledby="tjanster-rubrik">
     <div class="section__glow section__glow--right" aria-hidden="true"></div>
+    <span class="light-rule" aria-hidden="true"></span>
     <div class="container">
       <p class="eyebrow">Tjänster</p>
       <h2 id="tjanster-rubrik" class="display grad-text">Det här kan jag</h2>
@@ -119,6 +125,8 @@
   <!-- ===== Galleri ===== -->
   <section id="galleri" class="section" aria-labelledby="galleri-rubrik">
     <div class="section__glow section__glow--left" aria-hidden="true"></div>
+    <span class="light-rule" aria-hidden="true"></span>
+    <span class="beam" aria-hidden="true"></span>
     <div class="container">
       <p class="eyebrow">Galleri</p>
       <h2 id="galleri-rubrik" class="display grad-text">Före &amp; efter</h2>
@@ -154,6 +162,7 @@
   <!-- ===== Boka (demo) ===== -->
   <section id="boka" class="section section--tint" aria-labelledby="boka-rubrik">
     <div class="section__glow section__glow--right" aria-hidden="true"></div>
+    <span class="light-rule" aria-hidden="true"></span>
     <div class="container">
       <p class="eyebrow">Boka tid</p>
       <h2 id="boka-rubrik" class="display">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
@@ -214,6 +223,7 @@
   <!-- ===== Kontakt ===== -->
   <section id="kontakt" class="section" aria-labelledby="kontakt-rubrik">
     <div class="section__glow section__glow--left" aria-hidden="true"></div>
+    <span class="light-rule" aria-hidden="true"></span>
     <div class="container">
       <p class="eyebrow">Kontakt</p>
       <h2 id="kontakt-rubrik" class="display grad-text">Hitta mig eller skriv till mig</h2>
