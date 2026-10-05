@@ -177,16 +177,25 @@ a:hover { color: var(--txt-blue); }
 }
 @media (max-width: 820px) { .om-grid { grid-template-columns: 1fr; } }
 
-.portrait {
-  aspect-ratio: 4 / 5;
+.portrait {                                   /* ramar Annys porträttfoto (4:5-bild + ärlig bildtext) */
+  margin: 0;
   border-radius: var(--radius);
   background: linear-gradient(160deg, #ece7fb, #fbeaf3 55%, #e7e6fd);
   border: 1px solid var(--line);
-  display: grid;
-  place-items: center;
-  padding: var(--space-2);
+  overflow: hidden;
 }
-.portrait__label { color: var(--muted); font-weight: 600; font-size: .95rem; }
+.portrait img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 25% 12%;                  /* ansiktet i övre vänstra tredelen även på 375 px */
+}
+.portrait figcaption {
+  padding: .7em 1em;
+  font-size: .9rem;
+  color: var(--muted);
+  background: var(--surface);
+}
 
 
 /* ---------- Sidfot ---------- */

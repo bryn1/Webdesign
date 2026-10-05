@@ -1,8 +1,8 @@
 /* main.js — Gradientljus (tema 16). IIFE: inga globals. Laddas med defer.
    Sidan är fullt läsbar utan denna fil — allt här är progressiv förstärkning:
    1) bokningsmock: vald tid → dialog med telefon/Instagram-väg (demo),
-   2) kontaktformular: demomodalitet (ingen backend),
-   3) glödfallback med IntersectionObserver om animation-timeline: view() saknas. */
+   2) kontaktformular: demomodalitet (ingen backend).
+   Scrollrörelsen bor ensam i js/scroll-motion.js (GSAP) — en mekanism per fråga. */
 (function () {
   "use strict";
 
@@ -53,28 +53,5 @@
       svar.hidden = false;
       svar.scrollIntoView({ block: "nearest" });
     });
-  }
-
-  /* ---------- 3. Glödintensitet: IO-fallback utan view()-timeline ---------- */
-
-  var supportsViewTimeline =
-    window.CSS && CSS.supports && CSS.supports("animation-timeline", "view()");
-  var prefersReduced =
-    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (!supportsViewTimeline && !prefersReduced && "IntersectionObserver" in window) {
-    var glows = document.querySelectorAll(".section__glow");
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("glow--on");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "0px 0px -15% 0px", threshold: 0.05 }
-    );
-    Array.prototype.forEach.call(glows, function (glow) { io.observe(glow); });
   }
 })();
