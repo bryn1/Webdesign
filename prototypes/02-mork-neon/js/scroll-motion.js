@@ -45,6 +45,11 @@
         scaleX: 1, ease: 'none',
         scrollTrigger: { trigger: rule, start: 'top 96%', end: 'top 66%', scrub: true }
       });
+      /* glöden dras upp över samma sträcka som draget — skylten tänds */
+      g.fromTo(rule,
+        { boxShadow: '0 0 2px rgba(200,245,66,.08)' },
+        { boxShadow: '0 0 16px rgba(200,245,66,.75)', ease: 'none',
+          scrollTrigger: { trigger: rule, start: 'top 96%', end: 'top 56%', scrub: true } });
     });
 
     /* 3 · FÄRG: den mörka grunden värms en aning medan sektionen vandrar
@@ -57,14 +62,14 @@
     });
 
     /* 4 · REVIVAL (ersätter reveal.js:ens IntersectionObserver):
-           brödtext träder in, rubrikernas bar-sweep spelas av GSAP. */
+           brödtext träder in, hero-rubrikernas bar-sweep spelas av GSAP. */
     g.utils.toArray('[data-reveal]').forEach(function (el) {
       g.from(el, {
         autoAlpha: 0, y: 16, duration: 0.6, ease: 'power1.out',
         scrollTrigger: { trigger: el, start: 'top 94%', once: true }
       });
     });
-    g.utils.toArray('.sweep').forEach(function (el) {
+    g.utils.toArray('.hero .sweep').forEach(function (el) {
       var bar = el.querySelector('.sweep__bar');
       var txt = el.querySelector('.sweep__text');
       var tl = g.timeline({ paused: true });
@@ -82,9 +87,42 @@
       });
     });
 
-    /* 5 · ZOOM: porträtt och gallerifoton slår an i överstorlek och lägger
-           sig medan ramen vandrar upp genom vyn — bildrummen håller ramen. */
-    ['.portrait', '#galleri .gallery-card:nth-child(1)', '#galleri .gallery-card:nth-child(2)',
+    /* 4b · RUBRIKER per rad, scrubbat: neonbaren dras framåt och texten
+           tänds medan rubriken vandrar in i vyn — bakåt spelas raden av. */
+    g.utils.toArray('.section:not(.hero) .sweep').forEach(function (head) {
+      var bar = head.querySelector('.sweep__bar');
+      var txt = head.querySelector('.sweep__text');
+      if (bar) {
+        g.fromTo(bar, { xPercent: -101 }, {
+          xPercent: 101, ease: 'none',
+          scrollTrigger: { trigger: head, start: 'top 96%', end: 'top 50%', scrub: true }
+        });
+      }
+      if (txt) {
+        g.fromTo(txt, { autoAlpha: 0 }, {
+          autoAlpha: 1, ease: 'none',
+          scrollTrigger: { trigger: head, start: 'top 88%', end: 'top 58%', scrub: true }
+        });
+      }
+    });
+    /* ögonbrynen glider ut från sina neonregler */
+    g.utils.toArray('.section:not(.hero) .eyebrow').forEach(function (eyebrow) {
+      g.fromTo(eyebrow, { x: -26, autoAlpha: 0 }, {
+        x: 0, autoAlpha: 1, ease: 'none',
+        scrollTrigger: { trigger: eyebrow, start: 'top 94%', end: 'top 62%', scrub: true }
+      });
+    });
+
+    /* 5 · ZOOM: porträttet Ken Burns 1→1,05 med långsam sidodrift genom
+           hela passagen; gallerifotonen lägger sig från överstorlek. */
+    var pimg = document.querySelector('.portrait img');
+    if (pimg) {
+      g.fromTo(pimg, { scale: 1, x: 14 }, {
+        scale: 1.05, x: -14, ease: 'none',
+        scrollTrigger: { trigger: '.portrait', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    }
+    ['#galleri .gallery-card:nth-child(1)', '#galleri .gallery-card:nth-child(2)',
      '#galleri .gallery-card:nth-child(3)', '#galleri .gallery-card:nth-child(4)'
     ].forEach(function (sel, i) {
       var frame = document.querySelector(sel);
@@ -96,13 +134,99 @@
       });
     });
 
-    /* 6 · DRIFT: glödlagren driver MOT scrollriktningen — relativ förskjutning
-           genom sektionen som känns bakom innehållet. */
+    /* 6 · DRIFT: glödlagren driver MOT scrollriktningen i olika långsam
+           takt — och deras glöd stiger och sjunker genom bandet. */
     g.utils.toArray('.haze').forEach(function (haze, i) {
-      g.fromTo(haze, { yPercent: i % 2 ? 16 : -18 }, {
-        yPercent: i % 2 ? -16 : 18, ease: 'none',
+      var amp = 14 + i * 7;
+      g.fromTo(haze, { yPercent: i % 2 ? amp : -amp }, {
+        yPercent: i % 2 ? -amp : amp, ease: 'none',
         scrollTrigger: { trigger: haze.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
       });
+      g.to(haze, {
+        keyframes: { opacity: [0.45, 1, 0.45] }, ease: 'none',
+        scrollTrigger: { trigger: haze.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    /* hårfinta neonnät + scanlines gattar emot scrollen */
+    g.utils.toArray('.neon-grid').forEach(function (grid, i) {
+      g.fromTo(grid, { yPercent: i % 2 ? -12 : 12 }, {
+        yPercent: i % 2 ? 12 : -12, ease: 'none',
+        scrollTrigger: { trigger: grid.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    g.fromTo('.scanlines', { y: 0 }, {
+      y: -60, ease: 'none',
+      scrollTrigger: { start: 0, end: 'max', scrub: true }
+    });
+
+    /* 6b · DRIFT i tre+ hastigheter: mörka kort, listor och rutor glider
+           med olika långsam takt genom sektionen — många element samtidigt.
+           (Tjänster-korten tappade data-reveal: entrén spelas nu här, scrub.) */
+    function drift(el, from, to, trig) {
+      g.fromTo(el, { y: from }, {
+        y: to, ease: 'none',
+        scrollTrigger: { trigger: trig || el, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    }
+    drift('#om .split > div', -24, 24, '#om');
+    drift('.portrait', 30, -30, '#om');
+    g.utils.toArray('#tjanster .service-card').forEach(function (card, i) {
+      drift(card, 34 - i * 12, -34 + i * 12, '#tjanster');
+      g.fromTo(card, { autoAlpha: 0 }, {
+        autoAlpha: 1, ease: 'none',
+        scrollTrigger: { trigger: card, start: 'top 95%', end: 'top 60%', scrub: true }
+      });
+    });
+    g.utils.toArray('#galleri .gallery-card').forEach(function (card, i) {
+      drift(card, 26 - i * 10, -26 + i * 10, '#galleri');
+    });
+    g.utils.toArray('#kontakt .contact-list li').forEach(function (li, i) {
+      drift(li, 26 - i * 11, -26 + i * 11, '#kontakt');
+    });
+    drift('#kontakt .contact-form', -18, 18, '#kontakt');
+    /* Boka: tidrutnätet driver och korten studsar in i stagger — scrubbat */
+    g.utils.toArray('.cal-day').forEach(function (dayEl, d) {
+      drift(dayEl.querySelector('.cal-slots'), 18 - d * 9, -18 + d * 9, dayEl);
+      g.timeline({
+        scrollTrigger: { trigger: dayEl, start: 'top 92%', end: 'top 48%', scrub: true }
+      }).fromTo(dayEl.querySelectorAll('.slot'), { y: 16, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, ease: 'none', stagger: 0.08 });
+    });
+    /* footer: kolumnerna stiger in i stagger medan foten glider fram */
+    g.timeline({
+      scrollTrigger: { trigger: '.site-footer', start: 'top bottom', end: 'top 55%', scrub: true }
+    }).fromTo('.footer-inner > div', { y: 48, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, ease: 'none', stagger: 0.16 });
+
+    /* 6c · CTA-påstar och märken bobbar långsamt med scrollen — scrubbat,
+           ingen timer;stillastående sida utan JS/gsap ser dem i vila. */
+    g.to('.nav-cta', {
+      keyframes: { y: [0, -5, 0, 5, 0] }, ease: 'none',
+      scrollTrigger: { start: 0, end: 'max', scrub: true }
+    });
+    g.utils.toArray('.hero-actions .btn').forEach(function (btn, i) {
+      g.to(btn, {
+        keyframes: { y: [0, i ? 8 : -8, 0, i ? -8 : 8, 0] }, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    });
+    g.utils.toArray('.gallery-btn').forEach(function (btn, i) {
+      g.to(btn, {
+        keyframes: { y: [0, i ? 7 : -7, 0, i ? -7 : 7, 0] }, ease: 'none',
+        scrollTrigger: { trigger: '#galleri', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    g.utils.toArray('.demo-badge').forEach(function (badge) {
+      g.to(badge, {
+        keyframes: { y: [0, 6, 0, -6, 0] }, ease: 'none',
+        scrollTrigger: {
+          trigger: badge.closest('.section'), start: 'top bottom', end: 'bottom top', scrub: true
+        }
+      });
+    });
+    g.to('.scroll-hint', {
+      keyframes: { x: [0, 14, 0] }, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom 40%', scrub: true }
     });
   });
 

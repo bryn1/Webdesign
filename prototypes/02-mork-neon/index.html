@@ -18,17 +18,20 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/density.css">
 <script defer src="../_assets/vendor/gsap.min.js"></script>
 <script defer src="../_assets/vendor/ScrollTrigger.min.js"></script>
-<script defer src="js/scroll-motion.js"></script>
 <script defer src="js/gallery.js"></script>
 <script defer src="js/theme-sync.js"></script>
 <script defer src="js/booking-mock.js"></script>
 <script defer src="js/contact-form.js"></script>
+<!-- scroll-motion sist: den skal se bokruten som booking-mock bygger -->
+<script defer src="js/scroll-motion.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Hoppa till innehåll</a>
 <div class="grain" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="container header-inner">
@@ -53,11 +56,11 @@
     <div class="container">
       <p class="hero-rule" aria-hidden="true"></p>
       <p class="sweep eyebrow" style="margin-bottom:var(--space-3)">
-        <span class="sweep__bar"></span><span class="sweep__text">Frisör i Karlskrona</span>
+        <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Frisör i Karlskrona</span>
       </p>
       <h1 id="hero-titel">
-        <span class="sweep"><span class="sweep__bar"></span><span class="sweep__text">Anny</span></span>
-        <span class="sweep"><span class="sweep__bar"></span><span class="sweep__text">Morin</span></span>
+        <span class="sweep"><span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Anny</span></span>
+        <span class="sweep"><span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Morin</span></span>
       </h1>
       <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
       <p class="hero-actions">
@@ -66,6 +69,7 @@
       </p>
       <p class="scroll-hint" data-reveal>Scrolla — salongen tänds</p>
     </div>
+    <div class="haze haze--hero" aria-hidden="true"></div>
   </section>
 
   <!-- ===== Om mig — ljuset bryter mörkret ===== -->
@@ -74,7 +78,7 @@
       <div>
         <p class="eyebrow">Om mig</p>
         <h2 id="om-rubrik" class="sweep">
-          <span class="sweep__bar"></span><span class="sweep__text">Hår som känns som ditt</span>
+          <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Hår som känns som ditt</span>
         </h2>
         <p class="neon-rule" aria-hidden="true"></p>
         <p data-reveal>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att
@@ -100,40 +104,40 @@
       <div class="section-head">
         <p class="eyebrow">Tjänster</p>
         <h2 id="tjanster-rubrik" class="sweep">
-          <span class="sweep__bar"></span><span class="sweep__text">Det här kan jag</span>
+          <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Det här kan jag</span>
         </h2>
         <p class="neon-rule" aria-hidden="true"></p>
       </div>
       <div class="services-grid">
-        <article class="service-card" data-reveal>
+        <article class="service-card">
           <p class="service-num" aria-hidden="true">01</p>
           <h3>Klippning</h3>
           <p>Kort eller långt, klassiskt eller med textur — en klippning som passar dig och
             din vardag.</p>
           <p class="price-line">Pris: –</p>
         </article>
-        <article class="service-card" data-reveal>
+        <article class="service-card">
           <p class="service-num" aria-hidden="true">02</p>
           <h3>Färg &amp; balayage</h3>
           <p>Ammoniakfri färg, slingor och balayage. Jag rekommenderar alltid en konsultation
             innan färg.</p>
           <p class="price-line">Pris: –</p>
         </article>
-        <article class="service-card" data-reveal>
+        <article class="service-card">
           <p class="service-num" aria-hidden="true">03</p>
           <h3>Vård &amp; håranalys</h3>
           <p>Vårdande behandlingar och håranalys — friskt hår är grunden för allt snyggt
             arbete.</p>
           <p class="price-line">Pris: –</p>
         </article>
-        <article class="service-card" data-reveal>
+        <article class="service-card">
           <p class="service-num" aria-hidden="true">04</p>
           <h3>Bröllop &amp; bal</h3>
           <p>Uppsättning och styling till livets stora dagar. Vi bokar en provfrisering i god
             tid innan.</p>
           <p class="price-line">Pris: –</p>
         </article>
-        <article class="service-card" data-reveal>
+        <article class="service-card">
           <p class="service-num" aria-hidden="true">05</p>
           <h3>Barbering &amp; skägg</h3>
           <p>Klippning och skäggtrim med kniv och kam, i lugn och ro.</p>
@@ -141,6 +145,7 @@
         </article>
       </div>
     </div>
+    <div class="neon-grid" aria-hidden="true"></div>
     <div class="haze haze--warm" aria-hidden="true"></div>
   </section>
 
@@ -150,7 +155,7 @@
       <div class="section-head">
         <p class="eyebrow">Galleri</p>
         <h2 id="galleri-rubrik" class="sweep">
-          <span class="sweep__bar"></span><span class="sweep__text">Före &amp; efter</span>
+          <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Före &amp; efter</span>
         </h2>
         <p class="neon-rule" aria-hidden="true"></p>
       </div>
@@ -218,6 +223,7 @@
         </figure>
       </div>
     </div>
+    <div class="neon-grid" aria-hidden="true"></div>
     <div class="haze haze--cool" aria-hidden="true"></div>
   </section>
 
@@ -227,7 +233,7 @@
       <div class="section-head">
         <p class="eyebrow">Boka</p>
         <h2 id="boka-rubrik" class="sweep">
-          <span class="sweep__bar"></span><span class="sweep__text">Välj en tid — sedan bokar du via telefon eller Instagram</span>
+          <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Välj en tid — sedan bokar du via telefon eller Instagram</span>
         </h2>
         <p class="neon-rule" aria-hidden="true"></p>
       </div>
@@ -252,7 +258,7 @@
       <div>
         <p class="eyebrow">Kontakt</p>
         <h2 id="kontakt-rubrik" class="sweep">
-          <span class="sweep__bar"></span><span class="sweep__text">Hitta mig eller skriv till mig</span>
+          <span class="sweep__bar" aria-hidden="true"></span><span class="sweep__text">Hitta mig eller skriv till mig</span>
         </h2>
         <p class="neon-rule" aria-hidden="true"></p>
         <ul class="contact-list" data-reveal>
@@ -307,6 +313,8 @@
         </form>
       </div>
     </div>
+    <div class="neon-grid" aria-hidden="true"></div>
+    <div class="haze haze--cool" aria-hidden="true"></div>
   </section>
 </main>
 
