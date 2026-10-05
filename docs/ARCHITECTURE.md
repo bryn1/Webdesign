@@ -79,10 +79,14 @@ Reality vs the standard (the warts, stated honestly — this is what the doc mus
 | 05 | `js/scroll-motion.js` | **module-level `gsap.ticker` drift engine** for background layers, besides ScrollTrigger for the rest — built after a mid-build `ScrollTrigger.refresh()`/matchMedia re-run froze stateful mm-scoped registrations; the engine is confined to the mm gate and PROVEN reduce-inert (0 style mutations across scrolls, TEST-c2 + DA). Second drive-mechanism exception — **DEBT-TAG (ARCH c2): do NOT template-copy to new themes**; pure-ScrollTrigger is the doctrine path |
 | 15 | `js/main.js` | scroll-gated chapter-swap IO; disabled under reduce | P4 accepted (DA-c4) |
 
-Convention added by the density wave (ARCH c2 P3-3): convergent drifts tween **±A→0**, never
-±A→∓A — alternating full-amplitude tweens leave grids/rows visibly misaligned at rest (invisible
-mid-scrub, obvious when the reader stops). Held repo-wide after DENSITY-FIX-01; new motion must
-follow it. Wide x-drifts sit behind a `min-width` matchMedia block so 375px keeps 0 overflow.
+Convention added by the density wave (ARCH c2 P3-3): convergent drifts should tween **±A→0**, not
+±A→∓A — alternating full-amplitude tweens can leave grids/rows visibly misaligned at rest
+(invisible mid-scrub, obvious when the reader stops). **This is the default for NEW motion.**
+Existing symmetric drifts remain in 02 (`#om .split` −24→24), 07 (`.grain` ±46), 10 (`--sx`
+30→−26 via CSS var) and 16 (eyebrow parallax ±18); theme 05's ticker engine drives 0→A by
+progress instead. All five are ruled **convert-on-next-touch**, not wave blockers (ARCH-c3 P4) —
+none produce a parkable misalignment at rest today. Wide x-drifts sit behind a `min-width`
+matchMedia block so 375px keeps 0 overflow.
 
 Every one of the 20 themes has exactly **one** file that registers ScrollTrigger triggers (grep
 this pass: 20 files, 5–12 registration sites each; 02/15's IO uses are non-GSAP helpers, 11's is
