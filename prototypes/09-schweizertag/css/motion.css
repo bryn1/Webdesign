@@ -1,7 +1,10 @@
-/* motion.css — scroll-driven animations, marquee, reduced-motion
-   TEMA 09 "Rutinerat" (Schweizertåg).
-   All CSS scroll-driven animation (scroll()/view()) lives inside the
-   @supports block: non-supporting browsers render fully static content. */
+/* motion.css — TEMA 09 "Rutinerat" (Schweizertåg).
+   Scrollrörelsen bor i js/scroll-motion.js (GSAP + vendored ScrollTrigger,
+   lokalt i ../_assets/vendor/). De tidigare CSS scroll-timeline-lagen är
+   borttagna — de var död HTML på ägarens webbläsare och därmed helt
+   verkingslösa. Hit hör blott det tidsstyrda marquee-bandet (rör sig utan
+   scroll-stöd, pausar vid hover/fokus) och reduce-läget.
+   Inga declarations av CSS scroll-timeline finns kvar i temat. */
 
 /* --- marquee band (time-based, works everywhere) --------------------- */
 
@@ -19,49 +22,8 @@
   animation-play-state: paused;
 }
 
-/* --- scroll-driven: progress hairline + grid reveals ------------------ */
-
-@supports (animation-timeline: view()) {
-  .progress {
-    display: block;
-    animation: progress-grow linear both;
-    animation-timeline: scroll(root);
-  }
-
-  @keyframes progress-grow {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-
-  .rv {
-    animation: rv-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 45%;
-  }
-
-  /* Transform-only on purpose: an opacity fade would leave content
-     invisible to anything that renders the page without scrolling
-     (full-page captures, crawlers, print). A 24px rise is harmless. */
-  @keyframes rv-rise {
-    from { transform: translateY(24px); }
-    to   { transform: translateY(0); }
-  }
-
-  /* hairline under each section head draws as the section enters view */
-  .sec-head .rule {
-    transform-origin: 0 50%;
-    animation: rule-draw linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 60%;
-  }
-
-  @keyframes rule-draw {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-}
-
-/* --- reduced motion: kill every animated effect ------------------------ */
+/* --- reduced motion: kill the only CSS animation, JS branch is in
+       scroll-motion.js (matchMedia no-preference bygger noll triggers) ---- */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -73,13 +35,6 @@
   }
 
   .progress { display: none; }
-
-  .rv,
-  .sec-head .rule {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
 
   .btn, .slot { transition: none; }
 }

@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/motion.css">
+<script defer src="../_assets/vendor/gsap.min.js"></script>
+<script defer src="../_assets/vendor/ScrollTrigger.min.js"></script>
+<script defer src="js/scroll-motion.js"></script>
 <script defer src="js/main.js"></script>
 </head>
 <body>
@@ -91,11 +94,11 @@
           <p>Vill du se mitt dagliga arbete? Följ mig på Instagram
             <a href="https://www.instagram.com/mullers.anny/" rel="noopener">@mullers.anny</a>.</p>
         </div>
-        <figure class="imgframe portrait rv" aria-label="Porträttplats">
-          <span class="frame-tag">02 / PORTRÄTT</span>
-          <span class="frame-text">Porträtt — bild kommer</span>
-          <span class="frame-corner tl" aria-hidden="true"></span>
-          <span class="frame-corner br" aria-hidden="true"></span>
+        <figure class="portrait rv">
+          <div class="portrait-media">
+            <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy">
+          </div>
+          <figcaption>Anny Morin på Müllers. Foto: Anny Morin (@mullers.anny).</figcaption>
         </figure>
       </div>
     </div>
@@ -157,19 +160,27 @@
       <h2 id="gal-h" class="rv">Före &amp; efter</h2>
       <div class="gal-grid">
         <figure class="gal-item rv">
-          <img src="../_assets/gal-01.jpeg" alt="Arbetsexempel 1 ur Annys dagliga arbete på salongen" width="640" height="480">
+          <div class="gal-media">
+            <img src="../_assets/gal-01.jpeg" alt="Arbetsexempel 1 ur Annys dagliga arbete på salongen" width="640" height="480">
+          </div>
           <figcaption><span class="num">G—01</span>ARBETSEXEMPEL</figcaption>
         </figure>
         <figure class="gal-item rv">
-          <img src="../_assets/gal-02.jpeg" alt="Arbetsexempel 2 ur Annys dagliga arbete på salongen" width="640" height="480">
+          <div class="gal-media">
+            <img src="../_assets/gal-02.jpeg" alt="Arbetsexempel 2 ur Annys dagliga arbete på salongen" width="640" height="480">
+          </div>
           <figcaption><span class="num">G—02</span>ARBETSEXEMPEL</figcaption>
         </figure>
         <figure class="gal-item rv">
-          <img src="../_assets/gal-03.jpeg" alt="Arbetsexempel 3 ur Annys dagliga arbete på salongen" width="640" height="480">
+          <div class="gal-media">
+            <img src="../_assets/gal-03.jpeg" alt="Arbetsexempel 3 ur Annys dagliga arbete på salongen" width="640" height="480">
+          </div>
           <figcaption><span class="num">G—03</span>ARBETSEXEMPEL</figcaption>
         </figure>
         <figure class="gal-item rv">
-          <img src="../_assets/gal-04.jpeg" alt="Arbetsexempel 4 ur Annys dagliga arbete på salongen" width="640" height="480">
+          <div class="gal-media">
+            <img src="../_assets/gal-04.jpeg" alt="Arbetsexempel 4 ur Annys dagliga arbete på salongen" width="640" height="480">
+          </div>
           <figcaption><span class="num">G—04</span>ARBETSEXEMPEL</figcaption>
         </figure>
         <figure class="gal-item imgframe rv" aria-label="Bildplats 5">
