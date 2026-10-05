@@ -60,11 +60,15 @@
 }
 
 .gal-item { margin: 0; }
+.gal-media {
+  overflow: hidden;            /* clip for the zoom-settle in scroll-motion.js */
+  border: 1px solid var(--ink);
+  background: #fbfbfb;
+}
 .gal-item img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  border: 1px solid var(--ink);
   filter: grayscale(12%);
 }
 .gal-item figcaption {
