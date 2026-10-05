@@ -3,9 +3,12 @@
    aurora-mesh, gradienttext och scrollglöd i mesh.css. */
 
 :root {
-  --bg: #f7f6fc;
-  --bg-tint: #efecfa;
-  --surface: #ffffff;
+  /* --hd: sidans hue-drift (0→26 grader) — skuras av js/scroll-motion.js över
+     hela sidan. Utan JS/reducerad rörelse = 0 → färgerna är exakt nedan. */
+  --hd: 0;
+  --bg: hsl(calc(250 + var(--hd)) 50% 97.6%);        /* ≈ #f7f6fc (L oförändrad → AA bevarad) */
+  --bg-tint: hsl(calc(253 + var(--hd)) 58% 95.3%);   /* ≈ #efecfa */
+  --surface: hsl(calc(250 + var(--hd)) 50% 99.6%);   /* ≈ #ffffff */
   --ink: #17131f;
   --muted: #565063;            /* 7.18:1 på --bg, 7.71:1 på --surface */
   --line: #e3dff2;
