@@ -46,6 +46,50 @@ text names the measuring child. Final gate: DA-verdict-c3.md `# VERDICT: SHIP`
 | D6 | live service on 192.168.5.231:8090 (PORT file committed) | PASS | curl 200 re-checked every verification turn; pytest live-HTTP tests |
 | D7 | WCAG AA contrast per theme | PASS (builder-measured) | per-theme computed ledgers in builder DONE records (theme 19 full ledger re-checked via computed styles); DA spot-checks passed. Not re-measured wholesale by orchestrator — residual risk low, labels are tool-computed |
 
+## E — Scroll standardization on JS (owner rulings 2026-10-05, supersedes C-row shas)
+Owner saw no motion in 11–20 (CSS scroll-timeline dead on his browser — my earlier viewport-delta metric
+had conflated content-scroll with effects; both errors owned on record). Rulings: "If Javascript makes
+everything smoother i want JS", then "i want design 1-20 to have JS, not just 11-20". Standard: vendored
+GSAP + ScrollTrigger (`_assets/vendor/`, no runtime CDN), ≥5 scroll-linked effects, ≥3 scrubbed, five
+classes (line/color/zoom/drift/pin-or-draw), opening band 0→15% reacts, reduce-motion ⇒ ZERO triggers +
+full default-visible, JS-off ⇒ nothing hidden, 375px no overflow, AA on new pairs, ≤400 lines (08 index
+pre-existing exception), pytest 5/5, scoped commits. Portrait from owner-delivered IG post wired into 18
+themes; 15+18 photo-free by concept (ruled, owner informed).
+
+| ID | theme | STATUS | enhancement sha | builder evidence |
+|---|---|---|---|---|
+| S-01 | 01-mullers-editorial | PASS | 24cc8e5 | 39 triggers/14 scrub, opening band 10→34, IO+timeline deleted |
+| S-02 | 02-mork-neon | PASS | 948946c | 42 triggers/8 scrub, band 66→85, 2 timeline files deleted |
+| S-03 | 03-varmt-papper | PASS | fd983a9 | 38 triggers, IO+rAF dual engines folded into one file |
+| S-04 | 04-brutalt-tryck | PASS | 579b8b6 | 36/16 scrub, transforms 8→39, galleri red-step scrub |
+| S-05 | 05-mjuk-glas | PASS | 5536cf9 | 49 triggers, anims 6→0 (timelines dead), pre-existing AA fail fixed |
+| S-06 | 06-cinematiskt | PASS | 5cc95b8 | 52 triggers/10 scrub, citat pin, IO+rAF+timeline all deleted |
+| S-07 | 07-retrofilm | PASS | 20203d6 | 35 triggers/7 scrub, paper-age scrub, pin freeze-frame |
+| S-08 | 08-organiskt-hantverk | PASS | 6796dbc | 40 triggers, pen-draw 324→0 dashoffset scrub |
+| S-09 | 09-schweizertag | PASS | 542a0a9 | anims 27(dead)→1, 35/22 scrub, FIRST portrait for this theme |
+| S-10 | 10-magasincollage | PASS | 7421b2d | 23/16 scrub, tear-rule draw, FIRST portrait, pin-residue fixed mid-build |
+| S-11 | 11-blaa-fargbrunn | PASS | 0746989 | 18 triggers/4 active mid/0 reduce |
+| S-12 | 12-forgyllda-salongen | PASS | 465edf4 | 28 triggers/9 active/0 reduce, gold-deco |
+| S-13 | 13-91-tal | PASS | 4138676 | 30 triggers, mint→amber body-bg scrub |
+| S-14 | 14-dagens-frisyr | PASS | e4a9e38 | 20/19 scrubbed, pinned Reportage flag, halftone portrait |
+| S-15 | 15-sagan-om-klippet | PASS | e5234bb | 48 triggers, photo-free concept held (0 photo refs verified) |
+| S-16 | 16-gradientljus | PASS | 0a820e3 | 22/12 scrub, gradient sweep |
+| S-17 | 17-mork-akademien | PASS | e8b49da | 37 triggers, opening band reacts (candle-glow kept) |
+| S-18 | 18-bara-typsnitt | PASS | ebd224a | 32/7 active, invert AA both ends, photo-free held |
+| S-19 | 19-galerievaggen | PASS | c2276f7 | 26 triggers, hung frames+spotlights, mobile horizontal walk |
+| S-20 | 20-mynta | PASS | 8b466d9 | 16/6 active, arcade identity kept, scroll-listener bar removed |
+
+Support: 1ef4e9e portrait + provenance, c4e0f4e vendored GSAP v3.12.7, 9b95b04 portrait themes 01–08.
+| S-R | repo-wide final sweep (orchestrator's own probe, this session): 20/20 themes triggers≥16, scrubbed≥14,
+activeMid≥2, reduce triggers = 0 everywhere, console errors 0 everywhere; animation-timeline declarations
+repo-wide = 0; portrait refs = 18 index.html (15/18 photo-free verified 0 refs); pytest 5/5. Scope of
+"clean" claim = prototypes/ only; the audit out/ dir carries its own in-flight records (TEST-verdict-c5
+note 2026-10-05) | PASS | final-probe table, TEST-verdict-c5.md (JUDGED c802d6b1) |
+
+| S-F1 | FINAL GATE (enhancement wave): independent test verdict — pytest 5/5 + red-proof, greps, 20-theme live probe (triggers/active/reduce/console/portrait), vendor integrity, JS-off sweep | PASS | TEST-verdict-c5.md `# VERDICT: PASS` (JUDGED c802d6b1, fresh tester child 5aef9a34) |
+| S-F2 | FINAL GATE (enhancement wave): adversarial verdict — hardest S-rows reproduced (S-01/02/05/09/10/15/18), 20 themes × 4 modes, dual-engine hunt, overflow edge cases | SHIP | DA-verdict-c4.md `# VERDICT: SHIP` (JUDGED c802d6b1, adversary child e8df8678); no P0/P1 |
+| S-F3 | riding findings (DA-c4, accepted with SHIP): P2 theme 11 keeps its IO one-shot reveal engine beside GSAP (no overlap — GSAP registers 0 reveal targets; per-concern rule held, single-file standard not); P3 ledger scrub-count under-reports are direction-safe; P4 theme-13 8–20px body-level at 375 masked by html overflow-x:clip (zero visible); P4 theme-18 aria-hidden decorative markers below strict 1.4.3 (meaningful text AA both ends) | RECORDED | DA-c4 §findings; theme-11 P2 queued for next touch, no re-open |
+
 ## D — Open / N/A / limitations
 | ID | item | STATUS | note |
 |---|---|---|---|
