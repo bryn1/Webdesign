@@ -12,11 +12,15 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sektioner.css">
 <link rel="stylesheet" href="css/galleri.css">
+<script src="../_assets/vendor/gsap.min.js" defer></script>
+<script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="js/scroll.js" defer></script>
 <script src="js/tilt.js" defer></script>
 <script src="js/boka.js" defer></script>
 <script src="js/kontaktform.js" defer></script>
 </head>
 <body>
+<div class="wall-vignette" aria-hidden="true"></div>
 <a class="skip-link" href="#top">Hoppa till innehållet</a>
 
 <header class="signage">
@@ -42,6 +46,7 @@
     <div class="wrap hero__inner">
       <p class="wall-label">Utställning · Frisör i Karlskrona</p>
       <h1 id="hero-rubrik" class="display">Anny Morin</h1>
+      <span class="wall-rail" aria-hidden="true"></span>
       <p class="hero__sub">Klippning, färg och vård med lugn och omsorg.</p>
       <p class="hero__actions">
         <a class="btn btn--ink" href="#boka">Boka tid</a>
@@ -57,6 +62,7 @@
       <div class="walltext">
         <p class="wall-label">Om mig</p>
         <h2 id="om-rubrik" class="display">Hår som känns som ditt</h2>
+        <span class="wall-rail" aria-hidden="true"></span>
         <p>Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
           först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
           går ut dörren.</p>
@@ -69,13 +75,13 @@
       <figure class="work work--portrait" data-tilt>
         <div class="work__light" aria-hidden="true"></div>
         <div class="work__matte">
-          <div class="canvas canvas--empty">
-            <span class="canvas__coming">Porträtt — bild kommer</span>
+          <div class="canvas canvas--portrait">
+            <img src="../_assets/anny-portrait.jpg" alt="Anny Morin, frisör på Müllers i Karlskrona" width="1656" height="2208" loading="lazy" decoding="async">
           </div>
         </div>
         <figcaption class="plaque">
           <span class="plaque__title">Porträtt av Anny</span>
-          <span class="plaque__meta">Bild kommer · Müllers., Karlskrona</span>
+          <span class="plaque__meta">Spegelselfie i salongen · Müllers., Karlskrona · foto: Anny Morin</span>
         </figcaption>
       </figure>
     </div>
@@ -86,6 +92,7 @@
     <div class="wrap">
       <p class="wall-label">Tjänster</p>
       <h2 id="tjanster-rubrik" class="display">Det här kan jag</h2>
+      <span class="wall-rail" aria-hidden="true"></span>
       <ul class="labels" role="list">
         <li class="label-card">
           <h3>Klippning</h3>
@@ -122,10 +129,13 @@
 
   <!-- ===== 4 · Galleri — själva vaggen: duotone verk med mässingsskyltar ===== -->
   <section id="galleri" class="section" aria-labelledby="galleri-rubrik">
-    <div class="wrap">
+    <div class="wrap galleri__head">
       <p class="wall-label">Galleri</p>
       <h2 id="galleri-rubrik" class="display">Före &amp; efter</h2>
+      <span class="wall-rail" aria-hidden="true"></span>
       <p class="galleri__hint">Dra horisontellt för att se fler verk.</p>
+    </div>
+    <div class="wrap galleri__wall">
       <ul class="wall" role="list">
         <li class="hang">
           <figure class="work" data-tilt>
@@ -207,6 +217,7 @@
       <p class="wall-label">Boka tid</p>
       <h2 id="boka-rubrik" class="display">Välj en tid — sedan bokar du via telefon eller
         Instagram</h2>
+      <span class="wall-rail" aria-hidden="true"></span>
       <p><span class="badge badge--demo">Demo — ingen bokning genomförs</span></p>
       <p class="legend" aria-hidden="true">
         <span><i class="swatch swatch--free"></i> Demo-ledig</span>
@@ -254,6 +265,7 @@
       <div>
         <p class="wall-label wall-label--dark">Kontakt</p>
         <h2 id="kontakt-rubrik" class="display">Hitta mig eller skriv till mig</h2>
+        <span class="wall-rail" aria-hidden="true"></span>
         <div class="contact-card">
           <h3>Müllers. — Karlskrona</h3>
           <address>Landbrogatan 11, 371 35 Karlskrona</address>

@@ -99,6 +99,21 @@ a { color: inherit; }
 
 ::selection { background: var(--brass); color: var(--text); }
 
+/* ---------- väggvinjett (COLOR — GSAP tätnar den med scroll-djupet) ------
+   fast kantton bakom ALLT innehåll; pekar ej, nuddar ej textkolumnen.
+   Utan JS/reducerad rörelse: opacity 0 = vinjetten syns inte alls. */
+.wall-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(120% 90% at 50% 42%, transparent 55%, rgba(23, 18, 8, 0.3) 100%);
+}
+/* Innehållet lyfter ovanför vinjetten: vinjetten mörkar bara den nakna
+   väggen som skiner genom transparenta partier — aldrig texten. */
+main, .site-footer { position: relative; z-index: 2; }
+
 /* ---------- Signallage (sidhuvud) — mässingslist överst ---------- */
 .signage {
   background: var(--ink);

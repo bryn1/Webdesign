@@ -169,3 +169,41 @@
 
 /* porträtthållaren i „Om mig“ får egen bredd */
 .work--portrait { width: min(100%, 340px); justify-self: center; }
+
+/* ---------- porträttduken: ramar om Anny som ett verk på vaggen ----------
+   Naturlig bild 1656×2208 = 3:4 — duken beskar henne aldrig; objektiv-
+   positionen håller ansiktet (övre vänstra tredjedelen) kvar även om
+   bildförhållandet någon gång skymmas. */
+.canvas--portrait {
+  aspect-ratio: 3 / 4;
+  background: var(--frame-white);
+  overflow: hidden;
+}
+.canvas--portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% 35%;
+}
+
+/* ---------- rälssnör under sektionstitlarna (LINE — ritas av GSAP) -------
+   Utan JS och vid reducerad rörelse: ralen står fullt utritad (scaleX 1). */
+.wall-rail {
+  display: block;
+  height: 2px;
+  width: min(420px, 88%);
+  background: rgba(107, 84, 22, 0.8);   /* brass-dark med alfaintensitet —
+                                            elementet självt är fullt synligt */
+  margin: 0 0 1.1em;
+}
+.section--dark .wall-rail { background: rgba(232, 185, 35, 0.85); }
+
+/* ---------- galleri-head + väggens vandringsband -------------------------
+   Desktop: head:en nålas fast (GSAP) medan vaggen glider under.
+   Mobil: .galleri__wall clippar; GSAP öppnar bandets overflow och glider
+   innehållet — vid reduce/JS-bortvaro står CSS-bandet kvar, blädderbart. */
+.galleri__head { padding-block: 0.4rem 0.6rem; }
+.galleri__wall { position: relative; }
+@media (max-width: 700px) {
+  .galleri__wall { overflow: hidden; }
+}
