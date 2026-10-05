@@ -21,6 +21,13 @@
   <!-- Papperstonen: fast tvättlager som js/scroll-motion.js varmar och skuggar
        med scrollen. Utan JS förblir det genomskinligt — ingen effekt, inget fel. -->
   <div class="paper-tone" aria-hidden="true"></div>
+  <!-- Pappergryn: fast texturlager som driver långsamt bakåt mot läsningen;
+        varm tvätt: glöd som tänds under färden; stygntråd: kant-sömmen som
+        ritas utmed sidan. Allt scrubbat av js/scroll-motion.js — dekor,
+        kräver ej JS och döljer aldrig innehåll. -->
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="warm-wash" aria-hidden="true"></div>
+  <div class="stitch-thread" aria-hidden="true"></div>
   <a class="skip-link" href="#innehall">Hoppa till innehåll</a>
 
   <header class="site-head">
@@ -43,13 +50,14 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Frisör i Karlskrona</p>
-          <h1 id="hero-rubrik" class="display">Anny&nbsp;Morin</h1>
+          <h1 id="hero-rubrik" class="display"><span class="line-mask"><span class="line-rise">Anny&nbsp;Morin</span></span></h1>
           <hr class="rule rule--terra" aria-hidden="true">
           <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
           <p class="cta-row" data-reveal>
             <a class="btn btn--primary" href="#boka">Boka tid</a>
             <a class="btn btn--ghost" href="#kontakt">Kontakt</a>
           </p>
+          <span class="rule rule--stitch" aria-hidden="true"></span>
         </div>
         <aside class="hero-mark" aria-hidden="true">
           <p class="mark-line">Papper</p>
@@ -64,7 +72,7 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="eyebrow">01 — Om mig</p>
-          <h2 id="om-rubrik" class="display display--sm">Hår som känns som ditt</h2>
+          <h2 id="om-rubrik" class="display display--sm"><span class="line-mask"><span class="line-rise">Hår som känns som ditt</span></span></h2>
           <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="split">
@@ -98,9 +106,10 @@
     <!-- ===== Tjänster ===== -->
     <section id="tjanster" aria-labelledby="tjanster-rubrik">
       <div class="container">
+        <div class="deckle" data-deckle="0.9" aria-hidden="true"></div>
         <header class="section-head" data-reveal>
           <p class="eyebrow">02 — Tjänster</p>
-          <h2 id="tjanster-rubrik" class="display display--sm">Det här kan jag</h2>
+          <h2 id="tjanster-rubrik" class="display display--sm"><span class="line-mask"><span class="line-rise">Det här kan jag</span></span></h2>
           <hr class="rule rule--draw" data-draw-ride aria-hidden="true">
         </header>
         <ul class="service-list">
@@ -155,9 +164,10 @@
     <!-- ===== Galleri ===== -->
     <section id="galleri" aria-labelledby="galleri-rubrik">
       <div class="container">
+        <div class="deckle" data-deckle="0.35" aria-hidden="true"></div>
         <header class="section-head" data-reveal>
           <p class="eyebrow">03 — Galleri</p>
-          <h2 id="galleri-rubrik" class="display display--sm">Före &amp; efter</h2>
+          <h2 id="galleri-rubrik" class="display display--sm"><span class="line-mask"><span class="line-rise">Före &amp; efter</span></span></h2>
           <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="gallery-grid">
@@ -204,10 +214,11 @@
     <!-- ===== Boka — enda mörka sektionen (light/dark-växling) ===== -->
     <section id="boka" class="band-dark" data-theme="dark" aria-labelledby="boka-rubrik">
       <div class="container">
+        <div class="deckle" data-deckle="0.7" aria-hidden="true"></div>
         <header class="section-head" data-reveal>
           <p class="eyebrow eyebrow--on-dark">04 — Boka tid</p>
-          <h2 id="boka-rubrik" class="display display--sm">Välj en tid — sedan bokar du
-            via telefon eller Instagram</h2>
+          <h2 id="boka-rubrik" class="display display--sm"><span class="line-mask"><span class="line-rise">Välj en tid — sedan bokar du
+            via telefon eller Instagram</span></span></h2>
           <p class="demo-badge">Demo — ingen bokning genomförs</p>
           <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
@@ -230,8 +241,8 @@
       <div class="container">
         <header class="section-head" data-reveal>
           <p class="eyebrow">05 — Kontakt</p>
-          <h2 id="kontakt-rubrik" class="display display--sm">Hitta mig eller skriv
-            till mig</h2>
+          <h2 id="kontakt-rubrik" class="display display--sm"><span class="line-mask"><span class="line-rise">Hitta mig eller skriv
+            till mig</span></span></h2>
           <hr class="rule rule--draw" data-draw-rule aria-hidden="true">
         </header>
         <div class="split split--contact">
@@ -283,6 +294,9 @@
   </main>
 
   <footer class="site-foot">
+    <div class="container">
+      <div class="deckle" data-deckle="0.5" aria-hidden="true"></div>
+    </div>
     <div class="container foot-grid">
       <div>
         <p class="foot-brand">Anny Morin</p>
