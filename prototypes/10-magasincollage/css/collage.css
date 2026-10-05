@@ -68,7 +68,7 @@
 @media (prefers-reduced-motion: no-preference) {
   html[data-motion] .postcard {
     transform: translate(var(--dx), calc(var(--dy) + var(--py, 0px)))
-               rotate(clamp(-2deg, var(--rot, 0deg), 2deg)) scale(var(--ds));
+               rotate(clamp(-2deg, calc(var(--rot, 0deg) + var(--r2, 0deg)), 2deg)) scale(var(--ds));
     transition: box-shadow 0.25s ease;
     will-change: transform;
   }
@@ -76,7 +76,7 @@
   @media (min-width: 900px) {
     html[data-motion] .postcard {
       transform: translate(var(--dx), calc(var(--dy) + var(--py, 0px)))
-                 rotate(var(--rot, 0deg)) scale(var(--ds));
+                 rotate(calc(var(--rot, 0deg) + var(--r2, 0deg))) scale(var(--ds));
     }
     html[data-motion] .gallery h2 { position: relative; z-index: 0; }
     html[data-motion] .gallery .collage {
@@ -110,7 +110,7 @@
     html[data-motion] .hero-float {
       display: block; position: absolute; z-index: 1; width: clamp(150px, 17vw, 260px);
       border: 8px solid var(--c-paper); box-shadow: var(--shadow-lift); background: var(--c-paper);
-      transform: translateY(var(--py, 0px));
+      transform: translateY(var(--py, 0px)) scale(var(--fs, 1));
     }
     html[data-motion] .hero-float img { aspect-ratio: 3 / 4; object-fit: cover; }
     html[data-motion] .hero-float--1 { right: 6vw; top: 22%; rotate: 4deg; }
@@ -118,12 +118,75 @@
     html[data-motion] .hero-sticker { transition: transform 0.3s ease; }
   }
 
-  /* Tjänstekorten gungar lätt in i kollaget (transform-only, aldrig layout) */
-  html[data-motion] .service-card { transform: rotate(var(--srot, 0deg)); }
+  /* Tjänstekorten gungar lätt in i kollaget (transform-only, aldrig layout);
+     --sy drivs av scroll-motion.js (DENSITY-01c), --srot är start- + scrubvärde. */
+  html[data-motion] .service-card { transform: translateY(var(--sy, 0px)) rotate(var(--srot, 0deg)); will-change: transform; }
   html[data-motion] .service-card:nth-child(odd) { --srot: -0.6deg; }
   html[data-motion] .service-card:nth-child(even) { --srot: 0.5deg; }
-  html[data-motion] .portrait-card { transform: rotate(-1.6deg); }
+  html[data-motion] .portrait-card { transform: translateY(var(--py, 0px)) rotate(-1.6deg); }
 }
+
+/* ============================================================
+   DENSITY-01c — djupa parallaxlager för magasinkollaget.
+   Allt är dekor (aria-hidden i HTML) eller rent typografi-lager:
+   utan JS syns inget av detta, under reduce registreras inga
+   ScrollTriggers — allt står då i sitt viloläge.
+   ============================================================ */
+
+/* Rivna pappersremsor som driver mot scrollen bakom innehållet.
+   Base-gömmen ligger — som .hero-float — i no-preference-grenen: under
+   reduce står remsorna statiska (ostilade, höjd 0), och utan
+   html[data-motion] syns de aldrig; något innehåll döljs aldrig. */
+@media (prefers-reduced-motion: no-preference) { .torn-strip, .scrap { display: none; } }
+html[data-motion] .has-strip { position: relative; overflow: hidden; }
+html[data-motion] .has-strip > .shell { position: relative; z-index: 1; }
+html[data-motion] .torn-strip {
+  display: block; position: absolute; z-index: 0; pointer-events: none;
+  left: 0; width: 100%; height: 44px; opacity: 0.9;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 26px, rgb(20 20 20 / 0.05) 26px 27px),
+    var(--c-paper);
+  border-block: 1px dashed var(--c-line); box-shadow: var(--shadow-card);
+  transform: translateY(var(--py, 0px)) rotate(var(--tilt, -0.7deg));
+}
+.torn-strip--a { top: 16%; }
+.torn-strip--b { top: 62%; --tilt: 0.6deg; }
+.torn-strip--c { top: 38%; }
+.torn-strip--d { top: 72%; --tilt: 0.9deg; }
+.band--paper .torn-strip { background:
+    repeating-linear-gradient(90deg, transparent 0 26px, rgb(20 20 20 / 0.06) 26px 27px),
+    var(--c-bg); }
+
+/* Lösa pappersflagor i marginalerna — var sitt parallaxtempo */
+html[data-motion] .scrap {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: 26px; height: 34px; background: var(--c-yellow); opacity: 0.85;
+  border: 1px solid rgb(20 20 20 / 0.16);
+  clip-path: polygon(0 12%, 100% 0, 88% 100%, 6% 90%);
+  transform: translateY(var(--py, 0px)) rotate(var(--tilt, 8deg));
+}
+.scrap--b { background: var(--c-paper); width: 34px; height: 24px; --tilt: -11deg; }
+.scrap--c { --tilt: -6deg; width: 20px; height: 40px; }
+.scrap--1 { left: 1.2%; top: 22%; }
+.scrap--2 { right: 1.4%; top: 46%; }
+.scrap--3 { left: 2.2%; bottom: 18%; }
+@media (max-width: 700px) { .scrap { display: none !important; } }
+
+/* Hårlinjer som ritas vid inträdet (--k scrubbas 0→1 av scroll-motion.js) */
+html[data-motion] .hair-rule {
+  display: block; height: 2px; margin: var(--sp-1) 0 var(--sp-2);
+  background: var(--c-line); transform-origin: 0 50%; transform: scaleX(var(--k, 1));
+}
+html[data-motion] .hair-rule--pop { background: var(--c-violet); }
+html[data-motion] .hair-rule--yellow { background: var(--c-yellow); }
+
+/* Bokstav- och ordsplitt (skapas endast i no-preference-grenen) */
+.split-word, .split-letter { display: inline-block; white-space: pre; }
+
+/* Horisontala drag — klistermärken och banderoller glider förbi */
+.hero-sticker { transform: rotate(6deg) translateX(var(--sx, 0px)); }
+.demo-badge { transform: rotate(-1.2deg) translateX(var(--sx, 0px)); }
+@media (max-width: 700px) { .hero-sticker { transform: rotate(-2deg); } }
 
 /* --- Konturbytes-rubriker (Milkshake-mönstret, PATTERN):
    stora display-texter byter till kontur medan collagekort glider över dem.
@@ -149,7 +212,8 @@
 @media (prefers-reduced-motion: reduce) {
   .postcard, html[data-motion] .postcard,
   html[data-motion] .service-card, html[data-motion] .portrait-card,
-  html[data-motion] .hero-float {
+  html[data-motion] .hero-float, html[data-motion] .torn-strip,
+  html[data-motion] .scrap, html[data-motion] .hair-rule {
     transform: none !important; rotate: none !important; transition: none !important;
   }
   html[data-motion] .swap-title.is-outline,
