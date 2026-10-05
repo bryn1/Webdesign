@@ -1,33 +1,15 @@
-/* Bilderboken — main.js: reveal-observation, kapitelbyte i den nalade bilden,
-   demo-dialog for bokning och kontaktformulär. Progressive enhancement:
-   utan detta paket ar allt synligt och sektionerna staplade (se motion.css). */
+/* Bilderboken — main.js: kapitelbyte i den nalade bilden, demo-dialog for
+   bokning och kontaktformulär. Scroll-rorelsen (reveals, linjer, farg, drift,
+   zoom, pin) bor i js/scroll-motion.js (GSAP) — ett mechanism per bekymmer.
+   Progressive enhancement: utan dessa paket ar allt synligt i slutlage och
+   sektionerna staplade (se motion.css). */
 (function () {
   'use strict';
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function revealAll(list) {
-    for (var i = 0; i < list.length; i++) list[i].classList.add('in');
-  }
-
-  var revealables = document.querySelectorAll('[data-reveal]');
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealAll(revealables);
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-    for (var r = 0; r < revealables.length; r++) io.observe(revealables[r]);
-    /* Säkerhetsnät: ingen text ska förbli osynlig — efter kort tid är allt i slutläge. */
-    window.setTimeout(function () { revealAll(revealables); }, 1200);
-  }
-
-  /* Kapitelbyte: den nalade bilden foljer texten som rullar forbi. */
+  /* Kapitelbyte: den nalade bilden foljer texten som rullar forbi —
+     innehallstillstand, inte scroll-rorelse, darfor kvar i detta paket. */
   var stageUse = document.getElementById('stage-use');
   var stageCap = document.querySelector('.stage-cap');
   var chapters = document.querySelectorAll('.chapter[data-scene-swap]');
