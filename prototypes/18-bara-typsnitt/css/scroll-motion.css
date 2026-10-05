@@ -32,5 +32,12 @@ body.inverted {
    ramen klipper det som annars skulle kunna skvalpa över kanten på 375 px. */
 .specimen__row { overflow: hidden; }
 
+/* Upplösta typografier (DENSITY-03d): JS bygger .dch-tecken- och .dw-ord-span
+   inuti rubriker/prosa — ENDAST under no-preference. Utan JS/reducerad rörelse
+   finns spanen aldrig, texten står i sitt orörda slutläge. inline-block så att
+   transform kan bära varje tecken/ord; radbrytning sker fortfarande vid
+   mellanslagen (textnoder). */
+.dch, .dw { display: inline-block; }
+
 /* Marquee-rails drivs av GSAP (xPercent) — spårar lagret diskret. */
 .rail__track { will-change: transform; }
