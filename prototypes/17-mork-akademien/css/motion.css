@@ -1,60 +1,62 @@
 /* ============================================================
-   17 · Mörka akademien — scroll-koreografi (progressive)
-   Allt är låst bakom .js (satts av main.js) OCH
-   @media (prefers-reduced-motion: no-preference):
-   utan JS eller med reducerad rörelse är ALLT fullt synligt,
-   Ken Burns-fryst (bild i skala 1), marginalier synliga.
-   Scrubbahierarki: animation-timeline: view() där det stöds,
-   annars IO-fallback via .is-visible (satt av main.js).
+   17 · Mörka akademien — scroll-lager (GSAP era, MC 10088)
+   All rörelse drivs av js/scroll-motion.js (GSAP + ScrollTrigger,
+   lokalt vendor). INGA animation-timeline-deklarationer här —
+   de var döda på ägarens webbläsare och är borttagna.
+
+   Undantagslöst kontrakt: ingen innehållsyta är gömd i CSS.
+   Utan JS står allt synligt; med prefers-reduced-motion kör
+   js/scroll-motion.js inga triggers alls (slutläge = grundläge).
    ============================================================ */
 
-@media (prefers-reduced-motion: no-preference) {
-
-  html.js { scroll-behavior: smooth; }
-
-  /* IO-fallback-undantillstånd (gäller där view() saknas) */
-  .js .reveal,
-  .js .marginalia {
-    opacity: 0;
-    transform: translateY(1.4rem);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-  .js .reveal.is-visible,
-  .js .marginalia.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @supports (animation-timeline: view()) {
-    /* scrubbat undantillstånd ersätter fallback-låset */
-    .js .reveal,
-    .js .marginalia {
-      transition: none;
-      animation: ink-reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 65%;
-    }
-
-    /* Ken Burns: långsam inzooming scrubbad över bildens väg
-       genom vyn — ingen korsupplösning, ingen dramatik. */
-    .js .kb-frame img {
-      transform-origin: 50% 46%;
-      animation: breathe linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
-  }
+/* Växtljuslager: fast, värms upp av scroll-djup (GSAP: opacity).
+   Opacitet 0 = sidan ser ut som förut — synligt grundläge. */
+.candle-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(95% 70% at 50% 34%, rgba(255, 186, 96, 0.16), transparent 60%),
+    radial-gradient(140% 110% at 50% 55%, transparent 48%, rgba(52, 18, 6, 0.30) 100%);
 }
 
-@keyframes ink-reveal {
-  from { opacity: 0; transform: translateY(1.4rem); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Pennstreck: ett hairline per sektion, ritat från vänster av GSAP
+   (scaleX). Utan JS: fullt synligt streck — alltid synligt slutläge. */
+.pen-rule {
+  display: block;
+  width: min(19rem, 62%);
+  height: 1px;
+  margin: -0.7rem 0 1.9rem;
+  background: linear-gradient(90deg, var(--gold) 0, var(--gold) 2.2rem,
+    color-mix(in srgb, var(--gold) 45%, transparent) 100%);
+  transform-origin: left center;
+}
+.hero-rule {
+  width: min(13rem, 46%);
+  margin: 1.6rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-@keyframes breathe {
-  from { transform: scale(1); }
-  to   { transform: scale(1.07); }
+/* Kapitälrubrik som hålls stilla medan tjänstlistan passerar
+   (GSAP-pin, endast bred + no-preference). Utan JS: vanlig rubrik. */
+.chapter-pin {
+  background: var(--panel);
+  padding-block: 0.3rem 0.1rem;
+  z-index: 2;
 }
+
+/* Porträttundertext — ärlig bildkällsource. */
+.portrait-cap {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--gold);
+  margin-top: 0.55rem;
+}
+
+html.js { scroll-behavior: smooth; }
 
 /* dialog: toning i stället för satsens standard */
 dialog {
@@ -67,5 +69,6 @@ dialog[open] { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html.js { scroll-behavior: auto; }
   dialog, dialog[open] { transition: none; }
 }

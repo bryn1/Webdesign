@@ -2,38 +2,13 @@
    17 · Mörka akademien — beteende (progressive enhancement)
    Ingen global: allt i ett IIFE. Sidan är fullt läsbar utan
    detta skript; skriptet lägger bara till js-klassen,
-   scroll-avtäckning där view() saknas, bokningsmock och
-   demomodalitet.
+   bokningsmock och demomodalitet. Scroll-rörelsen ligger i
+   js/scroll-motion.js (GSAP + ScrollTrigger, lokalt vendor).
    ============================================================ */
 (function () {
   "use strict";
 
-  var root = document.documentElement;
-  root.classList.add("js");
-
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hasViewTimeline =
-    typeof CSS !== "undefined" &&
-    CSS.supports("animation-timeline", "view()");
-
-  /* IO-fallback för reveal + marginalia: endast när ingen
-     scroll driven animation finns och rörelse är tillåten. */
-  if (!reduced && !hasViewTimeline && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    );
-    document.querySelectorAll(".reveal, .marginalia").forEach(function (el) {
-      io.observe(el);
-    });
-  }
+  document.documentElement.classList.add("js");
 
   /* Bokningsmock: vald tid → dialog med telefon/IG-väg. */
   var dialog = document.getElementById("bokningsdialog");
