@@ -12,7 +12,7 @@
   background:linear-gradient(180deg, rgba(43,28,7,0) 0%, rgba(43,28,7,.55) 55%, #2b1c07 100%);
 }
 .amb-film{
-  position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0;
+  position:fixed; inset:-15%; z-index:35; pointer-events:none; opacity:0;
   background:#c9a55a; mix-blend-mode:normal;
 }
 
@@ -42,12 +42,65 @@
 /* ---------- Ramar (scale-in med övergångsstud): bas = slutläge i style.css ---------- */
 
 /* ---------- Reduced motion: rörelsen HOPPAS ÖVER (js/scroll.js registrerar
-   aldrig triggers) — allt nedan är redan slutläge. Kvarvarande klock-animation
-   (nav-sweep) kvittas i style.css. ---------- */
+    aldrig triggers) — allt nedan är redan slutläge. Kvarvarande klock-animation
+    (nav-sweep) kvittas i style.css. ---------- */
 @media (prefers-reduced-motion: reduce){
   .amb-glow,.amb-film{opacity:0 !important}
   .deco-rule__line{transform:scaleX(1) !important}
 }
+
+/* ---------- DENSITY-04c · rubrik-kit: ord-för-ord clip-reveal ----------
+   .h2w är JS-byggd behållare (syns ej utan skript — rubriken är då en vanlig
+   textrad). Slutläget är alltid synligt: lyft och osynlighet sätts enbart
+   av scrubade fromTo-värden inuti no-preference-kontexten. */
+.h2w{display:inline-block; overflow:hidden; vertical-align:bottom;
+  padding-bottom:.14em; margin-bottom:-.14em}
+.h2w > i{display:inline-block; font-style:normal}
+
+/* ---------- DENSITY-04c · guld-damm: sektionernas gnistfält ----------
+   Dekoration (aria-hidden i HTML), pointer-events av. Bas = svagt skimrande
+   gnister = slutläge; utan JS stilla men synliga; utan förbrödringsbart. */
+.sec,.foot{position:relative}
+.emberfield{position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0}
+.emberfield span{position:absolute; color:var(--gold); opacity:.55; line-height:1}
+.emberfield span::before{content:"✦"; font-size:.72rem}
+.emberfield span:nth-child(1){left:3.5%; top:10%}
+.emberfield span:nth-child(2){right:5%; top:20%}
+.emberfield span:nth-child(3){left:9%; top:44%}
+.emberfield span:nth-child(4){right:11%; top:60%}
+.emberfield span:nth-child(5){left:5%; bottom:16%}
+.emberfield span:nth-child(6){right:3.5%; bottom:8%}
+.footfield span:nth-child(1){left:16%; top:22%}
+.footfield span:nth-child(2){left:50%; top:48%}
+.footfield span:nth-child(3){right:16%; top:26%}
+.footfield span::before{content:"✧"; font-size:.62rem}
+@media (max-width:640px){
+  .emberfield span:nth-child(n+5){display:none} /* 375 px: glest damm */
+}
+
+/* ---------- DENSITY-04c · hörn-prydnader: fyra fast sitterande guldsmycken
+   som långsamt vrider sig med sidprogress (JS-byggda, dekorativa). ---------- */
+.deco-tick{position:fixed; z-index:32; pointer-events:none; color:var(--gold);
+  font-size:.8rem; line-height:1; opacity:.26}
+.deco-tick--0{left:.55rem; top:5.4rem}
+.deco-tick--1{right:.55rem; top:5.4rem}
+.deco-tick--2{left:.55rem; bottom:.6rem}
+.deco-tick--3{right:.55rem; bottom:.6rem}
+@media (max-width:640px){ .deco-tick{display:none} }
+
+/* ---------- DENSITY-04c · guld-simmer: glans som går över guldtext ----------
+   JS lägger klassen .gild (endast no-preference). Mörkaste gradient-stoppet
+   är #c9a55a = befintligt guld → AA-oförändrat i varje simmer-läge
+   (text #f4ead8 ej berörd; endast guldytan skimrar). */
+.gild{
+  background-image:linear-gradient(100deg,#c9a55a 0%,#e6cf96 38%,#f6e9c8 50%,#e6cf96 62%,#c9a55a 100%);
+  background-size:240% 100%; background-position:0% 50%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ---------- DENSITY-04c · foot-dekor: varje ✦ får egen spän (span-bygge i
+   HTML, aria-hidden) — roteras till ro av scrub i js/scroll.js ---------- */
+.foot__orn .orn{display:inline-block}
 
 /* ---------- Mobil 375 px ---------- */
 @media (max-width:640px){
