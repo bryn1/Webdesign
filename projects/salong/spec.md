@@ -1,9 +1,9 @@
 # BRIEF — gemensamt innehåll för alla 10 prototyper (Jane Cooper PoC)
 
 Alla prototyper är design-teman kring **samma innehåll** — ägarens nuvarande PoC-sajt
-(Jane Cooper, frisör, repo bryn1/anny). Ett tema = hela sidan bygd från grunden under
-`prototypes/<NN>-<namn>/`. Innehållet nedan är VERIFIERAD källa: `/home/claudecode/Annie hemsida/index.html`
-(livesajt: https://sibbamala.com/anny/). Återanvänd texterna ordagrant där det passar —
+(Jane Cooper, frisör, repo bryn1/salong). Ett tema = hela sidan bygd från grunden under
+`prototypes/<NN>-<namn>/`. Innehållet nedan är VERIFIERAD källa: ägarens originalkälla (ursprunglig sökväg borttagen enligt RENAME-01)
+(livesajt: https://janecooper.se/). Återanvänd texterna ordagrant där det passar —
 det gör temana direkt tillämpbara på PoC:n.
 
 ## Språk & röst

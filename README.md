@@ -9,7 +9,7 @@ Browse them on the home network: **http://192.168.5.231:8090/**
 projects/<project>/
   spec.md                    what the prototypes are built from (content canon / brief)
   prototypes/<NN-name>/      one prototype = one folder with its own index.html
-  prototypes/_assets/        shared images + vendored scripts (anny only; themes use ../_assets/)
+  prototypes/_assets/        shared images + vendored scripts (salong only; themes use ../_assets/)
   concepts/<name>/           concept mocks (optional)
   <entry>/SOURCE.md          for copied prototypes: origin path, repo, commit, date
 tools/build-index.py         generates _site/ (the browse site) — stdlib Python, no model call
@@ -17,7 +17,7 @@ tools/check-links.py         crawls the served site; every local reference must 
 docs/ARCHITECTURE.md         how the repo and the server fit together
 ```
 
-Projects today: **anny** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
+Projects today: **salong** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
 builds) and **portfolio** (20 portfolio design themes + the workflow-explode concept).
 
 ## Add a prototype
