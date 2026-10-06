@@ -1,4 +1,4 @@
-/* Jane Cooper — demo-kalender + dialog + formulärguard.
+/* Din Salong — demo-kalender + dialog + formulärguard.
    Progressive enhancement: utan JS syns kontaktvägen ändå, kalendern byggs här. */
 (function () {
   "use strict";

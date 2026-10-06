@@ -1,4 +1,4 @@
-/* Jane Cooper — progressive enhancement only. The page works without this file. */
+/* Din Salong — progressive enhancement only. The page works without this file. */
 (function () {
   "use strict";
 
@@ -72,7 +72,7 @@
       status.hidden = false;
       status.textContent =
         "Demo: ingen backend är kopplad, så meddelandet skickades inte. " +
-        "Ring 070-123 45 67 eller skriv till @jane.cooper på Instagram.";
+        "Ring 07X-XXX XX XX eller skriv till @dinsalong på Instagram.";
     });
   }
 

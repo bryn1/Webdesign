@@ -27,7 +27,7 @@
     if (status) {
       status.hidden = false;
       status.textContent = ok
-        ? 'Tack! Men detta är en demo — ingen backend är kopplad, så meddelandet skickades inte. Ring 070-123 45 67 eller skriv på Instagram @jane.cooper.'
+        ? 'Tack! Men detta är en demo — ingen backend är kopplad, så meddelandet skickades inte. Ring 07X-XXX XX XX eller skriv på Instagram @dinsalong.'
         : 'Något saknas i formuläret — se markeringarna ovan.';
     }
   });

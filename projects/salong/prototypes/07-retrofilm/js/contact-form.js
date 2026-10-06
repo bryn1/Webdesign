@@ -44,9 +44,9 @@
       status.hidden = false;
       status.textContent = ok
         ? 'Demo — inget meddelande skickades: ingen backend är kopplad. ' +
-          'Ring 070-123 45 67 eller skriv till @jane.cooper på Instagram.'
+          'Ring 07X-XXX XX XX eller skriv till @dinsalong på Instagram.'
         : 'Demo — fyll i fälten ovan. Skicka inte formuläret på riktigt: ' +
-          'ingen backend är kopplad. Ring 070-123 45 67 eller DM:a @jane.cooper.';
+          'ingen backend är kopplad. Ring 07X-XXX XX XX eller DM:a @dinsalong.';
     }
   });
 

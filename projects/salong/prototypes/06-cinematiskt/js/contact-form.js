@@ -51,7 +51,7 @@
         return;
       }
       status.textContent = 'Tack — men detta är en demo: inget meddelande skickades. ' +
-        'Ring 070-123 45 67 eller mejla jane.cooper@example.com.';
+        'Ring 07X-XXX XX XX eller mejla hej@dinsalong.se.';
       form.reset();
     });
 

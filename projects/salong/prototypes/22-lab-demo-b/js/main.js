@@ -1,5 +1,5 @@
 /* ============================================================
-   Jane Cooper — scroll-koreografi (valfri förbättring).
+   Din Salong — scroll-koreografi (valfri förbättring).
    Utan GSAP, utan JS eller med prefers-reduced-motion: reduce
    är allt innehåll fullt synligt och effekterna körs inte.
    ============================================================ */
@@ -83,7 +83,7 @@
       ev.preventDefault();
       status.textContent =
         'Det här är en demo — inget meddelande skickades någonstans. ' +
-        'Ring 070-123 45 67 eller mejla jane.cooper@example.com, så ses vi på Salongen.';
+        'Ring 07X-XXX XX XX eller mejla hej@dinsalong.se, så ses vi på Din Salong.';
     });
   }
 

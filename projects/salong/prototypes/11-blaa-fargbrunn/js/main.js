@@ -113,7 +113,7 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.textContent = 'Demo: ingenting skickades — ingen backend är kopplad. ' +
-        'Ring 070-123 45 67 eller skriv på Instagram @jane.cooper.';
+        'Ring 07X-XXX XX XX eller skriv på Instagram @dinsalong.';
     });
   }
 })();
