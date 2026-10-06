@@ -1,0 +1,712 @@
+/* Anny Morin — station-mirror / Salongsspegeln. Boxes bound from .impeccable/build/scaffold/layout.css
+   (scaffold % are % of the 1536x1024 comp frame; the hero frame is 67.58vh tall — the mirror world
+   ends under the shelf — so hero-region y/h are divided by 0.6758 to stay at the measured pixels
+   at comp viewport. x/w are already % of the frame width. */
+:root {
+  --r-mirror-reflection-x: 10.610%; --r-mirror-reflection-y: 11.520%; --r-mirror-reflection-w: 80.730%; --r-mirror-reflection-h: 52.540%;
+  --r-rail-top-x: 9.770%; --r-rail-top-y: 9.180%; --r-rail-top-w: 78.130%; --r-rail-top-h: 2.340%;
+  --r-nav-rail-x: 9.770%; --r-nav-rail-y: 13.670%; --r-nav-rail-w: 81.050%; --r-nav-rail-h: 3.710%;
+  --r-frame-left-x: 9.770%; --r-frame-left-y: 11.330%; --r-frame-left-w: 1.040%; --r-frame-left-h: 53.220%;
+  --r-frame-right-x: 90.230%; --r-frame-right-y: 11.330%; --r-frame-right-w: 1.950%; --r-frame-right-h: 53.220%;
+  --r-shelf-x: 9.770%; --r-shelf-y: 64.060%; --r-shelf-w: 80.080%; --r-shelf-h: 3.520%;
+  --r-hero-eyebrow-x: 39.840%; --r-hero-eyebrow-y: 24.220%; --r-hero-eyebrow-w: 22.460%; --r-hero-eyebrow-h: 5.080%;
+  --r-hero-name-x: 25.910%; --r-hero-name-y: 31.450%; --r-hero-name-w: 48.310%; --r-hero-name-h: 14.650%;
+  --r-hero-sub-x: 33.850%; --r-hero-sub-y: 47.460%; --r-hero-sub-w: 32.550%; --r-hero-sub-h: 3.130%;
+  --r-counter-card-x: 43.160%; --r-counter-card-y: 51.560%; --r-counter-card-w: 14.000%; --r-counter-card-h: 12.890%;
+  --r-om-heading-x: 19.530%; --r-om-heading-y: 77.640%; --r-om-heading-w: 21.480%; --r-om-heading-h: 4.880%;
+  --r-om-body-x: 19.400%; --r-om-body-y: 82.810%; --r-om-body-w: 36.460%; --r-om-body-h: 13.480%;
+  --r-om-portrait-x: 59.770%; --r-om-portrait-y: 75.390%; --r-om-portrait-w: 20.700%; --r-om-portrait-h: 24.610%;
+  --r-tjanster-heading-x: 19.530%; --r-tjanster-heading-y: 96.480%; --r-tjanster-heading-w: 16.930%; --r-tjanster-heading-h: 3.520%;
+
+  /* the hero frame height as a fraction of the viewport (mirror world ends under the shelf) */
+  --hero-f: 0.6758;
+
+  /* contract palette */
+  --glass: #182019;
+  --mirror-ink: #0e1515;
+  --plaster: #a19d8f;
+  --plaster-lit: #f2ece1;
+  --silver: #cfd8d4;
+  --brass: #d99a36;
+  --brass-dark: #6a4627;
+  --eucalyptus: #3f4a42;
+  --ink: #17201c;
+
+  --body: 'Asap Condensed', system-ui, sans-serif; /* resolves the 14 var(--body) rules to the face the page already renders */
+  --serif-display: 'Instrument Serif', Georgia, serif;
+  --serif-heading: 'Alice', Georgia, serif;
+  --serif-sub: 'Inria Serif', Georgia, serif;
+  --sans-body: 'Asap Condensed', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans-body);
+  color: var(--ink);
+  background: var(--mirror-ink);
+}
+
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 50;
+  background: var(--plaster-lit); color: var(--ink); padding: 0.6rem 1rem;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+/* ---------- hero: the salon mirror ---------- */
+.hero {
+  position: relative;
+  height: calc(var(--hero-f) * 100vh);
+  min-height: 480px;
+  background: var(--mirror-ink);
+  overflow: hidden;
+}
+.hero .region { position: absolute; }
+
+.mirror-reflection {
+  left: var(--r-mirror-reflection-x);
+  top: calc(var(--r-mirror-reflection-y) / var(--hero-f));
+  /* box sized to the artwork aspect: ink keeps the comp's right margin (2048:896) */
+  height: calc(var(--r-mirror-reflection-h) / var(--hero-f));
+  width: auto;
+  aspect-ratio: 2048 / 896;
+  object-fit: contain;
+  display: block;
+}
+
+.rail-top {
+  left: var(--r-rail-top-x);
+  top: calc(var(--r-rail-top-y) / var(--hero-f));
+  width: var(--r-rail-top-w);
+  height: calc(var(--r-rail-top-h) / var(--hero-f));
+  background: linear-gradient(180deg, #2b352f 0%, #6a4627 26%, #f4c87e 52%, #d99a36 64%, #6a4627 82%, #1a221d 100%);
+  box-shadow: 0 0 22px 6px rgba(217, 154, 54, 0.28);
+}
+
+.nav-rail {
+  left: var(--r-nav-rail-x);
+  top: calc(var(--r-nav-rail-y) / var(--hero-f));
+  width: var(--r-nav-rail-w);
+  height: calc(var(--r-nav-rail-h) / var(--hero-f));
+  display: flex;
+  align-items: center;
+  gap: clamp(1.2rem, 3vw, 3.4rem);
+  font-family: var(--sans-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.nav-rail a {
+  color: #b9c4bd;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.75), 0 -1px 0 rgba(255,255,255,0.10);
+}
+.nav-rail a:hover { color: var(--silver); }
+.nav-mark {
+  margin-left: auto;
+  width: 20px; height: 12px;
+  border-top: 1px solid #8a938c;
+  border-bottom: 1px solid #8a938c;
+}
+
+.frame-left, .frame-right {
+  background: linear-gradient(90deg, #141108 0%, #5d4d33 42%, #8a6d42 66%, #2a2312 100%);
+}
+/* comp ground truth across this box: brass strip x1386-1391, then dark bevel glass to the edge */
+.frame-right {
+  background: linear-gradient(90deg, #0b100c 0 2%, #4c3a1c 7%, #7d5e30 12%, #85653a 15%, #241c0c 19%, #0c1a15 24% 78%, #0a1512 90%, #040504 100%);
+}
+.frame-left {
+  left: var(--r-frame-left-x);
+  top: calc(var(--r-frame-left-y) / var(--hero-f));
+  width: var(--r-frame-left-w);
+  height: calc(var(--r-frame-left-h) / var(--hero-f));
+}
+.frame-right {
+  left: var(--r-frame-right-x);
+  top: calc(var(--r-frame-right-y) / var(--hero-f));
+  width: var(--r-frame-right-w);
+  height: calc(var(--r-frame-right-h) / var(--hero-f));
+}
+/* depth bead: the scroll marker of the mirror world (motion phase animates its travel) */
+.depth-bead {
+  position: absolute; left: 10%; top: 40%;
+  width: 8px; height: 26px;
+  background: linear-gradient(180deg, #f4c87e, #d99a36);
+  box-shadow: 0 0 12px 3px rgba(217,154,54,0.65);
+  border-radius: 2px;
+}
+
+.shelf {
+  left: var(--r-shelf-x);
+  top: calc(var(--r-shelf-y) / var(--hero-f));
+  width: var(--r-shelf-w);
+  height: calc(var(--r-shelf-h) / var(--hero-f));
+  background: linear-gradient(180deg, #0d1b1b 0 12%, #6a5b40 28%, #b08c4e 42%, #d9b26a 53%, #6a5b40 68%, #16241f 100%);
+  box-shadow: 0 10px 18px 4px rgba(9, 15, 13, 0.9);
+}
+
+/* hero lettering (words verbatim from BRIEF.md) */
+.hero-eyebrow, .hero-name, .hero-sub {
+  text-align: center;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 400;
+}
+.hero-eyebrow {
+  left: var(--r-hero-eyebrow-x);
+  top: calc(var(--r-hero-eyebrow-y) / var(--hero-f));
+  width: var(--r-hero-eyebrow-w);
+  height: calc(var(--r-hero-eyebrow-h) / var(--hero-f));
+  font-family: var(--serif-display);
+  font-size: 2.9297vw; /* 45px at 1536 — scales with the frame */
+  letter-spacing: 0.063em;
+  color: #d1b791;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+.hero-name {
+  left: var(--r-hero-name-x);
+  top: calc(var(--r-hero-name-y) / var(--hero-f));
+  width: var(--r-hero-name-w);
+  height: calc(var(--r-hero-name-h) / var(--hero-f));
+  font-family: var(--serif-display);
+  font-weight: 400;
+  font-size: 9.7656vw;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  color: #0e110d;
+  -webkit-text-stroke: 1.5px rgba(201,162,94,0.6);
+  text-shadow: 0 2px 22px rgba(10,16,14,0.9);
+}
+.hero-sub {
+  left: var(--r-hero-sub-x);
+  top: calc(var(--r-hero-sub-y) / var(--hero-f));
+  width: var(--r-hero-sub-w);
+  height: calc(var(--r-hero-sub-h) / var(--hero-f));
+  font-family: var(--serif-display);
+  font-size: 1.6276vw;
+  letter-spacing: 0.05em;
+  color: #b58457;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+}
+
+[hidden] { display: none !important; }
+
+/* counter card — the main action, a white card standing on the brass shelf.
+   the comp shows dark glass above the card's top edge: the white face is inset. */
+.counter-card {
+  left: var(--r-counter-card-x);
+  top: calc(var(--r-counter-card-y) / var(--hero-f));
+  width: var(--r-counter-card-w);
+  height: calc(var(--r-counter-card-h) / var(--hero-f));
+}
+.card-face {
+  position: absolute; inset: 19% 0 0 3.5%;
+  background: linear-gradient(180deg, #fbfaf4 0%, #eceadd 100%);
+  border-top: 3px solid var(--brass);
+  box-shadow: 0 5px 12px 1px rgba(6, 12, 10, 0.5);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+}
+.card-phone {
+  color: #141e1c;
+  font-family: var(--serif-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.card-ig {
+  color: #2c3a36;
+  font-size: 0.66rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border: 1px solid #8f938a;
+  border-radius: 3px;
+  padding: 0.3rem 0.55rem;
+  color: #1e2a26;
+  min-width: 74px;
+  text-align: center;
+}
+.card-phone:hover, .card-ig:hover { color: #6b4a12; }
+
+/* ---------- plaster world below the mirror ----------
+   finish-fix #5: the tile paints <main> once, page-rooted, so sections never
+   restart it — no lattice rows, no near-black seam at section junctions */
+main {
+  background: #f2ece1 url("../assets/plates/plaster-ground.png") repeat;
+  background-size: 1040px 1024px;
+}
+.plaster {
+  color: var(--ink);
+}
+.section { position: relative; }
+
+.om {
+  /* the mirror->plaster shadow belongs only here, at the shelf transition */
+  background-image:
+    linear-gradient(180deg, rgba(13,24,20,0) 0, rgba(13,24,20,0.18) 26px, rgba(13,24,20,0) 84px);
+  height: 28.9vh; /* tjanster-heading (96.48vh) minus hero height (67.58vh): the om band ends where tjanster starts */
+  padding: 0 6vw;
+}
+.om-heading {
+  position: absolute;
+  left: var(--r-om-heading-x);
+  top: 10.06vh; /* --r-om-heading-y 77.64% of frame minus hero height 67.58vh */
+  font-family: var(--serif-heading);
+  font-size: 2.0182vw;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+  white-space: nowrap;
+  padding-top: 13px;
+  color: #11100e;
+}
+.om-body {
+  position: absolute;
+  left: var(--r-om-body-x);
+  top: 15.23vh; /* 82.81% - 67.58% */
+  width: var(--r-om-body-w);
+  max-height: none; /* content-bounded: a fixed height reflows multicol columns sideways into the portrait plate at other viewport heights */
+  font-size: 1.1068vw;
+  line-height: 1.35;
+  color: #26241f;
+  text-align: justify;
+  hyphens: auto;
+  column-count: 2;
+  column-gap: 1.4vw;
+  letter-spacing: 0;
+  word-spacing: -0.0326vw;
+}
+.om-portrait {
+  position: absolute;
+  left: var(--r-om-portrait-x);
+  top: 7.81vh; /* 75.39% - 67.58% */
+  width: var(--r-om-portrait-w);
+  margin: 0;
+}
+.om-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  border: 14px solid;
+  border-image: linear-gradient(135deg, #8a6d42, #d9b26a 45%, #6a4d22 75%, #c89a4e) 1;
+  outline: 2px solid #241d0f;
+  outline-offset: 0;
+  box-shadow: 0 14px 26px rgba(20, 18, 12, 0.35);
+}
+
+.tjanster { padding: 0 6vw; }
+.tjanster-heading {
+  font-family: var(--serif-sub);
+  font-size: 1.7578vw;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  word-spacing: -0.0326vw; /* -0.5px at 1536 — words stay words */
+  color: #130f0b;
+  margin: 0 0 0 13.53vw; /* left edge lands at 19.53vw with the 6vw section padding */
+  line-height: 1.15;
+}
+
+/* remaining sections get their content in the sections phase */
+.galleri, .boka, .kontakt { padding: 2rem 6vw; }
+.galleri h2, .boka h2, .kontakt h2 { font-family: var(--serif-sub); font-size: 27px; font-weight: 400; color: #130f0b; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.om-body p { margin: 0 0 0.5em; }
+.om-body p:last-child { margin-bottom: 0; }
+.om-body a { color: #3d3a33; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ============ below-the-fold sections — the plaster world continues (sections phase) ============ */
+.section-heading {
+  font-family: var(--serif-heading);
+  font-weight: 400;
+  font-size: clamp(26px, 3.1vw, 38px);
+  line-height: 1.12;
+  color: #14120e;
+  margin: 0.35rem 0 1.2rem;
+  max-width: 22ch;
+}
+.galleri, .boka, .kontakt { padding: 0 6vw; }
+/* all section content rides the same 19.53vw column as the spec headings */
+.galleri > *, .boka > *, .kontakt > * { margin-left: 13.53vw; max-width: 62rem; }
+/* section breathing room is PADDING, never child margins (which collapse out of
+   the section and expose the dark page behind) */
+.tjanster, .galleri, .boka, .kontakt { padding-bottom: 5.5rem; }
+.service-list, .gallery-grid, .booking-panel, .kontakt-cols { margin-bottom: 0; }
+/* services */
+.service-list {
+  list-style: none;
+  margin: 1.5rem 0 0 13.53vw; padding: 0;
+  max-width: 58rem;
+}
+.service {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 2rem;
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(19, 15, 11, 0.16);
+}
+.service:last-child { border-bottom: 1px solid rgba(19, 15, 11, 0.16); }
+.service-text h3 {
+  font-family: var(--serif-sub);
+  font-weight: 400;
+  font-size: 21px;
+  letter-spacing: 0.01em;
+  color: #17130d;
+  margin: 0 0 0.3rem;
+}
+.service-text p {
+  font-family: var(--body);
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: #33302a;
+  margin: 0;
+  max-width: 56ch;
+}
+.service-price {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: #4c463a;
+  margin: 0;
+  white-space: nowrap;
+}
+/* gallery */
+.gallery-grid {
+  list-style: none; margin: 0.6rem 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.gallery-card {
+  margin: 0;
+  background: #f4efe3;
+  border: 1px solid rgba(122, 91, 38, 0.4);
+  padding: 9px 9px 0;
+  box-shadow: 0 6px 16px rgba(12, 16, 12, 0.16);
+}
+.gallery-card img {
+  display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover;
+}
+.gallery-card figcaption {
+  font-family: var(--body);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #2c2a24;
+  padding: 0.55rem 0.1rem 0.7rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.gal-tag {
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.16rem 0.45rem;
+  border: 1px solid transparent;
+}
+.gal-tag--fore { background: #e8d9ba; color: #5d4a1c; border-color: #b99a5a; }
+.gal-tag--after { background: #22302a; color: #d9c9a8; border-color: #22302a; }
+/* demo badge */
+.demo-note {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6e3c10;
+  background: #f3ddba;
+  border: 1px solid #b97f3a;
+  padding: 0.28rem 0.65rem;
+  margin: 0 0 1rem;
+}
+/* booking */
+.booking-panel { margin: 0; max-width: 66rem; }
+.booking-legend { display: flex; gap: 1rem; margin: 0 0 0.9rem; }
+.legend-item {
+  font-family: var(--body); font-size: 12px; margin: 0;
+  padding: 0.2rem 0.6rem; border: 1px solid rgba(19,15,11,0.25);
+}
+.legend-item--ledig { background: #f6f2e4; color: #2c2a24; }
+.legend-item--upptagen { background: #cfc9b8; color: #57534a; text-decoration: line-through; }
+.booking-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
+.booking-week h4 {
+  font-family: var(--serif-sub); font-weight: 400; font-size: 16px;
+  color: #2c2519; margin: 0 0 0.5rem;
+}
+.slot {
+  display: block; width: 100%;
+  font-family: var(--body); font-size: 13px; letter-spacing: 0.03em;
+  padding: 0.45rem 0.5rem; margin: 0 0 0.4rem;
+  text-align: left; cursor: pointer;
+  background: #f6f2e4; color: #232019;
+  border: 1px solid rgba(122, 91, 38, 0.45);
+}
+.slot--ledig:hover { background: #efe4c6; border-color: #8a6d42; }
+.slot--upptagen {
+  background: #cfc9b8; color: #57534a; text-decoration: line-through;
+  cursor: not-allowed; border-color: rgba(19,15,11,0.2);
+}
+.booking-noscript { font-family: var(--body); font-size: 14px; color: #33302a; max-width: 46ch; }
+.booking-honest {
+  font-family: var(--body); font-size: 13px; color: #4c463a;
+  margin: 1rem 0 0; max-width: 62ch;
+}
+/* contact */
+.kontakt-cols {
+  display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem;
+  margin: 0;
+}
+.kontakt-form { font-family: var(--body); }
+.kontakt-form label {
+  display: block; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #3d3a33;
+  margin: 0 0 0.3rem;
+}
+.kontakt-form input, .kontakt-form textarea {
+  display: block; width: 100%; max-width: 30rem;
+  font-family: var(--body); font-size: 15px; color: #232019;
+  background: #fbf8ef; border: 1px solid rgba(19, 15, 11, 0.3);
+  padding: 0.5rem 0.6rem;
+}
+.kontakt-form p { margin: 0 0 0.9rem; }
+.kontakt-card {
+  border: 1px solid rgba(122, 91, 38, 0.5);
+  background: rgba(251, 248, 239, 0.55);
+  padding: 1.4rem 1.5rem;
+  font-family: var(--body); font-size: 15px; color: #26241f;
+  align-self: start;
+}
+.kontakt-card h3 {
+  font-family: var(--serif-heading); font-weight: 400; font-size: 22px;
+  margin: 0 0 0.5rem; color: #17130d;
+}
+.kontakt-card h4 {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #7a5b26; margin: 1.1rem 0 0.35rem;
+}
+.kontakt-card a { color: #23405a; }
+.form-demo-msg {
+  font-size: 14px; color: #3d3a33; background: #f3ddba;
+  border: 1px solid #b97f3a; padding: 0.5rem 0.7rem; max-width: 34rem;
+}
+/* buttons */
+.btn {
+  font-family: var(--body); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #232019; background: transparent;
+  border: 1px solid rgba(19, 15, 11, 0.4);
+  padding: 0.55rem 1.05rem; cursor: pointer;
+}
+.btn:hover { border-color: #232019; background: rgba(19,15,11,0.05); }
+.btn--brass { background: var(--brass); border-color: var(--brass); color: #1d1508; }
+.btn--brass:hover { background: #c88a2c; }
+/* booking dialog */
+.booking-dialog {
+  margin: auto; max-width: 30rem; width: calc(100% - 2rem);
+  border: 1px solid rgba(122, 91, 38, 0.6);
+  background: #f7f3e8; color: #232019;
+  font-family: var(--body); font-size: 15px;
+  padding: 1.4rem 1.5rem;
+}
+.booking-dialog::backdrop { background: rgba(10, 15, 13, 0.62); }
+.booking-dialog h3 {
+  font-family: var(--serif-heading); font-weight: 400; font-size: 22px;
+  margin: 0 0 0.6rem;
+}
+.dialog-slot {
+  display: inline-block; font-weight: 600; letter-spacing: 0.04em;
+  background: #e8d9ba; border: 1px solid #b99a5a; padding: 0.15rem 0.55rem;
+}
+.dialog-actions { display: flex; gap: 0.7rem; margin: 1rem 0 0; }
+/* footer — the dark glass band returns */
+.site-footer {
+  background: #0d1614;
+  color: #cfd8d4;
+  padding: 2.6rem 6vw 2.8rem;
+  font-family: var(--body); font-size: 14px; line-height: 1.6;
+}
+.site-footer p { margin: 0 0 0.35rem; }
+.site-footer strong { font-family: var(--serif-display); font-weight: 400; font-size: 17px; letter-spacing: 0.03em; color: #ece5d3; }
+.site-footer a { color: #d1b791; }
+
+@media (max-width: 900px) {
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kontakt-cols { grid-template-columns: 1fr; }
+  .booking-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .galleri > *, .boka > *, .kontakt > * { margin-left: 0; }
+  .service { flex-direction: column; gap: 0.35rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ motion phase — depth marker (epoch descent) ============ */
+.depth-rail {
+  position: fixed;
+  right: 0.55vw;
+  top: 12vh; bottom: 12vh;
+  width: 14px;
+  z-index: 40;
+  visibility: hidden; /* gsap fades in after the hero; stays visible without JS off? no-JS: hidden — content fully readable anyway */
+}
+.depth-rail__line {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+  margin-left: -0.5px;
+  background: linear-gradient(180deg, rgba(217,154,54,0), rgba(217,154,54,0.55) 12%, rgba(217,154,54,0.55) 88%, rgba(217,154,54,0));
+}
+.depth-rail__bead {
+  position: absolute; left: 50%; top: 0;
+  width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f4d9a0, #d99a36 55%, #6b4d1c);
+  box-shadow: 0 0 10px rgba(217, 154, 54, 0.75);
+}
+@media (max-width: 900px) {
+  .depth-rail { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .depth-rail { display: none; }
+}
+
+/* ============ responsive phase — mobile-first reflow (375–390 up to 900) ============ */
+@media (max-width: 900px) {
+  .hero {
+    height: auto;
+    background: #0d1714;
+    padding-bottom: 2.2rem;
+  }
+  .hero .region,
+  .hero .hero-eyebrow, .hero .hero-name, .hero .hero-sub, .hero .counter-card {
+    position: static;
+    width: auto;
+    height: auto;
+    top: auto; left: auto;
+  }
+  .hero .region.mirror-reflection {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2048 / 896;
+    max-width: 100%;
+  }
+  /* decorative mirror chrome reflows away on small screens */
+  .rail-top, .frame-left, .frame-right, .shelf, #depth-bead { display: none; }
+  .nav-rail {
+    display: flex; flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    padding: 0.95rem 6vw 0;
+    background: none; border: none; box-shadow: none;
+    width: auto; height: auto;
+  }
+  .nav-rail a { font-size: 0.85rem; }
+  .hero-eyebrow {
+    font-size: clamp(19px, 4.6vw, 27px);
+    letter-spacing: 0.06em;
+    margin: 1.5rem 6vw 0;
+    text-align: left;
+    transform: none;
+  }
+  .hero-name {
+    font-size: clamp(46px, 13vw, 68px);
+    line-height: 1.02;
+    margin: 0.3rem 6vw 0;
+    text-align: left;
+    transform: none;
+    -webkit-text-stroke-width: 1px;
+  }
+  .hero-sub {
+    font-size: 16.5px;
+    margin: 0.9rem 6vw 0;
+    text-align: left;
+    transform: none;
+    max-width: 34ch;
+  }
+  .counter-card { margin: 1.5rem 6vw 0; }
+  .card-face { position: static; padding: 0.9rem 1rem; }
+  /* Om flows: single column, portrait under the text */
+  .om { height: auto; padding: 2.6rem 6vw 3.2rem; }
+  .om-heading {
+    position: static;
+    font-size: clamp(24px, 6.6vw, 30px);
+    padding-top: 0;
+    white-space: normal;
+    margin: 0 0 1rem;
+    max-width: 18ch;
+  }
+  .om-body {
+    position: static;
+    width: auto;
+    height: auto;
+    column-count: 1;
+    margin: 0;
+    font-size: 15.5px;
+    word-spacing: normal;
+  }
+  .tjanster-heading {
+    font-size: 27px;
+    margin-left: 0;
+    white-space: normal;
+    word-spacing: normal;
+  }
+  .om-portrait {
+    position: static;
+    width: min(78%, 330px);
+    margin: 1.8rem auto 0;
+    height: auto;
+  }
+  .service-list { margin-left: 0; }
+  .galleri > *, .boka > *, .kontakt > * { margin-left: 0; }
+}
+
+/* built-vs-assembled tell: theme the browser chrome surfaces of the page itself */
+::selection { background: rgba(217, 154, 54, 0.85); color: #14100a; }
+::marker { color: #7a5b26; }
+input, textarea { caret-color: #a5701f; }
+input:focus, textarea:focus { outline: 2px solid #a5701f; outline-offset: 1px; }
+a:focus-visible, button:focus-visible { outline: 2px solid #d99a36; outline-offset: 2px; }
+html { scrollbar-color: #4c3a1c #0e1515; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: #0e1515; }
+::-webkit-scrollbar-thumb { background: #4c3a1c; border: 3px solid #0e1515; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #7d5e30; }
+
+/* finish-fix #4: the inner frame's front edge re-seated over the reflection's
+   hard-cut top — reads as the frame border occluding what it hides (plate %→hero %) */
+.frame-front {
+  position: absolute;
+  left: 39.26%;
+  top: 28.05%;
+  width: 13.6%;
+  height: 2.95%;
+  background: linear-gradient(180deg,
+    rgba(58, 54, 39, 0.92) 0%,
+    rgba(40, 44, 30, 0.97) 46%,
+    rgba(14, 21, 15, 0.98) 78%,
+    rgba(13, 20, 14, 0.85) 90%,
+    rgba(13, 20, 14, 0) 100%);
+  border-radius: 3px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 11%, #000 97%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 11%, #000 97%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+.frame-front::after {
+  content: "";
+  position: absolute;
+  left: 8%; right: 8%; bottom: 16%;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(133, 101, 58, 0), rgba(102, 75, 41, 0.85) 30%, rgba(133, 101, 58, 0.9) 50%, rgba(102, 75, 41, 0.85) 70%, rgba(133, 101, 58, 0));
+}
+@media (max-width: 900px) {
+  .frame-front { display: none; }
+}

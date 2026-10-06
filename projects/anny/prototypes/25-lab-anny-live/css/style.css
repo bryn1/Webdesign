@@ -1,0 +1,311 @@
+/* style.css — Anny Morin · token, bas, a11y, navigering, knappar, formulär, dialog, sidfot */
+
+:root {
+  /* Papper och bläck: svensk porträtt-editorial */
+  --papper: #F4F0E6;
+  --papper-falt: #EAE3D2;
+  --papper-ving: #FBF8F1;
+  --linje: #CBC2AD;            /* ett enda hårlinjesnitt, alla brytpunkter */
+  --spru: #1C2A22;             /* bläck och mörk sektion */
+  --spru-djup: #141F19;
+  --spru-mjuk: #3D4A41;        /* sekundärtext på papper (AA) */
+  --ockra: #E2A63F;            /* engagemang: fält + vald tilstånd */
+  --spru-falt: #24332A;        /* brödtext på ockrafältet */
+  --ockra-brant: #8A5A15;      /* ockra som text på papper (AA) */
+  --ockra-ljus: #E9BD72;       /* ockra som text på mörkt (AA) */
+  --falu: #9C3B2E;             /* DEMO-märkning — enda användningen */
+  --falu-text: #FBF4EC;
+  --birka: #EDE6D6;            /* text på mörkt */
+  --birka-mjuk: #CFC6B2;
+
+  --skrift-display: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  --skrift-text: "Literata", Georgia, "Times New Roman", serif;
+
+  --ram-bredd: 72rem;
+  --valp: clamp(1.15rem, 4vw, 2.5rem);
+  --snitt: 1px;                /* samman hårlinje i hela sidan */
+  --topp-h: calc(3.4rem + var(--snitt)); /* övre listan räknas i flödet */
+}
+
+/* ---------- bas ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--spru-djup);
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--skrift-text);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  line-height: 1.68;
+  color: var(--spru);
+  background: var(--papper);
+  overflow-x: clip;
+  font-variant-numeric: oldstyle-nums;
+}
+
+h1, h2, h3 {
+  font-family: var(--skrift-display);
+  font-weight: 800;
+  line-height: 1.02;
+  margin: 0;
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
+}
+
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+
+a { color: var(--spru); }
+
+::selection { background: var(--ockra); color: var(--spru); }
+input, textarea { caret-color: var(--spru); }
+
+html { scrollbar-color: var(--linje) var(--papper-falt); }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--papper-falt); }
+::-webkit-scrollbar-thumb { background: var(--linje); border: 3px solid var(--papper-falt); border-radius: 8px; }
+
+/* ---------- a11y ---------- */
+.hoppa {
+  position: fixed;
+  top: -100vh;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.7em 1.2em;
+  background: var(--spru);
+  color: var(--papper);
+  font-family: var(--skrift-display);
+  font-weight: 700;
+  text-decoration: none;
+  border: var(--snitt) solid var(--ockra);
+}
+.hoppa:focus { top: 0.8rem; }
+
+:focus-visible {
+  outline: 3px solid var(--spru);
+  outline-offset: 2px;
+}
+.boka :focus-visible, .fot :focus-visible {
+  outline-color: var(--ockra-ljus);
+}
+
+section[id], main { scroll-margin-top: 4.6rem; }
+
+/* ---------- layout-hjälp ---------- */
+.ram {
+  width: min(100% - 2 * var(--valp), var(--ram-bredd));
+  margin-inline: auto;
+}
+.sr-mark { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+/* ---------- övre list ---------- */
+.topp {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--papper);
+  border-bottom: var(--snitt) solid var(--linje);
+}
+.topp-inre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.4rem;
+}
+.brand {
+  font-family: var(--skrift-display);
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+  color: var(--spru);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.meny {
+  display: flex;
+  gap: clamp(0.65rem, 2.4vw, 1.6rem);
+  font-family: var(--skrift-display);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+.meny a {
+  color: var(--spru-mjuk);
+  text-decoration: none;
+  padding: 0.35em 0;
+  border-bottom: var(--snitt) solid transparent;
+  white-space: nowrap;
+}
+.meny a:hover { color: var(--spru); border-bottom-color: var(--ockra); }
+.meny a[aria-current="true"] { color: var(--spru); border-bottom-color: var(--spru); }
+
+@media (max-width: 640px) {
+  /* namnet står redan i masthead — listan får hela bredden på liten skärm */
+  .brand { display: none; }
+  .meny { width: 100%; justify-content: space-between; }
+}
+
+/* scroll-tråden: läsposition i marginalen (endast stor skärm, endast rörelse) */
+.langtrad {
+  position: fixed;
+  left: clamp(10px, 1.6vw, 26px);
+  top: 0;
+  width: 2px;
+  height: 100vh;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(28, 42, 34, 0.14);
+}
+.langtrad line {
+  stroke: var(--ockra-brant);
+  transform-origin: 50% 0%;
+}
+@media (max-width: 940px) { .langtrad { display: none; } }
+
+/* ---------- knappar ---------- */
+.knapp {
+  display: inline-block;
+  font-family: var(--skrift-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.82em 1.5em;
+  border-radius: 2px;
+  border: var(--snitt) solid var(--spru);
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.knapp:hover {
+  box-shadow: 0 6px 14px -6px rgba(28, 42, 34, 0.5);
+  transform: translateY(-1px);
+}
+.knapp:active { box-shadow: none; transform: translateY(1px); }
+
+.knapp-hel { background: var(--spru); color: var(--papper); }
+.knapp-hel:hover { background: var(--spru-djup); }
+
+.knapp-kontur { background: transparent; color: var(--spru); }
+.knapp-kontur:hover { background: var(--spru); color: var(--papper); }
+
+.knapp-mork { background: var(--spru); color: var(--papper); }
+.knapp-mork:hover { background: var(--spru-djup); }
+
+/* på mörka fältet: den levande handlingen bär starkaste kontrasten */
+.boka .knapp-hel { background: var(--ockra); color: var(--spru-djup); border-color: var(--ockra); }
+.boka .knapp-hel:hover { background: var(--ockra-ljus); }
+.boka .knapp-kontur { border-color: var(--birka-mjuk); color: var(--birka); }
+.boka .knapp-kontur:hover { background: var(--birka); color: var(--spru-djup); }
+.boka .knapp:hover { box-shadow: 0 6px 16px -6px rgba(233, 189, 114, 0.55); }
+
+/* ---------- DEMO-märke: faluröd ärlighet ---------- */
+.demo-mark {
+  display: inline-block;
+  font-family: var(--skrift-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: var(--falu);
+  color: var(--falu-text);
+  padding: 0.42em 0.85em;
+  border-radius: 2px;
+}
+
+.inline-lank {
+  color: var(--spru);
+  text-decoration: underline;
+  text-decoration-color: var(--ockra-brant);
+  text-decoration-thickness: var(--snitt);
+  text-underline-offset: 3px;
+}
+.inline-lank:hover { background: var(--ockra); text-decoration-color: var(--spru); }
+.boka .inline-lank, .dialog .inline-lank { color: var(--ockra-ljus); text-decoration-color: var(--birka-mjuk); }
+.boka .inline-lank:hover { background: var(--ockra); color: var(--spru-djup); }
+.kontakt .inline-lank { overflow-wrap: anywhere; }
+
+/* ---------- dialog ---------- */
+.dialog {
+  width: min(30rem, calc(100vw - 2rem));
+  border: var(--snitt) solid var(--spru);
+  border-radius: 3px;
+  background: var(--papper-ving);
+  color: var(--spru);
+  padding: clamp(1.4rem, 4vw, 2rem);
+  box-shadow: 0 26px 60px -18px rgba(20, 31, 25, 0.5);
+}
+.dialog::backdrop { background: rgba(20, 31, 25, 0.62); }
+.dialog h3 { font-size: 1.35rem; margin: 0.7rem 0 0.4rem; }
+.dialog-vald {
+  font-family: var(--skrift-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: var(--papper-falt);
+  border: var(--snitt) solid var(--linje);
+  padding: 0.6em 0.9em;
+  border-radius: 2px;
+}
+.dialog-text { margin-top: 0.9rem; }
+/* dialogen ligger i det mörka fältet men har egen pappersmark — knappschema på papper */
+.dialog .knapp-kontur { border-color: var(--spru); color: var(--spru); }
+.dialog .knapp-kontur:hover { background: var(--spru); color: var(--papper); }
+.dialog .knapp:hover { box-shadow: 0 6px 14px -6px rgba(28, 42, 34, 0.5); }
+.dialog-handling { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
+.dialog-handling .knapp { text-align: center; }
+.dialog-stang {
+  margin-top: 1.2rem;
+  background: none;
+  border: none;
+  border-bottom: var(--snitt) solid var(--spru-mjuk);
+  font-family: var(--skrift-display);
+  font-weight: 700;
+  color: var(--spru-mjuk);
+  cursor: pointer;
+  padding: 0.1em 0;
+}
+.dialog-stang:hover { color: var(--spru); border-bottom-color: var(--spru); }
+
+/* ---------- sidfot ---------- */
+.fot {
+  background: var(--spru-djup);
+  color: var(--birka);
+  border-top: var(--snitt) solid var(--ockra-brant);
+}
+.fot-inre { padding: clamp(2.4rem, 6vw, 3.6rem) 0; }
+.fot-brand {
+  font-family: var(--skrift-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+.fot-lanker { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-top: 0.7rem; }
+.fot-lanker a {
+  color: var(--birka);
+  font-size: 0.95rem;
+  text-decoration-color: var(--ockra-brant);
+  text-underline-offset: 3px;
+}
+.fot-lanker a:hover { color: var(--ockra-ljus); }
+.fot-not {
+  margin-top: 1.4rem;
+  font-size: 0.86rem;
+  color: var(--birka-mjuk);
+  max-width: 52ch;
+}
+
+/* ---------- rörelse: allt är synligt som standard ---------- */
+/* Reveal/wipe-tillstånd sätts av main.js enbart när <html> har klassen "motion". */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

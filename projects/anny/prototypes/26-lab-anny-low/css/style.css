@@ -1,0 +1,509 @@
+/* Anny Morin — sjökortet. Page styles. Region boxes = measured comp geometry (build-phase scaffold). */
+
+:root {
+  --r-chart-field-x: 0.000%; --r-chart-field-y: 7.810%; --r-chart-field-w: 100.000%; --r-chart-field-h: 92.190%;
+  --r-header-strip-x: 0.000%; --r-header-strip-y: 0.000%; --r-header-strip-w: 100.000%; --r-header-strip-h: 7.810%;
+  --r-compass-rose-x: 3.130%; --r-compass-rose-y: 1.560%; --r-compass-rose-w: 6.120%; --r-compass-rose-h: 8.200%;
+  --r-nav-waypoints-x: 63.670%; --r-nav-waypoints-y: 2.540%; --r-nav-waypoints-w: 33.330%; --r-nav-waypoints-h: 5.270%;
+  --r-eyebrow-x: 4.950%; --r-eyebrow-y: 18.750%; --r-eyebrow-w: 13.930%; --r-eyebrow-h: 2.930%;
+  --r-eyebrow-cap: 18px; --r-eyebrow-font: 27px; --r-eyebrow-family: 'Rasa'; --r-eyebrow-weight: 400;
+  --r-name-x: 4.300%; --r-name-y: 21.880%; --r-name-w: 24.740%; --r-name-h: 6.840%;
+  --r-name-cap: 53px; --r-name-font: 76px; --r-name-family: 'Rufina'; --r-name-weight: 700;
+  --r-subline-x: 5.340%; --r-subline-y: 29.490%; --r-subline-w: 22.400%; --r-subline-h: 3.320%;
+  --r-subline-cap: 19px; --r-subline-font: 27px; --r-subline-family: 'Maname'; --r-subline-weight: 400;
+  --r-ring-anny-x: 4.040%; --r-ring-anny-y: 34.180%; --r-ring-anny-w: 13.280%; --r-ring-anny-h: 5.080%;
+  --r-route-x: 31.120%; --r-route-y: 41.800%; --r-route-w: 54.040%; --r-route-h: 27.730%;
+  --r-om-heading-x: 4.170%; --r-om-heading-y: 62.110%; --r-om-heading-w: 16.930%; --r-om-heading-h: 3.520%;
+  --r-om-heading-cap: 17px; --r-om-heading-font: 24px; --r-om-heading-family: 'Allerta Stencil'; --r-om-heading-weight: 400;
+  --r-om-plate-x: 4.300%; --r-om-plate-y: 64.840%; --r-om-plate-w: 19.270%; --r-om-plate-h: 24.610%;
+  --r-om-tag-x: 10.680%; --r-om-tag-y: 87.890%; --r-om-tag-w: 3.130%; --r-om-tag-h: 2.930%;
+
+  /* Sjökortet palette (closed palette law: nothing outside these + their alpha steps) */
+  --paper: #f2eddf;
+  --paper-plate: #f5f7e1;
+  --ink: #1f2d36;
+  --ink-soft: rgba(31, 45, 54, 0.62);
+  --ink-faint: rgba(31, 45, 54, 0.28);
+  --teal: #4a7a8c;
+  --ochre: #e8d9ab;
+  --depth: #b8d5e2;
+  --fairway: #c23a2b;
+  --buoy: #55794f; /* starboard marks, as painted on the approved comp */ /* the single red: fairway route + buoy + live states */
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Maname', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--ink); color: var(--paper);
+  padding: 0.6rem 1rem; z-index: 60; font-family: 'Rasa', serif;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+a { color: var(--teal); text-underline-offset: 0.18em; }
+a:focus-visible { outline: 2px solid var(--fairway); outline-offset: 3px; }
+
+/* ---------- chart stage (first viewport) ---------- */
+
+.stage {
+  position: relative;
+  height: 100vh;
+  min-height: 660px;
+  overflow: hidden;
+  background: var(--paper);
+}
+@media (min-width: 761px) {
+  /* the chart keeps the comp's sheet ratio at every desktop width,
+     so the first viewport holds from 1280 to 1600, not only at 1536 */
+  .stage {
+    height: auto;
+    aspect-ratio: 1536 / 1024;
+    min-height: min(100vh, 660px);
+  }
+}
+
+.plate-chart {
+  position: absolute;
+  left: var(--r-chart-field-x); top: var(--r-chart-field-y);
+  width: var(--r-chart-field-w); height: var(--r-chart-field-h);
+  object-fit: cover;
+  z-index: 0;
+}
+
+.chart-frame, .chart-frame-inner {
+  position: absolute; z-index: 2; pointer-events: none;
+}
+.chart-frame {
+  left: 19px; right: 19px; top: 10.16%; bottom: 0;
+  border-top: 2px solid rgba(35, 45, 40, 0.72);
+  border-left: 1.5px solid rgba(35, 45, 40, 0.62);
+  border-right: 1.5px solid rgba(35, 45, 40, 0.62);
+}
+.chart-frame-inner {
+  left: 24px; right: 25px; top: calc(10.16% + 2px); bottom: 0;
+  border-left: 1.5px solid rgba(35, 45, 40, 0.5);
+  border-right: 1.5px solid rgba(35, 45, 40, 0.5);
+}
+.margin-strip {
+  position: absolute;
+  left: var(--r-header-strip-x); top: var(--r-header-strip-y);
+  width: var(--r-header-strip-w); height: var(--r-header-strip-h);
+  z-index: 5;
+  background: var(--paper);
+}
+.margin-strip::after {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 25px;
+  height: 4px;
+  background: rgba(35, 45, 40, 0.55);
+}
+.margin-strip::before {  /* upper sheet-edge hairline 21px into the margin */
+  content: "";
+  position: absolute; left: 0; right: 0; top: 21px;
+  border-top: 1px solid var(--ink-faint);
+}
+
+.compass {
+  position: absolute;
+  left: var(--r-compass-rose-x); top: var(--r-compass-rose-y);
+  width: var(--r-compass-rose-w); height: calc(var(--r-compass-rose-h) * 1.05);
+  object-fit: contain;
+  z-index: 6;
+}
+
+/* waypoint navigation (code-drawn): two green marks, then the harbour links */
+.nav {
+  position: absolute;
+  left: var(--r-nav-waypoints-x); top: var(--r-nav-waypoints-y);
+  width: var(--r-nav-waypoints-w); height: var(--r-nav-waypoints-h);
+  z-index: 6;
+  display: flex;
+  align-items: center; padding-top: 3px;
+  justify-content: flex-end;
+  gap: clamp(0.5rem, 0.8vw, 0.72rem);
+  padding-bottom: 4px;
+}
+.nav .buoys {
+  display: inline-flex;
+  gap: 0.85em;
+  align-items: center;
+  padding-right: 0.4em;
+  align-self: flex-start;
+  padding-top: 0;
+}
+.nav .buoy {
+  width: 12px; height: 22px;
+  flex: none;
+  background: var(--buoy);
+  clip-path: polygon(50% 42%, 88% 60%, 100% 100%, 0 100%, 12% 60%);
+  position: relative;
+}
+.nav .buoy::before {
+  content: "";
+  position: absolute; left: 2px; top: 0;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--buoy);
+}
+.nav .redmark {
+  width: 9px; height: 14px;
+  flex: none;
+  background: var(--fairway);
+  clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+}
+.nav a {
+  font-family: var(--r-name-family), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(14px, 1.45vw, 22px);
+  letter-spacing: 0.09em;
+  color: #10130f;
+  -webkit-text-stroke: 0.5px #10130f;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.2em 0.1em;
+}
+.nav a.diamond::after {
+  content: "";
+  width: 0.55em; height: 0.55em;
+  background: var(--ink);
+  transform: rotate(45deg);
+  flex: none;
+}
+.nav a:hover { color: var(--fairway); text-decoration: underline; text-decoration-style: dashed; }
+.nav a[aria-current="true"] { color: var(--fairway); }
+
+/* ---------- hero lettering ---------- */
+
+.eyebrow {
+  position: absolute;
+  left: var(--r-eyebrow-x); top: calc(var(--r-eyebrow-y) + 5px);
+  margin: 0;
+  z-index: 3;
+  font-family: var(--r-name-family), Georgia, serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  color: #0b0c0b;
+  -webkit-text-stroke: 0.5px #0b0c0b;
+  white-space: nowrap;
+  transform: scaleX(0.78);
+  transform-origin: left top;
+}
+
+.name {
+  position: absolute;
+  left: var(--r-name-x); top: var(--r-name-y);
+  margin: 0;
+  z-index: 3;
+  font-family: var(--r-name-family), Georgia, serif;
+  font-weight: var(--r-name-weight);
+  font-size: var(--r-name-font);
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--ink);
+  white-space: nowrap;
+  transform: scaleX(0.885);
+  transform-origin: left top;
+}
+
+.subline {
+  position: absolute;
+  left: var(--r-subline-x); top: var(--r-subline-y);
+  margin: 0;
+  z-index: 3;
+  font-family: var(--r-subline-family), Georgia, serif;
+  font-weight: var(--r-subline-weight);
+  font-size: var(--r-subline-font);
+  line-height: 1;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  white-space: nowrap;
+  transform: scaleX(0.93);
+  transform-origin: left top;
+}
+
+/* the fairway buoy: the page's single red, the primary CTA (owner ruling: tel link) */
+.ring-anny {
+  position: absolute;
+  left: var(--r-ring-anny-x); top: var(--r-ring-anny-y);
+  width: var(--r-ring-anny-w); height: var(--r-ring-anny-h);
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--r-name-family), Georgia, serif;
+  font-weight: var(--r-name-weight);
+  font-size: clamp(19px, 1.9vw, 29px);
+  color: #0c0c0b;
+  -webkit-text-stroke: 0.55px #0c0c0b;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ring-anny::before {
+  content: "";
+  width: 1.5em; height: 1.5em;
+  flex: none;
+  background: var(--fairway);
+  border-radius: 50%;
+}
+.ring-anny:hover { color: var(--fairway); }
+.ring-anny:hover::before { transform: scale(1.08); }
+
+/* the fairway route (code-drawn SVG) */
+.route {
+  position: absolute;
+  left: var(--r-route-x); top: var(--r-route-y);
+  width: var(--r-route-w); height: var(--r-route-h);
+  z-index: 2;
+}
+.route { object-fit: fill; pointer-events: none; }
+
+/* ---------- om opening (inside the first viewport) ---------- */
+
+.om-heading {
+  position: absolute;
+  left: calc(var(--r-om-heading-x) + 10px); top: calc(var(--r-om-heading-y) + 9px);
+  margin: 0;
+  z-index: 3;
+  font-family: var(--r-name-family), Georgia, serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  color: #0c0d0c;
+  white-space: nowrap;
+}
+
+.om-plate {
+  position: absolute;
+  left: var(--r-om-plate-x); top: calc(var(--r-om-plate-y) + 8px);
+  width: var(--r-om-plate-w); height: var(--r-om-plate-h);
+  object-fit: cover;
+  z-index: 3;
+}
+
+.om-tag {
+  position: absolute;
+  left: var(--r-om-tag-x); top: calc(var(--r-om-tag-y) + 8px);
+  width: var(--r-om-tag-w); height: var(--r-om-tag-h);
+  font-family: 'Rufina', serif; font-weight: 700;
+  font-size: 13px; letter-spacing: .34em; line-height: 1;
+  color: #75766f;
+  display: flex; align-items: flex-end;
+}
+
+/* ---------- below the fold (sections phase fills these) ---------- */
+
+.sheet {
+  position: relative;
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(to right, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px);
+  z-index: 1;
+  border-top: 1px solid var(--ink-faint);
+}
+/* increasing charted depth: the further toward hamn (kontakt), the deeper the water */
+#tjanster { background-image:
+    linear-gradient(rgba(184, 213, 226, .10), rgba(184, 213, 226, .10)),
+    repeating-linear-gradient(to right, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px); }
+#galleri  { background-image:
+    linear-gradient(rgba(184, 213, 226, .17), rgba(184, 213, 226, .17)),
+    repeating-linear-gradient(to right, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px); }
+#boka     { background-image:
+    linear-gradient(rgba(184, 213, 226, .24), rgba(184, 213, 226, .24)),
+    repeating-linear-gradient(to right, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px); }
+#kontakt  { background-image:
+    linear-gradient(rgba(184, 213, 226, .32), rgba(184, 213, 226, .32)),
+    repeating-linear-gradient(to right, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(to bottom, rgba(31, 45, 54, .045) 0 1px, transparent 1px 96px); }
+/* the fairway rail: the route keeps running down the chart between harbors */
+.wp {
+  position: absolute; left: 50px; top: 52px; z-index: 2;
+  width: 11px; height: 11px; background: var(--ink);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+@media (min-width: 1000px) {
+  .sheet::before {
+    content: ""; position: absolute; left: 56px; top: -1px; bottom: -1px;
+    border-left: 1px dashed rgba(200, 58, 43, .40);
+  }
+  .sheet::after {
+    content: ""; position: absolute; left: 51px; bottom: -6px;
+    width: 11px; height: 2px; background: var(--fairway);
+  }
+  .chart-footer::before {
+    content: ""; position: absolute; left: 56px; top: 0; height: 18px;
+    border-left: 1px dashed rgba(200, 58, 43, .55);
+  }
+  .chart-footer { position: relative; }
+  .sheet-inner { position: relative; }
+  .sec-h { position: relative; }
+}
+@media (max-width: 999px) { .wp { display: none; } }
+.sheet-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 6rem clamp(1.2rem, 4vw, 3rem);
+}
+
+/* ---------- sections: chart sheets ---------- */
+.sec-h {
+  font-family: 'Rufina', serif; font-weight: 700;
+  font-size: clamp(2.15rem, 3.4vw, 2.9rem);
+  letter-spacing: 0.01em; margin: 0 0 2.2rem;
+  display: flex; align-items: baseline; gap: .9rem;
+}
+.sec-h::after {
+  content: ""; flex: 1 1 auto; height: 0;
+  border-top: 2px solid var(--ink);
+}
+.sec-h::before {
+  content: ""; flex: 0 0 auto; order: 1;
+  width: 9px; height: 14px; background: var(--fairway);
+  clip-path: polygon(50% 0, 100% 28%, 100% 100%, 0 100%, 0 28%);
+}
+.narrow { max-width: 880px; }
+
+.om-grid { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: clamp(1.6rem, 4vw, 3.4rem); align-items: start; }
+.om-photo {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--ink-faint); outline: 1px solid var(--paper);
+  box-shadow: 0 0 0 5px var(--paper-plate), 0 0 0 6px var(--ink-faint);
+}
+.om-copy p:first-child { font-size: 1.12em; }
+.ilink { color: var(--fairway); text-decoration-thickness: 1px; }
+
+.svc { list-style: none; margin: 0; padding: 0; }
+.svc li {
+  display: grid; grid-template-columns: 3.2rem 1fr auto; align-items: baseline;
+  gap: 1rem; padding: 1.05rem .2rem;
+  border-bottom: 1px solid var(--ink-faint);
+}
+.svc li:first-child { border-top: 1px solid var(--ink-faint); }
+.svc-no {
+  font-family: 'Rasa', serif; font-size: .82rem; letter-spacing: .14em;
+  color: var(--fairway);
+}
+.svc h3 { margin: 0; font-family: 'Rufina', serif; font-weight: 700; font-size: clamp(1.28rem, 2vw, 1.6rem); }
+.svc-price { font-family: 'Rasa', serif; color: var(--ink-soft); }
+.fine { font-size: .86rem; color: var(--ink-soft); margin-top: 1.4rem; }
+
+.gal { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: clamp(1rem, 2.6vw, 1.8rem); }
+.gal figure { margin: 0; position: relative; }
+.gal img { width: 100%; height: auto; display: block; aspect-ratio: 4/5; object-fit: cover; border: 1px solid var(--ink-faint); }
+.gal figcaption {
+  position: absolute; top: .45rem; left: .55rem;
+  font-family: 'Rasa', serif; font-size: .72rem; letter-spacing: .12em;
+  color: var(--paper); background: rgba(31, 45, 54, .78); padding: .1rem .45rem;
+}
+
+.demo-tag {
+  display: inline-block; margin: 0 0 1.1rem;
+  font-family: 'Allerta Stencil', 'Rasa', serif; font-size: .78rem; letter-spacing: .18em;
+  color: var(--fairway); border: 1px solid var(--fairway); padding: .22rem .6rem;
+}
+.cal { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: .9rem 1.1rem; }
+.cal-col { display: grid; gap: .45rem; align-content: start; }
+.cal-day {
+  font-family: 'Rufina', serif; font-weight: 700; font-size: .82rem; letter-spacing: .16em;
+  color: var(--ink); border-bottom: 2px solid var(--ink); padding: .3rem 0;
+}
+.cal-col button {
+  font: inherit; font-size: .92rem; text-align: left; cursor: pointer;
+  background: var(--paper-plate); color: var(--ink);
+  border: 1px solid var(--ink-faint); padding: .55rem .7rem;
+  display: flex; align-items: baseline; gap: .5rem;
+}
+.cal-col button::before { content: "◆"; color: var(--fairway); font-size: .7em; }
+.cal-col button:hover, .cal-col button:focus-visible { border-color: var(--fairway); outline-offset: 2px; }
+.cal-col .cal-off { color: var(--ink-faint); background: none; border-style: dashed; }
+.cal-col .cal-off::before { content: "·"; }
+.howto { margin-top: 1.6rem; }
+
+#tid-dialog {
+  border: 1px solid var(--ink); background: var(--paper); color: var(--ink);
+  padding: 1.6rem 1.8rem; max-width: 26rem; box-shadow: 8px 8px 0 rgba(31,45,54,.14);
+}
+#tid-dialog::backdrop { background: rgba(31, 45, 54, .45); }
+#tid-dialog h3 { font-family: 'Rufina', serif; margin: 0 0 .6rem; }
+#tid-dialog button { font: inherit; margin-top: .6rem; background: none; border: 1px solid var(--ink); color: var(--ink); padding: .4rem 1rem; cursor: pointer; }
+
+.ko-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3.4rem); align-items: start; }
+.ko-card h3, .ko-form h3 { font-family: 'Rufina', serif; font-size: 1.6rem; margin: 0 0 .6rem; }
+.ko-card .hours span { color: var(--ink-soft); }
+.ko-form { display: grid; gap: 1rem; }
+.ko-form label { display: grid; gap: .3rem; font-family: 'Rasa', serif; font-size: .9rem; letter-spacing: .06em; }
+.ko-form input, .ko-form textarea {
+  font: inherit; font-family: 'Maname', Georgia, serif; color: var(--ink);
+  background: none; border: 0; border-bottom: 1px solid var(--ink-faint);
+  padding: .45rem .1rem; resize: vertical;
+}
+.ko-form input:focus-visible, .ko-form textarea:focus-visible { outline: none; border-bottom: 2px solid var(--fairway); }
+.ko-form button {
+  font-family: 'Rufina', serif; font-weight: 700; font-size: 1rem; cursor: pointer;
+  background: var(--ink); color: var(--paper); border: 0; padding: .7rem 1.2rem; justify-self: start;
+}
+.btn-demo { font-weight: 400; color: var(--paper-plate); }
+.form-note { color: var(--fairway); margin: 0; }
+
+.chart-footer {
+  background: var(--ink); color: var(--paper);
+  padding: 2.2rem clamp(1.2rem, 4vw, 3rem);
+  font-family: 'Rasa', serif; font-size: .95rem;
+}
+.chart-footer a { color: var(--depth); }
+.chart-footer .fine { color: rgba(242, 237, 223, .62); }
+.chart-footer .buoys .redmark { background: var(--fairway); }
+
+@media (max-width: 760px) {
+  .om-grid, .ko-grid { grid-template-columns: 1fr; }
+  .sheet-inner { padding-top: 4rem; padding-bottom: 4rem; }
+}
+
+/* ---------- mobil: vecklat sjökort (375 px utan horisontell overflow) ---------- */
+@media (max-width: 760px) {
+  .stage { height: auto; min-height: 0; aspect-ratio: auto; padding-bottom: 2rem; }
+  .plate-chart { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .margin-strip { position: relative; height: 30px; }
+  .compass { position: absolute; top: 5px; left: 12px; width: 40px; height: auto; z-index: 3; }
+  .nav {
+    position: relative; inset: auto; height: auto; width: auto;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .9rem;
+    padding: .7rem 1rem .4rem; justify-content: flex-start;
+  }
+  .nav .buoys { display: none; }
+  .nav a { font-size: 15px; }
+  .eyebrow, .name, .subline, .ring-anny, .om-heading, .om-tag {
+    position: relative; inset: auto; width: auto; height: auto;
+    margin: .4rem 1.15rem 0;
+  }
+  .eyebrow { margin-top: 1.4rem; font-size: 15px; letter-spacing: .3em; transform: none; }
+  .name { font-size: clamp(2.3rem, 12vw, 3.1rem); margin-top: .1rem; }
+  .subline { font-size: clamp(1.05rem, 4.6vw, 1.3rem); max-width: 26ch; margin-top: .6rem; }
+  .ring-anny { display: inline-block; width: fit-content; font-size: clamp(1rem, 5vw, 1.15rem); margin-top: 1.1rem; }
+  .ring-anny::before { display: none; }
+  .route { position: relative; inset: auto; width: 86%; height: auto; margin: 1.8rem auto 0; display: block; }
+  .om-heading { margin-top: 2.4rem; font-size: 17px; }
+  .om-plate { position: relative; inset: auto; width: min(320px, 88%); height: auto; display: block; margin: .8rem auto 0; }
+  .om-tag { display: block; width: fit-content; margin: .5rem auto 0; }
+  .sheet-inner { padding-top: 3.4rem; padding-bottom: 3.4rem; }
+}

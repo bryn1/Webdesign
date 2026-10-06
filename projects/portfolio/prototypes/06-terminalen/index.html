@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06 · Terminalen 2.0 — Alexander Lektove</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700">
+<style>
+:root{
+  --bg:#0b0f0d;
+  --ink:#e4efe7;
+  --accent:#46e08a;
+  --muted:#8ba496;
+  --line:#1d2b24;
+  --glow:rgba(70,224,138,.35);
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:"Space Grotesk",system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  --nav-h:47px;
+}
+*{box-sizing:border-box}
+html{scroll-snap-type:y proximity;background:var(--bg)}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:400 17px/1.65 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+/* CRT scanline overlay — fixed, page-wide, ≤6% */
+body::after{
+  content:"";position:fixed;inset:0;z-index:120;pointer-events:none;
+  background:repeating-linear-gradient(transparent 0 2px, rgba(0,0,0,.18) 2px 4px);
+  opacity:.06;
+}
+.wrap{width:min(1180px,100%);margin-inline:auto;padding-inline:clamp(18px,4.5vw,48px)}
+.mono{font-family:var(--mono)}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(70,224,138,.28);transition:border-color .15s ease,color .15s ease}
+a:hover{border-bottom-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h2{font:700 clamp(1.5rem,3.6vw,2.25rem)/1.15 var(--mono);margin:0 0 .45em;letter-spacing:-.01em}
+h3{font:700 1.06rem/1.35 var(--mono);margin:2.4rem 0 .7em;color:var(--accent)}
+p{margin:0 0 1em}
+ul{margin:0 0 1.25em;padding-left:1.25em}
+li{margin:.35em 0}
+b,strong{font-weight:700}
+blockquote{margin:1.3em 0;padding:.1em 0 .1em 1.1em;border-left:2px solid var(--accent);color:var(--ink)}
+blockquote p{margin:0 0 .5em}
+blockquote p:last-child{margin:0}
+.plabel{font:500 13px/1.7 var(--mono);color:var(--accent);margin:0 0 1.8rem;letter-spacing:.02em;overflow-wrap:anywhere}
+.mut{color:var(--muted)}
+.cursor{display:inline-block;width:.55em;height:1.05em;background:var(--accent);vertical-align:-0.18em;margin-left:.15em}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;border-bottom:1px solid var(--line);position:relative;padding-block:96px}
+.hero .wrap{position:relative}
+.monogram{display:inline-flex;border:1px solid var(--accent);color:var(--accent);font:700 15px/1 var(--mono);padding:.5em .6em;letter-spacing:.08em;margin-bottom:2.2rem}
+@media (min-width:900px){
+  .monogram{position:absolute;top:8px;right:clamp(18px,4.5vw,48px);margin-bottom:0}
+}
+.hero .q{font:500 clamp(1.02rem,2.6vw,1.45rem)/1.55 var(--mono);margin:0 0 .35em;text-shadow:0 0 8px var(--glow)}
+.hero h1{font:700 clamp(2.1rem,6.4vw,4.4rem)/1.05 var(--mono);letter-spacing:-.02em;margin:.28em 0 .12em;text-shadow:0 0 14px var(--glow)}
+.hero .sub{font:500 clamp(1.05rem,2.2vw,1.35rem)/1.4 var(--sans);color:var(--accent);margin:0 0 .4em}
+.hero .sig{font:400 14px/1.6 var(--mono);color:var(--muted);margin:0}
+.kpis{display:flex;flex-wrap:wrap;gap:14px 34px;margin-top:2.4rem;padding-top:1.3rem;border-top:1px solid var(--line)}
+.kpi b{display:block;font:700 clamp(1.35rem,3vw,1.9rem)/1.1 var(--mono);color:var(--accent)}
+.kpi span{display:block;font:400 12.5px/1.5 var(--mono);color:var(--muted);max-width:24ch}
+.notice{margin-top:1.5rem;font:400 12.5px/1.6 var(--mono);color:var(--muted);max-width:76ch}
+
+/* ---------- sticky one-line nav rail ---------- */
+.rail{position:sticky;top:0;z-index:60;background:rgba(11,15,13,.94);border-bottom:1px solid var(--line)}
+.rail-in{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 16px;padding-block:11px;font:400 13px/25px var(--mono)}
+.rail-in .prompt{color:var(--muted);margin-right:2px}
+.rail-in a{color:var(--ink);border-bottom:none;white-space:nowrap}
+.rail-in a:hover{color:var(--accent)}
+
+/* ---------- sections ---------- */
+section{
+  border-top:1px solid var(--line);
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:center;
+  padding-block:clamp(72px,11vh,130px);
+  scroll-snap-align:start;scroll-margin-top:var(--nav-h);
+}
+section .wrap{width:100%}
+.prose{max-width:68ch}
+.prose .lead-in{font:400 1.12rem/1.65 var(--sans)}
+.bevis b{font-family:var(--mono);color:var(--accent)}
+
+/* ---------- projekt ---------- */
+.lead{color:var(--muted);font:400 14px/1.7 var(--mono);max-width:74ch;margin:0 0 2.2rem}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr))}
+@media (min-width:900px){.cards{grid-template-columns:1fr 1fr}}
+.card{border:1px solid var(--line);background:rgba(255,255,255,.015);padding:24px;display:flex;flex-direction:column}
+.card .idx{font:500 12px/1 var(--mono);color:var(--muted);letter-spacing:.14em;margin:0 0 .55rem}
+.card h3{margin:0 0 .7rem;color:var(--ink);font-size:1.02rem;overflow-wrap:anywhere}
+.card p{font-size:15.5px;margin:0 0 .85em}
+.card p:last-of-type{margin-bottom:0}
+.card .meta{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);font:400 12.5px/1.9 var(--mono);overflow-wrap:anywhere}
+.card .meta .sep{color:var(--muted);padding:0 .35em}
+
+/* ---------- flottan ---------- */
+.orch{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));margin-bottom:1rem}
+.orch div{border:1px solid var(--line);padding:16px 18px}
+.orch b{font-family:var(--mono);color:var(--accent)}
+.glabel{font:700 11px/1 var(--mono);color:var(--muted);letter-spacing:.16em;margin:1.6em 0 .6em;text-transform:uppercase}
+.who{list-style:none;margin:0 0 1.1em;padding:0}
+.who li{margin:.4em 0;font-size:15.5px}
+.who b{font-family:var(--mono);color:var(--accent);font-weight:500}
+.seats{font:400 14.5px/2 var(--mono);overflow-wrap:anywhere}
+.seats b{color:var(--accent);font-weight:500}
+.strip{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 1rem}
+@media (min-width:760px){.strip{grid-template-columns:1fr 1fr}}
+@media (min-width:1080px){.strip{grid-template-columns:repeat(4,1fr)}}
+.strip div{background:var(--bg);padding:18px 18px 20px}
+.strip b{display:block;font:700 13px/1.5 var(--mono);color:var(--accent);margin-bottom:.4em}
+.strip p{font-size:13.5px;line-height:1.55;margin:0;color:var(--ink)}
+.strip p.mut{color:var(--muted)}
+.total{font:500 14px/1.7 var(--mono);color:var(--ink);margin:1.2em 0 0}
+
+/* ---------- bakgrund ---------- */
+.cv{list-style:none;margin:0 0 2rem;padding:0}
+.cv li{display:grid;grid-template-columns:auto 1fr;gap:0 20px;padding:.95em 0;border-bottom:1px solid var(--line);margin:0}
+.cv .n{font:700 13px/1.9 var(--mono);color:var(--accent)}
+.cv .t{font-size:15.5px}
+.cv .t b{font-family:var(--mono)}
+.flag{font:400 13px/1.7 var(--mono);color:var(--muted)}
+
+/* ---------- kontakt ---------- */
+.mail-big{display:inline-block;font:700 clamp(1.1rem,4.2vw,1.7rem)/1.35 var(--mono);overflow-wrap:anywhere;margin:.4rem 0 1.6rem}
+footer{border-top:1px solid var(--line);padding-block:34px}
+footer .foot{display:flex;flex-wrap:wrap;gap:6px 24px;font:400 12.5px/1.8 var(--mono);color:var(--muted)}
+
+/* ---------- signature: boot-sequence + blink ----------
+   DA-fix (A2/RM-garv, P-E): base state opacity:1, both boot reveal and
+   cursor blink live ONLY inside prefers-reduced-motion: no-preference,
+   keyframes with fill backwards — the no-anim render IS the finished frame. */
+.boot{opacity:1}
+.cursor{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .boot{animation:bootReveal .45s steps(1) backwards}
+  .b1{animation-delay:.15s}
+  .b2{animation-delay:.55s}
+  .b3{animation-delay:.95s}
+  .b4{animation-delay:1.35s}
+  @keyframes bootReveal{from{opacity:0}to{opacity:1}}
+  .cursor{animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{0%,55%{opacity:1}56%,100%{opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  section{padding-block:64px}
+  .rail-in{font-size:12px;gap:2px 12px}
+  .cv li{grid-template-columns:2.2em 1fr;gap:0 12px}
+  .card{padding:18px}
+  .kpi span{max-width:100%}
+}
+
+/* ---------- JS-lager (JS-pass MC 10096): progressiv förbättring ----------
+   .active på nav-länken sätts av skriptet (IntersectionObserver) — ren
+   tillståndsmarkering, inget innehåll döljs. JS-av och RM renderar den
+   kompletta statiska sidan; signatur-typningen rör bara .plabel-rader
+   (befintlig, äkta text) och återställer dem byte-exakt. */
+.rail-in a.active{color:var(--accent);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px}
+</style>
+</head>
+<body id="top">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="monogram" aria-hidden="true">AL</div>
+    <p class="q boot b1"><strong>AI används på den data som inte är så viktig.</strong></p>
+    <p class="q boot b1"><strong>Den viktiga datan får inte lämna rummet.</strong></p>
+    <h1 class="boot b2">Alexander Lektove</h1>
+    <p class="sub boot b3">AI-arkitekt &amp; systemsbyggare</p>
+    <p class="sig boot b4">Alexander Lektove · Karlskrona<span class="cursor" aria-hidden="true"></span></p>
+    <div class="kpis">
+      <div class="kpi"><b>100&nbsp;%</b><span>av flottans inferens körs lokalt ✓ verifierat</span></div>
+      <div class="kpi"><b>2&nbsp;900+</b><span>uppdrag spårade på två tavlor ✓ verifierat</span></div>
+      <div class="kpi"><b>~208&nbsp;t/s</b><span>uppmätt genomströmning, 8 spår/maskin ✓ verifierat</span></div>
+    </div>
+    <p class="notice">⚠ Under uppbyggnad — sidan byggs om löpande av flottan. Siffrorna är verifierade mot systemets loggar; texten kan släpa efter.</p>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Sektioner">
+  <div class="wrap rail-in">
+    <span class="prompt" aria-hidden="true">alex@lektove:~$</span>
+    <a href="#top">top</a>
+    <a href="#om">om</a>
+    <a href="#projekt">projekt</a>
+    <a href="#flottan">flottan</a>
+    <a href="#bakgrund">bakgrund</a>
+    <a href="#case">case</a>
+    <a href="#kontakt">kontakt</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= OM — Vem jag är ================= -->
+<section id="om">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ cat vem-jag-aer.md</p>
+    <h2>Vem jag är</h2>
+    <div class="prose">
+      <blockquote class="lead-in"><p>Jag bygger agentflottor som kör på lokal hårdvara – och som går att lita på utan att någon läser varje rad de producerar.</p></blockquote>
+
+      <h3>Problemet</h3>
+      <p>Verksamheter som inte får lägga sina data i molnet får inte mindre AI än andra — de får ingen alls. Avståndet till dem som kan växer varje månad.</p>
+
+      <h3>Varför en lokal chatbot inte löser det</h3>
+      <p>En chatbot kräver fortfarande att en människa formulerar frågan, läser hela svaret och tar ansvar för det. I en granskad verksamhet är overifierad AI-utdata ingen tillgång — den är en risk som någon måste skriva under på. Flaskhalsen är inte tillgången till modellen. Den är verifieringen.</p>
+
+      <h3>Vad jag bygger</h3>
+      <p>Lagret som gör delegerat arbete försvarbart:</p>
+      <ul>
+        <li>varje uppdrag är ett spårat ärende — inget sker vid sidan av</li>
+        <li>”klart” är maskinellt kontrollerbart, inte en bedömning</li>
+        <li>grindar avgör på exitkoder — bygge, test, säkerhet</li>
+        <li>revisionsspåret blir en biprodukt av hur arbetet flyter</li>
+      </ul>
+
+      <h3>Bevis — mot systemets egna loggar</h3>
+      <ul class="bevis">
+        <li><b>100&nbsp;%</b> av flottans inferens körs på egen hårdvara</li>
+        <li><b>2&nbsp;900+</b> uppdrag spårade på två tavlor, med bevis vid avslut</li>
+        <li><b>~208&nbsp;tok/s</b> samlad genomströmning, 8 parallella spår per maskin</li>
+      </ul>
+
+      <h3>Villkoret</h3>
+      <p>Arbete kan köras obevakat när det är ett återkommande flöde med ett kontrollerbart ”klart”. Grindarna är strukturen som gör systemet tillförlitligt.</p>
+
+      <h3>Två förbehåll</h3>
+      <p>Systemet är inte molnfritt av princip. Molnmodeller kan användas i kombination, där de är som bäst — med ett lokalt system finns möjligheten att välja.</p>
+      <p>Systemet är inte säkert bara för att det är lokalt. Nycklar, .env-filer och åtkomst behöver fortfarande hanteras med disciplin.</p>
+
+      <h3>Redan gjort</h3>
+      <p>Bokningssystem för hotell, en bibliotekshemsida med utlåning, en aktiescanner med en modell på 34 tekniska indikatorer (demon visar en ögonblicksbild av 35 tickers), en webapp för konvertering av CAD-filer och en firmware för Raspberry Pi Pico W för temperaturövervakning — allt byggt på lokal hårdvara av mitt agentteam i mina arbetsflöden.</p>
+
+      <h3>Nästa steg</h3>
+      <p>Att finjustera själva agentflottan på sitt eget arbete. Pipelinen finns, den är inte i drift.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJEKT ================= -->
+<section id="projekt">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ ls projekt/</p>
+    <h2>Projekt</h2>
+    <p class="lead">Nio kuraterade projekt i den ordning sajten visar dem. ”Demo” = publicerad demo på sibbamala.com eller egen subdomän; ”Kod” = offentligt GitHub-repo.</p>
+    <div class="cards">
+
+      <article class="card">
+        <p class="idx">01</p>
+        <h3>bevis — ärendetavla där avslut kräver bevis</h3>
+        <p>Ett ärende kan inte stängas utan ett kommando, dess exitkod och dess utdata — beviset lagras på ärendet. Det räcker inte att påstå att arbetet är gjort. Koden är öppen under Apache-2.0 och verktyget körs från kommandoraden. Ingen modell, ingen API-nyckel, ingen GPU.</p>
+        <p>Reglerna: kravet skrivs när ärendet skapas, innan någon har skäl att formulera ett krav som är lätt att klara. En blockerande kontroll stoppar ärendet och allt efter det — underärenden och det som väntar. En utdelare kan lämna arbetet till vilken agent eller vilket skript som helst och sparar vad som kom tillbaka, men får inte avgöra att arbetet lyckades — det avgör ärendets egna kontroller. Den som stänger ett ärende får inte vara den som verifierar det. Testerna kontrolleras i sin tur: en rutin planterar en defekt i taget i koden och kräver att det test som vaktar den regeln blir rött.</p>
+        <p>Verktyget håller ingen modell, ingen API-nyckel och ingen GPU, och det körs på en enda maskin. Idén är inte ny — det här är en liten, fristående variant, inte en första.</p>
+        <p class="meta"><a href="https://github.com/bryn1/bevis" target="_blank" rel="noopener">Kod</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">02</p>
+        <h3>skola.sibbamala.com — lärplattform</h3>
+        <p>Lärplattform för högstadiet i fysik, teknik och matematik: lektioner, uppgifter och pluggning mot Lgr22, med en AI-lärare som baserar sina svar på lärarens material. Av de 18 obligatoriska ämnena är matematik, fysik och teknik öppna — resten publiceras efter hand.</p>
+        <p class="meta"><a href="https://skola.sibbamala.com" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">03</p>
+        <h3>np.sibbamala.com — öva inför nationella provet</h3>
+        <p>Övning inför nationella prov: gratis övningsfrågor med facit och bedömningsanvisning till varje fråga, över flera ämnen — bland dem NO (fysik, kemi, biologi), matematik och engelska. Ingen inloggning, inget du skriver sparas.</p>
+        <p class="meta"><a href="https://np.sibbamala.com" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">04</p>
+        <h3>Rocket Stock Scanner</h3>
+        <p>Aktiescanner som poängsätter aktier mot 34 tekniska indikatorer (31 röstar, 3 är enbart riskmått), med backtesting och rapportgenerering. Den publicerade sidan är en statisk, skrivskyddad ögonblicksbild av en körning: 35 tickers i tre regioner (Tyskland, Sverige, USA), cirka ett år av dagliga kursstaplar per ticker — senaste kursdatum visas på sidan. Modellen i koden arbetar mot ett universum på ~12&nbsp;800 unika tickers.</p>
+        <p>Arkitektur i lager: datalager (hämtar marknadsdata), teknisk analys (34 indikatorer — momentum, trend, volatilitet, volym), signalmotor (slår ihop signaler till en poäng), parallell scanner, HTML-rapporter per körning. Stack: Python med pandas + numpy, multiprocessing, schemalagd körning.</p>
+        <p class="meta"><a href="https://github.com/bryn1/Rocket" target="_blank" rel="noopener">Kod</a><span class="sep">·</span><a href="https://sibbamala.com/rocket/" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">05</p>
+        <h3>Sea View Hotel Booking</h3>
+        <p>Webbaserat bokningssystem för hotellrum: alla rum och deras status, bokning över ett datumintervall, redigering och avbokning. Demon körs på syntetiska data.</p>
+        <p>Stack: Python backend med FastAPI, vanilla JS för gränssnittet, SQLite för bokningarna.</p>
+        <p class="meta"><a href="https://github.com/bryn1/Hotell" target="_blank" rel="noopener">Kod</a><span class="sep">·</span><a href="https://sibbamala.com/hotell/" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">06</p>
+        <h3>CAD-filkonvertering</h3>
+        <p>Webapp som konverterar CAD-filer: läser STEP, IGES och BREP och skriver nio format — STEP, BREP, SVG, IGES, STL, OBJ, 3MF, GLTF, PLY. Målet är en symmetrisk matris — alla format in, alla ut — och den byggs fas för fas av agentflottan: moduler, säkring av konverteringsvägen, en full korrekthetsmatris och rättning av de defekter matrisen hittar.</p>
+        <p class="meta"><a href="https://github.com/bryn1/Cad" target="_blank" rel="noopener">Kod</a><span class="sep">·</span><a href="https://sibbamala.com/cad/" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">07</p>
+        <h3>Bibliotek</h3>
+        <p>Bibliotekshemsida med katalog och utlåning. Demon körs på syntetiska data — böcker, låntagare och lån är genererade.</p>
+        <p class="meta"><a href="https://github.com/bryn1/Bibliotek" target="_blank" rel="noopener">Kod</a><span class="sep">·</span><a href="https://sibbamala.com/bibliotek/" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+      <article class="card">
+        <p class="idx">08</p>
+        <h3>Sensor — firmware för Raspberry Pi Pico W</h3>
+        <p>Firmware för temperaturövervakning med DS18B20-givare på Raspberry Pi Pico W. Byggd i flottans arbetsflöde: forskning, arkitektur och fasplan först, sedan bygge mot test i emulator och till sist på riktig hårdvara. Koden ligger i ett privat repo.</p>
+        <p class="meta mut">publika länkar: inga (privat repo)</p>
+      </article>
+
+      <article class="card">
+        <p class="idx">09</p>
+        <h3>FutureCraft — voxelsandlåda</h3>
+        <p>Voxelsandlåda i webbläsaren, byggd på Three.js — ingen installation.</p>
+        <p class="meta"><a href="https://github.com/bryn1/futurecraft" target="_blank" rel="noopener">Kod</a><span class="sep">·</span><a href="https://sibbamala.com/futurecraft/" target="_blank" rel="noopener">Demo</a></p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLOTTAN ================= -->
+<section id="flottan">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ ps aux --fleet</p>
+    <h2>Autonoma flottan</h2>
+    <div class="prose">
+      <p>Två orkestrerare, två flottor som kör parallellt. Ett jobb per säte, och varje uppdrag är spårat på en tavla.</p>
+    </div>
+
+    <h3>Orkestrerare</h3>
+    <div class="orch">
+      <div><b>lokalorkestrerare</b><br><span class="mut">tar emot, väljer flöde, köar (kör aldrig själv)</span></div>
+      <div><b>molnorkestrerare</b><br><span class="mut">frontier-modell i molnet — planerar, delegerar, granskar</span></div>
+    </div>
+
+    <h3>Flotta 1 — 14 namngivna personor</h3>
+    <p class="glabel">Orkestrering</p>
+    <ul class="who">
+      <li><b>sickan</b> — planerare — bryter ner uppdraget i steg</li>
+      <li><b>bernie</b> — arkitekt — formar lösningen</li>
+      <li><b>neo</b> — devils advocate — försöker fälla planen innan bygget börjar</li>
+    </ul>
+    <p class="glabel">Bygge</p>
+    <ul class="who">
+      <li><b>teddy</b> — mjukvarukodare</li>
+      <li><b>nicke</b> — gränssnitt och frontend</li>
+      <li><b>kjell</b> — automation och IoT</li>
+      <li><b>henrik</b> — spelkod — C#/OpenTK och C++/OpenGL</li>
+    </ul>
+    <p class="glabel">Grindar</p>
+    <ul class="who">
+      <li><b>dobbie</b> — bygg- och testgrind — utfall ur exitkoder, aldrig ur en åsikt</li>
+      <li><b>sigrid</b> — säkerhetsgrind — kritiskt eller högt stoppar integrationen</li>
+      <li><b>knut</b> — granskar arbetet mot artefakterna, inte mot rapporten</li>
+    </ul>
+    <p class="glabel">Stöd</p>
+    <ul class="who">
+      <li><b>artemis</b> — research med källkrav</li>
+      <li><b>gunilla</b> — infrastruktur och drift</li>
+      <li><b>mirre</b> — teknisk skribent — dokumenterar från artefakter, inte från rapporter</li>
+      <li><b>trickyrick</b> — brainstorm</li>
+    </ul>
+
+    <h3>Flotta 2 — 8 rollsäten</h3>
+    <p class="seats"><b>coder</b> (mjukvara) · <b>frontend</b> (gränssnitt) · <b>automation</b> (IoT och styrning) · <b>infra</b> (drift) · <b>scout</b> (research — enda sätet med webbåtkomst) · <b>planner</b> (planering) · <b>qa</b> (bygg- och testgrind) · <b>reviewer</b> (säkerhetsgranskning — läser, ändrar aldrig)</p>
+
+    <h3>Så ruttas ett uppdrag</h3>
+    <div class="prose">
+      <p>Fas 0: artemis research → bernie arkitektur → sickan fasplan. Fas 1: neo devils advocate — försöker fälla planen innan bygget börjar. Fas 2: teddy bygger mot testet, dobbie bygg- och testgrind, sigrid säkerhetsgrind, mirre dokumenterar. Fas 3…N: bygg + grind i par tills fasplanen är levererad; knut granskar resultatet mot artefakterna, inte mot rapporten. Faller en grind går kedjan tillbaka, inte vidare.</p>
+      <p>Arbetsflödet illustreras på sajten med ett verkligt uppdrag — bygget av CAD-filkonverteraren — som flera kedjor samtidigt: fas 0–1 (plan, arkitektur, granskning), fas 2 med 24 steg (moduler), fas 3 med 6 steg (säkra /convert och full korrekthetsmatris), fas 4 med 5 steg (IGES→STEP-defekten), fas 5 pågående (symmetrisk 9-in × 9-ut-matris). Uppmätt tak från flottans egen bench: B70 8 strömmar 103,6 tok/s · Spark 8 strömmar 104,5 tok/s · ~208 tok/s samlat, 229&nbsp;590 tokens i luften utan läckage mellan strömmar. (Sajten markerar uttryckligen att detta är en simulering baserad på uppmätta siffror, inte en live-körning.)</p>
+    </div>
+
+    <h3>Hårdvaran och vad varje accelerator gör</h3>
+    <div class="strip">
+      <div><b>RTX 3090 · 24 GB</b><p>kontextvärd: sköter kontext för samtliga sessioner, komprimerar och arkiverar. Qwen3.8-27B · 96&nbsp;000 kontext · MTP; varm prefix: 1&nbsp;877 ms → 161 ms · 54 tok/s — varmt cache: sessionen läser aldrig om det den redan vet, starten blir ca 12 gånger snabbare.</p></div>
+      <div><b>Intel Arc B70 · 32 GB</b><p>kodarlane. Qwen3.8-27B (AWQ) via vLLM · 262&nbsp;144 kontext; 8 strömmar: 103,6 tok/s · inläsning 807,8 tok/s.</p></div>
+      <div><b>2× DGX Spark GB10</b><p>orkestrering, planering, arkitektur. DeepSeek-V4 · 1&nbsp;M kontextfönster; 8 strömmar: 104,5 tok/s · inläsning ~1&nbsp;540 tok/s; arbetar som en enhet för en stor modell.</p></div>
+      <div><b>RTX 2060 · 6 GB</b><p>inbäddningar, omrankning, triage.</p></div>
+    </div>
+    <p class="total">Totalt uppmätt: ~2&nbsp;350 tok/s inläsning · ~208 tok/s generering.</p>
+
+    <h3>AI-OS — tavlan som visar flottan just nu</h3>
+    <p class="prose" style="max-width:74ch">Se vad som sker i systemet just nu: <a href="https://sibbamala.com/ai-os/" target="_blank" rel="noopener">sibbamala.com/ai-os/</a> <span class="mut mono" style="font-size:12.5px">(read-only dashboard, ”AI OS – Tavlor”).</span></p>
+    <p class="prose" style="max-width:74ch">Tillhör även: föreläsningens bildspel <strong>”Autonom AI-OS”</strong>, publicerat som bildspel i webbläsaren på <a href="https://sibbamala.com/presentation/" target="_blank" rel="noopener">sibbamala.com/presentation/</a>.</p>
+  </div>
+</section>
+
+<!-- ================= BAKGRUND ================= -->
+<section id="bakgrund">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ cat bakgrund.md</p>
+    <h2>Bakgrund</h2>
+    <div class="prose">
+      <p><strong>Alexander Lektove</strong> · lärare i fysik, teknik och matematik · Karlskrona</p>
+      <p>Lärare i högstadiet i fysik, teknik och matte med stort intresse för AI. Kör flertalet virtuella maskiner i Proxmox på två noder, tre grafikkort och 2× DGX Spark — dubbla orkestrerare, lokalt och i molnet, med två parallella agentflottor i definierade arbetsflöden för autonomt byggande av mjukvara, spel och tjänster.</p>
+    </div>
+
+    <h3>I drift</h3>
+    <div class="prose">
+      <p>Två hemsidor för mina elever och flertalet prototyper och proof of concepts — se avsnittet Projekt.</p>
+    </div>
+
+    <h3>Byggt själv</h3>
+    <ul class="cv">
+      <li><span class="n">01</span><span class="t"><b>Inferensstack</b> — Proxmox-noder med GPU-passthrough, små till stora modeller</span></li>
+      <li><span class="n">02</span><span class="t"><b>Router och kö</b> — FastAPI, nivåbaserad lastbalansering, Redis-backad arbetskö</span></li>
+      <li><span class="n">03</span><span class="t"><b>RAG</b> — ChromaDB + inbäddningar för few-shot-bedömning</span></li>
+      <li><span class="n">04</span><span class="t"><b>LoRA</b> — egna adaptrar för fysik och matematik, tränade och driftsatta</span></li>
+      <li><span class="n">05</span><span class="t"><b>Mission Control</b> — kanbansystem för autonomt kodande och dokumentation av mjukvara, med orkestrering på lokal hårdvara</span></li>
+    </ul>
+
+    <h3>Arbetssätt</h3>
+    <div class="prose">
+      <p>Trial and error. Sätt höga mål och misslyckas ofta. Testa allt som går att testa — ingen idé är för dum för att prova. Dra lärdom av allt: återanvänd det som är bra, förkasta det dåliga. En dålig hypotes är bättre än ingen hypotes. Ingenting är omöjligt.</p>
+    </div>
+
+    <p class="flag">Svenskt medborgarskap · säkerhetsklass 3 i hemvärnet</p>
+
+    <div class="prose">
+      <blockquote><p>Målet var aldrig flottan eller systemet. Det var en biprodukt till en hemsida jag ville bygga — men biprodukten blev snabbt min huvudsyssla.</p></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CASE ================= -->
+<section id="case">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ cat case.md</p>
+    <h2>Case</h2>
+    <div class="prose">
+      <p>Ett konkret fall — reglerad verksamhet i slutet nät.</p>
+
+      <h3>Vem</h3>
+      <p><strong>Försvarsindustri, medicinteknik, industriell automation.</strong> Nät utan väg ut. Ingen Copilot, ingen molntjänst, ingen genväg.</p>
+
+      <h3>Problemet de faktiskt har</h3>
+      <p>Dokumentation och spårbarhet äter en stor del av varje projekt: kravspårning, konstruktionsunderlag, testprotokoll, ändringsanalys. Det är obligatoriskt, det är omfattande, det görs av dyra ingenjörer som hellre gör något annat — och det får inte lämna nätet.</p>
+
+      <h3>Varför en agentflotta passar just det</h3>
+      <ul>
+        <li>skribenten dokumenterar från artefakter — commits, loggar, körd konfiguration — inte från vad någon påstod i en rapport</li>
+        <li>ärendetavlan <em>är</em> en spårbarhetsmatris: krav, beslut, bevis</li>
+        <li>grindarna ger PASS/FAIL ur exitkoder, så ”klart” är ett faktum och inte någons uppfattning</li>
+      </ul>
+
+      <h3>Ärligt om gränserna</h3>
+      <p>Ett helt frånkopplat nät betyder inga modelluppdateringar och inga säkerhetsfixar utan att någon bär in dem. Det är en driftkostnad och en leveranskedjefråga, inte en detalj. Lokala modeller är svagare per enskilt svar än de största molnmodellerna. Det kompenseras med flöde, grindar och omtag — inte med magi. Lovar någon frontier-kvalitet på egen hårdvara ljuger de. Systemet kan driftsättas segmenterat: ingen väg ut mot internet, men fullt fungerande på det interna nätet. Det kan också köras helt offline — då gäller förbehållet ovan om uppdateringar som måste bäras in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KONTAKT ================= -->
+<section id="kontakt">
+  <div class="wrap">
+    <p class="plabel" aria-hidden="true">alex@lektove:~$ mail alexander@sibbamala.com<span class="cursor" aria-hidden="true"></span></p>
+    <h2>Kontakt</h2>
+    <div class="prose">
+      <p class="mut mono" style="font-size:13px">Publika kanaler:</p>
+      <p class="mail-big"><a href="mailto:alexander@sibbamala.com">alexander@sibbamala.com</a></p>
+      <p class="mono" style="font-size:15px;margin-bottom:2.2rem"><a href="https://github.com/bryn1" target="_blank" rel="noopener">github.com/bryn1</a></p>
+
+      <blockquote>
+        <p>Jag tar gärna ett förutsättningslöst samtal om vad som skulle gå att köra lokalt hos er — vad som är realistiskt, vad det kräver i hårdvara, och vad som inte är värt besväret.</p>
+        <p>Har ni ett återkommande flöde med ett kontrollerbart ”klart” är det den bästa starten.</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>Alexander Lektove · Karlskrona</span>
+    <span aria-hidden="true">alex@lektove:~$ exit 0</span>
+  </div>
+</footer>
+
+<script>
+/* JS-lager 06 Terminalen (JS-pass MC 10096): vanilla, inline, ingen fetch.
+   a) mjuk ankring + aktiv sektion i den sticky railen (IntersectionObserver)
+   b) signatur: när en sektion rullas in "skrivs" dess prompt-rubrik
+      (alex@lektove:~$ ...) tecken för tecken — terminalkänsla på sidans
+      egen, redan existerande text; inget är påhittat, och slutläget är
+      byte-exakt originalsträngen (textnoden återskrivs, span cursor sparas).
+   Progressiv förbättring: JS-av = orörd, komplett sida. Under
+   prefers-reduced-motion: ingen typning alls, direkt fullt tillstånd. */
+(function () {
+  "use strict";
+  var RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- a) aktiv sektion i railen --- */
+  var rail = document.querySelector("nav.rail");
+  if (rail && "IntersectionObserver" in window) {
+    var links = Array.prototype.slice.call(rail.querySelectorAll('a[href^="#"]'));
+    var order = [];
+    links.forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      var t = id === "top" ? document.querySelector(".hero") : document.getElementById(id);
+      if (t) order.push({ link: a, t: t });
+    });
+    if (order.length) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { en.target.__navVis = en.isIntersecting; });
+        for (var i = 0; i < order.length; i++) {
+          if (order[i].t.__navVis) {
+            links.forEach(function (a) {
+              var on = a === order[i].link;
+              a.classList.toggle("active", on);
+              if (on) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+            });
+            return;
+          }
+        }
+      }, { rootMargin: "-30% 0px -55% 0px", threshold: 0 });
+      order.forEach(function (o) { io.observe(o.t); });
+    }
+  }
+
+  /* mjuk ankring (RM: direkt hopp) */
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = decodeURIComponent(a.getAttribute("href").slice(1));
+    var t = id === "top" ? document.body : document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" });
+    try { history.pushState(null, "", a.getAttribute("href")); } catch (err) { /* fil://-gräns */ }
+  });
+
+  /* --- b) signatur: prompten skrivs fram när sektionen kommer in --- */
+  if (RM || !("IntersectionObserver" in window)) return; /* RM/utan IO: direkt fullt, orörd text */
+  var labels = Array.prototype.slice.call(document.querySelectorAll(".plabel"));
+  labels.forEach(function (el) {
+    var tn = el.firstChild;
+    if (!tn || tn.nodeType !== 3 || !tn.data) return;
+    var full = tn.data;
+    var typed = false;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting || typed) return;
+        typed = true;
+        io.disconnect();
+        var i = 0;
+        var step = function () {
+          i += 1;
+          if (i >= full.length) { tn.data = full; return; } /* byte-exakt slutläge */
+          tn.data = full.slice(0, i);
+          setTimeout(step, 26);
+        };
+        step();
+      });
+    }, { rootMargin: "0px 0px -18% 0px", threshold: 0 });
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

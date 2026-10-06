@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 · Mossa — Alexander Lektove</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='10' r='6' fill='%232C5A3B'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Tema 16 — Mossa · nordisk mossbacke i lågljus
+   Palett (DA-fix, AA-verifierad mot bg #ECEFEA):
+   bg #ECEFEA · surface #F7F8F3 · ink #1E2A20 (12.86) ·
+   gran #2C5A3B (6.88) · muted #5D6958 (4.99) · line #D9DCCE
+   ============================================================ */
+:root{
+  --bg:#ECEFEA;
+  --surface:#F7F8F3;
+  --ink:#1E2A20;
+  --gran:#2C5A3B;
+  --gran-dark:#1E4029;
+  --muted:#5D6958;
+  --line:#D9DCCE;
+  --night:#1E2A20;
+  --night-ink:#ECEFEA;
+  --night-mut:#C3CEBE;
+  --night-acc:#A8CBA6;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Schibsted Grotesk",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  font-weight:400;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:#C9D8C2;color:var(--ink)}
+
+/* ---------- typografi ---------- */
+h1,h2,h3,h4{font-weight:700;line-height:1.12;letter-spacing:-0.015em}
+h1{font-size:clamp(2.35rem,7.5vw,4.4rem)}
+h2{font-size:clamp(1.7rem,4.4vw,2.6rem);margin-bottom:.7em}
+h3{font-size:1.16rem;margin-bottom:.45em}
+h4{font-size:1.02rem;margin-bottom:.35em}
+p{margin-bottom:1em}
+p:last-child{margin-bottom:0}
+strong{font-weight:700}
+small,.fine{font-size:.86rem}
+
+a{color:var(--gran);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a:visited{color:var(--gran-dark)}
+a:hover,a:focus-visible{color:var(--gran-dark)}
+a:focus-visible{outline:2px solid var(--gran);outline-offset:3px;border-radius:4px}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:.6em 1.1em;z-index:100;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+
+/* ---------- nav ---------- */
+.topnav{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.topnav .nav-in{
+  max-width:1120px;margin:0 auto;padding:.7rem clamp(1rem,4vw,2rem);
+  display:flex;align-items:baseline;gap:.8rem 1.5rem;flex-wrap:wrap;
+}
+.brand{font-weight:700;letter-spacing:.02em;color:var(--ink);text-decoration:none;font-size:.98rem}
+.brand .dot{color:var(--gran)}
+.topnav nav{display:flex;flex-wrap:wrap;gap:.15rem 1.15rem;margin-left:auto}
+.topnav nav a{font-size:.9rem;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent;padding-bottom:2px}
+.topnav nav a:hover,.topnav nav a:focus-visible{color:var(--gran);border-bottom-color:var(--gran)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+section{padding:clamp(3rem,7vw,5rem) 0}
+.section-kicker{
+  display:block;font-size:.82rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gran);margin-bottom:.8rem;
+}
+.muted{color:var(--muted)}
+
+/* ============================================================
+   SIGNATUR — Mosstillväxt: avdelardelare med båge + mossbollar
+   ============================================================ */
+.moss{position:relative;height:54px;overflow:hidden}
+.moss .kulle{
+  position:absolute;bottom:0;
+  background-color:var(--surface);
+  background-image:
+    radial-gradient(circle 4px at 16% 30%, rgba(44,90,59,.34) 0 4px, transparent 5px),
+    radial-gradient(circle 6px at 38% 52%, rgba(44,90,59,.22) 0 6px, transparent 7px),
+    radial-gradient(circle 3px at 55% 24%, rgba(44,90,59,.30) 0 3px, transparent 4px),
+    radial-gradient(circle 7px at 72% 58%, rgba(44,90,59,.18) 0 7px, transparent 8px),
+    radial-gradient(circle 3px at 88% 34%, rgba(44,90,59,.28) 0 3px, transparent 4px);
+  border:1px solid var(--line);border-bottom:none;
+  border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  transform-origin:50% 100%;
+}
+.k-a{left:2%;width:44%;height:40px}
+.k-b{left:40%;width:34%;height:26px}
+.k-c{right:2%;width:40%;height:44px}
+.k-d{right:30%;width:30%;height:22px}
+
+/* ---------- hero: Stor Båge ---------- */
+.hero{padding:clamp(2rem,5vw,3.5rem) 0 0}
+.hero-pillar{
+  max-width:880px;margin:0 auto;
+  background:var(--surface);
+  border:1px solid var(--line);border-bottom:none;
+  border-radius:50% 50% 0 0 / clamp(56px,15vw,170px) clamp(56px,15vw,170px) 0 0;
+  padding:clamp(4.2rem,13vw,9rem) clamp(1.3rem,5.5vw,4rem) clamp(1.8rem,4vw,2.6rem);
+  text-align:center;
+  background-image:
+    radial-gradient(circle 5px at 8% 6%, rgba(44,90,59,.26) 0 5px, transparent 6px),
+    radial-gradient(circle 3px at 93% 9%, rgba(44,90,59,.26) 0 3px, transparent 4px);
+  background-repeat:no-repeat;
+}
+.hero-open{font-weight:700;font-size:clamp(1.02rem,2.6vw,1.3rem);line-height:1.5;color:var(--gran-dark);margin-bottom:1.6rem}
+.hero-open .dim{display:block;font-weight:400;color:var(--muted);font-size:.82em;margin-bottom:.15em}
+h1{margin-bottom:.15em}
+.hero-sub{font-size:clamp(1.05rem,2.8vw,1.35rem);color:var(--muted);margin-bottom:1.7rem}
+.hero-sign{
+  max-width:56ch;margin:0 auto 1.9rem;padding:1rem 1.2rem;
+  border-left:3px solid var(--gran);background:rgba(44,90,59,.06);
+  border-radius:0 14px 14px 0;text-align:left;font-size:1.02rem;
+}
+.kpi-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:.9rem;margin:0 auto 1.5rem;max-width:720px;
+}
+.kpi{
+  background:var(--bg);border:1px solid var(--line);border-radius:18px 18px 6px 6px;
+  padding:.9rem .7rem;text-align:center;
+}
+.kpi .num{display:block;font-weight:700;font-size:clamp(1.35rem,3.4vw,1.85rem);color:var(--gran);letter-spacing:-.01em;white-space:nowrap}
+.kpi .lbl{display:block;font-size:.84rem;color:var(--muted);margin-top:.25em}
+.notice{
+  display:inline-block;font-size:.84rem;color:var(--muted);
+  border:1px dashed var(--line);border-radius:14px;padding:.55em .95em;margin:0 auto 1.2rem;
+}
+.hero-stamp{font-size:.9rem;color:var(--muted);letter-spacing:.05em}
+
+/* ---------- moss-knut: mörkare yta i sektion ---------- */
+.knot{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:24px 24px 10px 10px;
+  padding:clamp(1.25rem,3.4vw,1.9rem);
+  background-image:
+    radial-gradient(circle 3px at 6% 14%, rgba(44,90,59,.22) 0 3px, transparent 4px),
+    radial-gradient(circle 4px at 96% 10%, rgba(44,90,59,.16) 0 4px, transparent 5px);
+  background-repeat:no-repeat;
+}
+
+/* ---------- Om / pitch ---------- */
+.om-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.1rem;margin-top:1.6rem}
+.om-grid .knot p:last-child{margin-bottom:0}
+.punktlista{list-style:none;margin-top:.35em}
+.punktlista li{position:relative;padding-left:1.25em;margin-bottom:.55em}
+.punktlista li::before{
+  content:"";position:absolute;left:0;top:.62em;width:.5em;height:.5em;
+  border-radius:50%;background:radial-gradient(circle at 35% 35%, #3E7A50, var(--gran));
+}
+.punktlista.tight li{margin-bottom:.35em}
+
+/* ---------- Bakgrund ---------- */
+.bg-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:clamp(1.4rem,4vw,2.6rem);align-items:start}
+.bg-lede{font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);margin-bottom:1em}
+.bg-quote{
+  margin-top:1.6rem;padding:1.1rem 1.3rem;background:var(--surface);
+  border-left:3px solid var(--gran);border-radius:0 16px 16px 0;
+  font-size:1rem;background-image:
+    radial-gradient(circle 3px at 92% 18%, rgba(44,90,59,.25) 0 3px, transparent 4px);
+  background-repeat:no-repeat;
+}
+.faktaband h3{margin-bottom:.5em}
+.faktaband h4{color:var(--gran-dark)}
+.faktaband .punktlista li{font-size:.94rem}
+.faktaband .medborg{margin-top:1.1rem;padding-top:.9rem;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+
+/* ---------- Projekt: 9 kort med toppbåge ---------- */
+.proj-intro{max-width:62ch;margin-bottom:2rem}
+.proj-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.kort{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:150px 150px 10px 10px;
+  padding:clamp(2.6rem,7vw,3.6rem) clamp(1.2rem,3.6vw,2rem) clamp(1.3rem,3vw,1.7rem);
+  position:relative;
+  background-image:
+    radial-gradient(circle 4px at 22% 9%, rgba(44,90,59,.24) 0 4px, transparent 5px),
+    radial-gradient(circle 3px at 78% 7%, rgba(44,90,59,.24) 0 3px, transparent 4px);
+  background-repeat:no-repeat;
+  transition:transform 120ms ease,border-color 120ms ease;
+}
+.kort:hover{transform:translateY(-3px);border-color:var(--gran-dark)}
+.kort .nr{
+  position:absolute;top:clamp(.85rem,2.4vw,1.15rem);left:0;right:0;text-align:center;
+  font-weight:700;font-size:.82rem;letter-spacing:.28em;color:var(--gran);
+}
+.kort h3{font-size:clamp(1.12rem,2.6vw,1.3rem);margin-bottom:.5em}
+.kort p{font-size:.95rem;margin-bottom:.85em}
+.kort .links{display:flex;flex-wrap:wrap;gap:.4rem .9rem;align-items:baseline;font-size:.92rem}
+.kort .links .tag{color:var(--muted);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.kort .nolink{font-size:.88rem;color:var(--muted)}
+
+/* ---------- Flottan: natt i boken ---------- */
+.natt{
+  background:var(--night);color:var(--night-ink);
+  border-radius:50% 50% 0 0 / clamp(44px,9vw,110px) clamp(44px,9vw,110px) 0 0;
+  padding-top:clamp(3.6rem,10vw,6.5rem);
+  background-image:
+    radial-gradient(circle 4px at 10% 5%, rgba(168,203,166,.35) 0 4px, transparent 5px),
+    radial-gradient(circle 3px at 90% 8%, rgba(168,203,166,.35) 0 3px, transparent 4px);
+  background-repeat:no-repeat;
+}
+.natt .section-kicker{color:var(--night-acc)}
+.natt a{color:var(--night-acc)}
+.natt a:visited{color:var(--night-acc)}
+.natt a:hover,.natt a:focus-visible{color:#CBE4C6}
+.natt .muted{color:var(--night-mut)}
+.natt h2{margin-bottom:.6em}
+.flott-intro{max-width:60ch;margin-bottom:2.2rem}
+.flott-block{margin-bottom:2.4rem}
+.flott-block h3{margin-bottom:.8em}
+.ledargrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem}
+.ledare{
+  border:1px solid #35463A;border-radius:18px 18px 6px 6px;
+  padding:1rem 1.15rem;background:rgba(236,239,234,.04);
+}
+.ledare b{color:var(--night-acc)}
+.personlista{list-style:none}
+.personlista li{margin-bottom:.75em;padding-left:1.35em;position:relative;font-size:.95rem}
+.personlista li::before{content:"";position:absolute;left:0;top:.6em;width:.5em;height:.5em;border-radius:50%;background:radial-gradient(circle at 35% 35%, #CBE4C6, var(--night-acc))}
+.personlista .grupp{display:block;font-weight:700;letter-spacing:.14em;font-size:.8rem;color:var(--night-acc);margin-bottom:.15em}
+.flott-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1rem}
+.flott-dl .ledare p{margin:0;font-size:.93rem}
+.route{font-size:.97rem;max-width:72ch}
+.route p{margin-bottom:.9em}
+
+/* ---------- Case ---------- */
+.case-knot{background:var(--surface);border:1px solid var(--line);border-radius:34px 34px 12px 12px;padding:clamp(1.6rem,4.5vw,2.6rem);background-image:
+  radial-gradient(circle 4px at 4% 10%, rgba(44,90,59,.22) 0 4px, transparent 5px),
+  radial-gradient(circle 3px at 95% 6%, rgba(44,90,59,.24) 0 3px, transparent 4px);
+  background-repeat:no-repeat;}
+.case-knot h3{color:var(--gran-dark);margin-top:1.3em}
+.case-knot h3:first-of-type{margin-top:.4em}
+.case-lede{color:var(--muted);margin-bottom:1.4em}
+
+/* ---------- Kontakt ---------- */
+.kontakt-inner{max-width:640px;margin:0 auto;text-align:center}
+.kanal{display:flex;flex-direction:column;gap:.2rem;align-items:center;margin-bottom:1.1rem}
+.kanal .tag{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.kanal a{font-size:clamp(1.05rem,3vw,1.35rem)}
+.inbjudan{
+  margin-top:2rem;padding:1.3rem 1.5rem;background:var(--surface);
+  border:1px solid var(--line);border-radius:22px 22px 8px 8px;text-align:left;font-size:.98rem;
+  background-image:
+    radial-gradient(circle 4px at 90% 12%, rgba(44,90,59,.22) 0 4px, transparent 5px);
+  background-repeat:no-repeat;
+}
+.inbjudan p+p{margin-top:.8em}
+
+footer{border-top:1px solid var(--line);padding:2rem 1rem 2.6rem;text-align:center;color:var(--muted);font-size:.9rem}
+footer .stamp{letter-spacing:.05em}
+
+/* ---------- responsivt ---------- */
+@media (min-width:720px){
+  .proj-grid{grid-template-columns:1fr 1fr;gap:1.7rem}
+}
+@media (max-width:719px){
+  .bg-grid{grid-template-columns:1fr}
+  .hero-pillar{border-radius:24px 24px 0 0}
+  .kort{border-radius:24px 24px 8px 8px;padding-top:3.2rem}
+  .kort .nr{top:.7rem}
+  .natt{border-radius:24px 24px 0 0}
+  .knot,.case-knot{border-radius:24px 24px 10px 10px}
+}
+
+/* ---------- animering: mosstillväxt andar ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .andas{animation:mosand 40s ease-in-out infinite alternate}
+  .andas.lag{animation-delay:-20s}
+}
+@keyframes mosand{
+  from{transform:scale(1)}
+  to{transform:scale(1.03)}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+/* ---------- JS-lager (JS-pass MC 10096): skripten lägger klassen .js på <html>,
+   plus .motion-ok när reduced motion EJ begärs. Allt tillstånd som döljer något
+   ligger under .js.motion-ok — med JS av eller reducerad rörelse är sidan helt
+   statisk och fullständig, inget innehåll gate:as. ---------- */
+section{scroll-margin-top:72px}
+.js .topnav nav a.active{color:var(--gran);border-bottom-color:var(--gran)}
+/* signatur: mosstillväxten — avdelardelarens bollerad växer 0→100 % en gång när
+   den går in i viewporten (klipp höger→vänster), 1,2 s, enbart under .js .motion-ok.
+   Klippet sitter på den JS-skapade .moss-in-wrappern — IntersectionObserver
+   räknar nämligen in målets eget clip-path i intersectionsarean, så den klippta
+   ytan kan inte vara det som observeras; observatören vakar på .moss som är oklippt. */
+.moss-in{position:absolute;inset:0}
+.js.motion-ok .moss-in:not(.vax){clip-path:inset(0 100% 0 0)}
+.js.motion-ok .moss-in.vax{clip-path:inset(0 0 0 0);transition:clip-path 1.2s cubic-bezier(.3,.7,.3,1)}
+</style>
+</head>
+<body>
+<a class="skip" href="#om">Hoppa till innehåll</a>
+
+<div id="top"></div>
+<header class="topnav">
+  <div class="nav-in">
+    <a class="brand" href="#top">Alexander Lektove<span class="dot"> ·</span> Mossa</a>
+    <nav aria-label="Sidnavigering">
+      <a href="#om">Om</a>
+      <a href="#bakgrund">Bakgrund</a>
+      <a href="#projekt">Projekt</a>
+      <a href="#flottan">Flottan</a>
+      <a href="#case">Case</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO — Stor Båge ================= -->
+  <section class="hero" aria-labelledby="rubrik">
+    <div class="wrap">
+      <div class="hero-pillar">
+        <p class="hero-open">
+          <span class="dim">Öppningscitat</span>
+          AI används på den data som inte är så viktig.<br>
+          Den viktiga datan får inte lämna rummet.
+        </p>
+        <h1 id="rubrik">Alexander Lektove</h1>
+        <p class="hero-sub">AI-arkitekt &amp; systemsbyggare</p>
+        <blockquote class="hero-sign">
+          Jag bygger agentflottor som kör på lokal hårdvara – och som går att lita på utan att någon läser varje rad de producerar.
+        </blockquote>
+        <div class="kpi-row">
+          <div class="kpi"><span class="num">100&nbsp;%</span><span class="lbl">av flottans inferens körs lokalt ✓ verifierat</span></div>
+          <div class="kpi"><span class="num">2&nbsp;900+</span><span class="lbl">uppdrag spårade på två tavlor ✓ verifierat</span></div>
+          <div class="kpi"><span class="num">~208&nbsp;t/s</span><span class="lbl">uppmätt genomströmning, 8 spår/maskin ✓ verifierat</span></div>
+        </div>
+        <p class="notice">⚠ Under uppbyggnad — sidan byggs om löpande av flottan. Siffrorna är verifierade mot systemets loggar; texten kan släpa efter.</p>
+        <p class="hero-stamp">Alexander Lektove · Karlskrona</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="moss" aria-hidden="true">
+    <span class="kulle k-a"></span>
+    <span class="kulle andas k-b"></span>
+    <span class="kulle k-c"></span>
+    <span class="kulle k-d"></span>
+  </div>
+
+  <!-- ================= VEM JAG ÄR ================= -->
+  <section id="om" aria-labelledby="om-rubrik">
+    <div class="wrap">
+      <span class="section-kicker">Vem jag är</span>
+      <h2 id="om-rubrik">Pitch — varför lokalt räcker, och vad som krävs</h2>
+
+      <div class="om-grid">
+        <div class="knot">
+          <h3>Problemet</h3>
+          <p>Verksamheter som inte får lägga sina data i molnet får inte mindre AI än andra — de får ingen alls. Avståndet till dem som kan växer varje månad.</p>
+        </div>
+        <div class="knot">
+          <h3>Varför en lokal chatbot inte löser det</h3>
+          <p>En chatbot kräver fortfarande att en människa formulerar frågan, läser hela svaret och tar ansvar för det. I en granskad verksamhet är overifierad AI-utdata ingen tillgång — den är en risk som någon måste skriva under på. Flaskhalsen är inte tillgången till modellen. Den är verifieringen.</p>
+        </div>
+        <div class="knot">
+          <h3>Vad jag bygger</h3>
+          <p>Lagret som gör delegerat arbete försvarbart:</p>
+          <ul class="punktlista">
+            <li>varje uppdrag är ett spårat ärende — inget sker vid sidan av</li>
+            <li>"klart" är maskinellt kontrollerbart, inte en bedömning</li>
+            <li>grindar avgör på exitkoder — bygge, test, säkerhet</li>
+            <li>revisionsspåret blir en biprodukt av hur arbetet flyter</li>
+          </ul>
+        </div>
+        <div class="knot">
+          <h3>Bevis — mot systemets egna loggar</h3>
+          <ul class="punktlista">
+            <li><strong>100 %</strong> av flottans inferens körs på egen hårdvara</li>
+            <li><strong>2&nbsp;900+</strong> uppdrag spårade på två tavlor, med bevis vid avslut</li>
+            <li><strong>~208 tok/s</strong> samlad genomströmning, 8 parallella spår per maskin</li>
+          </ul>
+        </div>
+        <div class="knot">
+          <h3>Villkoret</h3>
+          <p>Arbete kan köras obevakat när det är ett återkommande flöde med ett kontrollerbart "klart". Grindarna är strukturen som gör systemet tillförlitligt.</p>
+        </div>
+        <div class="knot">
+          <h3>Två förbehåll</h3>
+          <p>Systemet är inte molnfritt av princip. Molnmodeller kan användas i kombination, där de är som bäst — med ett lokalt system finns möjligheten att välja.</p>
+          <p>Systemet är inte säkert bara för att det är lokalt. Nycklar, .env-filer och åtkomst behöver fortfarande hanteras med disciplin.</p>
+        </div>
+        <div class="knot">
+          <h3>Redan gjort</h3>
+          <p>Bokningssystem för hotell, en bibliotekshemsida med utlåning, en aktiescanner med en modell på 34 tekniska indikatorer (demon visar en ögonblicksbild av 35 tickers), en webapp för konvertering av CAD-filer och en firmware för Raspberry Pi Pico W för temperaturövervakning — allt byggt på lokal hårdvara av mitt agentteam i mina arbetsflöden.</p>
+        </div>
+        <div class="knot">
+          <h3>Nästa steg</h3>
+          <p>Att finjustera själva agentflottan på sitt eget arbete. Pipelinen finns, den är inte i drift.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="moss" aria-hidden="true">
+    <span class="kulle k-a"></span>
+    <span class="kulle k-b"></span>
+    <span class="kulle k-c"></span>
+    <span class="kulle andas lag k-d"></span>
+  </div>
+
+  <!-- ================= BAKGRUND ================= -->
+  <section id="bakgrund" aria-labelledby="bak-rubrik">
+    <div class="wrap">
+      <span class="section-kicker">Bakgrund</span>
+      <div class="bg-grid">
+        <div>
+          <p class="bg-lede">Alexander Lektove · lärare i fysik, teknik och matematik · Karlskrona</p>
+          <p>Lärare i högstadiet i fysik, teknik och matte med stort intresse för AI. Kör flertalet virtuella maskiner i Proxmox på två noder, tre grafikkort och 2× DGX Spark — dubbla orkestrerare, lokalt och i molnet, med två parallella agentflottor i definierade arbetsflöden för autonomt byggande av mjukvara, spel och tjänster.</p>
+          <h3>Arbetssätt</h3>
+          <p>Trial and error. Sätt höga mål och misslyckas ofta. Testa allt som går att testa — ingen idé är för dum för att prova. Dra lärdom av allt: återanvänd det som är bra, förkasta det dåliga. En dålig hypotes är bättre än ingen hypotes. Ingenting är omöjligt.</p>
+          <blockquote class="bg-quote">
+            <p>Målet var aldrig flottan eller systemet. Det var en biprodukt till en hemsida jag ville bygga — men biprodukten blev snabbt min huvudsyssla.</p>
+          </blockquote>
+        </div>
+        <div class="faktaband knot">
+          <h4>I drift</h4>
+          <p>Två hemsidor för mina elever och flertalet prototyper och proof of concepts — se avsnittet Projekt.</p>
+          <h4 style="margin-top:1.2em">Byggt själv</h4>
+          <ul class="punktlista tight">
+            <li><strong>Inferensstack</strong> — Proxmox-noder med GPU-passthrough, små till stora modeller</li>
+            <li><strong>Router och kö</strong> — FastAPI, nivåbaserad lastbalansering, Redis-backad arbetskö</li>
+            <li><strong>RAG</strong> — ChromaDB + inbäddningar för few-shot-bedömning</li>
+            <li><strong>LoRA</strong> — egna adaptrar för fysik och matematik, tränade och driftsatta</li>
+            <li><strong>Mission Control</strong> — kanbansystem för autonomt kodande och dokumentation av mjukvara, med orkestrering på lokal hårdvara</li>
+          </ul>
+          <p class="medborg">Svenskt medborgarskap · säkerhetsklass 3 i hemvärnet</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="moss" aria-hidden="true">
+    <span class="kulle k-a"></span>
+    <span class="kulle k-b"></span>
+    <span class="kulle k-c"></span>
+    <span class="kulle k-d"></span>
+  </div>
+
+  <!-- ================= PROJEKT ================= -->
+  <section id="projekt" aria-labelledby="proj-rubrik">
+    <div class="wrap">
+      <span class="section-kicker">Projekt</span>
+      <h2 id="proj-rubrik">Nio kuraterade projekt</h2>
+      <p class="proj-intro muted">I den ordning sajten visar dem. "Demo" = publicerad demo på sibbamala.com eller egen subdomän; "Kod" = offentligt GitHub-repo.</p>
+
+      <div class="proj-grid">
+        <article class="kort">
+          <span class="nr" aria-hidden="true">01</span>
+          <h3>bevis — ärendetavla där avslut kräver bevis</h3>
+          <p>Ett ärende kan inte stängas utan ett kommando, dess exitkod och dess utdata — beviset lagras på ärendet. Det räcker inte att påstå att arbetet är gjort. Koden är öppen under Apache-2.0 och verktyget körs från kommandoraden. Ingen modell, ingen API-nyckel, ingen GPU.</p>
+          <p>Reglerna: kravet skrivs när ärendet skapas, innan någon har skäl att formulera ett krav som är lätt att klara. En blockerande kontroll stoppar ärendet och allt efter det — underärenden och det som väntar. En utdelare kan lämna arbetet till vilken agent eller vilket skript som helst och sparar vad som kom tillbaka, men får inte avgöra att arbetet lyckades — det avgör ärendets egna kontroller. Den som stänger ett ärende får inte vara den som verifierar det. Testerna kontrolleras i sin tur: en rutin planterar en defekt i taget i koden och kräver att det test som vaktar den regeln blir rött.</p>
+          <p>Verktyget håller ingen modell, ingen API-nyckel och ingen GPU, och det körs på en enda maskin. Idén är inte ny — det här är en liten, fristående variant, inte en första.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/bevis" target="_blank" rel="noopener">github.com/bryn1/bevis</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">02</span>
+          <h3>skola.sibbamala.com — lärplattform</h3>
+          <p>Lärplattform för högstadiet i fysik, teknik och matematik: lektioner, uppgifter och pluggning mot Lgr22, med en AI-lärare som baserar sina svar på lärarens material. Av de 18 obligatoriska ämnena är matematik, fysik och teknik öppna — resten publiceras efter hand.</p>
+          <p class="links"><span class="tag">Demo</span><a href="https://skola.sibbamala.com" target="_blank" rel="noopener">skola.sibbamala.com</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">03</span>
+          <h3>np.sibbamala.com — öva inför nationella provet</h3>
+          <p>Övning inför nationella prov: gratis övningsfrågor med facit och bedömningsanvisning till varje fråga, över flera ämnen — bland dem NO (fysik, kemi, biologi), matematik och engelska. Ingen inloggning, inget du skriver sparas.</p>
+          <p class="links"><span class="tag">Demo</span><a href="https://np.sibbamala.com" target="_blank" rel="noopener">np.sibbamala.com</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">04</span>
+          <h3>Rocket Stock Scanner</h3>
+          <p>Aktiescanner som poängsätter aktier mot 34 tekniska indikatorer (31 röstar, 3 är enbart riskmått), med backtesting och rapportgenerering. Den publicerade sidan är en statisk, skrivskyddad ögonblicksbild av en körning: 35 tickers i tre regioner (Tyskland, Sverige, USA), cirka ett år av dagliga kursstaplar per ticker — senaste kursdatum visas på sidan. Modellen i koden arbetar mot ett universum på ~12&nbsp;800 unika tickers.</p>
+          <p>Arkitektur i lager: datalager (hämtar marknadsdata), teknisk analys (34 indikatorer — momentum, trend, volatilitet, volym), signalmotor (slår ihop signaler till en poäng), parallell scanner, HTML-rapporter per körning. Stack: Python med pandas + numpy, multiprocessing, schemalagd körning.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/Rocket" target="_blank" rel="noopener">github.com/bryn1/Rocket</a><span class="tag">Demo</span><a href="https://sibbamala.com/rocket/" target="_blank" rel="noopener">sibbamala.com/rocket/</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">05</span>
+          <h3>Sea View Hotel Booking</h3>
+          <p>Webbaserat bokningssystem för hotellrum: alla rum och deras status, bokning över ett datumintervall, redigering och avbokning. Demon körs på syntetiska data.</p>
+          <p>Stack: Python backend med FastAPI, vanilla JS för gränssnittet, SQLite för bokningarna.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/Hotell" target="_blank" rel="noopener">github.com/bryn1/Hotell</a><span class="tag">Demo</span><a href="https://sibbamala.com/hotell/" target="_blank" rel="noopener">sibbamala.com/hotell/</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">06</span>
+          <h3>CAD-filkonvertering</h3>
+          <p>Webapp som konverterar CAD-filer: läser STEP, IGES och BREP och skriver nio format — STEP, BREP, SVG, IGES, STL, OBJ, 3MF, GLTF, PLY. Målet är en symmetrisk matris — alla format in, alla ut — och den byggs fas för fas av agentflottan: moduler, säkring av konverteringsvägen, en full korrekthetsmatris och rättning av de defekter matrisen hittar.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/Cad" target="_blank" rel="noopener">github.com/bryn1/Cad</a><span class="tag">Demo</span><a href="https://sibbamala.com/cad/" target="_blank" rel="noopener">sibbamala.com/cad/</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">07</span>
+          <h3>Bibliotek</h3>
+          <p>Bibliotekshemsida med katalog och utlåning. Demon körs på syntetiska data — böcker, låntagare och lån är genererade.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/Bibliotek" target="_blank" rel="noopener">github.com/bryn1/Bibliotek</a><span class="tag">Demo</span><a href="https://sibbamala.com/bibliotek/" target="_blank" rel="noopener">sibbamala.com/bibliotek/</a></p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">08</span>
+          <h3>Sensor — firmware för Raspberry Pi Pico W</h3>
+          <p>Firmware för temperaturövervakning med DS18B20-givare på Raspberry Pi Pico W. Byggd i flottans arbetsflöde: forskning, arkitektur och fasplan först, sedan bygge mot test i emulator och till sist på riktig hårdvara. Koden ligger i ett privat repo.</p>
+          <p class="nolink">Publika länkar: inga — privat repo.</p>
+        </article>
+
+        <article class="kort">
+          <span class="nr" aria-hidden="true">09</span>
+          <h3>FutureCraft — voxelsandlåda</h3>
+          <p>Voxelsandlåda i webbläsaren, byggd på Three.js — ingen installation.</p>
+          <p class="links"><span class="tag">Kod</span><a href="https://github.com/bryn1/futurecraft" target="_blank" rel="noopener">github.com/bryn1/futurecraft</a><span class="tag">Demo</span><a href="https://sibbamala.com/futurecraft/" target="_blank" rel="noopener">sibbamala.com/futurecraft/</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FLOTTAN — natt i boken ================= -->
+  <section id="flottan" class="natt" aria-labelledby="flott-rubrik">
+    <div class="wrap">
+      <span class="section-kicker">Autonoma flottan</span>
+      <h2 id="flott-rubrik">Två orkestrerare, två flottor</h2>
+      <p class="flott-intro">Två orkestrerare, två flottor som kör parallellt. Ett jobb per säte, och varje uppdrag är spårat på en tavla.</p>
+
+      <div class="flott-block">
+        <h3>Orkestrerare</h3>
+        <div class="ledargrid">
+          <div class="ledare"><p><b>lokalorkestrerare</b> — tar emot, väljer flöde, köar (kör aldrig själv)</p></div>
+          <div class="ledare"><p><b>molnorkestrerare</b> — frontier-modell i molnet — planerar, delegerar, granskar</p></div>
+        </div>
+      </div>
+
+      <div class="flott-block">
+        <h3>Flotta 1 — 14 namngivna personor</h3>
+        <ul class="personlista">
+          <li><span class="grupp">ORKESTRERING</span>sickan (planerare — bryter ner uppdraget i steg) · bernie (arkitekt — formar lösningen) · neo (devils advocate — försöker fälla planen innan bygget börjar)</li>
+          <li><span class="grupp">BYGGE</span>teddy (mjukvarukodare) · nicke (gränssnitt och frontend) · kjell (automation och IoT) · henrik (spelkod — C#/OpenTK och C++/OpenGL)</li>
+          <li><span class="grupp">GRINDAR</span>dobbie (bygg- och testgrind — utfall ur exitkoder, aldrig ur en åsikt) · sigrid (säkerhetsgrind — kritiskt eller högt stoppar integrationen) · knut (granskar arbetet mot artefakterna, inte mot rapporten)</li>
+          <li><span class="grupp">STÖD</span>artemis (research med källkrav) · gunilla (infrastruktur och drift) · mirre (teknisk skribent — dokumenterar från artefakter, inte från rapporter) · trickyrick (brainstorm)</li>
+        </ul>
+      </div>
+
+      <div class="flott-block">
+        <h3>Flotta 2 — 8 rollsäten</h3>
+        <p>coder (mjukvara) · frontend (gränssnitt) · automation (IoT och styrning) · infra (drift) · scout (research — enda sätet med webbåtkomst) · planner (planering) · qa (bygg- och testgrind) · reviewer (säkerhetsgranskning — läser, ändrar aldrig)</p>
+      </div>
+
+      <div class="flott-block">
+        <h3>Så ruttas ett uppdrag</h3>
+        <div class="route">
+          <p>Fas 0: artemis research → bernie arkitektur → sickan fasplan. Fas 1: neo devils advocate — försöker fälla planen innan bygget börjar. Fas 2: teddy bygger mot testet, dobbie bygg- och testgrind, sigrid säkerhetsgrind, mirre dokumenterar. Fas 3…N: bygg + grind i par tills fasplanen är levererad; knut granskar resultatet mot artefakterna, inte mot rapporten. Faller en grind går kedjan tillbaka, inte vidare.</p>
+          <p>Arbetsflödet illustreras på sajten med ett verkligt uppdrag — bygget av CAD-filkonverteraren — som flera kedjor samtidigt: fas 0–1 (plan, arkitektur, granskning), fas 2 med 24 steg (moduler), fas 3 med 6 steg (säkra /convert och full korrekthetsmatris), fas 4 med 5 steg (IGES→STEP-defekten), fas 5 pågående (symmetrisk 9-in × 9-ut-matris). Uppmätt tak från flottans egen bench: B70 8 strömmar 103,6 tok/s · Spark 8 strömmar 104,5 tok/s · ~208 tok/s samlat, 229&nbsp;590 tokens i luften utan läckage mellan strömmar. (Sajten markerar uttryckligen att detta är en simulering baserad på uppmätta siffror, inte en live-körning.)</p>
+        </div>
+      </div>
+
+      <div class="flott-block">
+        <h3>Hårdvaran och vad varje accelerator gör</h3>
+        <div class="flott-dl">
+          <div class="ledare"><p><b>RTX 3090 · 24 GB</b> — kontextvärd: sköter kontext för samtliga sessioner, komprimerar och arkiverar. Qwen3.8-27B · 96&nbsp;000 kontext · MTP; varm prefix: 1&nbsp;877 ms → 161 ms · 54 tok/s — varmt cache: sessionen läser aldrig om det den redan vet, starten blir ca 12 gånger snabbare.</p></div>
+          <div class="ledare"><p><b>Intel Arc B70 · 32 GB</b> — kodarlane. Qwen3.8-27B (AWQ) via vLLM · 262&nbsp;144 kontext; 8 strömmar: 103,6 tok/s · inläsning 807,8 tok/s.</p></div>
+          <div class="ledare"><p><b>2× DGX Spark GB10</b> — orkestrering, planering, arkitektur. DeepSeek-V4 · 1 M kontextfönster; 8 strömmar: 104,5 tok/s · inläsning ~1&nbsp;540 tok/s; arbetar som en enhet för en stor modell.</p></div>
+          <div class="ledare"><p><b>RTX 2060 · 6 GB</b> — inbäddningar, omrankning, triage.</p></div>
+        </div>
+        <p style="margin-top:1rem">Totalt uppmätt: ~2&nbsp;350 tok/s inläsning · ~208 tok/s generering.</p>
+      </div>
+
+      <div class="flott-block" style="margin-bottom:.5rem">
+        <h3>AI-OS — tavlan som visar flottan just nu</h3>
+        <p class="muted">"Se vad som sker i systemet just nu:" — <a href="https://sibbamala.com/ai-os/" target="_blank" rel="noopener">sibbamala.com/ai-os/</a> (read-only dashboard, "AI OS – Tavlor").</p>
+        <p class="muted">Tillhör även: föreläsningens bildspel <strong>"Autonom AI-OS"</strong>, publicerat som bildspel i webbläsaren på <a href="https://sibbamala.com/presentation/" target="_blank" rel="noopener">sibbamala.com/presentation/</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="moss" aria-hidden="true">
+    <span class="kulle k-a"></span>
+    <span class="kulle k-b"></span>
+    <span class="kulle k-c"></span>
+    <span class="kulle k-d"></span>
+  </div>
+
+  <!-- ================= CASE ================= -->
+  <section id="case" aria-labelledby="case-rubrik">
+    <div class="wrap">
+      <span class="section-kicker">Case</span>
+      <h2 id="case-rubrik">Ett konkret fall</h2>
+      <div class="case-knot">
+        <p class="case-lede">Ett konkret fall — reglerad verksamhet i slutet nät.</p>
+        <h3>Vem</h3>
+        <p>Försvarsindustri, medicinteknik, industriell automation. Nät utan väg ut. Ingen Copilot, ingen molntjänst, ingen genväg.</p>
+        <h3>Problemet de faktiskt har</h3>
+        <p>Dokumentation och spårbarhet äter en stor del av varje projekt: kravspårning, konstruktionsunderlag, testprotokoll, ändringsanalys. Det är obligatoriskt, det är omfattande, det görs av dyra ingenjörer som hellre gör något annat — och det får inte lämna nätet.</p>
+        <h3>Varför en agentflotta passar just det</h3>
+        <ul class="punktlista">
+          <li>skribenten dokumenterar från artefakter — commits, loggar, körd konfiguration — inte från vad någon påstod i en rapport</li>
+          <li>ärendetavlan <em>är</em> en spårbarhetsmatris: krav, beslut, bevis</li>
+          <li>grindarna ger PASS/FAIL ur exitkoder, så "klart" är ett faktum och inte någons uppfattning</li>
+        </ul>
+        <h3>Ärligt om gränserna</h3>
+        <p>Ett helt frånkopplat nät betyder inga modelluppdateringar och inga säkerhetsfixar utan att någon bär in dem. Det är en driftkostnad och en leveranskedjefråga, inte en detalj. Lokala modeller är svagare per enskilt svar än de största molnmodellerna. Det kompenseras med flöde, grindar och omtag — inte med magi. Lovar någon frontier-kvalitet på egen hårdvara ljuger de. Systemet kan driftsättas segmenterat: ingen väg ut mot internet, men fullt fungerande på det interna nätet. Det kan också köras helt offline — då gäller förbehållet ovan om uppdateringar som måste bäras in.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="moss" aria-hidden="true">
+    <span class="kulle k-a"></span>
+    <span class="kulle k-b"></span>
+    <span class="kulle k-c"></span>
+    <span class="kulle k-d"></span>
+  </div>
+
+  <!-- ================= KONTAKT ================= -->
+  <section id="kontakt" aria-labelledby="kontakt-rubrik">
+    <div class="wrap">
+      <div class="kontakt-inner">
+        <span class="section-kicker">Kontakt</span>
+        <h2 id="kontakt-rubrik">Publika kanaler</h2>
+        <div class="kanal">
+          <span class="tag">E-post</span>
+          <a href="mailto:alexander@sibbamala.com">alexander@sibbamala.com</a>
+        </div>
+        <div class="kanal">
+          <span class="tag">GitHub</span>
+          <a href="https://github.com/bryn1" target="_blank" rel="noopener">github.com/bryn1</a>
+        </div>
+        <div class="inbjudan">
+          <p>Jag tar gärna ett förutsättningslöst samtal om vad som skulle gå att köra lokalt hos er — vad som är realistiskt, vad det kräver i hårdvara, och vad som inte är värt besväret.</p>
+          <p>Har ni ett återkommande flöde med ett kontrollerbart "klart" är det den bästa starten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="stamp">Alexander Lektove · Karlskrona</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+/* JS-lager MC 10096 — ren påbyggnad. Inget innehåll gate:as; allt tillstånd som
+   döljer något ligger i CSS under .js.motion-ok. Inga nätanrop, inga bibliotek. */
+var rmq=window.matchMedia("(prefers-reduced-motion: reduce)");
+var root=document.documentElement;
+root.classList.add("js");
+var motion=!rmq.matches;
+if(motion)root.classList.add("motion-ok");
+
+/* 1) mjuk förankringsnavigation — kompletterar CSS scroll-behavior; länkarna
+   fungerar utan JS också (klassisk hoppning). */
+document.addEventListener("click",function(ev){
+  var a=ev.target&&ev.target.closest?ev.target.closest('a[href^="#"]'):null;
+  if(!a)return;
+  var href=a.getAttribute("href");
+  if(!href||href.length<2)return;
+  var t=document.getElementById(href.slice(1));
+  if(!t)return;
+  ev.preventDefault();
+  t.scrollIntoView({behavior:motion?"smooth":"auto",block:"start"});
+  if(history.pushState)history.pushState(null,"",href);
+});
+
+/* 2) aktivt avsnitt i topnav — IntersectionObserver över ett band mitt i
+   viewporten; ren visuell markering, inget innehåll göms. */
+var links=[].slice.call(document.querySelectorAll(".topnav nav a[href^='#']"));
+var byId={};
+links.forEach(function(a){byId[a.getAttribute("href").slice(1)]=a;});
+function setActive(id){
+  for(var i=0;i<links.length;i++)links[i].classList.remove("active");
+  if(byId[id])byId[id].classList.add("active");
+}
+if("IntersectionObserver" in window){
+  var band=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting)setActive(e.target.id);});
+  },{rootMargin:"-42% 0px -50% 0px",threshold:0});
+  links.forEach(function(a){
+    var s=document.getElementById(a.getAttribute("href").slice(1));
+    if(s)band.observe(s);
+  });
+}
+
+/* 3) signatur: mosstillväxten — varje mossavdelares bollerad växer fram 0→100 %
+   en gång när avdelaren går in i viewporten. Endast under .js .motion-ok (ej
+   reduced motion). Klippet läggs på en löpskopt innerwrapper eftersom IO annars
+   aldrig ser det egna klippta målet; observatören går på .moss som är oklippt. */
+if(motion&&"IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      if(e.target.__in)e.target.__in.classList.add("vax");
+      io.unobserve(e.target);
+    });
+  },{threshold:0.25});
+  [].slice.call(document.querySelectorAll(".moss")).forEach(function(m){
+    var w=document.createElement("span");
+    w.className="moss-in";
+    while(m.firstChild)w.appendChild(m.firstChild);
+    m.appendChild(w);
+    m.__in=w;
+    io.observe(m);
+  });
+}
+})();
+</script>
+</body>
+</html>
