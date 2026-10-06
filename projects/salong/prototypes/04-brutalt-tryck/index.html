@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add("js");</script>
+  <title>Jane Cooper — Klipp det korta | Frisör i Malmö</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='64' text-anchor='middle' fill='%23e11d48'%3E%E2%9C%82%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="Jane Cooper, frisör i Malmö. Klippning, färg och vård på Jane Cooper, Drottninggatan 2. Bokning via telefon +46 70 123 45 67 eller Instagram @jane.cooper.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/motion.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Hoppa till innehållet</a>
+
+  <!-- Dekorativa scroll-lager (DENSITY-03c): aria-hidden, pointer-events none.
+       Innehåll — aldrig innehåll. -->
+  <div class="grid-rails" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <span class="press-slab" aria-hidden="true"></span>
+
+  <header class="site-header">
+    <a class="brand" href="#top">Jane Cooper<span class="brand-dot">.</span></a>
+    <nav class="site-nav" aria-label="Huvudmeny">
+      <a href="#om">Om</a>
+      <a href="#tjanster">Tjänster</a>
+      <a href="#galleri">Galleri</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">IG</a>
+      <a class="nav-cta" href="#boka">Boka tid</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section id="top" class="hero" aria-labelledby="hero-rubrik">
+      <span class="slab slab--hero" aria-hidden="true"></span>
+      <p class="eyebrow hero-eyebrow" data-reveal>Frisör i Malmö ///</p>
+      <h1 id="hero-rubrik" class="hero-title" data-reveal>
+        <span class="hw">Jane</span><span class="hero-title-2 hw">Cooper</span>
+      </h1>
+      <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
+      <p class="hero-cta" data-reveal>
+        <a class="btn btn--red" href="#boka">Boka tid</a>
+        <a class="btn" href="tel:46701234567">Ring +46&nbsp;70&nbsp;123&nbsp;45&nbsp;67</a>
+      </p>
+      <p class="hero-hint" data-reveal>&darr;&darr;&darr; Scrolla — klipp det korta</p>
+
+      <!-- Dragbar fysik-sticker (Milkshake-mönster, eget pattern, inga främde assets).
+           Utan JS: statisk klistermärkes-look. -->
+      <div class="sticker" data-hero-sticker role="img" aria-label="Dekorativt klippmärke med sax">
+        <span class="sticker-scissor" aria-hidden="true">&#9986;</span>
+        <span class="sticker-word">Klipp det korta</span>
+      </div>
+      <p class="sticker-hint" data-sticker-hint hidden>Dra mig!</p>
+    </section>
+
+    <!-- ===== Marquee-remsa: tjänsteord (kinetisk typ) ===== -->
+    <div class="marquee" role="presentation">
+      <div class="marquee-inner">
+        <span class="marquee-run">Klippning <span class="marquee-sep">&#215;</span> Färg <span class="marquee-sep">&#215;</span> Balayage <span class="marquee-sep">&#215;</span> Vård <span class="marquee-sep">&#215;</span> Bröllop <span class="marquee-sep">&#215;</span> Barbering <span class="marquee-sep">&#215;</span></span>
+        <span class="marquee-run marquee-run--dupe" aria-hidden="true">Klippning <span class="marquee-sep">&#215;</span> Färg <span class="marquee-sep">&#215;</span> Balayage <span class="marquee-sep">&#215;</span> Vård <span class="marquee-sep">&#215;</span> Bröllop <span class="marquee-sep">&#215;</span> Barbering <span class="marquee-sep">&#215;</span></span>
+      </div>
+    </div>
+
+    <!-- ===== Om mig ===== -->
+    <section id="om" class="section section--ink" aria-labelledby="om-rubrik">
+      <span class="slab slab--om" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">/// Om mig</p>
+          <h2 id="om-rubrik" class="section-title"><span class="w-clip"><span class="w">Hår</span></span> <span class="w-clip"><span class="w">som</span></span> <span class="w-clip"><span class="w">känns</span></span> <span class="w-clip"><span class="w">som</span></span> <span class="w-clip"><span class="w">ditt</span></span></h2>
+        </div>
+        <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
+        <div class="about-grid">
+          <div class="about-copy" data-reveal>
+            <p>Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger på att
+              lyssna först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill
+              känna när du går ut dörren.</p>
+            <p>Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i centrala
+              Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och vårdande
+              behandlingar.</p>
+            <p>Vill du se mitt dagliga arbete? Följ mig på Instagram
+              <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">@jane.cooper</a>.</p>
+          </div>
+          <figure class="portrait-slot">
+            <img src="../_assets/jane-portrait.jpg"
+                 alt="Jane Cooper, frisör på Jane Cooper i Malmö"
+                 width="1656" height="2208" loading="lazy">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Tjänster: stackade jättesiffror ===== -->
+    <section id="tjanster" class="section" aria-labelledby="tjanster-rubrik">
+      <span class="slab slab--svc" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">/// Tjänster</p>
+          <h2 id="tjanster-rubrik" class="section-title"><span class="w-clip"><span class="w">Det</span></span> <span class="w-clip"><span class="w">här</span></span> <span class="w-clip"><span class="w">kan</span></span> <span class="w-clip"><span class="w">jag</span></span></h2>
+        </div>
+        <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
+        <div class="services-stack">
+          <article class="svc" data-reveal>
+            <span class="svc-num" aria-hidden="true">01</span>
+            <div class="svc-body">
+              <h3 class="svc-title">Klippning</h3>
+              <p class="svc-text">Kort eller långt, klassiskt eller med textur — en klippning som passar dig och din vardag.</p>
+              <p class="svc-price">Pris: –</p>
+            </div>
+          </article>
+          <article class="svc" data-reveal>
+            <span class="svc-num" aria-hidden="true">02</span>
+            <div class="svc-body">
+              <h3 class="svc-title">Färg &amp; balayage</h3>
+              <p class="svc-text">Ammoniakfri färg, slingor och balayage. Jag rekommenderar alltid en konsultation innan färg.</p>
+              <p class="svc-price">Pris: –</p>
+            </div>
+          </article>
+          <article class="svc" data-reveal>
+            <span class="svc-num" aria-hidden="true">03</span>
+            <div class="svc-body">
+              <h3 class="svc-title">Vård &amp; håranalys</h3>
+              <p class="svc-text">Vårdande behandlingar och håranalys — friskt hår är grunden för allt snyggt arbete.</p>
+              <p class="svc-price">Pris: –</p>
+            </div>
+          </article>
+          <article class="svc" data-reveal>
+            <span class="svc-num" aria-hidden="true">04</span>
+            <div class="svc-body">
+              <h3 class="svc-title">Bröllop &amp; bal</h3>
+              <p class="svc-text">Uppsättning och styling till livets stora dagar. Vi bokar en provfrisering i god tid innan.</p>
+              <p class="svc-price">Pris: –</p>
+            </div>
+          </article>
+          <article class="svc" data-reveal>
+            <span class="svc-num" aria-hidden="true">05</span>
+            <div class="svc-body">
+              <h3 class="svc-title">Barbering &amp; skägg</h3>
+              <p class="svc-text">Klippning och skäggtrim med kniv och kam, i lugn och ro.</p>
+              <p class="svc-price">Pris: –</p>
+            </div>
+          </article>
+        </div>
+        <p class="svc-price" data-reveal>Priserna är inte satta än — ring eller skriv så ger jag dig ett pris.</p>
+      </div>
+    </section>
+
+    <!-- Dekorativ hårdklossremsa (block-strip): glider i hårda steg vid scroll. -->
+    <div class="block-strip" role="presentation"><div class="block-strip-inner"></div></div>
+
+    <!-- ===== Galleri ===== -->
+    <section id="galleri" class="section section--ink" aria-labelledby="galleri-rubrik">
+      <span class="slab slab--gal" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">/// Galleri</p>
+          <h2 id="galleri-rubrik" class="section-title"><span class="w-clip"><span class="w">Före</span></span> <span class="w-clip"><span class="w">&amp;</span></span> <span class="w-clip"><span class="w">efter</span></span></h2>
+        </div>
+        <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
+        <div class="gal-nav">
+          <button type="button" class="gal-btn" data-gallery-prev aria-label="Rulla galleriet åt vänster">&#8592;</button>
+          <button type="button" class="gal-btn" data-gallery-next aria-label="Rulla galleriet åt höger">&#8594;</button>
+        </div>
+        <div class="gal-scroller" data-gallery-scroller tabindex="0" role="group"
+             aria-label="Galleri med före- och efterbilder, rullbar">
+          <figure class="gal-card">
+            <div class="gal-media">
+              <img src="../_assets/gal-01.jpeg" alt="Salongsarbete före: långt blont hår" loading="lazy">
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Före</span><span class="gal-title">Långt blont</span></figcaption>
+          </figure>
+          <figure class="gal-card">
+            <div class="gal-media">
+              <img src="../_assets/gal-02.jpeg" alt="Salongsarbete efter: långt blont hår" loading="lazy">
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Efter</span><span class="gal-title">Långt blont</span></figcaption>
+          </figure>
+          <figure class="gal-card">
+            <div class="gal-media">
+              <img src="../_assets/gal-03.jpeg" alt="Salongsarbete före: kortare blont hår" loading="lazy">
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Före</span><span class="gal-title">Kortare blont</span></figcaption>
+          </figure>
+          <figure class="gal-card">
+            <div class="gal-media">
+              <img src="../_assets/gal-04.jpeg" alt="Salongsarbete efter: kortare blont hår" loading="lazy">
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Efter</span><span class="gal-title">Kortare blont</span></figcaption>
+          </figure>
+          <figure class="gal-card">
+            <div class="gal-media">
+              <div class="gal-placeholder"><span class="gal-placeholder-x" aria-hidden="true">&#9986;</span><span>Bild kommer</span></div>
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Före / efter</span><span class="gal-title">Bal</span></figcaption>
+          </figure>
+          <figure class="gal-card">
+            <div class="gal-media">
+              <div class="gal-placeholder"><span class="gal-placeholder-x" aria-hidden="true">&#9986;</span><span>Bild kommer</span></div>
+            </div>
+            <figcaption class="gal-body"><span class="gal-tag">Före / efter</span><span class="gal-title">Skäggtrim</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Boka (DEMO-mock) ===== -->
+    <section id="boka" class="section section--red" aria-labelledby="boka-rubrik">
+      <span class="slab slab--boka" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="boka-head" data-reveal>
+          <div>
+            <p class="eyebrow">/// Boka</p>
+            <h2 id="boka-rubrik" class="section-title"><span class="w-clip"><span class="w">Välj</span></span> <span class="w-clip"><span class="w">en</span></span> <span class="w-clip"><span class="w">tid</span></span> <span class="w-clip"><span class="w">—</span></span> <span class="w-clip"><span class="w">sedan</span></span> <span class="w-clip"><span class="w">bokar</span></span> <span class="w-clip"><span class="w">du</span></span> <span class="w-clip"><span class="w">via</span></span> <span class="w-clip"><span class="w">telefon</span></span> <span class="w-clip"><span class="w">eller</span></span> <span class="w-clip"><span class="w">Instagram</span></span></h2>
+          </div>
+          <span class="demo-badge">Demo — ingen bokning genomförs</span>
+        </div>
+        <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
+        <p class="boka-lead" data-reveal>Kalendern nedan är en <strong>demo</strong> utan backend.
+          Klicka på en tid för att se hur bokningen skulle gå till — självaste bokningen görs alltid
+          på riktigt via telefon eller Instagram.</p>
+
+        <div class="slots" role="group" aria-label="Demokalender med tider">
+          <button type="button" class="slot" data-slot>Tis 10:00</button>
+          <button type="button" class="slot" data-slot>Tis 13:00</button>
+          <button type="button" class="slot" data-slot>Ons 09:00</button>
+          <button type="button" class="slot" data-slot>Ons 15:00</button>
+          <button type="button" class="slot" data-slot>Tor 11:00</button>
+          <button type="button" class="slot" data-slot>Fre 10:00</button>
+          <button type="button" class="slot" data-slot>Fre 14:00</button>
+          <button type="button" class="slot" data-slot>Fre 17:00</button>
+        </div>
+
+        <p class="boka-real">Så bokar du på riktigt:
+          <a href="tel:46701234567">Telefon +46&nbsp;70&nbsp;123&nbsp;45&nbsp;67</a> eller
+          <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">Instagram @jane.cooper</a>.
+        </p>
+      </div>
+
+      <dialog id="boka-dialog" class="boka-dialog" aria-labelledby="boka-dialog-rubrik">
+        <p class="demo-badge">Demo — ingen bokning genomförs</p>
+        <h3 id="boka-dialog-rubrik">Vald tid: <span data-dialog-time>—</span></h3>
+        <p>Detta är en demo — ingen tid reserveras. Så här bokar du på riktigt:</p>
+        <p>
+          <a class="btn btn--red" href="tel:46701234567">Ring +46&nbsp;70&nbsp;123&nbsp;45&nbsp;67</a>
+        </p>
+        <p>
+          <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">Eller skicka ett DM till @jane.cooper</a>
+        </p>
+        <p><button type="button" class="btn" data-dialog-close>Stäng</button></p>
+      </dialog>
+    </section>
+
+    <!-- ===== Kontakt ===== -->
+    <section id="kontakt" class="section section--ink" aria-labelledby="kontakt-rubrik">
+      <span class="slab slab--kon" aria-hidden="true"></span>
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">/// Kontakt</p>
+          <h2 id="kontakt-rubrik" class="section-title"><span class="w-clip"><span class="w">Hitta</span></span> <span class="w-clip"><span class="w">mig</span></span> <span class="w-clip"><span class="w">eller</span></span> <span class="w-clip"><span class="w">skriv</span></span> <span class="w-clip"><span class="w">till</span></span> <span class="w-clip"><span class="w">mig</span></span></h2>
+        </div>
+        <div class="draw-rule" aria-hidden="true"></div>
+        <div class="rule-v" aria-hidden="true"></div>
+        <div class="kontakt-grid">
+          <ul class="kontakt-list" data-reveal>
+            <li><span class="k-label">Salong</span>
+              Jane Cooper — Malmö<br>Drottninggatan 2, 000 00 Malmö</li>
+            <li><span class="k-label">Telefon</span>
+              <a href="tel:46701234567">+46 70 123 45 67</a></li>
+            <li><span class="k-label">E-post</span>
+              <a href="mailto:jane.cooper@example.com">jane.cooper@example.com</a></li>
+            <li><span class="k-label">Instagram</span>
+              <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">@jane.cooper</a></li>
+            <li><span class="k-label">Öppettider</span>
+              (bekräftas snart)</li>
+          </ul>
+
+          <div data-reveal>
+            <p><span class="demo-badge">Demo — formuläret har ingen backend</span></p>
+            <form class="demo-form" data-demo-form novalidate>
+              <label for="f-namn">Namn</label>
+              <input id="f-namn" name="namn" type="text" autocomplete="name" required>
+              <label for="f-mail">E-post</label>
+              <input id="f-mail" name="epost" type="email" autocomplete="email" required>
+              <label for="f-medd">Meddelande</label>
+              <textarea id="f-medd" name="meddelande" rows="4" required></textarea>
+              <p><button type="submit" class="btn btn--red">Skicka (demo)</button></p>
+              <p class="form-status" role="status" aria-live="polite" data-form-status>Inget skickas — ingen backend är kopplad.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-big"><span class="w-clip"><span class="w">Jane</span></span> <span class="w-clip"><span class="w">Cooper</span></span><span style="color:var(--red)">.</span></p>
+    <nav aria-label="Sidfotens meny">
+      <p class="footer-nav">
+        <a href="#top">Toppen</a>
+        <a href="#om">Om mig</a>
+        <a href="#tjanster">Tjänster</a>
+        <a href="#galleri">Galleri</a>
+        <a href="#boka">Boka tid</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="https://www.instagram.com/jane.cooper/" rel="me noopener" target="_blank">Instagram</a>
+      </p>
+    </nav>
+    <p class="footer-note">Klippning, färg och vård på Jane Cooper, Drottninggatan 2, Malmö.
+      Prototyp 04 "Klipp det korta" — designtema, bokning och formulär är demo.</p>
+  </footer>
+
+  <script src="../_assets/vendor/gsap.min.js" defer></script>
+  <script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/scroll-motion.js" defer></script>
+  <script src="js/hero-drag.js" defer></script>
+  <script src="js/gallery-nav.js" defer></script>
+  <script src="js/booking-mock.js" defer></script>
+  <script src="js/contact-demo.js" defer></script>
+</body>
+</html>

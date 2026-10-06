@@ -15,7 +15,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 SEED = 20261006
 ROOT = Path(__file__).resolve().parent.parent
-P = "projects/anny/prototypes"
+P = "projects/salong/prototypes"
 
 # palette: (top, mid, bottom, form, form, form) — neutral warm paper/ink/clay
 PAPER, SAND, ROSE, CLAY = (243, 237, 228), (226, 211, 193), (216, 183, 166), (201, 158, 124)
@@ -34,15 +34,15 @@ PALETTES = {
 TARGETS = (
     [(f"{P}/_assets/gal-0{n}.jpeg", (1536, 2048), "JPEG", key)
      for n, key in enumerate(["paper-clay", "paper-terra", "sand-ink", "paper-ink"], 1)]
-    + [(f"{P}/_assets/anny-portrait.jpg", (1656, 2208), "JPEG", "paper-rose")]
+    + [(f"{P}/_assets/jane-portrait.jpg", (1656, 2208), "JPEG", "paper-rose")]
     + [(f"{P}/00-poc-live-site/images/gal-0{n}.jpeg", (1536, 2048), "JPEG", key)
        for n, key in enumerate(["paper-clay", "paper-terra", "sand-ink", "paper-ink"], 1)]
-    + [(f"{P}/23-lab-anny-real/assets/gallery/gal-0{n}.jpeg", (1536, 2048), "JPEG", key)
+    + [(f"{P}/23-lab-demo-real/assets/gallery/gal-0{n}.jpeg", (1536, 2048), "JPEG", key)
        for n, key in enumerate(["paper-clay", "paper-terra", "sand-ink", "paper-ink"], 1)]
-    + [(f"{P}/23-lab-anny-real/assets/plates/om-portrait.png", (780, 618), "PNG", "ink-slate"),
-       (f"{P}/23-lab-anny-real/assets/plates/mirror-reflection.png", (2048, 896), "PNG", "ink-slate"),
-       (f"{P}/24-lab-anny-flag/assets/plates/portrait.png", (1200, 1560), "PNG", "paper-rose"),
-       (f"{P}/26-lab-anny-low/assets/plates/om-plate.png", (888, 756), "PNG", "sand-clay")]
+    + [(f"{P}/23-lab-demo-real/assets/plates/om-portrait.png", (780, 618), "PNG", "ink-slate"),
+       (f"{P}/23-lab-demo-real/assets/plates/mirror-reflection.png", (2048, 896), "PNG", "ink-slate"),
+       (f"{P}/24-lab-demo-flag/assets/plates/portrait.png", (1200, 1560), "PNG", "paper-rose"),
+       (f"{P}/26-lab-demo-low/assets/plates/om-plate.png", (888, 756), "PNG", "sand-clay")]
 )
 
 

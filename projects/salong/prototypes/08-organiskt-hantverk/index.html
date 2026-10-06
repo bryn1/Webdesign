@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!-- 456 lines > 400: pre-existing single-page theme exception (ruled 2026-10-05), kept whole; CSS and JS are already split
+     across 3 files each, and fragmenting the markup would separate each section's
+     hand-drawn SVG from the copy it draws under. Reason per coding-discipline header rule. -->
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jane Cooper — Frisör i Malmö</title>
+  <meta name="description" content="Jane Cooper, frisör i Malmö. Klippning, färg och vård med lugn och omsorg, på salongen Jane Cooper, Drottninggatan 2. Bokning via telefon +46 70 123 45 67 eller Instagram @jane.cooper.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2333402e'/%3E%3Cpath d='M5 18 Q 11 9 16 18 T 27 18' fill='none' stroke='%23c26d3d' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Karla:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehåll</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#top">Jane Cooper<span class="brand-dot">.</span></a>
+      <nav class="site-nav" aria-label="Huvudmeny">
+        <a href="#om">Om mig</a>
+        <a href="#tjanster">Tjänster</a>
+        <a href="#galleri">Galleri</a>
+        <a href="#kontakt">Kontakt</a>
+        <a class="nav-cta" href="#boka">Boka tid</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero ===== -->
+    <section id="top" class="section hero" aria-labelledby="top-rubrik">
+      <div class="hero-blob" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob--warm" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero__inner" data-reveal>
+          <p class="section-eyebrow">Frisör i Malmö</p>
+          <div class="headline">
+            <h1 id="top-rubrik">Jane Cooper</h1>
+            <svg class="underline underline--wide" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+              <path d="M8 8 C 64 3 118 12 176 8 C 234 4 286 4 332 9"/>
+            </svg>
+          </div>
+          <p class="hero-sub">Klippning, färg och vård med lugn och omsorg.</p>
+          <div class="hero-cta">
+            <a class="btn btn--primary" href="#boka">Boka en tid</a>
+            <a class="btn btn--ghost" href="#kontakt">Hitta mig</a>
+          </div>
+          <p class="hero-tag">Jane Cooper. &middot; Drottninggatan 2 &middot; Malmö</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 2880 48" preserveAspectRatio="none"><g class="wave-track">
+        <path class="wave-line" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+        <path class="wave-line" transform="translate(1440 0)" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+      </g></svg>
+    </div>
+
+    <!-- ===== Om mig ===== -->
+    <section id="om" class="section" aria-labelledby="om-rubrik">
+      <div class="container om-grid">
+        <div class="om-copy" data-reveal>
+          <div class="section-head">
+            <p class="section-eyebrow">Om mig</p>
+            <div class="headline">
+              <h2 id="om-rubrik">Hår som känns som ditt</h2>
+              <svg class="underline" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+                <path d="M6 9 C 46 4 88 12 130 8 C 172 4 214 6 258 10 C 302 14 306 11 318 6"/>
+              </svg>
+            </div>
+          </div>
+          <p>Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger på att lyssna
+            först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
+            går ut dörren.</p>
+          <p>Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i centrala
+            Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och vårdande
+            behandlingar.</p>
+          <p>Vill du se mitt dagliga arbete? Följ mig på Instagram
+            <a href="https://www.instagram.com/jane.cooper/" rel="me">@jane.cooper</a>.</p>
+        </div>
+        <div class="portrait-frame" data-reveal>
+          <div class="portrait-frame__inner">
+            <img src="../_assets/jane-portrait.jpg" alt="Jane Cooper, frisör på Jane Cooper i Malmö" width="1656" height="2208" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider is-olive is-slow" aria-hidden="true">
+      <svg viewBox="0 0 2880 48" preserveAspectRatio="none"><g class="wave-track">
+        <path class="wave-line" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+        <path class="wave-line" transform="translate(1440 0)" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+      </g></svg>
+    </div>
+
+    <!-- ===== Tjänster ===== -->
+    <section id="tjanster" class="section" aria-labelledby="tjanster-rubrik">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-eyebrow">Tjänster</p>
+          <div class="headline">
+            <h2 id="tjanster-rubrik">Det här kan jag</h2>
+            <svg class="underline" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+              <path d="M8 7 C 60 12 122 3 184 9 C 246 15 276 12 320 5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <div class="headline">
+              <h3>Klippning</h3>
+              <svg class="underline card-underline" aria-hidden="true" viewBox="0 0 90 8" preserveAspectRatio="none">
+                <path d="M3 5 C 20 2 42 7 60 4 C 78 1 82 3 87 5"/>
+              </svg>
+            </div>
+            <p>Kort eller långt, klassiskt eller med textur — en klippning som passar dig och
+              din vardag.</p>
+            <p class="price-line">Pris: –</p>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="headline">
+              <h3>Färg &amp; balayage</h3>
+              <svg class="underline card-underline" aria-hidden="true" viewBox="0 0 90 8" preserveAspectRatio="none">
+                <path d="M3 5 C 20 2 42 7 60 4 C 78 1 82 3 87 5"/>
+              </svg>
+            </div>
+            <p>Ammoniakfri färg, slingor och balayage. Jag rekommenderar alltid en konsultation
+              innan färg.</p>
+            <p class="price-line">Pris: –</p>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="headline">
+              <h3>Vård &amp; håranalys</h3>
+              <svg class="underline card-underline" aria-hidden="true" viewBox="0 0 90 8" preserveAspectRatio="none">
+                <path d="M3 5 C 20 2 42 7 60 4 C 78 1 82 3 87 5"/>
+              </svg>
+            </div>
+            <p>Vårdande behandlingar och håranalys — friskt hår är grunden för allt snyggt arbete.</p>
+            <p class="price-line">Pris: –</p>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="headline">
+              <h3>Bröllop &amp; bal</h3>
+              <svg class="underline card-underline" aria-hidden="true" viewBox="0 0 90 8" preserveAspectRatio="none">
+                <path d="M3 5 C 20 2 42 7 60 4 C 78 1 82 3 87 5"/>
+              </svg>
+            </div>
+            <p>Uppsättning och styling till livets stora dagar. Vi bokar en provfrisering i god
+              tid innan.</p>
+            <p class="price-line">Pris: –</p>
+          </article>
+          <article class="service-card" data-reveal>
+            <div class="headline">
+              <h3>Barbering &amp; skägg</h3>
+              <svg class="underline card-underline" aria-hidden="true" viewBox="0 0 90 8" preserveAspectRatio="none">
+                <path d="M3 5 C 20 2 42 7 60 4 C 78 1 82 3 87 5"/>
+              </svg>
+            </div>
+            <p>Klippning och skäggtrim med kniv och kam, i lugn och ro.</p>
+            <p class="price-line">Pris: –</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 2880 48" preserveAspectRatio="none"><g class="wave-track">
+        <path class="wave-line" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+        <path class="wave-line" transform="translate(1440 0)" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+      </g></svg>
+    </div>
+
+    <!-- ===== Galleri ===== -->
+    <section id="galleri" class="section" aria-labelledby="galleri-rubrik">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-eyebrow">Galleri</p>
+          <div class="headline">
+            <h2 id="galleri-rubrik">Före &amp; efter</h2>
+            <svg class="underline" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+              <path d="M6 9 C 46 4 88 12 130 8 C 172 4 214 6 258 10 C 302 14 306 11 318 6"/>
+            </svg>
+          </div>
+          <p>Några favoritförändringar. Mer av det dagliga arbetet finns på
+            <a href="https://www.instagram.com/jane.cooper/" rel="me">Instagram @jane.cooper</a>.</p>
+        </div>
+        <div class="gallery-toolbar">
+          <button type="button" class="gallery-btn" data-gallery-prev aria-label="Bläddra bakåt i galleriet">&#8592;</button>
+          <button type="button" class="gallery-btn" data-gallery-next aria-label="Bläddra framåt i galleriet">&#8594;</button>
+        </div>
+        <div class="gallery-scroller" data-gallery-scroller tabindex="0" role="group"
+             aria-label="Galleri med före- och efterbilder, rullbar">
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <img src="../_assets/gal-01.jpeg" alt="Före — långt blont hår" loading="lazy" width="900" height="1125">
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Före</span>
+              <span class="gallery-card__title">Långt blont</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <img src="../_assets/gal-02.jpeg" alt="Efter — långt blont hår" loading="lazy" width="900" height="1125">
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Efter</span>
+              <span class="gallery-card__title">Långt blont</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <img src="../_assets/gal-03.jpeg" alt="Före — kortare blont hår" loading="lazy" width="900" height="1125">
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Före</span>
+              <span class="gallery-card__title">Kortare blont</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <img src="../_assets/gal-04.jpeg" alt="Efter — kortare blont hår" loading="lazy" width="900" height="1125">
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Efter</span>
+              <span class="gallery-card__title">Kortare blont</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <span class="placeholder-label">Bild kommer</span>
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Före / efter</span>
+              <span class="gallery-card__title">Bal</span>
+            </figcaption>
+          </figure>
+          <figure class="gallery-card" data-gallery-card>
+            <div class="gallery-card__media">
+              <span class="placeholder-label">Bild kommer</span>
+            </div>
+            <figcaption class="gallery-card__body">
+              <span class="gallery-card__tag">Före / efter</span>
+              <span class="gallery-card__title">Skäggtrim</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <div class="wave-divider is-olive" aria-hidden="true">
+      <svg viewBox="0 0 2880 48" preserveAspectRatio="none"><g class="wave-track">
+        <path class="wave-line" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+        <path class="wave-line" transform="translate(1440 0)" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+      </g></svg>
+    </div>
+
+    <!-- ===== Boka — demokalendern är sidans hantverkade produktdemo ===== -->
+    <section id="boka" class="section boka-panel" aria-labelledby="boka-rubrik">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-eyebrow">Boka tid</p>
+          <div class="headline">
+            <h2 id="boka-rubrik">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+            <svg class="underline" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+              <path d="M8 7 C 60 12 122 3 184 9 C 246 15 276 12 320 5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="demo-frame" data-reveal>
+          <p class="demo-badge">Demo — ingen bokning genomförs</p>
+          <p>Prova flödet som det skulle se ut: välj en tid som känns bra, så visar jag vägen
+            till en riktig bokning.</p>
+          <div class="slot-grid">
+            <fieldset class="slot-day">
+              <legend>måndag</legend>
+              <div class="slot-day__times">
+                <button type="button" class="slot" data-day="måndag" data-time="09:30" aria-pressed="false">09:30</button>
+                <button type="button" class="slot" data-day="måndag" data-time="11:30" aria-pressed="false">11:30</button>
+                <button type="button" class="slot" data-day="måndag" data-time="13:30" aria-pressed="false">13:30</button>
+                <button type="button" class="slot" data-day="måndag" data-time="16:00" aria-pressed="false">16:00</button>
+              </div>
+            </fieldset>
+            <fieldset class="slot-day">
+              <legend>tisdag</legend>
+              <div class="slot-day__times">
+                <button type="button" class="slot" data-day="tisdag" data-time="09:30" aria-pressed="false">09:30</button>
+                <button type="button" class="slot" data-day="tisdag" data-time="11:30" aria-pressed="false">11:30</button>
+                <button type="button" class="slot" data-day="tisdag" data-time="13:30" aria-pressed="false">13:30</button>
+                <button type="button" class="slot" data-day="tisdag" data-time="16:00" aria-pressed="false">16:00</button>
+              </div>
+            </fieldset>
+            <fieldset class="slot-day">
+              <legend>onsdag</legend>
+              <div class="slot-day__times">
+                <button type="button" class="slot" data-day="onsdag" data-time="09:30" aria-pressed="false">09:30</button>
+                <button type="button" class="slot" data-day="onsdag" data-time="11:30" aria-pressed="false">11:30</button>
+                <button type="button" class="slot" data-day="onsdag" data-time="13:30" aria-pressed="false">13:30</button>
+                <button type="button" class="slot" data-day="onsdag" data-time="16:00" aria-pressed="false">16:00</button>
+              </div>
+            </fieldset>
+            <fieldset class="slot-day">
+              <legend>torsdag</legend>
+              <div class="slot-day__times">
+                <button type="button" class="slot" data-day="torsdag" data-time="09:30" aria-pressed="false">09:30</button>
+                <button type="button" class="slot" data-day="torsdag" data-time="11:30" aria-pressed="false">11:30</button>
+                <button type="button" class="slot" data-day="torsdag" data-time="13:30" aria-pressed="false">13:30</button>
+                <button type="button" class="slot" data-day="torsdag" data-time="16:00" aria-pressed="false">16:00</button>
+              </div>
+            </fieldset>
+            <fieldset class="slot-day">
+              <legend>fredag</legend>
+              <div class="slot-day__times">
+                <button type="button" class="slot" data-day="fredag" data-time="09:30" aria-pressed="false">09:30</button>
+                <button type="button" class="slot" data-day="fredag" data-time="11:30" aria-pressed="false">11:30</button>
+                <button type="button" class="slot" data-day="fredag" data-time="13:30" aria-pressed="false">13:30</button>
+                <button type="button" class="slot" data-day="fredag" data-time="16:00" aria-pressed="false">16:00</button>
+              </div>
+            </fieldset>
+          </div>
+          <p class="boka-plain">Kalendern är en demo — inga tider sparas och ingen bokning
+            genomförs. På riktigt bokar du via telefon
+            <a href="tel:46701234567">+46 70 123 45 67</a> eller Instagram
+            <a href="https://www.instagram.com/jane.cooper/" rel="me">@jane.cooper</a>.</p>
+        </div>
+      </div>
+
+      <dialog class="demo-dialog" id="book-dialog" aria-labelledby="dlg-title">
+        <div class="view" id="dlg-confirm">
+          <h3 id="dlg-title">Vald tid</h3>
+          <p class="demo-dialog__picked"><span id="dlg-picked">–</span></p>
+          <p>Det här är en demo — <strong>ingen bokning genomförs</strong>. Bekräfta för att se
+            hur boken skulle nå mig.</p>
+          <div class="demo-dialog__actions">
+            <button type="button" class="btn btn--primary" id="dlg-confirm-btn">Bekräfta (demo)</button>
+            <button type="button" class="dialog-close" data-dialog-close>Avbryt</button>
+          </div>
+        </div>
+        <div class="view" id="dlg-done" hidden>
+          <h3>Tack — nu bokar du på riktigt</h3>
+          <p class="demo-dialog__picked"><span id="dlg-picked-2">–</span></p>
+          <p>Demot sparar ingenting. Så här når du mig för att boka den tiden:</p>
+          <ul class="contact-list">
+            <li><strong>Telefon</strong><a href="tel:46701234567">+46 70 123 45 67</a></li>
+            <li><strong>Instagram</strong><a href="https://www.instagram.com/jane.cooper/" rel="me">@jane.cooper</a></li>
+          </ul>
+          <div class="demo-dialog__actions">
+            <button type="button" class="dialog-close" data-dialog-close>Stäng</button>
+          </div>
+        </div>
+      </dialog>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 2880 48" preserveAspectRatio="none"><g class="wave-track">
+        <path class="wave-line" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+        <path class="wave-line" transform="translate(1440 0)" d="M0 24 C 22.5 9 67.5 9 90 24 C 112.5 39 157.5 39 180 24 C 202.5 9 247.5 9 270 24 C 292.5 39 337.5 39 360 24 C 382.5 9 427.5 9 450 24 C 472.5 39 517.5 39 540 24 C 562.5 9 607.5 9 630 24 C 652.5 39 697.5 39 720 24 C 742.5 9 787.5 9 810 24 C 832.5 39 877.5 39 900 24 C 922.5 9 967.5 9 990 24 C 1012.5 39 1057.5 39 1080 24 C 1102.5 9 1147.5 9 1170 24 C 1192.5 39 1237.5 39 1260 24 C 1282.5 9 1327.5 9 1350 24 C 1372.5 39 1417.5 39 1440 24"/>
+      </g></svg>
+    </div>
+
+    <!-- ===== Kontakt ===== -->
+    <section id="kontakt" class="section" aria-labelledby="kontakt-rubrik">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="section-eyebrow">Kontakt</p>
+          <div class="headline">
+            <h2 id="kontakt-rubrik">Hitta mig eller skriv till mig</h2>
+            <svg class="underline" aria-hidden="true" viewBox="0 0 340 14" preserveAspectRatio="none">
+              <path d="M6 9 C 46 4 88 12 130 8 C 172 4 214 6 258 10 C 302 14 306 11 318 6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kontakt-grid">
+          <ul class="contact-list" data-reveal>
+            <li>
+              <strong>Jane Cooper — Malmö</strong>
+              Drottninggatan 2, 000 00 Malmö
+            </li>
+            <li>
+              <strong>Telefon</strong>
+              <a href="tel:46701234567">+46 70 123 45 67</a>
+            </li>
+            <li>
+              <strong>E-post</strong>
+              <a href="mailto:jane.cooper@example.com">jane.cooper@example.com</a>
+            </li>
+            <li>
+              <strong>Instagram</strong>
+              <a href="https://www.instagram.com/jane.cooper/" rel="me">@jane.cooper</a>
+            </li>
+            <li>
+              <strong>Öppettider</strong>
+              <span class="contact-note">(bekräftas snart)</span>
+            </li>
+          </ul>
+          <form class="contact-form" id="contact-form" data-reveal>
+            <p class="form-honesty">Demo — formuläret är inte kopplat till någon backend. Ett
+              skickat meddelande visas bara på den här sidan och når inte Jane Cooper. Ring eller
+              mejla gärna i stället.</p>
+            <div class="field">
+              <label for="field-name">Namn</label>
+              <input type="text" id="field-name" name="namn" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="field-email">E-post</label>
+              <input type="email" id="field-email" name="epost" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="field-message">Meddelande</label>
+              <textarea id="field-message" name="meddelande" rows="4" required></textarea>
+            </div>
+            <div>
+              <button type="submit" class="btn btn--primary">Skicka (demo)</button>
+            </div>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="section-eyebrow">Jane Cooper</p>
+      <nav aria-label="Sidfotsmeny">
+        <ul class="footer-nav">
+          <li><a href="#om">Om mig</a></li>
+          <li><a href="#tjanster">Tjänster</a></li>
+          <li><a href="#galleri">Galleri</a></li>
+          <li><a href="#boka">Boka tid</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="https://www.instagram.com/jane.cooper/" rel="me">Instagram</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note">Jane Cooper. &middot; Drottninggatan 2, 000 00 Malmö &middot;
+        Telefon <a href="tel:46701234567">+46 70 123 45 67</a></p>
+      <p class="footer-note">Designprototyp — bokningskalender och kontaktformulär är demo,
+        ingen bokning eller något meddelande genomförs.</p>
+    </div>
+  </footer>
+
+  <script src="../_assets/vendor/gsap.min.js" defer></script>
+  <script src="../_assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/scroll-motion.js" defer></script>
+  <script src="js/gallery-scroll.js" defer></script>
+  <script src="js/booking-demo.js" defer></script>
+</body>
+</html>

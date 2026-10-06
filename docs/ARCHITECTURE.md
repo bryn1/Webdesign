@@ -10,7 +10,7 @@ wave (owner rulings 2026-10-05) made the shared motion mechanism large enough to
 
 > **Layout v3 (MC 10062.30.1, 2026-10-07).** This repo (bryn1/Webdesign, clone `~/Hemsidor`) is now the
 > home of EVERY frontend prototype, one folder per project: `projects/<project>/{spec.md, prototypes/<NN-name>/,
-> concepts/<name>/}`. `projects/anny/` holds the 20 themes this document describes (paths below are updated) plus
+> concepts/<name>/}`. `projects/salong/` holds the 20 themes this document describes (paths below are updated) plus
 > the live-PoC snapshot (00) and 6 impeccable lab builds (21-26); `projects/portfolio/` holds the 20 portfolio
 > themes copied from `~/portfolio-designs` (b43cae3) plus the workflow-explode concept. `:8090` now serves the
 > GENERATED browse site `_site/` (`tools/build-index.py`; root = one card per project) so `.git`/`.audits` are not
@@ -21,16 +21,16 @@ wave (owner rulings 2026-10-05) made the shared motion mechanism large enough to
 ## 1. Shape in one line
 
 Static tree of 20 self-contained theme dirs + one shared `_assets/` + a gallery index, served
-read-only by `python3 -m http.server` on :8090; content canon in `projects/anny/spec.md`; the DoD gate is a
+read-only by `python3 -m http.server` on :8090; content canon in `projects/salong/spec.md`; the DoD gate is a
 pytest file plus verdict files under `.audits/<run>/out/`.
 
 ## 2. Repo layout (as it actually is)
 
 | Path | Role |
 |---|---|
-| `projects/anny/spec.md` | Content canon — every theme's Swedish copy/section contract (single source). |
+| `projects/salong/spec.md` | Content canon — every theme's Swedish copy/section contract (single source). |
 | `PORT` | Demo port, committed: `8090`. Gate + keepalive read it. |
-| `projects/anny/prototypes/` | The product. 20 theme dirs + `_assets/` + gallery `index.html`. |
+| `projects/salong/prototypes/` | The product. 20 theme dirs + `_assets/` + gallery `index.html`. |
 | `.audits/202610041341-f6053f16/out/` | This run's ledger (`DONE.md`), gate (`test_prototypes.py`), verdict files, research. |
 | `.audits/202610051009-workflow-explode/` | A SEPARATE, unrelated run (MC 10140, a new-concept design phase). In-flight, untracked. Not part of the product. |
 | `projects/portfolio/concepts/workflow-explode/` | That run's build target (served on :8092 by its own keepalive). Empty placeholder at this writing; not the product. |
@@ -38,10 +38,10 @@ pytest file plus verdict files under `.audits/<run>/out/`.
 | `.tmp/`, `.playwright-mcp/`, `.pytest_cache/` | Git-ignored scratch (probe payloads, browser logs). |
 
 No build system, no package.json, no node_modules, no backend, no database, no API surface
-(DONE.md N2). Entry points: `projects/anny/prototypes/index.html` (gallery) and `projects/anny/prototypes/<NN>-<name>/index.html`
+(DONE.md N2). Entry points: `projects/salong/prototypes/index.html` (gallery) and `projects/salong/prototypes/<NN>-<name>/index.html`
 per theme.
 
-## 3. Theme anatomy — `projects/anny/prototypes/<NN>-<name>/`
+## 3. Theme anatomy — `projects/salong/prototypes/<NN>-<name>/`
 
 Every theme dir has exactly three parts (bijection: 20 dirs ↔ 20 gallery cards, gate-enforced):
 
@@ -67,7 +67,7 @@ Rules that hold across all 20 (measured this pass):
 ## 4. The motion standard (owner ruling 2026-10-05, DONE.md §E)
 
 ONE mechanism, ONE file per theme: **vendored GSAP v3.12.7 + ScrollTrigger** from
-`projects/anny/prototypes/_assets/vendor/` (banner-verified 3.12.7, committed @ c4e0f4e). No runtime CDN for
+`projects/salong/prototypes/_assets/vendor/` (banner-verified 3.12.7, committed @ c4e0f4e). No runtime CDN for
 motion; `animation-timeline`/`view-timeline` declarations repo-wide: **0** (only prose comments
 naming the prohibition — re-grepped this pass).
 
@@ -103,17 +103,17 @@ Every one of the 20 themes has exactly **one** file that registers ScrollTrigger
 this pass: 20 files, 5–12 registration sites each; 02/15's IO uses are non-GSAP helpers, 11's is
 the accepted remnant).
 
-## 5. Shared assets — `projects/anny/prototypes/_assets/`
+## 5. Shared assets — `projects/salong/prototypes/_assets/`
 
 ```
 _assets/
   vendor/gsap.min.js            GSAP 3.12.7, vendored (no CDN at runtime)
   vendor/ScrollTrigger.min.js   ScrollTrigger 3.12.7
   gal-01.jpeg … gal-04.jpeg     the owner's 4 real photos (only real photos in existence)
-  anny-portrait.jpg             real portrait (1656×2208), provenance: ATTRIBUTION.md below
+  jane-portrait.jpg             real portrait (1656×2208), provenance: ATTRIBUTION.md below
 ```
 
-Portrait provenance (`anny-portrait.ATTRIBUTION.md`, committed @ 1ef4e9e): owner-delivered —
+Portrait provenance (`jane-portrait.ATTRIBUTION.md`, committed @ 1ef4e9e): owner-delivered —
 fetched 2026-10-05 on his explicit ask from her public Instagram post (`jane.cooper`); Jane Cooper
 owns the image; before a real site: request original file + formal OK. All 18 portrait-bearing
 themes reference the SAME file — swap once, applies everywhere. Themes 15/18 stay photo-free by
@@ -123,7 +123,7 @@ concept (ruled). Other gallery slots without a real photo show honest "Bild komm
 ## 6. Serve topology
 
 ```
-[repo projects/anny/prototypes/] --(serve, read-only)--> python3 -m http.server 8090 --bind 0.0.0.0
+[repo projects/salong/prototypes/] --(serve, read-only)--> python3 -m http.server 8090 --bind 0.0.0.0
                                               --directory /home/claudecode/Hemsidor/_site
 LAN: http://192.168.5.231:8090/   (PORT file = 8090, committed)
 keepalive: cron  @reboot + */5  ~/.dsh/bin/proto-server-keepalive.sh
@@ -180,7 +180,7 @@ verdicts).
 
 ## 9. Data & dependency picture
 
-- **Data stores: none.** Content is hard-coded Swedish copy duplicated per projects/anny/spec.md by design
+- **Data stores: none.** Content is hard-coded Swedish copy duplicated per projects/salong/spec.md by design
   (20 independent themes; duplication IS the product — not a DRY violation to "fix").
 - **Deps: two vendored files** (GSAP + ScrollTrigger 3.12.7, standard license) + Google Fonts
   CDN links (exception E3). No build, no transpile, no bundler, no test runner beyond pytest.
