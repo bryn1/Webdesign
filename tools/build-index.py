@@ -10,9 +10,16 @@ writes a generated, gitignored _site/:
   _site/thumbs/<project>/<kind>-<name>.png   thumbnails (only with --thumbs)
 _site/ is what the :8090 server serves, so neither .git nor .audits is reachable over HTTP.
 
-Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs]
+With --root it ALSO writes the committed public surface (MC 10088 HOSTING-01) that the vm106
+reconciler serves for the static app "webdesign" — these files are tracked, not gitignored:
+  index.html (repo root)            browse index: one card per project entry, links RELATIVE
+                                   into projects/... only (never .md, tools/, docs/)
+  thumbs/<project>/<kind>-<name>.png   committed thumbnails (same naming as _site/thumbs)
+
+Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--root]
   --thumbs        make missing/stale thumbnails with screenshot.mjs (headless Chromium)
   --force-thumbs  remake every thumbnail
+  --root          also write repo-root index.html + committed thumbs/ (thumbs made as needed)
 """
 import html
 import os
@@ -115,10 +122,10 @@ def scan():
     return projects
 
 
-def page(title, body):
+def page(title, body, head_extra=""):
     return ("<!doctype html>\n<html lang=\"sv\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
-            f"<title>{html.escape(title)}</title>\n<style>{CSS}</style>\n</head>\n<body>\n<main>\n{body}</main>\n</body>\n</html>\n")
+            f"<title>{html.escape(title)}</title>\n{head_extra}<style>{CSS}</style>\n</head>\n<body>\n<main>\n{body}</main>\n</body>\n</html>\n")
 
 
 def thumb_rel(entry):
@@ -217,9 +224,50 @@ def build(thumbs=False, force=False):
     return projects, report
 
 
+def build_root(thumbs=False, force=False):
+    """Write the COMMITTED public browse surface: repo-root index.html + committed thumbs/.
+
+    Every href/src is relative and points ONLY into paths the vm106 mirror serves
+    (projects/**, thumbs/**, favicon.ico) — never .md, tools/, docs/, _site/."""
+    projects = scan()
+    report = []
+    troot = os.path.join(ROOT, "thumbs")
+    sections = []
+    total = sum(len(p["entries"]) for p in projects)
+    for p in projects:
+        tdir = os.path.join(troot, p["name"])
+        os.makedirs(tdir, exist_ok=True)
+        lis = []
+        for e in p["entries"]:
+            tfile = os.path.join(tdir, thumb_rel(e))
+            if thumbs:
+                report.append(f"{p['name']}/{e['kind']}/{e['name']}: {make_thumb(e, tfile, force)}")
+            img = (f"<img src=\"thumbs/{html.escape(p['name'])}/{html.escape(thumb_rel(e))}\" alt=\"\" loading=\"lazy\">"
+                   if os.path.isfile(tfile) else "<span class=\"noimg\">ingen förhandsvisning</span>")
+            meta = html.escape(e["name"]) + (f" · {html.escape(e['label'])}" if e["label"] else "")
+            lis.append(f"<li class=\"card\"><a href=\"projects/{html.escape(p['name'])}/{e['kind']}/{html.escape(e['name'])}/\">{img}"
+                       f"<span class=\"txt\"><span class=\"name\">{html.escape(e['title'])}</span>"
+                       f"<span class=\"meta\">{meta}</span></span></a></li>")
+        n_proto = sum(1 for e in p["entries"] if e["kind"] == "prototypes")
+        n_conc = len(p["entries"]) - n_proto
+        counts = f"{n_proto} prototyper" + (f", {n_conc} koncept" if n_conc else "")
+        sections.append(f"<h2>{html.escape(p['name'])} — {counts}</h2>\n<ul class=\"grid\">\n"
+                        + "\n".join(lis) + "\n</ul>\n")
+    body = ("<h1>Webdesign — prototyper &amp; koncept</h1>\n<p class=\"muted\">Interaktiva "
+            "webbläsarprototyper för en frisörssajt samt portfolio-koncept, byggda i ren HTML, "
+            f"CSS och JavaScript. {len(projects)} projekt, {total} sidor.</p>\n"
+            + "".join(sections))
+    with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(page("Webdesign — prototyper & koncept", body,
+                      head_extra="<link rel=\"icon\" href=\"favicon.ico\">\n"))
+    return report
+
+
 def main(argv):
     force = "--force-thumbs" in argv
     projects, report = build(thumbs=force or "--thumbs" in argv, force=force)
+    if "--root" in argv:
+        report += build_root(thumbs=True, force=force)
     for p in projects:
         print(f"{p['name']}: {sum(1 for e in p['entries'] if e['kind'] == 'prototypes')} prototypes, "
               f"{sum(1 for e in p['entries'] if e['kind'] == 'concepts')} concepts")
