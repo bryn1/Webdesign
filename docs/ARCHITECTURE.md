@@ -51,8 +51,9 @@ history, not a live gate (per the v3 note above).
 | `.tmp/`, `.playwright-mcp/`, `.pytest_cache/` | Git-ignored scratch (probe payloads, browser logs). |
 
 No build system, no package.json, no node_modules, no backend, no database, no API surface
-(DONE.md N2). Entry points: repo-root `index.html` (the browse entry — :8090's landing card page
-and, once pushed, the public mirror root), `projects/salong/prototypes/index.html` (gallery) and
+(DONE.md N2). Entry points: repo-root `index.html` (the public mirror root page once pushed —
+:8090's landing card page is the generated `_site/index.html`, see the `_site/` row above),
+`projects/salong/prototypes/index.html` (gallery) and
 `projects/salong/prototypes/<NN>-<name>/index.html`
 per theme.
 
