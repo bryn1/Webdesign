@@ -81,8 +81,8 @@
       status.textContent = 'Tack, ' +
         document.getElementById('cf-namn').value.trim().split(/\s+/)[0] +
         '! Meddelandet skickas till e-post när backend kopplas in — ' +
-        'ingen information har ännu nått Din Salong. Vill du boka tid redan nu? ' +
-        'Ring eller skriv på Instagram @dinsalong.';
+        'ingen information har ännu nått Jane Cooper. Vill du boka tid redan nu? ' +
+        'Ring eller skriv på Instagram @jane.cooper.';
       status.hidden = false;
     }
   });

@@ -17,7 +17,7 @@ tools/check-links.py         crawls the served site; every local reference must 
 docs/ARCHITECTURE.md         how the repo and the server fit together
 ```
 
-Projects today: **anny** (Anny Morin, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
+Projects today: **anny** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
 builds) and **portfolio** (20 portfolio design themes + the workflow-explode concept).
 
 ## Add a prototype

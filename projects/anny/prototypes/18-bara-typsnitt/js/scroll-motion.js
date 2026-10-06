@@ -381,7 +381,7 @@
   mm.add("(prefers-reduced-motion: no-preference) and (min-width: 48rem)", function () {
     /* DENSITY-FIX-01: block 21/22 mäter ordsammandets gap med offsetLeft/
        offsetWidth — måste ske EFTER webfont-laddning, annars mäts
-       fallback-fontens bredd och clampen blir för snäll (Din Stad-fallet:
+       fallback-fontens bredd och clampen blir för snäll (Malmö-fallet:
        ordet fick x-amplitud 10 mot ett för stort uppmätt gap). Block 20 är
        mätoki och registreras direkt; 21/22 registreras på fonts.ready och
        dödas av samma städning om villkoret vänder. */

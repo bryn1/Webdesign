@@ -1,28 +1,28 @@
-# BRIEF — gemensamt innehåll för alla 10 prototyper (Anny Morin PoC)
+# BRIEF — gemensamt innehåll för alla 10 prototyper (Jane Cooper PoC)
 
 Alla prototyper är design-teman kring **samma innehåll** — ägarens nuvarande PoC-sajt
-(Anny Morin, frisör, repo bryn1/anny). Ett tema = hela sidan bygd från grunden under
+(Jane Cooper, frisör, repo bryn1/anny). Ett tema = hela sidan bygd från grunden under
 `prototypes/<NN>-<namn>/`. Innehållet nedan är VERIFIERAD källa: `/home/claudecode/Annie hemsida/index.html`
 (livesajt: https://sibbamala.com/anny/). Återanvänd texterna ordagrant där det passar —
 det gör temana direkt tillämpbara på PoC:n.
 
 ## Språk & röst
-Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår i Karlskrona").
+Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår i Malmö").
 
 ## Sektioner (bevara alla — nav-samma id:n gör temana utbytbara)
-1. Hero — `id="top"` — Namn "Anny Morin", eyebrow "Frisör i Karlskrona",
+1. Hero — `id="top"` — Namn "Jane Cooper", eyebrow "Frisör i Malmö",
    sub: "Klippning, färg och vård med lugn och omsorg." CTA → boka/kontakt.
 2. Om mig — `id="om"` — rubrik "Hår som känns som ditt". Brödtext (ordagrant från PoC):
-   "Jag heter Anny Morin och är frisör i Karlskrona. Mitt arbete bygger på att lyssna
+   "Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger på att lyssna
    först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
-   går ut dörren." + "Just nu arbetar jag på Müllers., salongen på Landbrogatan 11 i
-   centrala Karlskrona. Vi arbetar med bland annat ammoniakfri färg, balayage och
+   går ut dörren." + "Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i
+   centrala Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och
    vårdande behandlingar." + "Vill du se mitt dagliga arbete? Följ mig på Instagram
-   @mullers.anny." Porträtt: bilden finns — `../_assets/anny-portrait.jpg` (Anny själv,
+   @jane.cooper." Porträtt: bilden finns — `../_assets/anny-portrait.jpg` (Jane själv,
    spegelselfie i salongen, från hennes publika Instagram-inlägg
-   instagram.com/mullers.anny/p/DbGN8NoIgX3/, ägarens uppdrag 2026-10-05; provenans i
+   instagram.com/jane.cooper/p/DbGN8NoIgX3/, ägarens uppdrag 2026-10-05; provenans i
    `_assets/anny-portrait.ATTRIBUTION.md`). Alla teman visar den i Om-sektionen, inramad
-   enligt temat, alt "Anny Morin, frisör på Müllers i Karlskrona".
+   enligt temat, alt "Jane Cooper, frisör på Jane Cooper i Malmö".
    Undantag 15 + 18: foto-fria teman (research-2 §6) behåller plats-hållaren
    "Porträtt — bild kommer" — "helt utan foto" är deras poäng.
 3. Tjänster — `id="tjanster"` — rubrik "Det här kan jag". Fem tjänster (titel + PoC-text):
@@ -34,9 +34,9 @@ Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår
    Kalender/grid är en MOCK som är märkt "demo" (ingen backend). Vald tid → dialog med
    telefon/IG-väg, exakt som PoC:ns booking-mock.
 6. Kontakt — `id="kontakt"` — rubrik "Hitta mig eller skriv till mig".
-   Müllers. — Karlskrona, Landbrogatan 11, 371 35 Karlskrona.
-   Telefon 072-155 48 60 → `tel:+46721554860`. E-post Anny.mullerskarlskrona@gmail.com →
-   `mailto:`. Instagram: https://www.instagram.com/mullers.anny/ (@mullers.anny).
+   Jane Cooper — Malmö, Drottninggatan 2, 000 00 Malmö.
+   Telefon +46 70 123 45 67 → `tel:46701234567`. E-post jane.cooper@example.com →
+   `mailto:`. Instagram: https://www.instagram.com/jane.cooper/ (@jane.cooper).
    Öppettider: "(bekräftas snart)" — ej hitte-på. Kontaktformulär: demomodalitet —
    formuläret får finnas men måste synligt säga att ingen backend är kopplad (PoC-honesty).
 

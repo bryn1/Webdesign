@@ -1,4 +1,4 @@
-/* Din Salong — demo-bokning + demo-formulär. Ingen backend: allt är märkt demo. */
+/* Jane Cooper — demo-bokning + demo-formulär. Ingen backend: allt är märkt demo. */
 (function () {
   "use strict";
 

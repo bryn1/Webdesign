@@ -1,4 +1,4 @@
-/* 01 · Din Salong-editorial — scroll-koreografi (MC 10088, ägarens JS-regel
+/* 01 · Jane Cooper-editorial — scroll-koreografi (MC 10088, ägarens JS-regel
    2026-10-05: "design 1-20 ska ha JS"). GSAP + ScrollTrigger lokalt vendor
    (../_assets/vendor/) — ingen CDN, inga egna globals (IIFE).
    All rörelse registreras ENDAST i (prefers-reduced-motion: no-preference):

@@ -29,8 +29,8 @@
 
     status.textContent =
       "Tack, " + name + "! Det här är en demo — ingen backend är kopplad, " +
-      "så meddelandet skickades inte. Ring 07X-XXX XX XX eller skriv till " +
-      "@dinsalong på Instagram.";
+      "så meddelandet skickades inte. Ring +46 70 123 45 67 eller skriv till " +
+      "@jane.cooper på Instagram.";
     form.reset();
   });
 })();

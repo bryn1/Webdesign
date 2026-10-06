@@ -72,7 +72,7 @@
         'Det här är en demo — ingen tid bokas',
         'Du valde ' + dag + ' ' + this.getAttribute('data-time') +
         '. Ingen backend finns kopplad, så tiden blir inte reserverad. ' +
-        'Ring eller skriv till Din Salong, så bokar vi tiden åt dig.'
+        'Ring eller skriv till Jane Cooper, så bokar vi tiden åt dig.'
       );
     });
   }
@@ -85,8 +85,8 @@
       openDialog(
         'Det här är ett demoformulär',
         'Tack, ' + (form.elements.namn.value || 'du') + '! Formuläret är inte kopplat till ' +
-        'någon backend, så meddelandet skickades inte. Ring 07X-XXX XX XX eller DM:a ' +
-        '@dinsalong på Instagram, så hör Din Salong av sig.'
+        'någon backend, så meddelandet skickades inte. Ring +46 70 123 45 67 eller DM:a ' +
+        '@jane.cooper på Instagram, så hör Jane Cooper av sig.'
       );
       form.reset();
     });

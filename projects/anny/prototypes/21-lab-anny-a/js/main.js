@@ -1,4 +1,4 @@
-/* main.js — Din Salong
+/* main.js — Jane Cooper
    Del 1: scrollkoreografi (kräver klassen "motion" på <html> + lokala GSAP).
    Del 2: boknings- och formulärdemo (kör alltid där dialog stöds; innehåll
    är fullt synligt även utan denna fil). */
