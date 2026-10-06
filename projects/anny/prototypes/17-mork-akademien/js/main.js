@@ -37,7 +37,7 @@
       if (notis) {
         notis.textContent =
           "Demo — ingen backend är kopplad, meddelandet skickades inte. " +
-          "Ring 072-155 48 60 eller skriv till @mullers.anny.";
+          "Ring 07X-XXX XX XX eller skriv till @dinsalong.";
       }
     });
   }

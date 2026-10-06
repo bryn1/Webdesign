@@ -81,8 +81,8 @@
       status.textContent = 'Tack, ' +
         document.getElementById('cf-namn').value.trim().split(/\s+/)[0] +
         '! Meddelandet skickas till e-post när backend kopplas in — ' +
-        'ingen information har ännu nått Anny. Vill du boka tid redan nu? ' +
-        'Ring eller skriv på Instagram @mullers.anny.';
+        'ingen information har ännu nått Din Salong. Vill du boka tid redan nu? ' +
+        'Ring eller skriv på Instagram @dinsalong.';
       status.hidden = false;
     }
   });

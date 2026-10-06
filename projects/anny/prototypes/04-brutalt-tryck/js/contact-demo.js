@@ -15,8 +15,8 @@
       form.reportValidity();
       return;
     }
-    status.textContent = "Demo — inget skickades (ingen backend). Ring 072-155 48 60 "
-      + "eller DM:a @mullers.anny så hörs vi på riktigt.";
+    status.textContent = "Demo — inget skickades (ingen backend). Ring 07X-XXX XX XX "
+      + "eller DM:a @dinsalong så hörs vi på riktigt.";
     form.reset();
   });
 })();

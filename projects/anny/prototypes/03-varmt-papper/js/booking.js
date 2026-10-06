@@ -128,7 +128,7 @@
     form.reset();
     status.hidden = false;
     status.textContent = "Tack, " + namnKort + "! Det här är en demo — " +
-      "meddelandet skickades inte, ingen backend är kopplad. Ring 072-155 48 60 " +
-      "eller skriv på Instagram @mullers.anny.";
+      "meddelandet skickades inte, ingen backend är kopplad. Ring 07X-XXX XX XX " +
+      "eller skriv på Instagram @dinsalong.";
   });
 }());

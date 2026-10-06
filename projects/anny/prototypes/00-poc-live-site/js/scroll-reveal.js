@@ -1,5 +1,5 @@
 /* scroll-reveal.js — one concern: scroll-driven reveals.
- * 1) Hero title "Anny Morin — Frisör Karlskrona" builds word-by-word from the
+ * 1) Hero title "Din Salong — Frisör Din Stad" builds word-by-word from the
  *    hero's scroll progress (research pattern: brand builds as you scroll).
  *    A resting page never shows a truncated title: at scroll 0 the build
  *    auto-completes ~0.8s after load and then stays complete (QA P1, c2).

@@ -62,7 +62,7 @@
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       result.textContent = 'Tack — men detta är en demo: ingen backend är kopplad och ' +
-        'inget meddelande skickades. Ring 072-155 48 60 eller DM:a @mullers.anny.';
+        'inget meddelande skickades. Ring 07X-XXX XX XX eller DM:a @dinsalong.';
       form.reset();
     });
   }

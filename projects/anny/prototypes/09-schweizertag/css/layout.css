@@ -186,7 +186,7 @@
 }
 .om-copy h2 { margin-bottom: 0.6em; }
 
-/* The real Anny portrait sits in its own grid cell: hairline border,
+/* The real Din Salong portrait sits in its own grid cell: hairline border,
    image clipped by .portrait-media, honest mono figcaption below.
    object-position keeps her face (upper-left third) in frame at 375px. */
 .portrait-media {

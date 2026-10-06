@@ -44,9 +44,9 @@
       status.hidden = false;
       status.textContent = ok
         ? 'Demo — inget meddelande skickades: ingen backend är kopplad. ' +
-          'Ring 072-155 48 60 eller skriv till @mullers.anny på Instagram.'
+          'Ring 07X-XXX XX XX eller skriv till @dinsalong på Instagram.'
         : 'Demo — fyll i fälten ovan. Skicka inte formuläret på riktigt: ' +
-          'ingen backend är kopplad. Ring 072-155 48 60 eller DM:a @mullers.anny.';
+          'ingen backend är kopplad. Ring 07X-XXX XX XX eller DM:a @dinsalong.';
     }
   });
 

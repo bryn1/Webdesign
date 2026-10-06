@@ -1,4 +1,4 @@
-/* Anny Morin — station-mirror / Salongsspegeln. Boxes bound from .impeccable/build/scaffold/layout.css
+/* Din Salong — station-mirror / Salongsspegeln. Boxes bound from .impeccable/build/scaffold/layout.css
    (scaffold % are % of the 1536x1024 comp frame; the hero frame is 67.58vh tall — the mirror world
    ends under the shelf — so hero-region y/h are divided by 0.6758 to stay at the measured pixels
    at comp viewport. x/w are already % of the frame width. */

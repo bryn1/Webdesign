@@ -1,4 +1,4 @@
-/* Anny Morin — sjökortet. Page styles. Region boxes = measured comp geometry (build-phase scaffold). */
+/* Din Salong — sjökortet. Page styles. Region boxes = measured comp geometry (build-phase scaffold). */
 
 :root {
   --r-chart-field-x: 0.000%; --r-chart-field-y: 7.810%; --r-chart-field-w: 100.000%; --r-chart-field-h: 92.190%;
@@ -11,7 +11,7 @@
   --r-name-cap: 53px; --r-name-font: 76px; --r-name-family: 'Rufina'; --r-name-weight: 700;
   --r-subline-x: 5.340%; --r-subline-y: 29.490%; --r-subline-w: 22.400%; --r-subline-h: 3.320%;
   --r-subline-cap: 19px; --r-subline-font: 27px; --r-subline-family: 'Maname'; --r-subline-weight: 400;
-  --r-ring-anny-x: 4.040%; --r-ring-anny-y: 34.180%; --r-ring-anny-w: 13.280%; --r-ring-anny-h: 5.080%;
+  --r-ring-dinsalong-x: 4.040%; --r-ring-dinsalong-y: 34.180%; --r-ring-dinsalong-w: 13.280%; --r-ring-dinsalong-h: 5.080%;
   --r-route-x: 31.120%; --r-route-y: 41.800%; --r-route-w: 54.040%; --r-route-h: 27.730%;
   --r-om-heading-x: 4.170%; --r-om-heading-y: 62.110%; --r-om-heading-w: 16.930%; --r-om-heading-h: 3.520%;
   --r-om-heading-cap: 17px; --r-om-heading-font: 24px; --r-om-heading-family: 'Allerta Stencil'; --r-om-heading-weight: 400;
@@ -238,10 +238,10 @@ a:focus-visible { outline: 2px solid var(--fairway); outline-offset: 3px; }
 }
 
 /* the fairway buoy: the page's single red, the primary CTA (owner ruling: tel link) */
-.ring-anny {
+.ring-dinsalong {
   position: absolute;
-  left: var(--r-ring-anny-x); top: var(--r-ring-anny-y);
-  width: var(--r-ring-anny-w); height: var(--r-ring-anny-h);
+  left: var(--r-ring-dinsalong-x); top: var(--r-ring-dinsalong-y);
+  width: var(--r-ring-dinsalong-w); height: var(--r-ring-dinsalong-h);
   z-index: 4;
   display: inline-flex;
   align-items: center;
@@ -254,15 +254,15 @@ a:focus-visible { outline: 2px solid var(--fairway); outline-offset: 3px; }
   text-decoration: none;
   white-space: nowrap;
 }
-.ring-anny::before {
+.ring-dinsalong::before {
   content: "";
   width: 1.5em; height: 1.5em;
   flex: none;
   background: var(--fairway);
   border-radius: 50%;
 }
-.ring-anny:hover { color: var(--fairway); }
-.ring-anny:hover::before { transform: scale(1.08); }
+.ring-dinsalong:hover { color: var(--fairway); }
+.ring-dinsalong:hover::before { transform: scale(1.08); }
 
 /* the fairway route (code-drawn SVG) */
 .route {
@@ -492,15 +492,15 @@ a:focus-visible { outline: 2px solid var(--fairway); outline-offset: 3px; }
   }
   .nav .buoys { display: none; }
   .nav a { font-size: 15px; }
-  .eyebrow, .name, .subline, .ring-anny, .om-heading, .om-tag {
+  .eyebrow, .name, .subline, .ring-dinsalong, .om-heading, .om-tag {
     position: relative; inset: auto; width: auto; height: auto;
     margin: .4rem 1.15rem 0;
   }
   .eyebrow { margin-top: 1.4rem; font-size: 15px; letter-spacing: .3em; transform: none; }
   .name { font-size: clamp(2.3rem, 12vw, 3.1rem); margin-top: .1rem; }
   .subline { font-size: clamp(1.05rem, 4.6vw, 1.3rem); max-width: 26ch; margin-top: .6rem; }
-  .ring-anny { display: inline-block; width: fit-content; font-size: clamp(1rem, 5vw, 1.15rem); margin-top: 1.1rem; }
-  .ring-anny::before { display: none; }
+  .ring-dinsalong { display: inline-block; width: fit-content; font-size: clamp(1rem, 5vw, 1.15rem); margin-top: 1.1rem; }
+  .ring-dinsalong::before { display: none; }
   .route { position: relative; inset: auto; width: 86%; height: auto; margin: 1.8rem auto 0; display: block; }
   .om-heading { margin-top: 2.4rem; font-size: 17px; }
   .om-plate { position: relative; inset: auto; width: min(320px, 88%); height: auto; display: block; margin: .8rem auto 0; }

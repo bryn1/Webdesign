@@ -113,7 +113,7 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       status.textContent = 'Demo: ingenting skickades — ingen backend är kopplad. ' +
-        'Ring 072-155 48 60 eller skriv på Instagram @mullers.anny.';
+        'Ring 07X-XXX XX XX eller skriv på Instagram @dinsalong.';
     });
   }
 })();

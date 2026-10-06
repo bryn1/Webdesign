@@ -63,7 +63,7 @@
       }
       status.textContent =
         "Tack! Men detta är en demo — ingen backend är kopplad, meddelandet skickades inte. " +
-        "Ring 072-155 48 60 eller skriv på Instagram @mullers.anny.";
+        "Ring 07X-XXX XX XX eller skriv på Instagram @dinsalong.";
       form.reset();
     });
   }
