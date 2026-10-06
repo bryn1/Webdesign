@@ -2,3 +2,11 @@
 .pytest_cache/
 __pycache__/
 .playwright-mcp/
+# MC 10062.30.1 (owner 2026-10-07: "Only committ final site and its images"): run records, tool state and generated output stay on disk, untracked
+.audits/
+.impeccable/
+.dsh/
+_site/
+**/.shots/
+**/node_modules/
+__pycache__/

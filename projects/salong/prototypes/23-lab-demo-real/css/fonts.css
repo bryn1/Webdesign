@@ -1,0 +1,113 @@
+/* Self-hosted font files from Google Fonts (latin + latin-ext subsets). Downloaded 2026-10-06. @font-face authored locally; no hosted stylesheet is shipped. */
+@font-face {
+  font-family: 'Alice';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Alice-400-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Alice';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Alice-400-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-400-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-400-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-500-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-500-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-600-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/AsapCondensed-600-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inria Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InriaSerif-400-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inria Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InriaSerif-400-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inria Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/InriaSerif-700-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inria Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/InriaSerif-700-normal-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InstrumentSerif-400-italic-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InstrumentSerif-400-italic-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InstrumentSerif-400-normal-latin-ext.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/InstrumentSerif-400-normal-latin.woff2') format('woff2');
+}
