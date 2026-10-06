@@ -1,3 +1,4 @@
+/* reason (>400 rader, FIX-ARCH-01 2026-10-07): sidan är ett enda sjökort — uppmätta regionboxar, slutet palett och sheet-ratio-regler bildar ett mått-system där varje platta läser sina koordinater ur :root (31 förbrukare); typsnitten är redan splitade till fonts.css. */
 /* Jane Cooper — sjökortet. Page styles. Region boxes = measured comp geometry (build-phase scaffold). */
 
 :root {

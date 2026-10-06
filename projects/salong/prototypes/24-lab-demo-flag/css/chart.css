@@ -1,3 +1,4 @@
+/* reason (>400 rader, FIX-ARCH-01 2026-10-07): temat saknar andra stylesheets — @font-face-blocket, scaffold-boxarna (% av 1440×900-kompfilen) och bandreglerna läses i samma cascade; en split skulle separera typsnitten och den mätta geometrin från banden som konsumerar dem. */
 /* Jane Cooper — Sjökortet. One chart sheet from hero to cartouche. */
 
 @font-face {

@@ -20,9 +20,14 @@ wave (owner rulings 2026-10-05) made the shared motion mechanism large enough to
 
 ## 1. Shape in one line
 
-Static tree of 20 self-contained theme dirs + one shared `_assets/` + a gallery index, served
-read-only by `python3 -m http.server` on :8090; content canon in `projects/salong/spec.md`; the DoD gate is a
-pytest file plus verdict files under `.audits/<run>/out/`.
+Multi-project static tree — `projects/<project>/{prototypes,concepts}/` of self-contained builds
+(salong: 20 gallery themes + the live-PoC snapshot 00 + 6 lab builds 21–26 + shared `_assets/`;
+portfolio: 20 single-file themes + the workflow-explode concept) — where what is served read-only by
+`python3 -m http.server` on :8090 is the GENERATED browse site `_site/` (`tools/build-index.py`), not
+the repo root (so `.git`/`.audits` are unreachable — both probe 404, measured this pass); content canon
+for salong in `projects/salong/spec.md`; the DoD record is the verdict files under
+`.audits/<run>/out/` (on disk, untracked) — the pytest file under `.audits/202610041341-*/out/` is
+history, not a live gate (per the v3 note above).
 
 ## 2. Repo layout (as it actually is)
 
@@ -31,9 +36,13 @@ pytest file plus verdict files under `.audits/<run>/out/`.
 | `projects/salong/spec.md` | Content canon — every theme's Swedish copy/section contract (single source). |
 | `PORT` | Demo port, committed: `8090`. Gate + keepalive read it. |
 | `projects/salong/prototypes/` | The product. 20 theme dirs + `_assets/` + gallery `index.html`. |
+| `tools/build-index.py` | The browse-site generator (stdlib only, deterministic): scans `projects/<project>/{prototypes,concepts}/<name>/index.html` and writes `_site/` — a root page with one card per project, one page per project (title from `<title>`, thumbnail, link), and relative symlinks `prototypes`/`concepts` pointing back into `projects/` so relative assets resolve. Run after adding a build. |
+| `tools/check-links.py` | HTTP crawler for the served site: follows every same-host page and requests every local reference (a/link/script/img/srcset, inline+file CSS `url()`/`@import`, JS asset strings); external refs are counted, not fetched; asserts forbidden paths (`/.git/`, `/.audits/`, …) answer 404. Exit 0 = zero broken. |
+| `tools/gen-placeholders.py` | The deterministic placeholder-art generator (SEED 20261006): redraws its 17 tracked image targets as abstract paper/ink/clay color washes — no faces, no text, no recognizable objects — opening each existing file first so every replacement keeps that file's exact pixel size and format (owner ruling R2, §5). |
+| `_site/` | Generated browse site — gitignored, regenerated, never hand-edited. This is what :8090 actually serves (the keepalive starts `http.server --directory …/_site`); its per-project `prototypes`/`concepts` entries are symlinks into `projects/`. |
 | `.audits/202610041341-f6053f16/out/` | This run's ledger (`DONE.md`), gate (`test_prototypes.py`), verdict files, research. |
 | `.audits/202610051009-workflow-explode/` | A SEPARATE, unrelated run (MC 10140, a new-concept design phase). In-flight, untracked. Not part of the product. |
-| `projects/portfolio/concepts/workflow-explode/` | That run's build target (served on :8092 by its own keepalive). Empty placeholder at this writing; not the product. |
+| `projects/portfolio/concepts/workflow-explode/` | That run's build target (served on :8092 by its own keepalive). Full build since 2026-10-05: `index.html` + `css/` + `js/` (vendored ScrollTrigger) + `assets/` + RESULT.md, all tracked; `:8092/workflow-explode/` answers 200 (probed this pass). Not the product. |
 | `docs/ARCHITECTURE.md` | This file (layout-v2 path). |
 | `.tmp/`, `.playwright-mcp/`, `.pytest_cache/` | Git-ignored scratch (probe payloads, browser logs). |
 
@@ -56,7 +65,8 @@ NN-name/
 
 Rules that hold across all 20 (measured this pass):
 - Swedish, `lang="sv"`, identical BRIEF copy; demo-honest `#boka`/`#kontakt` paint a visible demo label.
-- `<img>` srcs point at `../_assets/` — 18 themes embed the 4 real photos + the portrait;
+- `<img>` srcs point at `../_assets/` — 18 themes embed the 4 gallery images + the portrait (all
+  generated placeholder art, §5 — no real photographs exist in the product);
   themes **15** and **18 are photo-free by brief** and must state it *inside* `#galleri`
   (gate checks parsed img-srcs and the in-section statement, not prose).
 - The six section ids are identical across themes on purpose — themes are drop-in swappable.
@@ -109,16 +119,21 @@ the accepted remnant).
 _assets/
   vendor/gsap.min.js            GSAP 3.12.7, vendored (no CDN at runtime)
   vendor/ScrollTrigger.min.js   ScrollTrigger 3.12.7
-  gal-01.jpeg … gal-04.jpeg     the owner's 4 real photos (only real photos in existence)
-  jane-portrait.jpg             real portrait (1656×2208), provenance: ATTRIBUTION.md below
+  gal-01.jpeg … gal-04.jpeg     generated placeholder art (1536×2048 each), provenance below
+  jane-portrait.jpg             generated placeholder art (1656×2208), provenance: ATTRIBUTION.md below
 ```
 
-Portrait provenance (`jane-portrait.ATTRIBUTION.md`, committed @ 1ef4e9e): owner-delivered —
-fetched 2026-10-05 on his explicit ask from her public Instagram post (`jane.cooper`); Jane Cooper
-owns the image; before a real site: request original file + formal OK. All 18 portrait-bearing
-themes reference the SAME file — swap once, applies everywhere. Themes 15/18 stay photo-free by
-concept (ruled). Other gallery slots without a real photo show honest "Bild kommer" frames
-(DONE L1 — PoC reality, not a bug).
+Image provenance (`jane-portrait.ATTRIBUTION.md`, tracked @ 7e6c6a0): the image files above are
+**generated placeholder art, not photographs** — owner ruling R2 (MC 10088, 2026-10-06: "placeholder
+for all images … and any personal information") removed the client's original portrait and the real
+photos from the product; only the file *names* remain. Every image is deterministic output of
+`tools/gen-placeholders.py` (SEED 20261006): abstract paper/ink/clay color washes — no faces, no
+text, no recognizable objects — each target regenerated at the old file's exact pixel size and
+format (re-checked with PIL this pass: gallery 1536×2048, portrait 1656×2208), so no layout metric
+moved. The same generator owns the 00 snapshot's `images/gal-0*.jpeg` and the lab-build plates
+(17 `TARGETS` total). All 18 portrait-bearing themes reference the SAME file — swap once, applies
+everywhere. Themes 15/18 stay photo-free by concept (ruled). Gallery slots without an image show
+honest "Bild kommer" frames (DONE L1 — PoC reality, not a bug).
 
 ## 6. Serve topology
 
@@ -157,14 +172,33 @@ verdicts).
 
 ## 8. Known exceptions register (file-hygiene and design, all pre-ruled)
 
-1. **`08-organiskt-hantverk/index.html` = 456 lines** — the only repo file >400. Header reason
-   inside the file (ruled 2026-10-05, sha f5b2de9): single-page theme kept whole; CSS/JS already
-   split; fragmenting markup would separate each hand-drawn SVG from its copy. Files >400 lines
-   with header reason lines (density-wave growth, ruled 2026-10-05 ARCH P3-1 re-pin):
-   `17-mork-akademien/css/style.css` **414** (one coherent theme dress) and
-   `18-bara-typsnitt/js/scroll-motion.js` **470** (word-gap safety clamp must stay beside the
-   amplitudes it guards). The ~35-file 251–399 hand-authored band carries no hard-ceiling
-   breaches. Every >400 file states its reason in the header. Ceiling rule holds.
+1. **Files >400 lines state their reason in the header** (hygiene rule 2026-10-05: >400 requires a
+   reason line, not a split). The full >400 list was re-measured with `wc -l` over every tracked
+   text file this pass:
+   - **salong — 9 files, every one now reasoned.** Pre-ruled three: `08-organiskt-hantverk/index.html`
+     **456** (single-page theme kept whole; fragmenting markup would separate each hand-drawn SVG from
+     its copy — ruled 2026-10-05, sha f5b2de9), `17-mork-akademien/css/style.css` **414** (one coherent
+     theme dress), `18-bara-typsnitt/js/scroll-motion.js` **470** (word-gap safety clamp must stay
+     beside the amplitudes it guards). Six lab-build files gained their header reason in FIX-ARCH-01
+     (2026-10-07), each specific to its file, line counts counted after that line landed:
+     `23-lab-demo-real/css/styles.css` **713** (one measured
+     comp-geometry map — `:root` scaffold boxes and their consumers in the same flow as the
+     sections→motion→responsive phase layers), `22-lab-demo-b/css/styles.css` **680** (whole theme
+     garment — WCAG-ratio-annotated palette plus REVIEW fixes written at their use-sites inside the
+     section blocks), `26-lab-demo-low/css/style.css` **510** (one sjökort measuring system — region
+     boxes + closed palette; fonts already split to `fonts.css`), `25-lab-demo-live/css/sektioner.css`
+     **453** and `21-lab-demo-a/css/sektioner.css` **447** (the section half of a two-file split —
+     six brief sections kept in page order, field transitions depend on rule order), and
+     `24-lab-demo-flag/css/chart.css` **418** (the theme's only stylesheet — `@font-face` + measured
+     boxes + bands resolve in one cascade). 713/680 also sit above the 600 gate ceiling — flagged to
+     the orchestrator; the gate targets files a run *grew*, and these commits grew nothing. The 52-file
+     251–399 salong hand-authored band (re-counted this pass) carries no ceiling breaches.
+   - **portfolio — 20 single-file themes (1111→555 lines), reasoned by build shape.** Every portfolio
+     theme is a copied single-file build (`index.html` + `SOURCE.md` per dir, from `~/portfolio-designs`
+     @ b43cae3); the self-contained monolith IS the MC 10096 build brief — the header states it as an
+     intentional exception (e.g. `01-rutorn`). Not all 20 carry that header line; annotating the rest
+     is an open portfolio-owner item, deliberately untouched by FIX-ARCH-01 (the ARCH verdict named
+     only the six salong lab files).
 2. Vendored `_assets/vendor/*.js` are generated/minified — exempt from line hygiene (correctly:
    `wc -l` there is meaningless, ~11 lines of megabytes).
 3. Themes 15 + 18 photo-free — by brief, gate-enforced (see §3).
@@ -186,5 +220,27 @@ verdicts).
   CDN links (exception E3). No build, no transpile, no bundler, no test runner beyond pytest.
 - **Consumers of the motion mechanism: only the 20 `index.html`** via
   `<script defer src="../_assets/vendor/…">` + their one motion file. Adding a theme = copy the
-  anatomy of §3 + one motion file honouring §4 + gallery card; the pytest gate goes RED until the
-  bijection and photo-honesty hold.
+  anatomy of §3 + one motion file honouring §4 + gallery card; the gallery bijection and
+  image-honesty invariants (§3) must keep holding (historically pytest-enforced — see §1).
+
+## 10. Public hosting (vm106) — COMMITTED, AWAITING PUSH
+
+MC 10088's hosting run (`.audits/20261006-1412-vm106-hosting/`) published this repo to the vm106
+reconciler as the static app **`webdesign`**: strict-JSON **`hosting.yaml` committed at the repo
+root @ 8336bd4** (`name: webdesign`, `type: static`, `root: apps/webdesign`, PI-free description —
+under bryn1's strict owner policy only a root hosting.yaml makes the repo a web app at all). The
+reconciler's own bar validator was re-run against this checkout when this section was last
+de-staled: `validate-hosting.py` exit 0, all 7 checks PASS (hosting.yaml-present · is-web-app ·
+strict-JSON parse · name · type · root · static-entrypoint).
+
+**State as measured: COMMITTED, AWAITING PUSH.** `git fetch origin` + `git log origin/main..HEAD`
+still lists the hosting commits (origin/main = 00b8dc5) — until they reach GitHub the reconciler
+cannot see them and nothing is public; once pushed, the ARMED reconciler (mode probe recorded in the
+run's SPEC) mirrors the subset and adopts the app on its ~15-min tick, serving
+**https://sibbamala.com/webdesign/**. Live acceptance (the run's P4) had not yet passed when this
+section was last verified. The mirror's `include` is `/index.html` + `projects/**` html/css/js/fonts
+/images + `thumbs/**` + `/favicon.*`; its `exclude` drops `**/*.md`, `docs/**`, `tools/**`,
+`_site/**` and the dot-dirs — no markdown, docs, tooling or generated browse site ever reach the
+public mirror, which is exactly why the public browse surface is the REAL committed root
+`index.html` + `thumbs/` + `favicon.ico` (same commit; `_site/` stays gitignored per owner ruling
+MC 10062.30.1). Until a push lands, the :8090 LAN serve (§6) remains the live demo surface.

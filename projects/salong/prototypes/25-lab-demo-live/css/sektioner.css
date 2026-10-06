@@ -1,3 +1,4 @@
+/* reason (>400 rader, FIX-ARCH-01 2026-10-07): sektionshalvan av en tvådelning (token/bas/nav bor i style.css) — de sex brief-sektionerna står i sidans flöde, där fältbyterna papper→ockrafältet→mörka fältet→papper och namnsignaturen (förnamn 800, efternamn 400) är beroende av regelordningen. */
 /* sektioner.css — hero, om, tjänster, galleri, boka, kontakt */
 
 /* ============ 1 · MASTHEAD ============ */
