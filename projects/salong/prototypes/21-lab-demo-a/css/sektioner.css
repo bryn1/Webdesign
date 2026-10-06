@@ -1,3 +1,4 @@
+/* reason (>400 rader, FIX-ARCH-01 2026-10-07): sektionshalvan av en tvådelning (token/bas/nav bor i style.css) — de sex brief-fälten är en tidningssida vars fältgränser (ockrafältet, bokningens mörka fält, kontakt-pappret) är skrivna regel-mot-regel i dokumentordning; en split skulle skilja sektionsövergångarna åt. */
 /* sektioner.css — hero, om, tjänster, galleri, boka, kontakt */
 
 /* ============ 1 · MASTHEAD ============ */
