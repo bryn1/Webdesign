@@ -6,7 +6,7 @@
  * Loaded before gallery.js (defer order in index.html). Declares the site's
  * single sanctioned read-only global — the documented C3 exception in
  * docs/ARCHITECTURE.md. */
-window.DIN SALONG_GALLERY_IMAGES = [
+window.JANE COOPER_GALLERY_IMAGES = [
   'images/gal-01.jpeg',
   'images/gal-02.jpeg',
   'images/gal-03.jpeg',

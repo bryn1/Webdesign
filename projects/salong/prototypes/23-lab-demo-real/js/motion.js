@@ -1,4 +1,4 @@
-/* Din Salong — "epoch descent": nederst stigande djupmarkör, ett skikt leder i taget.
+/* Jane Cooper — "epoch descent": nederst stigande djupmarkör, ett skikt leder i taget.
    GSAP + ScrollTrigger lokalt. prefers-reduced-motion: ingen rörelse, allt syns. */
 (function () {
   "use strict";

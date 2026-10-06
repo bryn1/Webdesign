@@ -1,6 +1,6 @@
 /* contact-form.js — en sak: kontaktformulärets DEMO-flöde. Ingen backend finns
    (synligt markerat i formuläret), så skicket stoppas alltid och användaren
-   visas sanningen vart man verkligen når Din Salong. Inga globals. */
+   visas sanningen vart man verkligen når Jane Cooper. Inga globals. */
 (function () {
   'use strict';
 
@@ -55,8 +55,8 @@
     if (status) {
       status.hidden = false;
       status.textContent = 'Tack! Men detta är en demo — inget meddelande skickades. ' +
-        'Ingen backend är kopplad. Ring 07X-XXX XX XX eller mejla ' +
-        'hej@dinsalong.se för att nå Din Salong på riktigt.';
+        'Ingen backend är kopplad. Ring +46 70 123 45 67 eller mejla ' +
+        'jane.cooper@example.com för att nå Jane Cooper på riktigt.';
     }
     form.reset();
     fields.forEach(function (f) {

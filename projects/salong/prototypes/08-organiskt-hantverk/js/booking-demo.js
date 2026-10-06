@@ -67,7 +67,7 @@
       /* textContent — aldrig HTML-framställning av användarinput */
       status.textContent = 'Tack' + (name ? ' ' + name : '') +
         '! Det här är en demo — inget meddelande skickades. ' +
-        'Ring 07X-XXX XX XX eller mejla hej@dinsalong.se.';
+        'Ring +46 70 123 45 67 eller mejla jane.cooper@example.com.';
       form.reset();
     });
   }

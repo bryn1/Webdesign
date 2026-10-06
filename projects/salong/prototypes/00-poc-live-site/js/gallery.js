@@ -29,11 +29,11 @@
   wireButton('[data-gallery-next]', 1);
 
   /* Real-photo seam (QA P1, MC 3934.3 c2): js/gallery-manifest.js declares
-   * window.DIN SALONG_GALLERY_IMAGES — the files that actually exist. A slot is
+   * window.JANE COOPER_GALLERY_IMAGES — the files that actually exist. A slot is
    * upgraded to <img> only when listed there; an absent file costs ZERO
    * network requests (no HEAD-probe, no console 404s), placeholder stays.
    * Owner: add the file AND its manifest line — no markup change. */
-  var available = window.DIN SALONG_GALLERY_IMAGES || [];
+  var available = window.JANE COOPER_GALLERY_IMAGES || [];
   document.querySelectorAll('[data-gallery-media][data-img-slot]').forEach(function (media) {
     var slot = media.getAttribute('data-img-slot');
     if (!slot || available.indexOf(slot) === -1) return;

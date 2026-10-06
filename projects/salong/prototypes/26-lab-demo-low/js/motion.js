@@ -1,4 +1,4 @@
-/* Din Salong — rörelse: farleden ritas, hamnar öppnas sig längs kortet.
+/* Jane Cooper — rörelse: farleden ritas, hamnar öppnas sig längs kortet.
    Signature: farledens röda strecklinje ritas från bojen när sidan ankommer;
    sektionerna svepas fram som lodlinjer. Allt tystnar vid prefers-reduced-motion
    (då är sidan statisk, fullt synlig — ingen rörelse, ingen dold content). */
@@ -23,7 +23,7 @@
       });
 
       /* 2. Hero-texterna ankommer som uppmätta kolon — korta, lugna svep. */
-      gsap.from([".eyebrow", ".name", ".subline", ".ring-dinsalong"], {
+      gsap.from([".eyebrow", ".name", ".subline", ".ring-jane"], {
         y: 14,
         opacity: 0,
         duration: 0.55,

@@ -63,7 +63,7 @@
       }
       status.textContent =
         "Tack! Men detta är en demo — ingen backend är kopplad, meddelandet skickades inte. " +
-        "Ring 07X-XXX XX XX eller skriv på Instagram @dinsalong.";
+        "Ring +46 70 123 45 67 eller skriv på Instagram @jane.cooper.";
       form.reset();
     });
   }

@@ -1,4 +1,4 @@
-/* 13-91-tal — "91-tal": 90s Memphis paper-cutout theme for Din Salong.
+/* 13-91-tal — "91-tal": 90s Memphis paper-cutout theme for Jane Cooper.
    Text pairs measured (WCAG): ink #17171b on mint #bfe6dd 13.3:1,
    ink on yellow #ffd23f 12.4:1, ink on red #ff5a5f 5.9:1,
    white on blue #2b3a8c 10.1:1, mint on ink 13.3:1, ink on paper #fffdf7 17.6:1.
@@ -195,7 +195,7 @@ a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3p
   align-items: start;
 }
 .om-text p:first-child { margin-top: 0; }
-.portrait {                                   /* ramar Din Salongs porträttfoto (3:4) */
+.portrait {                                   /* ramar Jane Coopers porträttfoto (3:4) */
   margin: 0;
   background: #fff;
   border: 3px solid var(--ink);

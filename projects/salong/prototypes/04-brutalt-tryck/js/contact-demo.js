@@ -15,8 +15,8 @@
       form.reportValidity();
       return;
     }
-    status.textContent = "Demo — inget skickades (ingen backend). Ring 07X-XXX XX XX "
-      + "eller DM:a @dinsalong så hörs vi på riktigt.";
+    status.textContent = "Demo — inget skickades (ingen backend). Ring +46 70 123 45 67 "
+      + "eller DM:a @jane.cooper så hörs vi på riktigt.";
     form.reset();
   });
 })();

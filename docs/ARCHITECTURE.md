@@ -114,7 +114,7 @@ _assets/
 ```
 
 Portrait provenance (`jane-portrait.ATTRIBUTION.md`, committed @ 1ef4e9e): owner-delivered —
-fetched 2026-10-05 on his explicit ask from her public Instagram post (`jane.cooper`); Jane
+fetched 2026-10-05 on his explicit ask from her public Instagram post (`jane.cooper`); Jane Cooper
 owns the image; before a real site: request original file + formal OK. All 18 portrait-bearing
 themes reference the SAME file — swap once, applies everywhere. Themes 15/18 stay photo-free by
 concept (ruled). Other gallery slots without a real photo show honest "Bild kommer" frames

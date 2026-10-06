@@ -1,4 +1,4 @@
-/* 11 · Aindyp — "Blå färgbrunn" (aizome-indigo tema för Din Salong, MC 10088).
+/* 11 · Aindyp — "Blå färgbrunn" (aizome-indigo tema för Jane Cooper, MC 10088).
    Palett: indigo #1c2a45 / yta #16213a / washi #f2ede3 / vermilion #d94f30.
    Vermilion klarar 3.49:1 mot indigo → ENDAST dekorativt/stor text; länkar och
    smått använder text-säkra #ef8a66 (5.8:1). Muted #6b7a99 = dekorativt; små
@@ -139,7 +139,7 @@ img { max-width: 100%; display: block; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2.2rem; }
 
 /* ===== Om mig ===== */
-.portrait {                                    /* ramar Din Salongs porträttfoto (3:4) */
+.portrait {                                    /* ramar Jane Coopers porträttfoto (3:4) */
   aspect-ratio: 3 / 4; overflow: hidden;
   background: var(--bg-deep);
   border: 1px solid var(--line);

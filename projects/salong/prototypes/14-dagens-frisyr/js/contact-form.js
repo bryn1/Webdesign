@@ -14,8 +14,8 @@
     status.hidden = false;
     status.textContent =
       "Tack — men det här är en demo: inget meddelande skickades och ingen "
-      + "backend är kopplad. Ring 07X-XXX XX XX eller mejla "
-      + "hej@dinsalong.se.";
+      + "backend är kopplad. Ring +46 70 123 45 67 eller mejla "
+      + "jane.cooper@example.com.";
     form.reset();
   });
 })();

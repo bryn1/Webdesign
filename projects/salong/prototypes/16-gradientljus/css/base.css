@@ -180,7 +180,7 @@ a:hover { color: var(--txt-blue); }
 }
 @media (max-width: 820px) { .om-grid { grid-template-columns: 1fr; } }
 
-.portrait {                                   /* ramar Din Salongs porträttfoto (4:5-bild + ärlig bildtext) */
+.portrait {                                   /* ramar Jane Coopers porträttfoto (4:5-bild + ärlig bildtext) */
   margin: 0;
   border-radius: var(--radius);
   background: linear-gradient(160deg, #ece7fb, #fbeaf3 55%, #e7e6fd);

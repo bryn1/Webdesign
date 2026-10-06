@@ -15,14 +15,14 @@ Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår
 2. Om mig — `id="om"` — rubrik "Hår som känns som ditt". Brödtext (ordagrant från PoC):
    "Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger på att lyssna
    först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna när du
-   går ut dörren." + "Just nu arbetar jag på Salongen., salongen på Drottninggatan 2 i
+   går ut dörren." + "Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i
    centrala Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och
    vårdande behandlingar." + "Vill du se mitt dagliga arbete? Följ mig på Instagram
    @jane.cooper." Porträtt: bilden finns — `../_assets/jane-portrait.jpg` (Jane själv,
    spegelselfie i salongen, från hennes publika Instagram-inlägg
    instagram.com/jane.cooper/p/XXXXXXXXXXX/, ägarens uppdrag 2026-10-05; provenans i
    `_assets/jane-portrait.ATTRIBUTION.md`). Alla teman visar den i Om-sektionen, inramad
-   enligt temat, alt "Jane Cooper, frisör på Salongen i Malmö".
+   enligt temat, alt "Jane Cooper, frisör på Jane Cooper i Malmö".
    Undantag 15 + 18: foto-fria teman (research-2 §6) behåller plats-hållaren
    "Porträtt — bild kommer" — "helt utan foto" är deras poäng.
 3. Tjänster — `id="tjanster"` — rubrik "Det här kan jag". Fem tjänster (titel + PoC-text):
@@ -34,8 +34,8 @@ Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår
    Kalender/grid är en MOCK som är märkt "demo" (ingen backend). Vald tid → dialog med
    telefon/IG-väg, exakt som PoC:ns booking-mock.
 6. Kontakt — `id="kontakt"` — rubrik "Hitta mig eller skriv till mig".
-   Salongen. — Malmö, Drottninggatan 2, 000 00 Malmö.
-   Telefon 070-123 45 67 → `tel:+46701234567`. E-post jane.cooper@example.com →
+   Jane Cooper — Malmö, Drottninggatan 2, 000 00 Malmö.
+   Telefon +46 70 123 45 67 → `tel:46701234567`. E-post jane.cooper@example.com →
    `mailto:`. Instagram: https://www.instagram.com/jane.cooper/ (@jane.cooper).
    Öppettider: "(bekräftas snart)" — ej hitte-på. Kontaktformulär: demomodalitet —
    formuläret får finnas men måste synligt säga att ingen backend är kopplad (PoC-honesty).
