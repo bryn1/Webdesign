@@ -233,7 +233,7 @@ verdicts).
   anatomy of §3 + one motion file honouring §4 + gallery card; the gallery bijection and
   image-honesty invariants (§3) must keep holding (historically pytest-enforced — see §1).
 
-## 10. Public hosting (vm106) — LIVE (single-level); two-level BROWSE-V2 awaiting push
+## 10. Public hosting (vm106) — LIVE (two-level, BROWSE-V2)
 
 MC 10088's hosting run (`.audits/20261006-1412-vm106-hosting/`) published this repo to the vm106
 reconciler as the static app **`webdesign`**: strict-JSON **`hosting.yaml` committed at the repo
@@ -243,17 +243,18 @@ reconciler's own bar validator was re-run against this checkout when this sectio
 de-staled: `validate-hosting.py` exit 0, all 7 checks PASS (hosting.yaml-present · is-web-app ·
 strict-JSON parse · name · type · root · static-entrypoint).
 
-**State as measured: PUBLIC (single-level), TWO-LEVEL PENDING PUSH.** The hosting commits reached
-GitHub on 2026-10-06: `git fetch origin` shows origin/main = 061975e (reflog: pushed 23:07), and
-**https://sibbamala.com/webdesign/** answers HTTP 200 on the mirror. Live acceptance passed
-2026-10-07 (run out dir: TEST-verdict-live.md — adopt ~60 min after push, all 50 public pages 200,
-quarantine paths refused, zero PI, console clean; parent probes agree). What is LIVE today is the
-PRE-BROWSE-V2 single-level root page (all 48 prototype cards on one page, commit 061975e); the
-committed two-level layout (dd328b8: root = project cards only + `salong/` + `portfolio/` pages,
-per the owner's ruling "Webdesign/`<project>`, not everything on one page", MC 10088.12) is
-AWAITING PUSH — after the next push + reconciler tick, /webdesign/salong/ and /webdesign/portfolio/
-go live and this section must be re-stated as two-level-LIVE. The mirror's `include` is
-`/index.html` + `/salong/**` + `/portfolio/**`
+**State as measured: TWO-LEVEL PUBLIC.** The two-level layout (dd328b8: root = project cards only +
+`salong/` + `portfolio/` pages, per the owner's ruling "Webdesign/`<project>`, not everything on one
+page", MC 10088.12) was pushed with 797d196 + 172fd50 and published by the reconciler tick
+2026-10-07T09:18Z (gate[ok] product-path 200 2706B vs the repo-owned 1200B floor; public flip
+observed 09:20Z: root 2706B two-card page, /webdesign/salong/ 200). Acceptance of the prior
+single-level era: TEST-verdict-live.md (PASS); this state's own acceptance is fanned and lands as
+TEST-verdict-live-v3.md — until that verdict exists, treat the two-level public state as
+parent-probed (root/salong/ bytes + codes), not yet fully accepted. One gate-rule
+change was required and is fleet canon now: the reconciler's entry-page size floor (half of the
+live page) can never pass an intentional >50% shrink, so staging.py gained `min_bytes_mode: "own"`
+(own ruling recorded in agent-town master edf19b1b; this repo declares the floor at 1200B). The
+mirror's `include` is `/index.html` + `/salong/*.html` + `/portfolio/*.html`
 + `projects/**` html/css/js/fonts
 /images + `thumbs/**` + `/favicon.*`; its `exclude` drops `**/*.md`, `docs/**`, `tools/**`,
 `_site/**` and the dot-dirs — no markdown, docs, tooling or generated browse site ever reach the
@@ -261,5 +262,5 @@ public mirror, which is exactly why the public browse surface is the REAL commit
 surface: root `index.html` (project cards only, per the owner's BROWSE-V2 ruling MC 10088.12 —
 "Webdesign/`<project>`, not everything on one page") + the `salong/` + `portfolio/` pages +
 `thumbs/` + `favicon.ico` (`_site/` stays gitignored per owner ruling
-MC 10062.30.1). :8090 (LAN, §6) and the public mirror now serve the same product in two stages —
+MC 10062.30.1). :8090 (LAN, §6) and the public mirror now serve the same product at two stages —
 :8090 remains the LAN demo, the public URL is the public demo surface.
