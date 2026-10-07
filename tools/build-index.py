@@ -24,6 +24,11 @@ Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--root]
   --force-thumbs  remake every thumbnail
   --root          also write repo-root index.html + <project>/index.html pages + committed thumbs/
                   (thumbs made as needed)
+
+Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; ~320 lines > 250 soft): this generator is
+deliberately ONE file — build() (_site), root mode (committed public surface), the shared
+project_page()/root_card() templates and make_thumb() stay in one stdlib-only mechanism (monogamy
+per ARCH-c5 C3); splitting would fork the card templates, the defect this avoids.
 """
 import html
 import os
