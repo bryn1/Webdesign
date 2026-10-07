@@ -19,7 +19,7 @@ via parent-keepalive (cron). Starta ingen egen server. (`:8090` = `prototypes/`,
 - `js/` — `main.js` (boot + en enda pinned timeline), `scenes.js` (scen-byggare),
   `vendor/` — GSAP + ScrollTrigger 3.12.7, kopierade från `prototypes/_assets/vendor/`.
 - `assets/hero-12.png` — skärmbild av tema 12 på :8090, omfotograferad 2026-10-07 (den gamla bilden föregick personbytet Anny Morin → Jane Cooper och matchade inte prototypen; ny bild VERIFIERAD mot :8090/salong/prototypes/12-forgyllda-salongen/, 1280×900).
-- Typsnitt: Saira + Saira Condensed via Google Fonts-länk, lokal fallback i stapeln.
+- Typsnitt: Saira (variable) + Saira Condensed **lokalt vendorade** (E3-ägdarkrav "kör" 2026-10-07) — `css/fonts.css` + `assets/fonts/*.woff2` (Google Fonts latin-subset); fallback-stapeln i `tokens.css` ligger kvar.
 
 ## Äkthet
 
@@ -29,7 +29,7 @@ Sidan under `#om`/`#projekt` är ärliga platshållare för den riktiga portföl
 
 ## Teknik
 
-Inga byggesteg, inga CDN:er för JS, inga andra externa anrop än fonts-länken.
+Inga byggesteg, inga CDN:er, **inga externa anrop alls** (typsnitten är vendorade).
 `prefers-reduced-motion`: statisk steg-för-steg-vy, ingen pin, 0 ScrollTriggers.
 375px: en kolumn, halverade 3D-offset, scrollbar board. Kvalitetsgrind:
 `quality-gate.sh <mappen>` → **PASS** (2026-10-07, exit 0; rapport i `.audits/`, körs om av
