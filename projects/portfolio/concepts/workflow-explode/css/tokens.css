@@ -1,34 +1,47 @@
 /* tokens.css — custom properties ONLY (CONCEPT.md §6). One concern: the token table.
-   Palette = theme 12 "Förgyllda salongen", hexes read 2026-10-05 read-only from
-   prototypes/12-forgyllda-salongen/css/style.css (owner ruling supersedes theme-06 #111213). */
+   World: studio-rack elevation (2026-10 redesign, roll key 49047d01). Materials are
+   graphite wall, powder-coated unit panels, warm aluminium faceplates, ivory silkscreen
+   ink, amber/green signal lamps. Displayed FAKE code keeps theme-12 hexes verbatim
+   (CONCEPT §3.1 — content, not this world). Contrast floor WCAG AA (4.5:1 small / 3:1 large). */
 :root {
-  /* colors — verbatim from theme 12 */
-  --emerald: #0d211b;
-  --ink: #0a1512;
-  --gold: #c9a55a;
-  --paper: #f4ead8;
-  --blush: #7d4a45;
-  --gold-dim: rgba(201, 165, 90, .42);
-  --gold-faint: rgba(201, 165, 90, .16);
+  /* materials */
+  --wall: #1b2024;          /* rack wall, mid-dark graphite (not near-black) */
+  --wall-hi: #21272c;        /* wall highlight band between rails */
+  --panel: #262d33;          /* powder-coated unit body */
+  --panel-lo: #101519;       /* recessed screen / inset */
+  --bezel: #22282d;          /* monitor bezel */
+  --alu: #aab3b8;            /* warm aluminium faceplate */
+  --alu-hi: #cfd6da;         /* aluminium top highlight */
+  --line: rgba(233, 228, 217, .16);
+  --screw: #39424a;
 
-  /* stage surfaces (theme-12 dark greens, replacing §2's theme-06 #0d0c0b) */
-  --stage-bg: var(--ink);
-  --panel-bg: #0f2a22;
-  --card-bg: #123026;
-  --line: rgba(244, 234, 216, .14);
+  /* ink on the materials */
+  --ink: #14181b;            /* dark silkscreen on aluminium */
+  --silk: #e9e4d9;           /* ivory silkscreen on dark panels */
+  --silk-86: rgba(233, 228, 217, .86);   /* 8.5:1 on panel */
+  --silk-72: rgba(233, 228, 217, .72);   /* 6.5:1 on panel */
+  --silk-62: rgba(233, 228, 217, .62);   /* 5.2:1 on panel — small meta text floor */
 
-  /* board state colors — invented MC-style, readable on dark */
-  --state-queued: #8a9b93;
-  --state-running: var(--gold);
-  --state-verified: #7fb28f;
+  /* signals */
+  --amber: #e8a13a;          /* lamp / live signal — 6.4:1 on panel */
+  --amber-hi: #eeae54;       /* text-safe amber on panel — 7.2:1 */
+  --amber-dim: rgba(232, 161, 58, .42);
+  --green: #6fbf8a;          /* verified — 6.3:1 on panel */
+  --vermilion: #d4552e;      /* DA-grinden strike mark (mark, never body text) */
 
-  /* type — system stack only, repo offline rule (§5.5) */
-  --font-body: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* board state lamps (FYLLT/HAL — fixed-cell marks, kept line: timetable rack) */
+  --state-queued: #8fa0aa;
+  --state-running: var(--amber);
+  --state-verified: var(--green);
+
+  /* type — one silkscreen superfamily + system mono (code & measured digits) */
+  --font-body: "Saira", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-disp: "Saira Condensed", "Arial Narrow", "Liberation Sans Narrow", "Segoe UI", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
-  --fs-body: 1.05rem;      /* 16.8px */
-  --fs-min: .95rem;        /* 15.2px floor for other body text (F2) */
-  --fs-cap: 2.1rem;        /* scene caption headline */
-  --fs-eyebrow: .95rem;    /* 15.2px */
+  --fs-body: 1.05rem;        /* 16.8px */
+  --fs-min: .95rem;          /* 15.2px floor for every visible UI/body text */
+  --fs-cap: 2.35rem;         /* scene caption headline (condensed, 600) */
+  --fs-eyebrow: .95rem;      /* silkscreen plate label */
 
   /* space */
   --sp-1: .375rem;
@@ -36,14 +49,11 @@
   --sp-3: 1.25rem;
   --sp-4: 2rem;
   --sp-5: 3.5rem;
-  --radius: 10px;
+  --radius: 6px;             /* rack radius: small and machined */
 
   /* hero geometry — matches assets/hero-12.png (1280×900) */
   --hero-ar: 1280 / 900;
-  --chrome-bar-h: 2.4rem;
-
-  /* hub geometry (JS reads nothing from here; kept visual-only) */
-  --wire-w: 2px;
+  --chrome-bar-h: 2.5rem;
 
   /* motion */
   --pin-len: 7200px;

@@ -4,8 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>workflow-explode · konceptmock — Förgyllda salongen</title>
-<meta name="description" content="Konceptmock: en färdig prototyp splittras i kod, arbetsflöde, tavla och orchestrator — och sätts ihop igen. All data är fejkad.">
+<meta name="description" content="Konceptmock: en färdig prototyp kopplas ur i kod, arbetsflöde, tavla och orchestrator — och rackas ihop igen. All data är fejkad.">
 <link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=Saira:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/scenes.css">
@@ -18,13 +21,16 @@
 <p class="demo-chip">demo · fejkad data</p>
 <main>
 <section id="stage" aria-label="Scrollberättelse: så byggs prototypen">
+  <i class="rackrail rackrail--top" aria-hidden="true"></i>
+  <i class="rackrail rackrail--bottom" aria-hidden="true"></i>
   <div class="stack">
 
     <div class="hero">
       <div class="chrome" aria-hidden="true">
         <div class="chrome__bar">
-          <span class="chrome__dots">···</span>
+          <span class="lamp lamp--amber"></span><span class="lamp lamp--amber"></span><span class="lamp lamp--amber"></span>
           <span class="chrome__url">127.0.0.1:8090/12-forgyllda-salongen/</span>
+          <span class="chrome__tag">signal</span>
         </div>
       </div>
       <div class="shot">
@@ -32,6 +38,7 @@
         <img class="shot-img slice-b" src="assets/hero-12.png" width="1280" height="900" alt="" aria-hidden="true">
         <img class="shot-img slice-c" src="assets/hero-12.png" width="1280" height="900" alt="" aria-hidden="true">
       </div>
+      <div class="unitfoot" aria-hidden="true"><span class="screw"></span><span class="screw"></span></div>
     </div>
 
     <div class="code" aria-label="Koden bakom bilden">
@@ -85,17 +92,17 @@ tl.to(".hero-zoom", { scale: 1 });</pre>
 
     <div class="board" aria-label="Uppdragstavla">
       <div class="kan-col kan-col--queued">
-        <h3>Kö</h3>
+        <h3><i class="kan-col__lamp" aria-hidden="true"></i>Kö</h3>
         <div class="task-card"><span class="task-card__id">10033 · T1</span> scroll-timeline i JS <span class="task-card__type">[type:code]</span></div>
         <div class="task-card"><span class="task-card__id">10033 · T2</span> test 375px + reduced-motion <span class="task-card__type">[type:test]</span></div>
       </div>
       <div class="kan-col kan-col--running">
-        <h3>Kör</h3>
+        <h3><i class="kan-col__lamp" aria-hidden="true"></i>Kör</h3>
         <div class="task-card"><span class="task-card__id">10032 · T1</span> hero som 3D-plan <span class="task-card__type">[type:frontend]</span></div>
         <div class="task-card"><span class="task-card__id">10032 · T2</span> DA-gate: bryt konceptet <span class="task-card__type">[type:devils-advocate]</span></div>
       </div>
       <div class="kan-col kan-col--verified">
-        <h3>Verifierad</h3>
+        <h3><i class="kan-col__lamp" aria-hidden="true"></i>Verifierad</h3>
         <div class="task-card"><span class="task-card__id">10031 · T1</span> research scroll-tekniker <span class="task-card__type">[type:research]</span></div>
         <div class="task-card"><span class="task-card__id">10031 · T2</span> scene-koreografi <span class="task-card__type">[type:design]</span></div>
       </div>
@@ -140,6 +147,8 @@ tl.to(".hero-zoom", { scale: 1 });</pre>
     <div class="cap" data-scene="4"><p class="cap__eyebrow">scen 4 · orchestratorn</p><h2>Vem gör allt? Inte jag.</h2><p class="cap__sub">Jag skriver instrukser. En orchestrator fördelar. Arbetarna kör. Verifieraren stoppar felen.</p></div>
     <div class="cap" data-scene="5"><p class="cap__eyebrow">scen 5 · tillbaka</p><h2>Så byggs det du ser.</h2><p class="cap__sub">Under allt det här: jag.</p></div>
   </div>
+
+  <i class="tickrail" aria-hidden="true"><b class="tickrail__tag">signal</b><i class="tickrail__fill"></i></i>
 </section>
 
 <section id="om" class="doc-section">
@@ -151,7 +160,7 @@ tl.to(".hero-zoom", { scale: 1 });</pre>
   <p>Platshållare för prototyperna. Tema 12 — Förgyllda salongen — är ett av dem; originaltemat lever under <code>prototypes/</code> och serveras på :8090.</p>
 </section>
 <footer class="doc-section">
-  <p>workflow-explode · koncept MC 10140 · all data på sidan är påhittad (kort, antal, uppdrag). Inga kunduppgifter. Serveras på :8092.</p>
+  <p>workflow-explode · konceptmock · all data på sidan är påhittad (kort, antal, uppdrag). Inga kunduppgifter. Serveras på :8092.</p>
 </footer>
 </main>
 </body>
