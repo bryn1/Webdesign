@@ -208,3 +208,6 @@ Mobile-only fixes; desktop proven untouched. Evidence + instrument outputs:
 - E3 font exception: Google Fonts link + local fallback used (dispatch override of CONCEPT
   §5.5); docs/ARCHITECTURE.md:83 still says "BLOCKED pending an owner vendoring ruling" —
   owner decision OPEN (vendor the two Saira files or ratify the CDN for this folder).
+
+## PARENT E3-ADDENDUM (2026-10-07, same day) — font-vendoring
+Owner opened the live URL and asked why it differed from local; byte-diff showed ALL 9 delivered files identical live-vs-repo (md5, this session), so the visible difference could only be client-side font fallback (blocked fonts.googleapis.com → fallback stack). E3 ruling surfaced with recommendation "vendor"; owner answered **"kör"** (= go on the recommendation). Vendored: Saira variable 400–600 + Saira Condensed 600/700 (latin subset, from Google Fonts css2; the 500 face was declared but unused by any rule → dropped, coding-discipline). New files: css/fonts.css + assets/fonts/*.woff2 (96 kB total); index.html link-taggen bytt. Render proof: document.fonts shows the 3 faces loaded, 0 failed requests, gate PASS 7/7 after change. README de-staled (lines 22/32, retired "fonts-länken" claims). Zero external requests remain on the page.

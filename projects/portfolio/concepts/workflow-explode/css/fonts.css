@@ -1,0 +1,27 @@
+/* fonts.css — LOCAL @font-face ONLY (E3 vendoring ruling, owner "kör" 2026-10-07).
+   Files vendored from Google Fonts latin subset (variable Saira 400–600 = one file;
+   Saira Condensed static 600/700 = the only weights this page uses). No runtime
+   external calls — CONCEPT §5.5 system-only rule stays honored by the tokens.css
+   fallbacks; this file makes the primary face render IDENTICALLY on networks that
+   block fonts.googleapis.com. */
+@font-face {
+  font-family: "Saira";
+  font-style: normal;
+  font-weight: 400 600;   /* variable axis (single file, latin subset) */
+  font-display: swap;
+  src: url("../assets/fonts/saira-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Saira Condensed";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/saira-condensed-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Saira Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/saira-condensed-700.woff2") format("woff2");
+}
