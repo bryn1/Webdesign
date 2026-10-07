@@ -8,7 +8,7 @@
   "tags": ["webbdesign", "prototyper", "frontend", "animation", "portfolio"],
   "mirror": {
     "include": [
-      "/index.html",
+      "/index.html", "/salong/**", "/portfolio/**",
       "projects/**/*.html", "projects/**/*.css", "projects/**/*.js",
       "projects/**/*.woff2", "projects/**/*.jpeg", "projects/**/*.jpg",
       "projects/**/*.png", "projects/**/*.svg", "projects/**/*.webp",
