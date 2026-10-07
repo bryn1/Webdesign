@@ -1,7 +1,9 @@
 # ARCHITECTURE — Hemsidor scroll-design prototype library
 
 Repo: `/home/claudecode/Hemsidor` (GitHub `bryn1/Webdesign`, main). Project intent: **PoC-demo** —
-20 competing scroll-design themes for one real hairdresser site (Jane Cooper, Malmö), pitched
+20 competing scroll-design themes for one real hairdresser site (salon persona placeholder "Jane
+Cooper" — owner ruling R4; the portfolio project's named subject IS the repo owner, Alexander
+Lektove Karlskrona, intentional per owner ruling MC 10088 2026-10-07), pitched
 to the owner; LAN demo only, no production claims. This file is derived from the actual tree
 (`wc -l`, `ls`, greps, live probe, cron read) on 2026-10-05 by the design profile (MC 10088,
 ARCH phase). It supersedes the 2026-10-04 "arch N/A" ruling (DONE.md E1) — the JS enhancement
