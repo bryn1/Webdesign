@@ -233,7 +233,7 @@ verdicts).
   anatomy of §3 + one motion file honouring §4 + gallery card; the gallery bijection and
   image-honesty invariants (§3) must keep holding (historically pytest-enforced — see §1).
 
-## 10. Public hosting (vm106) — COMMITTED, AWAITING PUSH
+## 10. Public hosting (vm106) — LIVE (single-level); two-level BROWSE-V2 awaiting push
 
 MC 10088's hosting run (`.audits/20261006-1412-vm106-hosting/`) published this repo to the vm106
 reconciler as the static app **`webdesign`**: strict-JSON **`hosting.yaml` committed at the repo
@@ -243,12 +243,17 @@ reconciler's own bar validator was re-run against this checkout when this sectio
 de-staled: `validate-hosting.py` exit 0, all 7 checks PASS (hosting.yaml-present · is-web-app ·
 strict-JSON parse · name · type · root · static-entrypoint).
 
-**State as measured: COMMITTED, AWAITING PUSH.** `git fetch origin` + `git log origin/main..HEAD`
-still lists the hosting commits (origin/main = 00b8dc5) — until they reach GitHub the reconciler
-cannot see them and nothing is public; once pushed, the ARMED reconciler (mode probe recorded in the
-run's SPEC) mirrors the subset and adopts the app on its ~15-min tick, serving
-**https://sibbamala.com/webdesign/**. Live acceptance (the run's P4) had not yet passed when this
-section was last verified. The mirror's `include` is `/index.html` + `/salong/**` + `/portfolio/**`
+**State as measured: PUBLIC (single-level), TWO-LEVEL PENDING PUSH.** The hosting commits reached
+GitHub on 2026-10-06: `git fetch origin` shows origin/main = 061975e (reflog: pushed 23:07), and
+**https://sibbamala.com/webdesign/** answers HTTP 200 on the mirror. Live acceptance passed
+2026-10-07 (run out dir: TEST-verdict-live.md — adopt ~60 min after push, all 50 public pages 200,
+quarantine paths refused, zero PI, console clean; parent probes agree). What is LIVE today is the
+PRE-BROWSE-V2 single-level root page (all 48 prototype cards on one page, commit 061975e); the
+committed two-level layout (dd328b8: root = project cards only + `salong/` + `portfolio/` pages,
+per the owner's ruling "Webdesign/`<project>`, not everything on one page", MC 10088.12) is
+AWAITING PUSH — after the next push + reconciler tick, /webdesign/salong/ and /webdesign/portfolio/
+go live and this section must be re-stated as two-level-LIVE. The mirror's `include` is
+`/index.html` + `/salong/**` + `/portfolio/**`
 + `projects/**` html/css/js/fonts
 /images + `thumbs/**` + `/favicon.*`; its `exclude` drops `**/*.md`, `docs/**`, `tools/**`,
 `_site/**` and the dot-dirs — no markdown, docs, tooling or generated browse site ever reach the
@@ -256,4 +261,5 @@ public mirror, which is exactly why the public browse surface is the REAL commit
 surface: root `index.html` (project cards only, per the owner's BROWSE-V2 ruling MC 10088.12 —
 "Webdesign/`<project>`, not everything on one page") + the `salong/` + `portfolio/` pages +
 `thumbs/` + `favicon.ico` (`_site/` stays gitignored per owner ruling
-MC 10062.30.1). Until a push lands, the :8090 LAN serve (§6) remains the live demo surface.
+MC 10062.30.1). :8090 (LAN, §6) and the public mirror now serve the same product in two stages —
+:8090 remains the LAN demo, the public URL is the public demo surface.
