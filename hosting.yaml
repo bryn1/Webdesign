@@ -4,6 +4,7 @@
   "type": "static",
   "root": "apps/webdesign",
   "title": "Webdesign — prototyper & koncept",
+  "gate": {"min_bytes_mode": "own", "min_bytes": 1200},
   "description": "Interaktiva webbläsarprototyper för en frisörssajt samt portfolio-koncept. Byggda i ren HTML, CSS och JavaScript med GSAP-animationer.",
   "tags": ["webbdesign", "prototyper", "frontend", "animation", "portfolio"],
   "mirror": {
