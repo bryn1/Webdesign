@@ -1,50 +1,83 @@
-/* base.css — the STATIC view: readable with JS off AND under prefers-reduced-motion (§5.1/5.2).
-   No absolute/hidden stage rules here: those live in scenes.css scoped to html.js only.
-   DOM order IS the content order (CONCEPT §5.1). */
+/* base.css — the STATIC view: readable with JS off AND under prefers-reduced-motion
+   (§5.1/5.2). No absolute/hidden stage rules here: those live in scenes.css scoped to
+   html.js only. DOM order IS the content order (CONCEPT §5.1). Rack-world dressing,
+   stacked as plain sections. */
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
-  margin: 0; background: var(--emerald); color: var(--paper);
+  margin: 0; color: var(--silk);
+  background: linear-gradient(180deg, var(--wall-hi), var(--wall) 30%, var(--wall) 70%, var(--wall-hi));
   font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.55;
 }
 
 img { max-width: 100%; height: auto; display: block; }
 
-a { color: var(--gold); }
-:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+a { color: var(--amber-hi); }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+::selection { background: var(--amber-dim); color: var(--silk); }
 
 .demo-chip {
   position: fixed; right: var(--sp-2); bottom: var(--sp-2); z-index: 70;
-  margin: 0; padding: .45rem .8rem; border: 1px solid var(--gold-dim); border-radius: 99px;
-  background: rgba(10, 21, 18, .92); color: var(--gold);
-  font-size: var(--fs-min); letter-spacing: .08em; text-transform: uppercase;
+  margin: 0; padding: .45rem .85rem; border: 1px solid var(--amber-dim); border-radius: 4px;
+  background: var(--panel); color: var(--amber-hi);
+  font-family: var(--font-disp); font-size: var(--fs-min); font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
 }
+
+/* browser surfaces themed from the palette (craft floor) */
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--wall); }
+::-webkit-scrollbar-thumb { background: var(--panel); border: 3px solid var(--wall); border-radius: 8px; }
+
+/* shared rack furniture (static view: units are flat plates, stacked) */
+.unitfoot, .rackrail, .tickrail { display: none; }
+
+.lamp {
+  display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; flex: 0 0 auto;
+  background: radial-gradient(circle at 35% 30%, var(--alu-hi), var(--screw) 70%);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, .8);
+}
+.lamp--amber { background: radial-gradient(circle at 35% 30%, var(--alu-hi), var(--screw) 70%); }
 
 /* ---- stage as plain stacked sections in the static view ---- */
-#stage { padding: var(--sp-5) var(--sp-3) var(--sp-4); background: var(--stage-bg); }
+#stage { padding: var(--sp-5) var(--sp-3) var(--sp-4); background: transparent; }
 .stack { display: grid; gap: var(--sp-5); max-width: 1100px; margin: 0 auto; }
-.caps { display: grid; gap: var(--sp-2); max-width: 1100px; margin: var(--sp-5) auto 0; }
+.caps { display: grid; gap: var(--sp-3); max-width: 1100px; margin: var(--sp-5) auto 0; }
 
-.cap { border-left: 3px solid var(--gold-dim); padding-left: var(--sp-3); }
-.cap__eyebrow { margin: 0; color: var(--gold); font-size: var(--fs-eyebrow); letter-spacing: .16em; text-transform: uppercase; }
-.cap h2 { margin: .2rem 0 .3rem; font-size: clamp(1.6rem, 4.5vw, var(--fs-cap)); line-height: 1.15; color: var(--paper); }
-.cap__sub { margin: 0; font-size: var(--fs-body); color: rgba(244, 234, 216, .86); max-width: 52ch; }
+/* caption: silkscreen plate left, text right — the plate is a unit label, never a kicker */
+.cap { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-3); align-items: start; }
+.cap__eyebrow {
+  margin: .15rem 0 0; padding: .3rem .6rem; white-space: nowrap;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+  color: var(--amber-hi); font-family: var(--font-disp); font-size: var(--fs-eyebrow);
+  font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+}
+.cap h2 {
+  grid-column: 2; margin: 0 0 .3rem; color: var(--silk);
+  font-family: var(--font-disp); font-weight: 600; line-height: 1.08;
+  font-size: clamp(1.75rem, 4.5vw, var(--fs-cap)); letter-spacing: .005em;
+}
+.cap__sub { grid-column: 2; margin: 0; font-size: var(--fs-body); color: var(--silk-86); max-width: 56ch; }
 
-/* browser chrome + hero */
+/* browser chrome + hero: the product mounted in its rack unit */
 .chrome__bar {
   display: flex; align-items: center; gap: var(--sp-2);
-  height: var(--chrome-bar-h); padding: 0 var(--sp-2);
-  background: #0e241d; border: 1px solid var(--line); border-bottom: none;
-  border-radius: var(--radius) var(--radius) 0 0;
+  height: var(--chrome-bar-h); padding: .2rem var(--sp-2);
+  background: linear-gradient(180deg, var(--alu-hi), var(--alu));
+  border: 1px solid rgba(20, 24, 27, .5); border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0; color: var(--ink);
 }
-.chrome__dots { color: var(--gold-dim); letter-spacing: .35em; font-size: .8rem; }
 .chrome__url {
   flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  padding: .15rem .7rem; border-radius: 99px; background: rgba(244, 234, 216, .08);
-  color: rgba(244, 234, 216, .75); font-family: var(--font-mono); font-size: var(--fs-min);
+  padding: .15rem .7rem; border-radius: 4px; background: rgba(20, 24, 27, .12);
+  color: #233038; font-family: var(--font-mono); font-size: var(--fs-min);
+}
+.chrome__tag {
+  margin-left: auto; font-family: var(--font-disp); font-weight: 600;
+  font-size: var(--fs-min); letter-spacing: .14em; text-transform: uppercase;
 }
 .shot {
   position: relative; aspect-ratio: var(--hero-ar); max-width: 900px;
@@ -55,84 +88,121 @@ a { color: var(--gold); }
 .slice-b { clip-path: inset(33.3% 0); }
 .slice-c { clip-path: inset(66.6% 0 0 0); }
 
-/* SC1 code panels */
-.code { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-3); }
+/* SC1 code panels: module faceplates — aluminium label header over a recessed screen */
+.code { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--sp-3); }
 .code-panel {
-  background: var(--panel-bg); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--sp-3); min-width: 0;
+  background: var(--panel-lo); border: 1px solid var(--line); border-radius: var(--radius);
+  min-width: 0; overflow: hidden;
 }
-.code-panel h3 { margin: 0 0 var(--sp-2); color: var(--gold); font-size: var(--fs-min); letter-spacing: .1em; }
+.code-panel h3 {
+  margin: 0; padding: .5rem var(--sp-3); color: var(--ink);
+  background: linear-gradient(180deg, var(--alu-hi), var(--alu));
+  font-family: var(--font-disp); font-size: var(--fs-min); font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid rgba(20, 24, 27, .55);
+}
 .code-panel pre {
-  margin: 0; font-family: var(--font-mono); font-size: var(--fs-min); line-height: 1.5;
-  white-space: pre-wrap; overflow-wrap: break-word; color: rgba(244, 234, 216, .92);
+  margin: 0; padding: var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-min);
+  line-height: 1.5; white-space: pre-wrap; overflow-wrap: break-word; color: var(--silk);
 }
 
-/* SC2 workflow chain */
+/* SC2 workflow chain: jacks on a patch line */
 .flow__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
 .wf-node {
-  padding: .55rem 1rem; border: 1px solid var(--gold-dim); border-radius: 99px;
-  background: var(--card-bg); color: var(--paper); font-size: var(--fs-min); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .5rem .95rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); color: var(--silk); font-size: var(--fs-min);
+  font-family: var(--font-disp); font-weight: 600; letter-spacing: .04em; white-space: nowrap;
 }
-.wf-node--gate { border-color: var(--blush); }
-.wf-link { flex: 1 1 24px; min-width: 24px; height: 2px; background: var(--gold); opacity: .8; }
-.flow__loop { display: block; width: min(560px, 100%); margin-top: var(--sp-2); color: var(--gold); }
-.flow__loop-label { fill: var(--gold); font-size: 15px; font-family: var(--font-body); }
-.flow__loop path { stroke: var(--gold); stroke-width: 2; fill: none; }
+.wf-node::before {
+  content: ""; width: .8rem; height: .8rem; border-radius: 50%; flex: 0 0 auto;
+  background: radial-gradient(circle at 40% 35%, var(--wall) 30%, var(--alu) 60%, var(--screw));
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, .9);
+}
+.wf-node--gate { border-color: var(--vermilion); }
+.wf-node--gate::after {
+  content: ""; width: .45rem; height: .45rem; border-radius: 2px; flex: 0 0 auto; background: var(--vermilion);
+}
+.wf-link { flex: 1 1 24px; min-width: 24px; height: 3px; border-radius: 3px; background: var(--amber-dim); }
+.flow__loop { display: block; width: min(560px, 100%); margin-top: var(--sp-2); color: var(--amber-hi); }
+.flow__loop-label { fill: var(--amber-hi); font-size: 15px; font-family: var(--font-disp); font-weight: 600; }
+.flow__loop path { stroke: var(--amber); stroke-width: 3; stroke-linecap: round; fill: none; }
 
-/* SC3 kanban */
-.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-3); }
-.kan-col { background: rgba(244, 234, 216, .04); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--sp-3); }
-.kan-col h3 { margin: 0 0 var(--sp-2); font-size: var(--fs-min); letter-spacing: .14em; text-transform: uppercase; }
-.kan-col--queued h3 { color: var(--state-queued); }
-.kan-col--running h3 { color: var(--state-running); }
-.kan-col--verified h3 { color: var(--state-verified); }
+/* SC3 kanban: three bays with fixed-cell state lamps (FYLLT/HAL) */
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--sp-3); }
+.kan-col { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--sp-3); }
+.kan-col h3 {
+  display: flex; align-items: center; gap: .5rem; margin: 0 0 var(--sp-2);
+  font-family: var(--font-disp); font-size: var(--fs-min); font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.kan-col__lamp { width: .7rem; height: .7rem; border-radius: 50%; background: transparent; box-shadow: inset 0 0 0 2px var(--state-queued); }
+.kan-col--queued h3 { color: var(--silk-72); }
+.kan-col--running h3 { color: var(--amber-hi); }
+.kan-col--running .kan-col__lamp { background: var(--amber); box-shadow: 0 0 7px var(--amber-dim); }
+.kan-col--verified h3 { color: var(--green); }
+.kan-col--verified .kan-col__lamp { background: var(--green); box-shadow: 0 0 7px rgba(111, 191, 138, .4); }
 .task-card {
-  background: var(--card-bg); border: 1px solid var(--line); border-left-width: 4px;
-  border-radius: 6px; padding: var(--sp-2); margin-bottom: var(--sp-2); font-size: var(--fs-min);
+  background: var(--panel-lo); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: var(--sp-2); margin-bottom: var(--sp-2);
+  font-size: var(--fs-min); color: var(--silk);
 }
 .task-card:last-child { margin-bottom: 0; }
-.kan-col--queued .task-card { border-left-color: var(--state-queued); }
-.kan-col--running .task-card { border-left-color: var(--state-running); }
-.kan-col--verified .task-card { border-left-color: var(--state-verified); }
-.task-card__id { color: var(--gold); font-family: var(--font-mono); font-size: .85rem; }
-.task-card__type { display: block; color: rgba(244, 234, 216, .6); font-size: .85rem; }
+.task-card__id { color: var(--amber-hi); font-family: var(--font-mono); font-size: var(--fs-min); }
+.task-card__type { display: block; color: var(--silk-62); font-size: var(--fs-min); }
 
-/* SC4 orchestrator */
+/* SC4 orchestrator: hub is the aluminium patchbay plate; spokes are worker modules;
+   counters are a glass meter bridge (STRUKET SIFFER: lit digit over an unlit ghost 8) */
 .hubg { display: grid; gap: var(--sp-3); justify-items: center; }
 .hub {
-  padding: .8rem 1.4rem; border: 1px solid var(--gold); border-radius: var(--radius);
-  background: var(--panel-bg); color: var(--gold); font-family: var(--font-mono); font-size: var(--fs-min);
+  padding: .7rem 1.5rem; border: 1px solid rgba(20, 24, 27, .55); border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--alu-hi), var(--alu)); color: var(--ink);
+  font-family: var(--font-disp); font-size: var(--fs-min); font-weight: 700; letter-spacing: .16em;
 }
 .spokes { display: flex; flex-wrap: wrap; gap: var(--sp-2); justify-content: center; }
 .spoke {
-  padding: .5rem 1rem; border: 1px solid var(--gold-dim); border-radius: 99px;
-  background: var(--card-bg); font-family: var(--font-mono); font-size: var(--fs-min);
+  padding: .5rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); font-family: var(--font-mono); font-size: var(--fs-min); color: var(--silk);
 }
-.counters { list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); margin: 0; padding: 0; }
-.counters b { color: var(--gold); font-variant-numeric: tabular-nums; }
+.counters {
+  list-style: none; display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); margin: 0; padding: var(--sp-2) var(--sp-3);
+  background: var(--panel-lo); border: 1px solid var(--line); border-radius: var(--radius);
+  isolation: isolate; /* keeps the unlit ghost "8" (::before, z:-1) above THIS panel's paint */
+}
+.counters b { position: relative; color: var(--amber-hi); font-variant-numeric: tabular-nums; text-shadow: 0 0 8px rgba(232, 161, 58, .35); }
+.counters b::before {
+  content: "8"; position: absolute; left: 0; top: 0; z-index: -1; color: var(--amber); opacity: .16;
+}
 
-/* SC5 outro */
+/* SC5 outro: the docked rack card + engraved nav plates */
 .outro { display: grid; gap: var(--sp-3); }
 .seed { display: none; }
-.docked-shot { max-width: 340px; border: 1px solid var(--gold-dim); border-radius: var(--radius); overflow: hidden; }
+.docked-shot {
+  max-width: 340px; border: 1px solid rgba(20, 24, 27, .5); border-radius: var(--radius);
+  overflow: hidden; background: linear-gradient(180deg, var(--alu-hi), var(--alu)); padding: .5rem;
+}
+.docked-shot img { border-radius: 3px; }
 .nav-cards { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .nav-card {
   display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
-  padding: .7rem 1.4rem; border: 1px solid var(--gold); border-radius: var(--radius);
-  color: var(--gold); text-decoration: none; font-size: var(--fs-body);
+  padding: .7rem 1.4rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); color: var(--amber-hi); text-decoration: none;
+  font-family: var(--font-disp); font-size: var(--fs-body); font-weight: 600; letter-spacing: .04em;
 }
-.nav-card:hover { background: var(--gold); color: var(--ink); }
+.nav-card:hover { background: var(--amber); border-color: var(--amber); color: var(--ink); }
 
 /* sections below the pin — honest placeholders, see README */
 .doc-section { max-width: 1100px; margin: 0 auto; padding: var(--sp-5) var(--sp-3); }
-.doc-section h2 { color: var(--gold); font-size: 1.4rem; letter-spacing: .08em; text-transform: uppercase; }
-footer.doc-section { border-top: 1px solid var(--line); font-size: var(--fs-min); color: rgba(244, 234, 216, .7); }
+.doc-section h2 { color: var(--amber-hi); font-family: var(--font-disp); font-size: 1.5rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.doc-section code { font-family: var(--font-mono); font-size: .95em; background: var(--panel-lo); padding: .1em .35em; border-radius: 4px; }
+footer.doc-section { border-top: 1px solid var(--line); font-size: var(--fs-min); color: var(--silk-72); }
 
 /* 375px floor: nothing wider than the viewport */
 @media (max-width: 480px) {
   #stage, .doc-section { padding-left: var(--sp-2); padding-right: var(--sp-2); }
+  .cap { grid-template-columns: 1fr; }
+  .cap__eyebrow { width: fit-content; }
+  .cap h2, .cap__sub { grid-column: 1; }
   .code { grid-template-columns: 1fr; }
   .board { grid-template-columns: 1fr; }
-  .chrome__url { font-size: .8rem; }
-  .demo-chip { font-size: .8rem; }
+  .chrome__url { font-size: var(--fs-min); }
 }

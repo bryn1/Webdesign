@@ -1,35 +1,91 @@
 /* scenes.css — the js-scoped stage machinery (CONCEPT §2 z-stack). Every rule here is
    html.js AND (prefers-reduced-motion: no-preference): no JS or reduced-motion readers get
    the static base.css stack instead (§5.1/§5.2 — one mechanism, never two).
-   Deviation note vs §2: .chrome/.shot are grouped inside a .hero wrapper so the URL pill
-   and the sliced image cannot drift apart; z semantics (chrome below shot) are unchanged. */
+   Deviation note vs §2 (kept from the previous build, still true): .chrome/.shot are grouped
+   inside a .hero wrapper so the URL pill and the sliced image cannot drift apart; z semantics
+   (chrome below shot) are unchanged. New world (2026-10 redesign): rack rails, screw feet, signal
+   tick rail (kept line TIKRÄL) and event-lit lamps (raise PROJEKTIONSHÄNDNING) are dressing
+   over the same z-map. */
 @media (prefers-reduced-motion: no-preference) {
   html.js #stage {
     position: relative; height: 100vh; overflow: hidden;
-    padding: 0; background: var(--stage-bg); perspective: 1200px;
+    padding: 0; perspective: 1200px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 118px, rgba(233, 228, 217, .022) 118px 120px),
+      linear-gradient(180deg, var(--wall-hi), var(--wall) 22%, var(--wall) 78%, var(--wall-hi));
   }
   html.js .stack {
     position: absolute; inset: 0; display: block; transform-style: preserve-3d;
   }
-  html.js .caps { position: absolute; left: var(--sp-4); bottom: var(--sp-4); z-index: 60; width: min(560px, 84vw); margin: 0; pointer-events: none; }
+  html.js .caps { position: absolute; left: var(--sp-4); bottom: var(--sp-4); z-index: 60; width: min(580px, 82vw); margin: 0; pointer-events: none; }
   html.js .cap { position: absolute; left: 0; bottom: 0; opacity: 0; }
   html.js .cap[data-scene="0"] { opacity: 1; }
 
-  /* ---- hero (chrome z:10 → shot z:20, inside one non-transformed centering wrapper).
-     translateZ(-160px): inside the preserve-3d .stack, siblings sort by depth, not z-index —
-     the slices tilt up to z:140, so the WHOLE hero plane sits behind the flat scene layers
-     (which flatten at z:0). GSAP decomposes this matrix and keeps z when tweening. ---- */
+  /* rack rails: aluminium strips top/bottom with screws at the wall channels */
+  html.js .rackrail {
+    display: block; position: absolute; left: 0; right: 0; height: 14px; z-index: 50;
+    background:
+      radial-gradient(circle 3px at 16px 50%, var(--screw) 60%, transparent 61%),
+      radial-gradient(circle 3px at calc(50% - 90px) 50%, var(--screw) 60%, transparent 61%),
+      radial-gradient(circle 3px at calc(50% + 90px) 50%, var(--screw) 60%, transparent 61%),
+      radial-gradient(circle 3px at calc(100% - 16px) 50%, var(--screw) 60%, transparent 61%),
+      linear-gradient(180deg, var(--alu-hi), var(--alu));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+  }
+  html.js .rackrail--top { top: 0; }
+  html.js .rackrail--bottom { bottom: 0; }
+
+  /* TIKRÄL (kept line): position + extent of the story, always visible (desktop) */
+  html.js .tickrail {
+    display: block; position: absolute; right: var(--sp-3); top: 16%; bottom: 16%; width: 6px;
+    z-index: 55; pointer-events: none; border-radius: 3px;
+    background:
+      repeating-linear-gradient(180deg, var(--silk-62) 0 1px, transparent 1px 14px),
+      var(--panel);
+    border: 1px solid var(--line);
+  }
+  html.js .tickrail__tag {
+    position: absolute; top: -1.7rem; right: -2px; padding: .1rem .4rem;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 3px;
+    color: var(--silk-72); font-family: var(--font-disp); font-weight: 600;
+    font-size: var(--fs-min); letter-spacing: .14em; text-transform: uppercase;
+  }
+  html.js .tickrail__fill {
+    position: absolute; inset: 0; border-radius: 3px; transform-origin: 50% 0; transform: scaleY(0);
+    background: linear-gradient(180deg, var(--amber-hi), var(--amber));
+    box-shadow: 0 0 8px rgba(232, 161, 58, .5);
+  }
+
+  /* ---- hero: the product mounted in its rack monitor unit (chrome z:10 → shot z:20,
+     inside one non-transformed centering wrapper). translateZ(-160px): inside the
+     preserve-3d .stack, siblings sort by depth, not z-index — the slices tilt up to z:140,
+     so the WHOLE hero plane sits behind the flat scene layers (which flatten at z:0).
+     GSAP decomposes this matrix and keeps z when tweening. ---- */
   html.js .hero {
     position: absolute; inset: 0; margin: auto; z-index: 10; transform: translateZ(-160px);
     width: min(860px, 86vw); transform-style: preserve-3d;
-    height: calc(min(860px, 86vw) / (var(--hero-ar)) + var(--chrome-bar-h));
+    height: calc(min(860px, 86vw) / (var(--hero-ar)) + var(--chrome-bar-h) + 1rem);
   }
-  html.js .chrome { position: absolute; inset: 0; z-index: 1; border: 1px solid var(--gold-dim); border-radius: var(--radius); background: #0e241d; }
+  html.js .chrome { position: absolute; inset: 0; z-index: 1; border: 1px solid rgba(20, 24, 27, .6); border-radius: var(--radius); background: var(--bezel); }
   html.js .chrome__bar { position: absolute; top: 0; left: 0; right: 0; }
+  /* PROJEKTIONSHÄNDNING (raise): the mounted unit's lamps are lit — event light, product live */
+  html.js .chrome .lamp {
+    background: radial-gradient(circle at 35% 30%, #f4cf8f, var(--amber) 55%, #7a5a20);
+    box-shadow: 0 0 8px rgba(232, 161, 58, .7);
+  }
+  html.js .unitfoot {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 1rem; z-index: 1;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 var(--sp-2);
+    background: var(--panel); border: 1px solid var(--line); border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  html.js .screw { width: .55rem; height: .55rem; border-radius: 50%; background: radial-gradient(circle at 40% 35%, var(--alu-hi), var(--screw) 70%); }
   html.js .shot {
-    position: absolute; left: 1px; right: 1px; bottom: 1px;
+    position: absolute; left: 1px; right: 1px; bottom: 1rem;
     top: calc(1px + var(--chrome-bar-h)); z-index: 2; transform-style: preserve-3d;
     border: 0; border-radius: 0; max-width: none; overflow: visible; /* slice tilts must not clip */
+    background: transparent; /* no recessed-panel ghost when the slices fade in SC2–SC4 (§2:
+       the base.css recess belongs to the static view only; the wall owns the stage then) */
   }
   html.js .shot-img { backface-visibility: hidden; }
 
@@ -39,26 +95,35 @@
     align-items: center; justify-content: center; opacity: 0; pointer-events: none;
   }
 
-  /* SC1 code panels */
-  html.js .code { gap: clamp(10px, 2.5vw, 28px); }
-  html.js .code-panel { width: min(27vw, 310px); flex: 0 1 auto; }
+  /* SC1 module faceplates. DEPTH ON THE LAYER (fix-cycle 1, P2-1): html.js .code
+     is flat (initial), so the panels' z:-60→30 tween used to FLATTEN against the
+     container's z:0 plane — the hero slices (z:-160+140 with rotateX ±22° push their
+     forward edges to z≈+60 in the overlap region) depth-sorted OVER the panels: a
+     horizontal cut at y≈447 clipped code mid-glyph at the SC1 hold (§1 "land in front
+     of the slices", §2 "never the reverse"). Fix in the same mechanism: give the layer
+     real depth (translateZ:60) and preserve-3d, so the panels' existing tween runs
+     world z:0→90 — starts behind the slices, lands in front of their forward edges
+     (≈+60) with margin. Hero untouched; no new tween, no new ScrollTrigger. */
+  html.js .code { gap: clamp(10px, 2.5vw, 28px); transform: translateZ(60px); transform-style: preserve-3d; }
+  html.js .code-panel { width: min(27vw, 320px); flex: 0 1 auto; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); }
 
-  /* SC2 chain */
+  /* SC2 patch line */
   html.js .flow { flex-direction: column; gap: var(--sp-2); }
   html.js .flow__row { width: min(92vw, 980px); justify-content: center; }
+  html.js .wf-link { background: var(--amber); box-shadow: 0 1px 6px rgba(232, 161, 58, .35); }
 
-  /* SC3 board */
+  /* SC3 bays */
   html.js .board { gap: clamp(10px, 2vw, 24px); }
-  html.js .kan-col { width: min(24vw, 280px); flex: 0 1 auto; }
+  html.js .kan-col { width: min(24vw, 290px); flex: 0 1 auto; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
 
-  /* SC4 hub-and-spoke (positions set by scenes.js: left/top 50% + xPercent/yPercent centering) */
-  html.js .hub { position: absolute; left: 50%; top: 50%; }
-  html.js .spoke { position: absolute; left: 50%; top: 50%; }
+  /* SC4 hub-and-spoke patchbay (positions set by scenes.js: left/top 50% + xPercent/yPercent centering) */
+  html.js .hub { position: absolute; left: 50%; top: 50%; box-shadow: 0 8px 26px rgba(0, 0, 0, .5); }
+  html.js .spoke { position: absolute; left: 50%; top: 50%; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); }
   html.js .spokes { display: contents; }
   html.js .wire {
-    position: absolute; left: 50%; top: 50%; width: 200px; height: var(--wire-w);
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
-    transform-origin: 0 50%; opacity: .9;
+    position: absolute; left: 50%; top: 50%; width: 200px; height: 3px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--amber), var(--alu-hi));
+    transform-origin: 0 50%; opacity: .95;
   }
   html.js .counters { position: absolute; left: 0; right: 0; bottom: 25%; justify-content: center; }
 
@@ -67,17 +132,18 @@
     position: absolute; inset: 0; z-index: 40; display: flex; align-items: center;
     justify-content: center; gap: clamp(16px, 5vw, 64px); opacity: 0; pointer-events: none;
   }
-  html.js .docked-shot { opacity: 0; }
-  html.js .nav-card { opacity: 0; }
+  html.js .docked-shot { opacity: 0; box-shadow: 0 14px 40px rgba(0, 0, 0, .5); }
+  html.js .nav-card { opacity: 0; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
   html.js .seed {
     display: block; position: absolute; inset: 0; margin: auto; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--gold); opacity: 0; z-index: 35;
+    border-radius: 50%; background: var(--amber); opacity: 0; z-index: 35;
+    box-shadow: 0 0 14px rgba(232, 161, 58, .8);
   }
 
   /* ---- GSAP fromTo targets hidden under html.js until their tween runs (calib A1–A4 fix,
-     MC 10140 c1). main.js sets global defaults immediateRender:false, so without these CSS
+     calibration cycle 1). main.js sets global defaults immediateRender:false, so without these CSS
      defaults every fromTo target PAINTS FULLY before its cue and then snaps to its from-state
-     (board/poke/panel jump-cut). Same pattern .cap / .docked-shot / .nav-card already use.
+     (board/spoke/panel jump-cut). Same pattern .cap / .docked-shot / .nav-card already use.
      html.js-scoped only: the no-JS + reduced-motion static views stay complete. Counters are
      data, not animated from hidden — they stay visible (their 40s zero-set is in scenes.js). ---- */
   html.js .code-panel { opacity: 0; }
@@ -92,9 +158,19 @@
 
   /* ---------- mobile variant (max-width 767px, §5.3): same DOM, restacked stage ---------- */
   @media (max-width: 767px) {
-    html.js .hero { width: 92vw; height: calc(92vw / (var(--hero-ar)) + var(--chrome-bar-h)); }
-    html.js .code { flex-direction: column; }
-    html.js .code-panel { width: min(86vw, 420px); }
+    html.js .hero { width: 92vw; height: calc(92vw / (var(--hero-ar)) + var(--chrome-bar-h) + 1rem); }
+    html.js .tickrail { display: none; } /* the rail is a desktop instrument; 375 has no spare edge */
+    /* mobile keeps the verified flat coplanar view (panels land z:0, slices sit far
+       behind; §2 z-index order incl. .caps above .code stays authoritative) */
+    /* SC1 mobile (fix-c2 F-C, DA P3): ONE shared grid cell — the three panels already
+       swap by opacity (scenes.js mobile branch), so giving each a layout slot only sank
+       the last (SCROLL-MOTION.JS) into the caption band, its final line below the fold
+       (da-m1.png). One cell: the box is as tall as the tallest panel, every panel lands
+       in the same frame, clear of the caption band and fully inside the viewport.
+       transform stays none: the coplanar mobile view (§2 z-order incl. .caps z:60) is
+       untouched; the static ≤480 stack in base.css (all three visible at once) untouched. */
+    html.js .code { display: grid; place-items: center; transform: none; }
+    html.js .code-panel { grid-area: 1 / 1; width: min(86vw, 420px); }
     html.js .flow__row { width: 92vw; }
     html.js .wf-node { font-size: var(--fs-min); }
     /* SC3 mobile (calib A5 fix): ONE row, horizontally scrollable — all six cards readable at
@@ -114,12 +190,16 @@
        .3rem padding ⇒ ~182px ≤ 187.5, no wrap, no viewport overflow). .94rem ≥ the 15px F2 floor. */
     html.js .spoke { padding: .45rem .3rem; font-size: .94rem; }
     /* SC4 mobile (calib A5b fix): counters ride a strip near the stage TOP — the spoke pills
-       cascade below the hub (targets in scenes.js) and cap4, the longest caption, owns the bottom. */
-    html.js .counters { bottom: 78%; gap: var(--sp-1) var(--sp-3); font-size: .85rem; }
+       cascade below the hub (targets in scenes.js) and cap4, the longest caption, owns the bottom.
+       .95rem ≥ 15.2px (redesign: the old .85rem strip text would trip the gate's small-text set). */
+    html.js .counters { bottom: 78%; gap: var(--sp-1) var(--sp-2); font-size: .95rem; padding: var(--sp-1) var(--sp-2); }
     html.js .outro { flex-direction: column; gap: var(--sp-3); }
     html.js .docked-shot { max-width: 60vw; }
     html.js .nav-cards { justify-content: center; }
     /* caption ends above the fixed demo chip (§2: chip z:70 never repositions) */
     html.js .caps { left: var(--sp-2); right: var(--sp-2); width: auto; bottom: 4.2rem; }
+    html.js .cap { grid-template-columns: 1fr; }
+    html.js .cap__eyebrow { width: fit-content; }
+    html.js .cap h2, html.js .cap__sub { grid-column: 1; }
   }
 }
