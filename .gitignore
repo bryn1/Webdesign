@@ -10,3 +10,7 @@ _site/
 **/.shots/
 **/node_modules/
 __pycache__/
+# MC 10062.30.1 applied to the two generated-output families still slipping the rule (orchestrator 10252.1, 2026-10-07):
+# quality-gate records and root-level gate screenshots stay on disk, untracked (they are run records, never product)
+**/QUALITY.md
+/[0-9][0-9]-*.png
