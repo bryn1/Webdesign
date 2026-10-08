@@ -207,7 +207,12 @@
     driftLoop('.gallery-card__tag', [9, 8, 10], 'y');
     driftLoop('.gallery-card__title', [11, 9, 12], 'x');
     driftLoop('.eyebrow', [13, 10, 14, 11, 12, 9], 'x');
-    driftLoop('.contact-list li', [19, 14, 21, 12, 17, 10], 'y');
+    /* AUDIT-FIX r1 (2026-10-07): y-ampen justerad så att summan av två
+       grannar (max 12 px) alltid understiger grid-gapet (16 px) — listan
+       kan inte längre målas genom sig själv vid full drift.
+       x-driften på etiketterna är ofarlig: egen rad, kvar inom kortets
+       padding (24 px). */
+    driftLoop('.contact-list li', [6, 5, 7, 4, 6, 3], 'y');
     driftLoop('.contact-label', [9, 7, 10, 8], 'x');
     driftLoop('.contact-form label', [9, 8, 7], 'y');
     drift('.form-honesty', null, -9);
@@ -250,7 +255,11 @@
   /* PINNAT FROSTÖGONBLICK (PIN): gallerirubriken fryser fast under sidhu-
      vudet och kläs i frost medan galleriet rullar förbi — sektionens lugna
      landning. Endast på bred skärm och utan reduced motion; utan JS/pin är
-     rubriken ett vanligt block. */
+     rubriken ett vanligt block.
+     AUDIT-FIX r1 (2026-10-07): pinSpacing false — tidigare lade spacet
+     ~600 px tom gradient mellan rubrik och kort (nästan två tomma
+     skärmar). Nu ligger korten direkt under rubriken och glider under
+     det frysta frostbandet, i stället för att vänta inför. */
   mm.add('(prefers-reduced-motion: no-preference) and (min-width: 760px)', function () {
     var head = document.querySelector('.galleri-head');
     if (!head) { return; }
@@ -259,6 +268,7 @@
       start: 'top 84px',
       end: '+=600',
       pin: head,
+      pinSpacing: false,
       toggleClass: { targets: head, className: 'is-frozen' }
     });
     g.fromTo(head,

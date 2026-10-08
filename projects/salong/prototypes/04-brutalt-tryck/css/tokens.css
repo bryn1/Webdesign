@@ -6,10 +6,13 @@
   --red: #e11d48;
   --stone: #e7e5e4;
 
-  /* Contrast pairs, WCAG AA verified per pair (computed this build):
-     ink-on-bg 19.6:1 (body) | red-on-bg 4.6:1 (large/bold text) |
-     bg-on-red 4.6:1 (large/bold on red) | ink-on-red 4.55:1 (body on red) |
-     stone-on-ink 15.8:1 (body on black) | red headings on ink 4.3:1 (large only) */
+  /* Contrast pairs, mätta (rel. luminans L: red 0.174, ink 0.003, stone 0.786):
+     ink-on-bg 19.6:1 (body) | bg-on-red 4.7:1 (all text på rött — knappar,
+     nav-cta, marquee, rubriksektion .section--red) | red-on-bg 4.7:1 |
+     stone-on-ink 15.8:1 | red-on-ink 4.2:1 (STORT endast: rubrikprick,
+     galleripluss, ghost-siffrornas outline) | ink-on-red 4.2:1 — ANVÄNDS
+     EJ som text (under AA body; var bara i .section--red + .btn--red:hover
+     fore fixet) | ghost-siffra stone 55% pa svart ~5.2:1 */
 
   --font-display: "Archivo Black", "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Space Mono", "Courier New", ui-monospace, monospace;

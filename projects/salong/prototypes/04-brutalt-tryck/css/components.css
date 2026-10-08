@@ -59,7 +59,9 @@
 .svc:nth-child(5) { top: calc(var(--nav-h) + 4.15rem); }
 
 .svc:nth-child(even) { background: var(--ink); color: var(--bg); }
-.svc:nth-child(even) .svc-num { color: transparent; -webkit-text-stroke: 3px var(--red); }
+/* ghost-siffror: röd outline + genomskinligt vitt bläck (riso-känsla).
+   Solid fill — transparent hade gett 1.06:1; stone 55 % på svart ≈ 5.2:1. */
+.svc:nth-child(even) .svc-num { color: rgba(231, 229, 228, 0.55); -webkit-text-stroke: 3px var(--red); }
 .svc:nth-child(even) .svc-price { color: var(--stone); }
 
 .svc-num {
@@ -145,11 +147,15 @@
 .slots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
-  gap: var(--gap-1);
+  /* Glappen måste rymma slotarnas GSAP-drift (±18px y, ±20px x på desktop):
+       värsta närmande 36/40px + 8px luft. Mörkertalet 8px fick chipsen att
+       överlappa och klippa sina egna etiketter vid båda bredderna. */
+  gap: 2.75rem 1rem;
   border: 0;
   padding: 0;
   margin: 0 0 var(--gap-2);
 }
+@media (min-width: 701px) { .slots { column-gap: 3rem; } } /* x-drift byggs ej < 701px (js/scroll-motion.js) */
 .slots legend { font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: var(--gap-1); }
 .slot {
   background: var(--bg);
@@ -175,6 +181,11 @@
   color: var(--ink);
 }
 .boka-dialog::backdrop { background: rgba(10, 10, 10, 0.75); }
+/* Dialogen ar vit — uttala egen bakgrund pa lankarna sa att inkparet
+   raktas mot vitt (19.6:1), inte mot sektionens roda (4.2:1).
+   Hover: roed underline pa vit — texten forblir ink. */
+.boka-dialog a:not(.btn) { color: var(--ink); background: var(--bg); }
+.boka-dialog a:not(.btn):hover { color: var(--ink); background: var(--bg); text-decoration-color: var(--red); }
 .boka-dialog h3 { font-size: 1.6rem; margin-bottom: var(--gap-2); text-transform: uppercase; }
 .boka-dialog .demo-badge { color: var(--red); margin-bottom: var(--gap-2); }
 

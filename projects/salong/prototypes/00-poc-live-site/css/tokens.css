@@ -17,10 +17,12 @@
   --border-default: #d6d3d1;
   --border-strong:  #a8a29e;   /* decorative/borders only — 2.52:1, never text */
 
-  /* ---- Text (AA-checked on white / bg-secondary, see DESIGN.md) ---- */
+  /* ---- Text (AA-checked on white / bg-secondary / bg-tertiary) ---- */
   --text-primary:   #1c1917;   /* 17.49:1 */
   --text-secondary: #57534e;   /*  7.63:1 */
-  --text-tertiary:  #78716c;   /*  4.80:1 */
+  --text-tertiary:  #6f6963;   /*  5.42:1 on white; 4.97:1 on --bg-tertiary (AA —
+                                * the old #78716c measured 4.80 on white but only
+                                * 4.40 on the footer/calendar bg-tertiary surface) */
   --text-inverse:   #fafaf9;
 
   /* ---- Accent — the ONE chromatic color in chrome ---- */

@@ -4,7 +4,8 @@
   --paper: #ffffff;
   --ink: #111111;
   --cobalt: #1e40ff;          /* AA on paper: 6.5:1 — OK for body text */
-  --cobalt-ink: #16309e;      /* darker cobalt for hover text, 8.8:1 */
+  --cobalt-ink: #16309e;      /* darker cobalt for hover text on paper, 8.8:1 */
+  --cobalt-on-ink: #5a74ff;   /* lifted cobalt for text on the ink band: 4.8:1 on #111 (AA) */
   --hair: #d4d4d4;
   --hair-soft: #e8e8e8;
   --mute: #5b5b5b;            /* 7.0:1 on paper */
@@ -86,6 +87,9 @@ img { display: block; max-width: 100%; height: auto; }
   font-family: var(--font-mono);
   font-size: 14px;
 }
+/* Explicit hover on the ink chip so the generic a:hover cobalt-ink (meant for
+   paper) never lands on --ink — computed and static readings now agree. */
+.skip-link:hover { color: #fff; }
 .skip-link:focus { left: 8px; top: 8px; color: #fff; }
 
 .badge-demo {

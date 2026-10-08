@@ -5,6 +5,7 @@
    → blush ENDAST dekorativ yta/kant, aldrig text. */
 :root{
   --emerald:#0d211b; --ink:#0a1512; --gold:#c9a55a; --text:#f4ead8; --blush:#7d4a45;
+  --slot-off:#a08a6d; /* dämpad guld/taupe för upptagna tider: 5.6:1 mot bläck, 5.1:1 mot tint ✓ AA */
   --gold-dim:rgba(201,165,90,.42); --gold-faint:rgba(201,165,90,.16);
   --display:'Cinzel Decorative','Cinzel',Georgia,serif;
   --body:'Marcellus',Georgia,'Times New Roman',serif;
@@ -18,7 +19,9 @@ body{
 }
 img{max-width:100%; height:auto; display:block}
 a{color:var(--gold); text-decoration-thickness:1px; text-underline-offset:3px}
-a:hover{color:var(--text)}
+/* same computed result as before (for .btn/.skip-link the class:hover rules already won on
+   specificity) — the selector is narrowed so the static reading matches the computed one */
+a:not(.btn,.skip-link):hover{color:var(--text)}
 :focus-visible{outline:2px solid var(--gold); outline-offset:3px}
 h1,h2,h3{font-family:var(--display); font-weight:700; line-height:1.2; letter-spacing:.02em}
 h2{font-size:clamp(1.6rem,4.6vw,2.6rem); margin:.2rem 0 0}
@@ -130,9 +133,10 @@ p{margin:0 0 1rem}
   border:1px solid var(--gold-dim); font-family:var(--body); font-size:.95rem;
   letter-spacing:.1em; padding:.45rem .3rem; cursor:pointer}
 .slot:hover{background:var(--gold); color:var(--ink); border-color:var(--gold)}
-.slot--off{color:var(--blush); border-color:rgba(125,74,69,.65); cursor:not-allowed;
+/* blush ENDAST kant/tint (dekorativt) — tiden i dämpat guld, se kontraktet högst upp */
+.slot--off{color:var(--slot-off); border-color:rgba(125,74,69,.65); cursor:not-allowed;
   background:rgba(125,74,69,.16)}
-.slot--off:hover{background:rgba(125,74,69,.16); color:var(--blush); border-color:rgba(125,74,69,.65)}
+.slot--off:hover{background:rgba(125,74,69,.16); color:var(--slot-off); border-color:rgba(125,74,69,.65)}
 .boka-plain{max-width:38rem; margin:0 auto; font-size:.92rem; color:var(--text)}
 
 /* ---------- Dialog ---------- */

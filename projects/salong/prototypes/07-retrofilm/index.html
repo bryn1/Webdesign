@@ -89,7 +89,11 @@
                width="1656" height="2208" loading="lazy">
         </figure>
         <div>
-          <h2 id="om-rubrik" data-reveal>Hår som känns som ditt</h2>
+          <!-- Ingen data-reveal här: KLIPP-raduppen (scroll-motion.js) är
+               rubrikens enda rörelse. Den gamla reveal-y-tweenen och en
+               desktop-pin slogs om samma transform och lämnade rubriken
+               fastnat 22 px ur läge; båda är nu borttagna för denna h2. -->
+          <h2 id="om-rubrik">Hår som känns som ditt</h2>
           <p data-reveal>Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger
             på att lyssna först: vilken hårtyp du har, hur du lever med ditt hår och vad du
             vill känna när du går ut dörren.</p>

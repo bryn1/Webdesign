@@ -8,7 +8,7 @@
    aria-hidden + pointer-events:none och synliga i utgångsläget.
    Rörelseklasser: LINE grindar/perforering ritas · COLOR papperstonen
    åldras · ZOOM Ken-Burns på rutor och porträtt · DRIFT rullens lager
-   haltar mot varandra · PIN Scen 01-rubriken hålls (desktop) · STAGG
+   haltar mot varandra · STAGG
    rutor, tider och sidfotsramar kliver in förskjutna · KLIPP rubriker
    radas upp rad för rad under mask. DENSITET (ägardom: "inte tillräckligt
    med saker som rör sig"): utspridd scrub på många småelement —
@@ -268,8 +268,7 @@
     afterFonts(function () {
       ctx.add(function () {
         ["#om-rubrik", "#tjanster-rubrik", "#galleri-rubrik",
-         "#boka-rubrik", "#kontakt-rubrik"].forEach(function (sel) {
-          var h = document.querySelector(sel);
+         "#boka-rubrik", "#kontakt-rubrik"].forEach(function (sel) {          var h = document.querySelector(sel);
           if (!h) { return; }
           var words = (h.textContent || "").trim().split(/\s+/).filter(Boolean);
           if (!words.length) { return; }
@@ -308,7 +307,7 @@
             });
           });
         });
-        ST.refresh();                      /* måttet på pin och windows kan ha flyttat på sig */
+        ST.refresh();                      /* måttet på windows kan ha flyttat på sig efter raddelningen */
       });
     });
 
@@ -317,17 +316,5 @@
       ctx.revert();
       if (paper && paper.parentNode) { paper.parentNode.removeChild(paper); }
     };
-  });
-
-  /* ============ Desktop: PIN — Scen 01-rubriken hålls fryst ============== */
-  mm.add("(prefers-reduced-motion: no-preference) and (min-width: 701px)", function () {
-    var pinT = ST.create({
-      trigger: "#om",
-      start: "top 64px",            /* hålls strax under den fasta headern */
-      end: "bottom bottom",
-      pin: "#om-rubrik"             /* rubriken sitter stilla (fryst bildruta)
-                                       medan textkolumnen driver förbi */
-    });
-    return function () { pinT.kill(); };
   });
 })();

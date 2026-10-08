@@ -54,6 +54,7 @@ button {
   font-weight: 700;
 }
 .skip-link:focus { left: var(--gap-1); }
+.skip-link:hover, .skip-link:focus { color: var(--bg); } /* ej rod a:hover pa eget ink-falt (4.2:1) */
 
 /* Rubriker i display-snitt */
 .eyebrow {
@@ -90,17 +91,19 @@ button {
 }
 .btn--red {
   background: var(--red);
-  color: var(--bg); /* 4.6:1 — displaystorlek, AA large */
+  color: var(--bg); /* 4.7:1 vit-on-red — AA även body-storlek */
   border-color: var(--ink);
   box-shadow: 5px 5px 0 var(--ink);
 }
+.btn--red:hover { color: var(--bg); } /* håller vit på rött även på hover (annars vinner .btn:hover → ink 4.2:1) */
+
 .btn--ghost-dark {
   background: transparent;
   color: var(--bg);
   border-color: var(--bg);
   box-shadow: 5px 5px 0 var(--bg);
 }
-.btn--ghost-dark:hover { color: var(--red); border-color: var(--red); box-shadow: 1px 1px 0 var(--red); transform: translate(3px, 3px); }
+.btn--ghost-dark:hover { color: var(--stone); border-color: var(--red); box-shadow: 1px 1px 0 var(--red); transform: translate(3px, 3px); } /* stone-text 15.8:1; roed ar dekorativ kant/skugga */
 
 /* Demo-märke — PoC-ärlighet */
 .demo-badge {

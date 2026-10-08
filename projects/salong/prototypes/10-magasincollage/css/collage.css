@@ -61,6 +61,13 @@
   border-radius: 2px;
 }
 
+/* Hero-omslagets lösa vykort — ren dekoration (aria-hidden; galleriet längre
+   ner bär bildinnehållet). Basil-gömmen MÅSTE stå utanför no-preference-
+   grenen: under reduce sätts aldrig html[data-motion], och då fanns ingen
+   display-rule alls — de 1536×2048-bilderna flödade in fullstor i sidan.
+   Tänds enbart av html[data-motion] + no-preference + ≥900px längre ner. */
+.hero-float { display: none; }
+
 /* --- Collage-läget: endast när js/scroll-motion.js tänt html[data-motion] ---
    Parallax-axeln --py skrivs av GSAP (scrubbad motdrift), drag av
    js/collage.js (--dx/--dy) och rotation --rot (satt per kort i HTML) —
@@ -105,7 +112,6 @@
   }
 
   /* Hero-omslagets lösa vykort och klistermärken — parallax-lager */
-  .hero-float { display: none; }
   @media (min-width: 900px) {
     html[data-motion] .hero-float {
       display: block; position: absolute; z-index: 1; width: clamp(150px, 17vw, 260px);
@@ -134,8 +140,9 @@
    ============================================================ */
 
 /* Rivna pappersremsor som driver mot scrollen bakom innehållet.
-   Base-gömmen ligger — som .hero-float — i no-preference-grenen: under
-   reduce står remsorna statiska (ostilade, höjd 0), och utan
+   Base-gömmen ligger i no-preference-grenen (.hero-float har sin på
+   toppnivå — den innehåller bilder och måste vara gömd även under reduce):
+   under reduce står remsorna statiska (ostilade, höjd 0), och utan
    html[data-motion] syns de aldrig; något innehåll döljs aldrig. */
 @media (prefers-reduced-motion: no-preference) { .torn-strip, .scrap { display: none; } }
 html[data-motion] .has-strip { position: relative; overflow: hidden; }

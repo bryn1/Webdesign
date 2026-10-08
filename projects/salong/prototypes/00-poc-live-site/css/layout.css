@@ -131,6 +131,24 @@ main > section:nth-of-type(even) { background: var(--bg-secondary); }
 /* ---- Breakpoints (768 / 1024 only; 375px is the tested floor).
  * Nothing below touches the booking calendar grid — mobile calendar adapts via
  * the .cal-wrap scroll wrapper (invariant I3). ---- */
+
+/* Mobile floor: the sticky header becomes two rows — row 1 keeps the live
+ * site's brand + Instagram + Boka tid, row 2 carries the section nav so it is
+ * never hidden (audit P1; items placed by components.css). Anchor
+ * scroll-padding grows to clear the taller header. */
+@media (max-width: 767.98px) {
+  html { scroll-padding-top: calc(var(--header-h) + var(--space-12)); }
+  .site-header { height: auto; }
+  .site-header .container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    column-gap: var(--space-5);
+    row-gap: var(--space-2);
+    align-items: center;
+    padding-block: var(--space-2) var(--space-3);
+  }
+}
+
 @media (min-width: 768px) {
   .container { padding-inline: var(--space-8); }
   main > section { padding-block: var(--space-24); }

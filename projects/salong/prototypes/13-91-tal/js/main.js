@@ -34,11 +34,42 @@
     closeDialog.addEventListener('click', () => dialog.close());
   }
 
-  /* --- contact form: visibly demo, backend nowhere near --- */
+  /* --- contact form: visibly demo, backend nowhere near; and never
+         congratulate an empty form — validate honestly first --- */
+  const form = document.getElementById('contactform');
   const sendBtn = document.getElementById('cf-send');
   const hint = document.getElementById('cf-hint');
-  if (sendBtn && hint) {
+  const error = document.getElementById('cf-error');
+  if (form && sendBtn && hint && error) {
+    const fields = Array.from(form.querySelectorAll('input, textarea'));
+    const labelOf = (f) => (f.labels && f.labels[0] ? f.labels[0].textContent.trim() : f.name);
+    const joinSwedish = (arr) => (arr.length > 1
+      ? arr.slice(0, -1).join(', ') + ' och ' + arr[arr.length - 1]
+      : arr[0]);
+
+    fields.forEach((f) => {
+      f.addEventListener('input', () => f.removeAttribute('aria-invalid'));
+    });
+
     sendBtn.addEventListener('click', () => {
+      const missing = fields.filter((f) => !f.value.trim());
+      const mail = document.getElementById('cf-mail');
+      const badMail = !missing.includes(mail) && !mail.checkValidity();
+      fields.forEach((f) => {
+        const bad = missing.includes(f) || (f === mail && badMail);
+        if (bad) f.setAttribute('aria-invalid', 'true');
+        else f.removeAttribute('aria-invalid');
+      });
+      if (missing.length || badMail) {
+        hint.hidden = true;
+        error.textContent = missing.length
+          ? 'Fyll i ' + joinSwedish(missing.map(labelOf)) + ' innan du skickar.'
+          : 'E-postadressen ser inte giltig ut. Kontrollera den och försök igen.';
+        error.hidden = false;
+        missing[0] ? missing[0].focus() : mail.focus();
+        return;
+      }
+      error.hidden = true;
       hint.hidden = false;
     });
   }

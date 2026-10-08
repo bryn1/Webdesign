@@ -180,7 +180,7 @@
 }
 .frame-tag {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem; /* 12 px — FÖRE/EFTER är funktionell text, 11 px-golv */
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--bg);
@@ -201,6 +201,8 @@
 }
 .boka-band h2, .boka-band h3 { color: var(--bg); }
 .boka-band a { color: var(--bg); }
+/* Mörkt band: samma uttalade undantag som sidfoten — krem på oxblood (6.9:1). */
+.boka-band a:hover { color: var(--bg); }
 .boka-band .reel-mark { color: var(--bg); opacity: 0.8; }
 
 .demo-badge {

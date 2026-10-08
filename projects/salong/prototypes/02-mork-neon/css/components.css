@@ -197,8 +197,10 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.8rem;
+  /* stripe in --surface (not --line): the label --text-muted needs AA on the
+     worst gradient stop — 6.0:1 on --surface vs 4.1:1 on --line (fix brief P1) */
   background:
-    repeating-linear-gradient(45deg, transparent 0 18px, var(--line) 18px 19px),
+    repeating-linear-gradient(45deg, transparent 0 18px, var(--surface) 18px 19px),
     var(--bg-raised);
 }
 .gallery-card__body {
@@ -265,7 +267,7 @@
 .slot {
   font: inherit;
   font-size: 0.92rem;
-  padding: 0.55rem 0.4rem;
+  padding: 0.6rem;
   border-radius: var(--radius);
   border: 1px solid var(--slot-free-border);
   background: var(--slot-free);

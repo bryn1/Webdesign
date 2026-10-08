@@ -55,6 +55,7 @@ a:hover { color: var(--grey); }
   text-transform: uppercase;
 }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
+.skip-link:hover { color: var(--bg); } /* plattan är vit — a:hover:ens grå når ej AA här */
 
 .sr-only {
   position: absolute;
@@ -112,7 +113,8 @@ a:hover { color: var(--grey); }
   color: var(--ink);
   border-bottom-color: var(--ink);
 }
-.typebar__nav a span[aria-hidden] { color: var(--hair); margin-right: 0.35em; }
+/* Siffrorna är synlig text, inte hårlinje — --grey (7.24:1), inte --hair (1.79:1). */
+.typebar__nav a span[aria-hidden] { color: var(--grey); margin-right: 0.35em; }
 .typebar__cta { color: var(--ink) !important; }
 
 /* ===== Scramble-eyebrow ===== */
@@ -181,7 +183,7 @@ a:hover { color: var(--grey); }
   text-transform: uppercase;
   white-space: nowrap;
 }
-.rail__half span { color: var(--hair); }
+.rail__half span { color: var(--grey); } /* separatorer målas som text → AA-token */
 
 /* ===== Demo-märkning ===== */
 .demo-badge {

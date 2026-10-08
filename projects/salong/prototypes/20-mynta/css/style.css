@@ -165,7 +165,10 @@ h2 {
 }
 h3 { font-size: 1.15rem; letter-spacing: .02em; }
 a { color: var(--cyan); }
-a:hover { color: var(--green); }
+/* Knappar och skip-länken bär egen bakgrund: deras vila-färg får inte
+   skrivas över på hover (annars grönt på grönt, 1.0:1 — audit P1).
+   .nav a har egen cyan-hover — utesluts så den inte överrösts. */
+a:not(.btn):not(.skip-link):not(.nav a):hover { color: var(--green); }
 
 .glow-g { text-shadow: 0 0 8px rgba(61, 252, 103, .55); }
 .glow-m { text-shadow: 0 0 8px rgba(255, 46, 196, .55); }
@@ -227,6 +230,11 @@ a:hover { color: var(--green); }
 .footer {
   text-align: center;
   padding: clamp(2.4rem, 8vw, 4rem) 1.2rem;
+  /* Raderna skrubbar xPercent ±1.6 (scroll-motion.js 17): vid breda
+     vyer skjutas blockraden förbi sidans padding och gav permanent
+     horisontell scrollbrä (1443/1440 — audit P2). Klipp vid brädden,
+     rörelsen består. */
+  overflow-x: clip;
 }
 .footer .px { font-size: .75rem; color: var(--green); margin-top: 0; }
 .footer p:last-child { color: var(--text-dim); font-size: .9rem; max-width: 52ch; margin: 0 auto; }

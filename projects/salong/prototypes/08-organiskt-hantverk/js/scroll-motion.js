@@ -15,21 +15,28 @@
 
   mm.add('(prefers-reduced-motion: no-preference)', function () {
 
-    /* 1 · LINJE (draw, scrubbad): de handritade strecken ritas med pennen —
-           strokeDashoffset fölver scrollläget. Herostrichen ritas under de första
-           skroll-tagen, alla övriga när sin rubrik/kort glider in. */
+    /* 1 · LINJE (draw): de handritade strecken ritas med pennen — strokeDashoffset
+            följer scrollläget. Herostrichen UNDANTAS scrubben: vid sidans allra
+            första pixel finns ingen scroll-väg kvar att dra den med, så den hade
+            stannat halpritad i vila. Den ritas därför en gång vid ankomst och
+            vilar i ritat läge (slutläget är alltså synligt från start). */
     g.utils.toArray('.underline path').forEach(function (path) {
       var svg = path.closest('svg');
-      var hero = svg.closest('.hero');
       var len = path.getTotalLength();
+      if (svg.closest('.hero')) {
+        g.fromTo(path,
+          { strokeDasharray: String(len), strokeDashoffset: len },
+          { strokeDashoffset: 0, duration: 1.1, delay: 0.15, ease: 'power2.out' });
+        return;
+      }
       g.fromTo(path,
         { strokeDasharray: String(len), strokeDashoffset: len },
         {
           strokeDashoffset: 0, ease: 'none',
           scrollTrigger: {
-            trigger: hero ? '.hero' : svg.closest('.headline') || svg.parentElement,
-            start: hero ? 'top top' : 'top 92%',
-            end: hero ? 'bottom 62%' : 'top 52%',
+            trigger: svg.closest('.headline') || svg.parentElement,
+            start: 'top 92%',
+            end: 'top 52%',
             scrub: true
           }
         });

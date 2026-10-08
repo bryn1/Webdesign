@@ -61,6 +61,9 @@ a:hover { color: var(--ink); }
   transition: top 0.2s ease;
 }
 .skip-link:focus { top: 1rem; }
+/* explicit hover on the ink chip: `a:hover { color: var(--ink) }` above would
+   otherwise make the focused skip-link ink-on-ink (1.0:1) when hovered. */
+.skip-link:hover { background: var(--olive-deep); color: var(--on-olive); }
 
 .container {
   width: min(100% - 2 * var(--pad-x), var(--wrap));
@@ -142,6 +145,10 @@ a:hover { color: var(--ink); }
 }
 .site-footer h2 { color: var(--on-olive); font-size: var(--step-1); }
 .site-footer a { color: var(--on-olive); }
+/* explicit hover: resolves the overlap with `a:hover` above for both the
+   cascade and static readers — hover stays high-contrast on the ink bg
+   (sand on ink = 8.23:1), never ink-on-ink. */
+.site-footer a:hover { color: var(--sand); }
 .site-footer .section-eyebrow { color: var(--sand); }
 .footer-nav {
   display: flex;
