@@ -41,6 +41,9 @@ create `projects/<website>/` FIRST (lowercase-kebab, one website = one folder, c
 file is written), with `spec.md` + `prototypes/<NN-name>/`; prototypes live only under their site's
 folder. No loose site dirs at the repo root; no second website inside another site's folder.
 Scratch goes to `.tmp/` — never `out/` at the repo root (see §8.6 for why that recurs).
+Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
+`thumbs/**` — written by `tools/build-index.py --root` and mirrored (§2 table, §10) are the
+public surface, not loose site dirs.
 
 | Path | Role |
 |---|---|
