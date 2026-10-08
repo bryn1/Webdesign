@@ -16,3 +16,6 @@ __pycache__/
 /[0-9][0-9]-*.png
 
 /salong-*.png
+
+# root-level *.png = transient browser-QA staging for ALL lanes (owner ruling MC 10062.30.1 precedent, generalized 2026-10-08: zero tracked root PNGs ever; product images live under projects/). Run owners still relocate their own shots to their run dirs.
+/*.png
