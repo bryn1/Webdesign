@@ -1,5 +1,8 @@
 # ARCHITECTURE — Hemsidor scroll-design prototype library
 
+Exceeds the 250-line doc convention because §4's deviation table and §8's pre-ruled exception
+register are DoD-gate inputs and must not be split from the facts they qualify.
+
 Repo: `/home/claudecode/Hemsidor` (GitHub `bryn1/Webdesign`, main). Project intent: **PoC-demo** —
 20 competing scroll-design themes for one real hairdresser site (salon persona placeholder "Jane
 Cooper" — owner ruling R4; the portfolio project's named subject IS the repo owner, Alexander
@@ -33,6 +36,12 @@ history, not a live gate (per the v3 note above).
 
 ## 2. Repo layout (as it actually is)
 
+**New-website rule (owner ruling 2026-10-08, MC 10286).** A new website is its own subworkspace:
+create `projects/<website>/` FIRST (lowercase-kebab, one website = one folder, created before any
+file is written), with `spec.md` + `prototypes/<NN-name>/`; prototypes live only under their site's
+folder. No loose site dirs at the repo root; no second website inside another site's folder.
+Scratch goes to `.tmp/` — never `out/` at the repo root (see §8.6 for why that recurs).
+
 | Path | Role |
 |---|---|
 | `projects/salong/spec.md` | Content canon — every theme's Swedish copy/section contract (single source). |
@@ -52,6 +61,7 @@ history, not a live gate (per the v3 note above).
 | `.audits/202610051009-workflow-explode/` | A SEPARATE, unrelated run (MC 10140, a new-concept design phase). In-flight, untracked. Not part of the product. |
 | `projects/portfolio/concepts/workflow-explode/` | That run's build target (served on :8092 by its own keepalive). Full build since 2026-10-05: `index.html` + `css/` + `js/` (vendored ScrollTrigger) + `assets/` + RESULT.md, all tracked; `:8092/workflow-explode/` answers 200 (probed this pass). Not the product. |
 | `docs/ARCHITECTURE.md` | This file (layout-v2 path). |
+| `DESIGN.md`, `PRODUCT.md` (repo root) | impeccable project state (mode 0600), tracked — the impeccable lab tooling's own canon, impeccable-scoped, not product surface. |
 | `.tmp/`, `.playwright-mcp/`, `.pytest_cache/` | Git-ignored scratch (probe payloads, browser logs). |
 
 No build system, no package.json, no node_modules, no backend, no database, no API surface
@@ -217,10 +227,13 @@ verdicts).
 4. Theme 11 IO reveal remnant — P2, queued for next touch (§4 table); cite DONE S-F3.
 5. Google Fonts stay CDN — owner decision pending (DONE E3, BLOCKED); fonts degrade to fallback
    stacks offline; non-blocking for LAN demo.
-6. ~~Repo-root `out/` stray dir~~ — **RESOLVED 2026-10-05**: an empty scratch leftover (only an
-   empty `.tmp/`, git-invisible) left when a test child ran from the repo root with the relative
-   path `out/.tmp/…`; removed via `rmdir` after file-count 0 was confirmed. The only out dir is
-   `.audits/<run>/out/`. Verified absent this session (`ls -d .../out` → No such file).
+6. Repo-root `out/` stray dir — **REAPPEARED 2026-10-07**: `out/.tmp/t6c5/live2.html` present
+   (re-verified 2026-10-08, `ls -la out` + `find out`). The 2026-10-05 rmdir was real; a later child
+   ran from the repo root with the relative path `out/.tmp/…` again, and git stayed silent because
+   `.gitignore` line 1 matches `out/.tmp/` at any depth. Prevention (owner doctrine 2026-10-08,
+   MC 10286): scratch goes to `.tmp/`, never `out/` at the repo root (§2 New-website rule).
+   Removal is left to the owning run/owner — not this document's action; `rm -r` is needed (content
+   present, `rmdir` no longer suffices).
 7. `projects/portfolio/concepts/` + `.audits/202610051009-workflow-explode/` — a different, newer run (MC 10140)
    living legitimately in the same repo; not product surface of MC 10088.
 
