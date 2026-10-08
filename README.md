@@ -28,6 +28,9 @@ one folder) BEFORE writing any file. Inside it: `spec.md` (content canon) + `pro
 folder). Do NOT: leave loose site dirs at the repo root, put a second website inside another site's
 folder, or scratch outside `.tmp/` (never `out/` at the repo root). Then run
 `python3 tools/build-index.py --thumbs` so the browse site picks the new project up.
+Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
+`thumbs/**` — written by `tools/build-index.py --root` and mirrored (docs/ARCHITECTURE.md §2
+table, §10) are the public surface, not loose site dirs.
 
 ## Add a prototype
 
