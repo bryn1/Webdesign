@@ -134,6 +134,10 @@ const Scenes = (() => {
     // passes — current flowing the wrong way on purpose
     tl.set(".flow__loop path", { strokeDasharray: 1, strokeDashoffset: 1 }, 20);
     tl.to(".flow__loop path", { strokeDashoffset: 0, duration: 2 }, 24);
+    // F-E (fix-c3): arrowhead + label ride the END of the draw (CSS hidden-defaults, same
+    // pattern as the path) — the tip appears exactly as the curve lands on Bygg (draw ends 26).
+    tl.to(".flow__loop polygon", { opacity: 1, duration: 0.25 }, 25.85);
+    tl.to(".flow__loop text", { opacity: 1, duration: 0.4 }, 26.1);
     tl.to(".flow__loop", { opacity: 0.35, duration: 0.5, yoyo: true, repeat: 3 }, 26);
     // 28–30s: unplug — the collapse toward stage centre leaves the wall BARE for two seconds
     // before SC3 (MA raise: one genuinely empty handoff beat; the rail keeps the only light)

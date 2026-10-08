@@ -125,7 +125,15 @@
     background: linear-gradient(90deg, var(--amber), var(--alu-hi));
     transform-origin: 0 50%; opacity: .95;
   }
-  html.js .counters { position: absolute; left: 0; right: 0; bottom: 25%; justify-content: center; }
+  /* F-D (fix-c3, owner shots ~1440×590): bottom:25% rode the bar UP as height shrank and
+     covered the lower worker pills (measured: bar top 391 < pill bottom 416 at h=591).
+     Geometry (headless-measured, desktop): lower spoke pills' bottom = h/2+122, bar height 52,
+     caption band (.caps visible .cap child) top = h-130. Below h≈660 no placement clears BOTH
+     (no gap between pill-bottom and cap-top), so the clamp clears the PILLS there (the owner
+     bug) and the caption band at every height with room. 140px = cap bottom 32 + cap height 97
+     + 11 clearance; calc(50vh-189px) = pill bottom +15 gap − bar height (122+15+52); the 56px
+     floor keeps the meter bridge near the stage bottom (it is a rack meter bridge, stay low). */
+  html.js .counters { position: absolute; left: 0; right: 0; bottom: max(56px, min(140px, calc(50vh - 189px))); justify-content: center; }
 
   /* SC5 outro (z:40) */
   html.js .outro {
@@ -150,6 +158,11 @@
   html.js .wf-node { opacity: 0; }
   html.js .wf-link { transform: scaleX(0); transform-origin: left center; }
   html.js .flow__loop path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  /* F-E (fix-c3, owner shot): the arrowhead + label were never hidden-defaults, so they painted
+     fully before/while the path drew — a tip and a label floating with no wire. Same mechanism
+     as the path dash-hide (this block, html.js + no-preference only): hidden until scenes.js
+     scene2 reveals them at 25.85/26.1, exactly as the curve lands on Bygg (draw ends 26). */
+  html.js .flow__loop polygon, html.js .flow__loop text { opacity: 0; }
   html.js .kan-col { opacity: 0; }
   html.js .task-card { opacity: 0; }
   html.js .hub { opacity: 0; }
