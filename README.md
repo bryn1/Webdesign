@@ -20,6 +20,15 @@ docs/ARCHITECTURE.md         how the repo and the server fit together
 Projects today: **salong** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
 builds) and **portfolio** (20 portfolio design themes + the workflow-explode concept).
 
+## Add a website (new project) — do this FIRST
+
+When you create a new website: first create `projects/<website>/` (lowercase-kebab, one website =
+one folder) BEFORE writing any file. Inside it: `spec.md` (content canon) + `prototypes/<NN-name>/`
+(one prototype = one folder with its own `index.html` — a prototype never lives outside its site's
+folder). Do NOT: leave loose site dirs at the repo root, put a second website inside another site's
+folder, or scratch outside `.tmp/` (never `out/` at the repo root). Then run
+`python3 tools/build-index.py --thumbs` so the browse site picks the new project up.
+
 ## Add a prototype
 
 1. Put the finished site in `projects/<project>/prototypes/<NN-name>/` (its own `index.html`;
