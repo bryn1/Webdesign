@@ -32,7 +32,7 @@
 }
 .brand:hover { color: var(--cobalt); }
 .brand-sub {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   color: var(--mute);
 }
@@ -56,7 +56,7 @@
   white-space: nowrap;
 }
 .nav a:hover { color: var(--cobalt); border-bottom-color: var(--cobalt); }
-.nav .num { color: var(--cobalt); margin-right: 5px; font-size: 10.5px; }
+.nav .num { color: var(--cobalt); margin-right: 5px; font-size: 11px; }
 
 /* --- progress hairline (visuals in motion.css) ----------------------- */
 
@@ -136,7 +136,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--mute);
 }
@@ -174,7 +174,7 @@
   text-transform: uppercase;
   will-change: transform;
 }
-.marquee-track span:nth-child(4n + 3) { color: var(--cobalt); } /* cobalt on near-black: high contrast */
+.marquee-track span:nth-child(4n + 3) { color: var(--cobalt-on-ink); } /* lifted cobalt: 4.8:1 on --ink (AA); plain --cobalt was 2.9:1 */
 
 /* --- om mig ------------------------------------------------------------- */
 
@@ -214,8 +214,12 @@
   .hero-grid { align-items: stretch; }
   .imgframe { aspect-ratio: 16 / 10; }
   .portrait-media { aspect-ratio: 4 / 3; }
-  .head-grid { flex-wrap: wrap; padding-block: 8px; }
-  .nav { width: 100%; }
+  .head-grid { flex-wrap: wrap; padding-block: 8px; row-gap: 6px; }
+  /* Wrap instead of a clipped scroll strip: at 375 the strip hid 05 BOKA /
+     06 KONTAKT with no affordance. All six items visible at rest. */
+  .nav { width: 100%; flex-wrap: wrap; overflow: visible; }
+  /* wrapped sticky header is taller than --head-h — keep anchors clear of it */
+  html { scroll-padding-top: 124px; }
 }
 
 @media (max-width: 520px) {

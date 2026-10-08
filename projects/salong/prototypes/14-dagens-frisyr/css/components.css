@@ -107,7 +107,9 @@
   font-size: 0.95rem;
   text-align: center;
 }
-.slot:hover { background: var(--ink); color: var(--bg); }
+/* bara lediga tider får dark-hover — avgränsad så statisk läsning och
+   beräknad kedja säger samma sak (detektorns press-on-ink-par försvinner) */
+.slot:not(.slot--taken):hover { background: var(--ink); color: var(--bg); }
 
 .slot--taken {
   color: var(--press);

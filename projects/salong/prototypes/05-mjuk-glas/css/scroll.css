@@ -15,7 +15,10 @@
 .service-card {
   position: sticky;
   top: calc(var(--header-h) + 0.75rem + (var(--stack-i, 0) * 16px));
-  min-height: 170px;
+  /* AUDIT-FIX r1 (2026-10-07): tidigare min-height 170 px lämnade ~40 %
+     dött glas under "Pris: –" vid kort tjänsttext. Kortet höjer sig nu
+     efter innehållet; sticky-staplens 16 px-kliv oförändrad. */
+  min-height: 0;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--space-2) var(--space-3);
@@ -162,9 +165,14 @@
 }
 
 /* Gallerirubrik: GSAP fäster den under sidhuvudet (pin) och klär den i frost
-   genom is-frozen-klassen — ett litet frostat band, ingen blur på stora ytor. */
+   genom is-frozen-klassen — ett litet frostat band, ingen blur på stora ytor.
+   AUDIT-FIX r1 (2026-10-07): z-index 20 (under sidhuvudets 50) — när
+   rubriken är fast (fixed, pinSpacing false) måste glaskorten glida
+   UNDER frostbandet, inte över det (.gallery-shell är position: relative
+   och målas annars senare i lagret). */
 .galleri-head {
   position: relative;
+  z-index: 20;
 }
 
 .galleri-head.is-frozen::before {

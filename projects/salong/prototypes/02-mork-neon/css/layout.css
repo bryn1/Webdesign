@@ -200,6 +200,11 @@ img { max-width: 100%; height: auto; display: block; }
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
   gap: var(--space-2);
 }
+@media (min-width: 60rem) {
+  /* five cards: keep 3+2 rows instead of auto-fill's 4+1 orphan
+     at wide widths (audit P2) */
+  .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 /* ---------- footer ---------- */
 .site-footer {

@@ -304,7 +304,9 @@
     if (slotsD.length) {
       var slotTLD = scrubTL(".slots", "top bottom", "bottom 20%");
       slotsD.forEach(function (slot, i) {
-        step(slotTLD, slot, "x", i % 2 === 0 ? 26 : -26, 0, i * 0.06, 4);
+        /* ±20px: två intilliggande chips möts som mest vid 40px — column-gap
+           48px (components.css) ryms alltid. */
+        step(slotTLD, slot, "x", i % 2 === 0 ? 20 : -20, 0, i * 0.06, 4);
       });
     }
     gsap.utils.toArray(".boka-lead, .boka-real").forEach(function (p, i) {

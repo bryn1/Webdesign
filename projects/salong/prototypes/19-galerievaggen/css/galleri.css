@@ -93,27 +93,32 @@
   box-shadow: 0 2px 3px rgba(23, 18, 8, 0.5);
 }
 
-/* ---------- N8 · duotone — ren CSS, ingen JS ----------
-   Steg 1: bilden gråskalas. Steg 2: screen mot kolduk (svart→kol,
-   vitt→vitt). Steg 3: multiply guld ovanpå (vitt→guld). Resultat:
-   bildens ljusstyrka styrs mot kolkrita→guld. */
+/* ---------- N8 · duotone — ren CSS, ingen JS, inga blend-lager ----------
+   Ursprunglig treatment: screen mot kolduk + multiply guld. De båda
+   mix-blend-mode-lagren rasteriseras bort bakom viewporten (hela sidan
+   utanför scroll => svart kolduken som enda svaret), så duotonen byggs
+   nu utan blend-lager: gråskala-duk mot kolgrunden + en guldfilm med
+   alfaintensitet. Samma kolkrita→guld-ton, men ljusstyrkan bevaras —
+   bildens toner syns i vila, vid reducerad rörelse och utan JS. */
 .duo {
   position: relative;
-  isolation: isolate;
-  background: var(--ink);
+  aspect-ratio: 3 / 4;            /* dukens format — måttsreservation före målning */
+  background: var(--ink);         /* kolduken — grunden, syns bara under avkodningen */
   overflow: hidden;
 }
 .duo img {
   width: 100%;
-  filter: grayscale(1) contrast(1.1) brightness(1.14);
-  mix-blend-mode: screen;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.12) brightness(1.1);
+  opacity: 0.92;                  /* släpper igenom lite kol — bevarar kolkritan */
 }
 .duo::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #f4d265 0%, var(--gold) 46%, #c99b12 100%);
-  mix-blend-mode: multiply;
+  background: linear-gradient(160deg,
+    rgba(244, 210, 101, 0.55) 0%, rgba(232, 185, 35, 0.5) 46%, rgba(201, 155, 18, 0.55) 100%);
   pointer-events: none;
 }
 
@@ -148,8 +153,11 @@
   max-width: 100%;
   text-align: center;
   background:
-    linear-gradient(180deg, var(--brass-hi) 0%, var(--brass) 18%, #77601c 82%, var(--brass) 100%);
-  color: var(--text);           /* 4.7:1 mot mässing — AA godkänt */
+    linear-gradient(180deg, var(--brass) 0%, #77601c 55%, var(--brass-dark) 100%);
+  color: var(--text);           /* äggvit på skyltens ljusaste stop mässing
+                                   #8a6d1f = 4.7:1 — AA godkänt över hela plåten
+                                   (den tidigare topstoppen mässingshöjdglans
+                                   #a98a35 gav bara 3.17:1 — uppmätt 2026-10-08) */
   padding: 0.55em 1.1em 0.65em;
   border: 1px solid #5c4a13;
   box-shadow: 0 4px 8px rgba(23, 18, 8, 0.4), inset 0 1px 0 rgba(255, 250, 240, 0.35);

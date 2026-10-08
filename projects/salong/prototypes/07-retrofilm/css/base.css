@@ -35,7 +35,10 @@ h3 { font-size: clamp(1.2rem, 3vw, 1.6rem); }
 p { margin: 0 0 var(--space-2); max-width: var(--measure); }
 
 a { color: var(--oxblood); text-underline-offset: 0.18em; }
-a:hover { color: var(--teal); }
+/* Teal-hover gäller bara ljusa ytor (main): mörka band och sidfoten har
+   sina egna hover-regler — samma läsning statiskt och beräknat, aldrig
+   teal på bläck (då 2.4:1). */
+main a:hover { color: var(--teal); }
 
 :focus-visible {
   outline: 3px solid var(--oxblood);
@@ -157,6 +160,9 @@ section[id] > .wrap > h2 { margin-top: var(--space-1); }
 }
 .site-footer h2 { font-size: 1.6rem; }
 .site-footer a { color: var(--bg); text-decoration-color: var(--oxblood); }
+/* Mörk yta: undantaget från den globala teal-hovern uttalat —
+   statisk läsning = beräknad läsning (krem på bläck, 14:1 AA). */
+.site-footer a:hover { color: var(--bg); }
 .site-footer .mono { color: var(--bg); opacity: 0.75; }
 .footer-grid {
   display: grid;

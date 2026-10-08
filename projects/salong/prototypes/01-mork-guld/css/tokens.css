@@ -95,4 +95,7 @@ a:hover { color: var(--copper-deep); }
   text-decoration: none;
   transition: top 0.15s ease;
 }
+/* Mörk grund: den generiska a:hover (koppardjup 1.9:1 hit) får inte måla
+   länken — egen hover-färg per mörk grund, samma mönster som .footer a:hover. */
+.skip-link:hover { color: var(--paper); }
 .skip-link:focus { top: 0.75rem; color: var(--paper); }

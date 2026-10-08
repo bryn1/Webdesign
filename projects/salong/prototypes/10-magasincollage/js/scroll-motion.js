@@ -109,8 +109,8 @@
       restore.push(splitInto(h2, true));
       scrub(h2, { x: hi % 2 ? 16 : -16 }, { x: 0 }, secOf(h2), 'top bottom', 'top 35%');
       $$('.split-word', h2).forEach(function (w, i) {
-        var amp = 14 + (i % 3) * 8;                        // 14–30 px
-        scrub(w, { y: i % 2 ? -amp : amp, x: i % 2 ? 8 : -8 }, { y: 0, x: 0 }, h2, 'top bottom', 'top 28%');
+        var amp = 6 + (i % 3) * 8;                         // 6–22 px — ~8 px lugnare per rad
+        scrub(w, { y: i % 2 ? -amp : amp, x: i % 2 ? 6 : -6 }, { y: 0, x: 0 }, h2, 'top bottom', 'top 28%');
       });
     });
 
@@ -223,8 +223,10 @@
   ST.refresh();
   }
 
-  /* Bokningsgridet byggs av js/booking-mock.js (defer efter denna fil) —
-     registreringen körs därför först vid DOMContentLoaded, då är rutnätet klart. */
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); }
-  else { boot(); }
+  /* Bokningsgridet byggs av js/booking-mock.js (defer efter denna fil). Under
+     defer-körningen är readyState "interactive" — DOMContentLoaded har inte
+     brunnit än — så starten väntar på DCL även då: efter alla defer-script är
+     .cal-grid byggd och tweenen får sin riktiga target. */
+  if (document.readyState === 'complete') { boot(); }
+  else { document.addEventListener('DOMContentLoaded', boot); }
 })();

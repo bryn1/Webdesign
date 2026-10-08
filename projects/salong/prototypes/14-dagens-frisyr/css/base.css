@@ -77,10 +77,15 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
   padding: 0.6rem 1rem;
   font-weight: 600;
 }
+/* mörk yta: länktonen hålls ljus även vid hover — a:hover (pressrött) får
+   aldrig träffa bläckbakgrunden; positionerna gäller bara vid fokus */
+.skip-link:hover,
+.skip-link:focus {
+  color: var(--bg);
+}
 .skip-link:focus {
   left: 0.5rem;
   top: 0.5rem;
-  color: var(--bg);
 }
 
 /* --- knappar: nedtonade till papperston --- */

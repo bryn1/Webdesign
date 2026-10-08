@@ -135,6 +135,9 @@ section[id] { scroll-margin-top: 4.5rem; }
 .band { background: var(--c-ink); color: var(--c-bg); }
 .band h2 { color: var(--c-bg); }
 .band--paper { background: var(--c-neutral); color: var(--c-ink); }
+/* Viloläget är läsbar bläck-på-papper: pappersbandet är ljust, dit hör mörk
+   rubrik — konturbytet i collage.css är effekten, aldrig viloläget. */
+.band--paper h2 { color: var(--c-ink); }
 
 .service-list { display: grid; gap: var(--sp-2); grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); list-style: none; margin: var(--sp-4) 0 0; padding: 0; }
 .service-card { background: var(--c-bg); color: var(--c-ink); border: 1px solid var(--c-line); border-radius: var(--r-md); padding: var(--sp-3); box-shadow: var(--shadow-card); }
@@ -155,6 +158,10 @@ section[id] { scroll-margin-top: 4.5rem; }
 .sw--taken { background: repeating-linear-gradient(-45deg, var(--c-neutral) 0 4px, var(--c-line) 4px 8px); }
 .cal-root { overflow-x: auto; }
 .cal-root p { max-width: 40ch; }
+/* Kulmen är 544 px bred: under ~600 px viewport klipper routen den — då, och
+   bara då, visas scroll-hinten (annars ljuger den om innehåll som redan syns). */
+.cal-scroll-hint { display: none; color: var(--c-muted); font-size: 0.85rem; }
+@media (max-width: 600px) { .cal-scroll-hint { display: block; margin-top: -0.4rem; } }
 .cal-grid { display: grid; grid-template-columns: max-content repeat(6, minmax(84px, 1fr)); gap: 6px; min-width: 34rem; padding-block: var(--sp-1); }
 .cal-time { align-self: center; font-weight: 600; font-size: 0.9rem; padding-right: 0.6rem; }
 .cal-dayhead { text-align: center; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.4rem 0.2rem; }

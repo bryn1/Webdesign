@@ -160,7 +160,7 @@
 }
 .cartridge { gap: .35rem; padding: 1rem; text-align: center; }
 .cartridge__big { font-size: clamp(.8rem, 2.6vw, 1rem); color: var(--magenta); margin: 0; }
-.cartridge__sub { font-size: .625rem; color: var(--text-dim); margin: 0; }
+.cartridge__sub { font-size: .75rem; color: var(--text-dim); margin: 0; } /* 12px-golv (audit P2) */
 .cartridge__note { color: var(--text); margin: .5rem 0 0; }
 
 /* ---------- boka: INSERT COIN-demo ---------- */
@@ -184,7 +184,7 @@
   margin: 0;
   text-align: center;
   font-family: var(--f-display);
-  font-size: .6875rem;
+  font-size: .75rem;                   /* 12px-golv (gate tiny-text) */
   color: var(--cyan);
   letter-spacing: 0;
 }
@@ -215,6 +215,23 @@
 @media (max-width: 640px) {
   .slot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .slot-grid__head { display: none; }
+  /* Dagarna varvas över de 3 kolumnerna (MÅN+TOR i kolumn 1 osv) —
+     radhuvudena räcker inte som markör, så varje tid får sin dag
+     synlig i knappen (audit P2). Rena CSS: syns även utan JS/reduce.
+     nth-of-type räknar knapparna i DOM-ordning: 6 per tid MÅN..LÖR. */
+  .slot::before {
+    font-family: var(--f-display);
+    font-size: .75rem;
+    letter-spacing: 0;
+    margin-right: .4em;
+    opacity: .8;
+  }
+  .slot-grid button:nth-of-type(6n+1)::before { content: "MÅN"; }
+  .slot-grid button:nth-of-type(6n+2)::before { content: "TIS"; }
+  .slot-grid button:nth-of-type(6n+3)::before { content: "ONS"; }
+  .slot-grid button:nth-of-type(6n+4)::before { content: "TOR"; }
+  .slot-grid button:nth-of-type(6n+5)::before { content: "FRE"; }
+  .slot-grid button:nth-of-type(6n+6)::before { content: "LÖR"; }
 }
 .boka-note { color: var(--text-dim); max-width: 56ch; }
 
@@ -244,7 +261,7 @@
   border: 1px dashed rgba(49, 225, 255, .4);
   padding: .5rem .8rem;
 }
-.coin-dialog__demo { font-size: .6875rem; color: var(--magenta); }
+.coin-dialog__demo { font-size: .75rem; color: var(--magenta); } /* 12px-golv (gate tiny-text) */
 .coin-dialog__text { color: var(--text); }
 .coin-dialog__actions { display: flex; flex-wrap: wrap; gap: .7rem; }
 .coin-dialog__actions .btn { font-size: .85rem; }
@@ -262,7 +279,7 @@
 .kontakt-info address { font-style: normal; line-height: 2; }
 .kontakt-form h3 { font-size: .8125rem; }
 .form-demo-note {
-  font-size: .6875rem;
+  font-size: .75rem;                   /* 12px-golv (gate tiny-text) */
   color: var(--magenta);
   border: 2px solid var(--magenta);
   padding: .5rem .7rem;

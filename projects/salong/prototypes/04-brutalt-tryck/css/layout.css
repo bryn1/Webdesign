@@ -55,9 +55,10 @@ main { padding-top: var(--nav-h); }
 .section--ink { background: var(--ink); color: var(--bg); border-top-color: var(--red); }
 .section--ink a { color: var(--bg); }
 .section--ink a:hover { color: var(--stone); text-decoration: underline; }
-.section--red { background: var(--red); color: var(--ink); border-top-color: var(--ink); }
-.section--red a { color: var(--ink); }
-.section--red a:hover { color: var(--bg); } /* vit-on-red 4.6:1, används stort/bold */
+/* Text på rött = vit always (4.7:1, AA body). Ink på rött är 4.2:1 — under AA. */
+.section--red { background: var(--red); color: var(--bg); border-top-color: var(--ink); }
+.section--red a { color: var(--bg); }
+.section--red a:hover { color: var(--bg); text-decoration: underline; } /* vit-on-red 4.7:1 */
 
 .wrap { max-width: 72rem; margin-inline: auto; }
 
