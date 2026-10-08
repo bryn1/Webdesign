@@ -14,3 +14,5 @@ __pycache__/
 # quality-gate records and root-level gate screenshots stay on disk, untracked (they are run records, never product)
 **/QUALITY.md
 /[0-9][0-9]-*.png
+
+/salong-*.png
