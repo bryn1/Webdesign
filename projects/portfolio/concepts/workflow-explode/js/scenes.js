@@ -65,8 +65,8 @@ const Scenes = (() => {
   // `varv 1 · 2 · 3` paints at a true 15px. Desktop: the canonical markup attributes are
   // restored byte-for-byte (mobile→desktop resize never leaks mobile numbers). No new
   // ScrollTrigger, no new tween: the existing 24s dash-draw + pulse run on the new path
-  // (pathLength=1 stays). Called at build, on resize and after webfonts (wrap depends on
-  // loaded font metrics).
+  // (its real length is re-measured at tween init). Called at build, on resize and after
+  // webfonts (wrap depends on loaded font metrics).
   let flowBase = null, flowHooks = false;
   function layoutFlow() {
     const svg = document.querySelector(".flow__loop");
@@ -130,9 +130,15 @@ const Scenes = (() => {
     // 20–24s: jacks pop in, patch segments draw jack→jack (STATIONORDNING: one fixed order)
     tl.fromTo(".wf-node", { scale: 0.6, y: 24, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "back.out(1.4)" }, 20.4);
     tl.fromTo(".wf-link", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 1, stagger: 0.1 }, 21);
-    // 24–26s: the coiled return cable Testa⇒Bygg draws (pathLength=1 in the markup), then 2 pulse
-    // passes — current flowing the wrong way on purpose
-    tl.set(".flow__loop path", { strokeDasharray: 1, strokeDashoffset: 1 }, 20);
+    // 24–26s: the coiled return cable Testa⇒Bygg draws, then 2 pulse passes — current
+    // flowing the wrong way on purpose. FIX-c4 (10357): the draw runs over the path's REAL
+    // length, not the markup's old pathLength="1" (that normalized dash into a 1-unit space
+    // the browser integer-quantized: the tween held 1px, then 0px — one pop at ~25). The
+    // function-based dash re-measures at tween init only (invalidateOnRefresh re-inits on
+    // resize, after layoutFlow re-anchors the mobile path) — never per frame.
+    const cable = document.querySelector(".flow__loop path");
+    const cableLen = () => Math.ceil(cable.getTotalLength());
+    tl.set(".flow__loop path", { strokeDasharray: cableLen, strokeDashoffset: cableLen }, 20);
     tl.to(".flow__loop path", { strokeDashoffset: 0, duration: 2 }, 24);
     // F-E (fix-c3): arrowhead + label ride the END of the draw (CSS hidden-defaults, same
     // pattern as the path) — the tip appears exactly as the curve lands on Bygg (draw ends 26).

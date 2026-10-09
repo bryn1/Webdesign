@@ -157,7 +157,12 @@
   html.js .code-panel { opacity: 0; }
   html.js .wf-node { opacity: 0; }
   html.js .wf-link { transform: scaleX(0); transform-origin: left center; }
-  html.js .flow__loop path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  /* FIX-c4 (10357): the loop path no longer carries pathLength="1" — that trick normalized
+     dash units into a 1-unit space the browser integer-quantized, so the 24–26s draw tween
+     snapped 1→0 and the cable POPPED. Dash is now real user units; this static default only
+     needs to hide the cable until scenes.js writes its measured dash inline at 20s: 1000
+     exceeds every cable length (desktop fixed 560-unit path ≈ 230; a ≤767px mobile path < 1000). */
+  html.js .flow__loop path { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
   /* F-E (fix-c3, owner shot): the arrowhead + label were never hidden-defaults, so they painted
      fully before/while the path drew — a tip and a label floating with no wire. Same mechanism
      as the path dash-hide (this block, html.js + no-preference only): hidden until scenes.js
