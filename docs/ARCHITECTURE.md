@@ -182,10 +182,10 @@ workflow-explode run, MC 10140 — not this product.)
 ```
 .audits/202610041341-f6053f16/out/
   test_prototypes.py     pytest DoD gate — LIVE (repaired 2026-10-08, owner ruling 1a, re-pointed at
-                          projects/salong/prototypes/), 6 tests (249 lines, runs from any cwd, absolute paths):
+                         projects/salong/prototypes/), 6 tests (249 lines, runs from any cwd, absolute paths):
                          test_brief_and_assets · test_prototypes_exist · test_each_prototype_structure
                          · test_index_page_lists_all_prototypes · test_all_prototypes_served
-                          · test_persona_ruling_markers_and_motion
+                         · test_persona_ruling_markers_and_motion
                           (parses <img> srcs via HTMLParser — copy can never fake the photo check;
                           live-HTTP checks target the PORT file)
   DONE.md                ledger — sections A (research) B/C (20 themes + gates)
@@ -254,7 +254,7 @@ verdicts).
 - **Consumers of the motion mechanism: only the 20 `index.html`** via
   `<script defer src="../_assets/vendor/…">` + their one motion file. Adding a theme = copy the
   anatomy of §3 + one motion file honouring §4 + gallery card; the gallery bijection and
-  image-honesty invariants (§3) must keep holding (historically pytest-enforced — see §1).
+  image-honesty invariants (§3) must keep holding (enforced by the live pytest gate — see §1).
 
 ## 10. Public hosting (vm106) — LIVE (two-level, BROWSE-V2)
 
