@@ -131,10 +131,14 @@ footer .foot{display:flex;flex-wrap:wrap;gap:6px 24px;font:400 12.5px/1.8 var(--
 /* ---------- signature: boot-sequence + blink ----------
    DA-fix (A2/RM-garv, P-E): base state opacity:1, both boot reveal and
    cursor blink live ONLY inside prefers-reduced-motion: no-preference,
-   keyframes with fill backwards — the no-anim render IS the finished frame. */
+   keyframes with fill backwards — the no-anim render IS the finished frame.
+   FIX r1 (nojs-gate): the block additionally requires scripting:enabled —
+   with JS av the `backwards` fill must not paint the pre-boot frame: the
+   static-complete page is visible direkt. Webblare utan stöd för
+   `scripting`: query → falskt → statiskt komplett, aldrig dolt. */
 .boot{opacity:1}
 .cursor{opacity:1}
-@media (prefers-reduced-motion:no-preference){
+@media (prefers-reduced-motion:no-preference) and (scripting: enabled){
   html{scroll-behavior:smooth}
   .boot{animation:bootReveal .45s steps(1) backwards}
   .b1{animation-delay:.15s}

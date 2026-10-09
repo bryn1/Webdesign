@@ -47,16 +47,18 @@
   .chrome{
     font-family:var(--font-display);
     font-weight:400;
-    color:#6E76A0; /* solid fallback — synlig även utan background-clip */
+    color:#59628F; /* solid fallback — synlig även utan background-clip */
     line-height:.95;
     letter-spacing:.01em;
   }
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    /* Krombanden hålls i det mörka fönstret #525B8C–#757DA5: inga vita band
+       (spökar mot lavdeln/lime-kulan), alla band ≥3:1 mot lavdel, vit sol och lime. */
     .chrome{
       background:linear-gradient(165deg,
-        #D9DDE8 0%, #F5F7FC 20%, #6E76A0 40%, #6E76A0 49%,
-        #FFFFFF 49.5%, #FFFFFF 53%, #6E76A0 53.5%,
-        #8A92BC 62%, #D9DDE8 80%, #FFFFFF 100%);
+        #666EA0 0%, #757DA5 20%, #59628F 40%, #59628F 49%,
+        #757DA5 49.5%, #757DA5 53%, #525B8C 53.5%,
+        #666EA0 62%, #757DA5 80%, #5D6694 100%);
       -webkit-background-clip:text;background-clip:text;
       color:transparent;-webkit-text-fill-color:transparent;
     }
@@ -141,7 +143,8 @@
   /* ---------- section headers ---------- */
   .eyebrow{
     font-family:var(--font-display);font-weight:400;
-    color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem);
+    color:var(--lime-text); /* var(--muted) på lavdel = 2,35:1 — AA-krav 4,5 */
+    font-size:clamp(1rem,2.4vw,1.2rem);
     letter-spacing:.28em;text-transform:uppercase;display:block;margin-bottom:10px;
   }
   h2.sec-title{font-size:clamp(1.9rem,5.4vw,3rem);margin-bottom:18px}
@@ -200,6 +203,10 @@
   .nolink{font-size:.85rem;font-weight:600}
 
   /* ---------- fleet orbit (decor) ---------- */
+  /* De roterande ellipsoid-ringarna sticker utanför sin box i halva varvet
+     ( bounding ≈ ±204 px vid 375) och skapade horisontell scroll 384/375 —
+     sektionen klipper nu vågrätt så sidans scrollWidth blir 375. */
+  #flottan{overflow-x:clip;overflow-y:visible}
   .orbit{
     position:relative;margin:34px auto 40px;
     width:min(88vw,560px);height:min(50vw,320px);

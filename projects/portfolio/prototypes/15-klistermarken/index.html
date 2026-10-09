@@ -286,6 +286,9 @@ h2.big .b{color:var(--blue)}
 .chain b{color:var(--red);text-transform:uppercase;font-size:14px}
 .chain span{display:block;font-size:13px}
 .chain.citronkedja li{background:var(--citron)}
+/* rött på citron mättes till 3.61:1 (AA-underkänt, audit P1) — citronytor bär
+   alltid bläcktext i detta system (13.83:1, se palettkommentaren högst upp) */
+.chain.citronkedja li b{color:var(--ink)}
 .chain.blåkedja li{border-color:var(--blue)}
 .chain.blåkedja li b{color:var(--blue)}
 .orch{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin:22px 0 30px}
@@ -324,7 +327,9 @@ h2.big .b{color:var(--blue)}
 .kontakt .bigmail{
   display:inline-block;margin:10px 0 26px;
   font-family:var(--mono);font-weight:600;
-  font-size:clamp(19px,5.4vw,64px);
+  /* golv 24px: även i 375 är mailet stor text (AA 3:1) — blått på citron 4.35:1
+     klarar det golvet men inte 4.5-golvet för löptext vid 19px */
+  font-size:clamp(24px,5.4vw,64px);
   color:var(--blue);
   text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:8px;
   overflow-wrap:anywhere;
@@ -338,6 +343,9 @@ h2.big .b{color:var(--blue)}
 .bjudningar .tile{background:var(--paper)}
 footer{
   border-top:3px solid var(--ink);
+  /* solid papper som toplisten — utan denna mäts bruna länken mot prickrutans
+    kantfärg #C9C9C4 (3.75:1); blått på papper är 6.0:1 */
+  background:var(--paper);
   padding:22px clamp(14px,3vw,44px);
   display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;
   font-size:13px;font-weight:600;letter-spacing:.05em;
@@ -359,8 +367,12 @@ footer{
 section,.hero{scroll-margin-top:74px}
 .js .topbar nav a.active{border-color:var(--ink);background:var(--citron)}
 /* signatur: sticker-thunk — kort landar som påtryckta klistermärken, en gång vid
-   intrance; pre-tillståndet matchar keyframen 0% så att övergången blir sömlös */
-.js.motion-ok .thunk:not(.seen){opacity:0;transform:translate(-10px,-16px) scale(.98) rotate(-1.5deg)}
+   intrance. Dolt före-tillstånd gäller ENDAST element som redan står i viewporten
+   vid first paint (.pre, sätts av JS) och följs alltid av stampdown→.seen; allt
+   nedanför vecket är fullt synligt från start och animeras bara vid inträde —
+   full-page-captures och snabb-scroll ser därför hela sidan (audit P2). Pre-till-
+   ståndet matchar keyframen 0% så att övergången blir sömlös. */
+.js.motion-ok .thunk.pre:not(.seen){opacity:0;transform:translate(-10px,-16px) scale(.98) rotate(-1.5deg)}
 .js.motion-ok .thunk.go{animation:stampdown .55s cubic-bezier(.25,1.4,.4,1)}
 @keyframes stampdown{
   0%{opacity:0;transform:translate(-10px,-16px) scale(.98) rotate(-1.5deg);box-shadow:10px 10px 0 var(--ink)}
@@ -756,6 +768,13 @@ if("IntersectionObserver" in window){
 if(motion&&"IntersectionObserver" in window){
   var targets=[].slice.call(document.querySelectorAll(".kort,.hero .citat,.nyckeltal .tal"));
   targets.forEach(function(el){el.classList.add("thunk");});
+  /* Fördölj bara det som redan syns vid first paint — det ska stämplas direkt
+     utan flash. Allt nedanför vecket lämnas synligt: stämplen spelas vid
+     inträde men är ren påbyggnad, inget scroll-läge kan lämna kortet dolt. */
+  targets.forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top<innerHeight&&r.bottom>0)el.classList.add("pre");
+  });
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e,i){
       if(!e.isIntersecting)return;
@@ -768,6 +787,13 @@ if(motion&&"IntersectionObserver" in window){
         el.classList.remove("go");
         el.style.animationDelay="";
       },{once:true});
+      /* fångnät: om animationen aldrig får slut (något slår av animationer) får
+         för-döljningen aldrig bestå — 490 ms max delay + 550 lopp + marginal */
+      setTimeout(function(){
+        el.classList.add("seen");
+        el.classList.remove("go");
+        el.style.animationDelay="";
+      },1500);
     });
   },{threshold:0.1,rootMargin:"0px 0px -5% 0px"});
   targets.forEach(function(el){io.observe(el);});

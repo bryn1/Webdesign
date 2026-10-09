@@ -14,6 +14,7 @@
    Palett (AA-testad mot bg #16081F):
      ink #F5E9FF 16.52 ✓ · magenta #FF2E93 5.57 ✓ · cyan #22E4E0 12.16 ✓
      amber #FFC531 (högljus) · dämpad #7A5C96 ENBART dekorativt (3.49)
+     lilac #B79AD6 — innehållstext på mörk panel (7.0–7.5 mot #200C2C/raderad)
    ============================================================ */
 :root{
   --bg:#16081F;          /* plommon void   */
@@ -23,6 +24,7 @@
   --cyan:#22E4E0;        /* neon-cyan      */
   --amber:#FFC531;       /* mynt-amber     */
   --mut:#7A5C96;         /* dekorativ ONLY */
+  --lilac:#B79AD6;       /* dämpad lilacstext, AA ✓ */
   --px:'Press Start 2P', monospace;
   --sb:'Space Grotesk', system-ui, sans-serif;
   --step:4px;            /* pixelruta      */
@@ -85,7 +87,7 @@ h1,h2,h3,h4{font-weight:700;line-height:1.3}
 
 .kicker{
   font-family:var(--px);
-  font-size:clamp(10px,2.6vw,12px);
+  font-size:12px;
   color:var(--cyan);
   text-shadow:0 0 6px rgba(34,228,224,.55);
   margin-bottom:14px;
@@ -155,7 +157,7 @@ header.top{
 .top-logo{font-family:var(--px);font-size:11px;color:var(--amber);text-shadow:0 0 8px rgba(255,197,49,.6)}
 nav.main{display:flex;flex-wrap:wrap;gap:8px 18px}
 nav.main a{
-  font-family:var(--px);font-size:10px;
+  font-family:var(--px);font-size:12px;
   color:var(--ink);text-decoration:none;
   padding:4px 2px;
 }
@@ -164,7 +166,7 @@ nav.main a:hover,nav.main a:focus{color:var(--amber);text-shadow:0 0 8px rgba(25
 /* ============ HERO — ATTRACT MODE ============ */
 .hero{padding:64px 0 44px;text-align:center}
 .hero-mode{
-  font-family:var(--px);font-size:clamp(10px,2.6vw,12px);
+  font-family:var(--px);font-size:12px;
   color:var(--cyan);letter-spacing:.35em;
   text-shadow:0 0 8px rgba(34,228,224,.6);
   margin-bottom:26px;
@@ -192,7 +194,7 @@ nav.main a:hover,nav.main a:focus{color:var(--amber);text-shadow:0 0 8px rgba(25
 }
 .hero-role{
   font-family:var(--px);
-  font-size:clamp(9px,2.6vw,13px);
+  font-size:clamp(12px,2.6vw,13px);
   color:var(--amber);
   text-shadow:0 0 8px rgba(255,197,49,.55);
   margin:24px 0 34px;
@@ -220,7 +222,7 @@ nav.main a:hover,nav.main a:focus{color:var(--amber);text-shadow:0 0 8px rgba(25
 }
 .hud .stat{
   font-family:var(--px);
-  font-size:clamp(10px,2.8vw,13px);
+  font-size:clamp(12px,2.8vw,13px);
   line-height:2;
   color:var(--amber);
   text-shadow:0 0 6px rgba(255,197,49,.5);
@@ -277,7 +279,7 @@ table.hs{
 }
 table.hs caption{
   font-family:var(--px);
-  font-size:clamp(11px,3vw,14px);
+  font-size:clamp(12px,3vw,14px);
   color:var(--amber);
   text-shadow:0 0 8px rgba(255,197,49,.55);
   padding:16px 0;
@@ -311,7 +313,7 @@ table.hs .c-name{font-weight:600;color:var(--ink)}
 table.hs .c-name .tag{display:block;font-weight:300;font-size:16px;color:var(--ink);margin-top:4px}
 table.hs .c-links{white-space:nowrap}
 table.hs .c-links a{
-  font-family:var(--px);font-size:10px;font-weight:400;
+  font-family:var(--px);font-size:12px;font-weight:400;
   text-decoration:none;
   display:inline-block;
   margin:2px 6px 2px 0;
@@ -322,7 +324,7 @@ table.hs .c-links a{
 table.hs .c-links a.kod{border-color:var(--mag);color:var(--mag)}
 table.hs .c-links a:hover,table.hs .c-links a:focus{background:var(--cyan);color:var(--bg)}
 table.hs .c-links a.kod:hover,table.hs .c-links a.kod:focus{background:var(--mag);color:var(--bg)}
-table.hs .priv{font-family:var(--px);font-size:10px;color:var(--mut)}
+table.hs .priv{font-family:var(--px);font-size:12px;color:var(--lilac)}
 
 /* projekt-detaljer under highscore */
 .proj{
@@ -333,7 +335,7 @@ table.hs .priv{font-family:var(--px);font-size:10px;color:var(--mut)}
 }
 .proj .chip{
   display:inline-block;
-  font-family:var(--px);font-size:10px;font-weight:400;
+  font-family:var(--px);font-size:12px;font-weight:400;
   color:var(--bg);background:var(--amber);
   padding:6px 8px;margin-bottom:12px;
 }
@@ -342,7 +344,7 @@ table.hs .priv{font-family:var(--px);font-size:10px;color:var(--mut)}
 /* ============ BOSS LEVEL — flottan ============ */
 .fleet-group{margin-bottom:20px}
 .fleet-group h3{
-  font-family:var(--px);font-size:clamp(10px,2.7vw,12px);
+  font-family:var(--px);font-size:12px;
   font-weight:400;color:var(--amber);
   text-shadow:0 0 6px rgba(255,197,49,.5);
   margin-bottom:12px;line-height:2;
@@ -363,7 +365,7 @@ table.hs .priv{font-family:var(--px);font-size:10px;color:var(--mut)}
 .kontakt-box .h-sec{margin-bottom:22px}
 .k-rows{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin:26px 0}
 .k-btn{
-  font-family:var(--px);font-size:clamp(10px,2.8vw,13px);
+  font-family:var(--px);font-size:clamp(12px,2.8vw,13px);
   font-weight:400;
   color:var(--bg);background:var(--cyan);
   text-decoration:none;
@@ -380,7 +382,7 @@ footer{
   padding:30px 0 40px;
   text-align:center;
 }
-footer .sig{font-family:var(--px);font-size:clamp(9px,2.5vw,11px);color:var(--cyan);line-height:2.2;text-shadow:0 0 6px rgba(34,228,224,.5)}
+footer .sig{font-family:var(--px);font-size:12px;color:var(--cyan);line-height:2.2;text-shadow:0 0 6px rgba(34,228,224,.5)}
 footer .tiny{font-size:16px;color:var(--ink);margin-top:10px}
 
 /* ============ MOBIL: <=480 px ============ */
@@ -403,7 +405,7 @@ footer .tiny{font-size:16px;color:var(--ink);margin-top:10px}
    med prefers-reduced-motion: reduce är sidan statisk men fullständig. */
 @media (prefers-reduced-motion: no-preference){
   .tryck-start{animation:blink 1.15s steps(1,end) infinite}
-  @keyframes blink{0%,54%{opacity:1}55%,100%{opacity:0}}
+  @keyframes blink{0%,54%{opacity:1}55%,100%{opacity:.35}}
   .hero-mode{animation:flicker 4.5s steps(2,end) infinite}
   @keyframes flicker{0%,92%{opacity:1}93%,95%{opacity:.45}96%,100%{opacity:1}}
 }

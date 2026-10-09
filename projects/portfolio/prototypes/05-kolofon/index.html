@@ -12,7 +12,7 @@
 <style>
   :root{
     --bg:#0b0b0b; --surface:#212121; --line:#353535;
-    --ink:#ededed; --muted:#797979; --accent:#f36458;
+    --ink:#ededed; --muted:#8a8a8a; --accent:#f36458; /* muted höjd 4.5→~5.7:1 mot #0b0b0b (audit P3) */
     --didone:"Bodoni Moda","Didot","Times New Roman",serif;
     --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   }
@@ -37,7 +37,7 @@
     text-transform:uppercase; color:var(--muted); margin:0 0 .9rem;
   }
   .hairline{border-top:1px solid var(--line)}
-  .stroke{color:transparent; -webkit-text-stroke:1px var(--ink)}
+  .stroke{color:#7a7a7a; -webkit-text-stroke:1px var(--ink)} /* samma låga fyllnad som h1 — utilityn får inte vara en kontrastfälla */
 
   /* ---------- masthead (kolofonsida) ---------- */
   #top{padding-top:1.25rem}
@@ -50,7 +50,8 @@
   h1{
     margin:0; font-size:clamp(3rem,11vw,8.5rem); line-height:.95;
     letter-spacing:.01em;
-    color:transparent; -webkit-text-stroke:1px var(--ink);
+    /* graverad titel: låg fyllnad #7a7a7a (~4.6:1, AA) + ink-kontur — titeln bär innehåll och måste mäta kontrast (audit P1) */
+    color:#7a7a7a; -webkit-text-stroke:1px var(--ink);
   }
   .masthead .sub{color:var(--muted); font-size:clamp(.85rem,2vw,1rem); letter-spacing:.18em; text-transform:uppercase; margin:.9rem 0 0}
   .openquote{
@@ -86,14 +87,14 @@
     position:absolute; top:clamp(1rem,4vw,3rem); right:-.08em; z-index:0;
     font-family:var(--didone); font-weight:700; line-height:1;
     font-size:clamp(9rem,26vw,24rem);
-    color:transparent; -webkit-text-stroke:1px var(--ink); opacity:.22;
+    color:#7a7a7a; -webkit-text-stroke:1px var(--ink); opacity:.22; /* dekor (aria-hidden): äkta fyllnad, det fainta nås via opacity */
     pointer-events:none; user-select:none;
   }
   h2{
     margin:0 0 clamp(1.5rem,4vw,2.5rem); font-size:clamp(2.5rem,6vw,4rem);
     line-height:1.05;
   }
-  h2 .n{color:var(--accent); font-size:.42em; vertical-align:.72em; margin-right:.6rem; font-weight:500}
+  h2 .n{color:var(--accent); font-size:.42em; line-height:1; text-transform:none; vertical-align:.72em; margin-right:.6rem; font-weight:500} /* sup: lyft referenssiffra — UA smaller/super overrideas, rendering oförändrad */
   h3{font-size:clamp(2.5rem,4.5vw,2.9rem); line-height:1.1; margin:clamp(2.5rem,6vw,4rem) 0 1rem; font-weight:500}
   .lead{font-size:1.05rem}
   .villkor{padding:1.5rem 0; border-top:1px solid var(--line)}
@@ -109,12 +110,13 @@
     position:absolute; left:-.06em; top:50%; transform:translateY(-50%);
     font-family:var(--didone); font-weight:700; line-height:1; z-index:0;
     font-size:clamp(7rem,17vw,15rem);
-    color:transparent; -webkit-text-stroke:1px var(--ink); opacity:.2;
+    color:#7a7a7a; -webkit-text-stroke:1px var(--ink); opacity:.2; /* dekor (aria-hidden): äkta fyllnad, det fainta nås via opacity */
     pointer-events:none; user-select:none;
     transition:-webkit-text-stroke-color .25s ease, opacity .25s ease;
   }
   li.prow:hover .big,li.prow:focus-within .big{
-    -webkit-text-stroke-color:var(--accent); opacity:1;
+    /* hover: fyllnaden går i bg (oförändrad bild bakom texten), konturen blir accent — samma uttrycke-ögonblick som förut */
+    -webkit-text-stroke-color:var(--accent); color:var(--bg); opacity:1;
   }
   li.prow .rowin{position:relative; z-index:1; grid-column:3 / 12}
   li.prow h3{margin:0 0 .35rem; font-size:clamp(2.5rem,4vw,3rem)}
@@ -276,7 +278,7 @@
   <span class="sec-big" aria-hidden="true">01</span>
   <div class="wrap grid"><div class="inner">
     <p class="kicker">Vem jag är / pitch</p>
-    <h2 id="om-h"><span class="n">01</span>Vem jag är</h2>
+    <h2 id="om-h"><sup class="n">01</sup>Vem jag är</h2>
 
     <h3>Problemet</h3>
     <p class="lead">Verksamheter som inte får lägga sina data i molnet får inte mindre AI än andra —
@@ -333,7 +335,7 @@
   <div class="wrap grid">
     <div class="inner">
       <p class="kicker">Nio kuraterade projekt</p>
-      <h2 id="projekt-h"><span class="n">02</span>Projekt</h2>
+      <h2 id="projekt-h"><sup class="n">02</sup>Projekt</h2>
     </div>
   </div>
   <ol class="proj">
@@ -463,7 +465,7 @@
   <span class="sec-big" aria-hidden="true">03</span>
   <div class="wrap grid"><div class="inner">
     <p class="kicker">Autonoma flottan</p>
-    <h2 id="flottan-h"><span class="n">03</span>Flottan</h2>
+    <h2 id="flottan-h"><sup class="n">03</sup>Flottan</h2>
     <p class="lead">Två orkestrerare, två flottor som kör parallellt. Ett jobb per säte, och varje
       uppdrag är spårat på en tavla.</p>
 
@@ -555,7 +557,7 @@
   <span class="sec-big" aria-hidden="true">04</span>
   <div class="wrap grid"><div class="inner">
     <p class="kicker">Kolofon · bakgrund</p>
-    <h2 id="bakgrund-h"><span class="n">04</span>Bakgrund</h2>
+    <h2 id="bakgrund-h"><sup class="n">04</sup>Bakgrund</h2>
     <p class="lead"><strong>Alexander Lektove</strong> · lärare i fysik, teknik och matematik · Karlskrona</p>
     <p>Lärare i högstadiet i fysik, teknik och matte med stort intresse för AI. Kör flertalet
       virtuella maskiner i Proxmox på två noder, tre grafikkort och 2× DGX Spark — dubbla
@@ -592,7 +594,7 @@
   <span class="sec-big" aria-hidden="true">05</span>
   <div class="wrap grid"><div class="inner">
     <p class="kicker">Case · reglerad verksamhet i slutet nät</p>
-    <h2 id="case-h"><span class="n">05</span>Case</h2>
+    <h2 id="case-h"><sup class="n">05</sup>Case</h2>
     <p class="lead">Ett konkret fall — reglerad verksamhet i slutet nät.</p>
 
     <div class="case-block">
@@ -634,7 +636,7 @@
   <span class="sec-big" aria-hidden="true">06</span>
   <div class="wrap grid"><div class="inner">
     <p class="kicker">Imprint</p>
-    <h2 id="kontakt-h"><span class="n">06</span>Kontakt</h2>
+    <h2 id="kontakt-h"><sup class="n">06</sup>Kontakt</h2>
 
     <address class="imprint" style="font-style:normal">
       <div class="row"><span class="lbl">E-post</span>

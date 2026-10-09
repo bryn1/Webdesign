@@ -167,7 +167,11 @@
         if (para.querySelector('.dropcap') || para.closest('dialog')) { return; }
         var found = ensureSplit(para);
         if (!found.length) { return; }
-        var tl = g.timeline({ scrollTrigger: band(para, 'top 94%', 'top 24%') });
+        /* FIX-17-R1 (2026-10-08, DA-funn P2): bandet slutade tidigare på
+           'top 24%' — styckets sista rad låg kvar i sin clip som en rad
+           „stumpar" medan läsaren höll stycket i läsposition. Släpps nu
+           redan vid 'top 60%', väl innan stycket når läscentrum. */
+        var tl = g.timeline({ scrollTrigger: band(para, 'top 94%', 'top 60%') });
         found.forEach(function (inner, li) {
           tl.fromTo(inner, { autoAlpha: 0.25, yPercent: 30 }, {
             autoAlpha: 1, yPercent: 0, ease: 'power1.out'
@@ -184,11 +188,14 @@
           tl.fromTo(inner, { yPercent: 110 }, { yPercent: 0, ease: 'none' }, li * 0.18);
         });
       });
-      /* citatblocken lyfter sina rader i stagger — även fotnoterna lever */
+      /* citatblocken lyfter sina rader i stagger — även fotnoterna lever
+         FIX-17-R1: samma läsbarhetsregel som brödtexten — släpps väl före
+         läscentrum (tidigare 'top 40%', halva blocket var mittläsbart
+         under svepet) */
       g.utils.toArray('.marginalia').forEach(function (note) {
         var found = ensureSplit(note);
         if (!found.length) { return; }
-        var tl = g.timeline({ scrollTrigger: band(note, 'top 94%', 'top 40%') });
+        var tl = g.timeline({ scrollTrigger: band(note, 'top 94%', 'top 62%') });
         found.forEach(function (inner, li) {
           tl.fromTo(inner, { autoAlpha: 0.3, yPercent: 24 }, {
             autoAlpha: 1, yPercent: 0, ease: 'power1.out'

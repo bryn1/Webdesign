@@ -14,13 +14,19 @@
   --line: #e3dff2;
   --focus: #4338ca;
 
-  /* TEXT-fill (AA ≥3:1 mot #f7f6fc, stora rubriker):
-     violet #6d28d9 6.61 · rose #be185d 5.62 · amber #b45309 4.67 · blue #4338ca 7.35
-     Ljusa mesh-stopp (#7c3aed/#ec4899/#f59e0b/#6366f1) används BAKGRUND ONLY, ej text. */
-  --txt-violet: #6d28d9;
+  /* TEXT-fill — rubrikgradienten har color:transparent + background-clip:text,
+     så kontrastmätare som inte läser clipen ser glypherna som svart MOT ELEMENTETS
+     EGNA GRADIENTSTOPP. Varje stopp uppfyller därför tvångar: ≥3:1 mot papperet
+     #f7f6fc (AA stora texter, verkligheten) OCH ≥3:1 mot svart (konservativ
+     mätning): violet #7c3aed 5.30/3.70 · rose #be185d 5.62/3.48 ·
+     amber #b45309 4.67/4.18 · blue #4f46e5 5.85/3.34. Samma tokens bär
+     brödtextsfyllnad (länkar, kortrubriker, slots): ≥4.87:1 mot alla ytor
+     (mätvärden vid respektive regel i components.css/base.css).
+     Mesh-stopp #ec4899/#f59e0b/#6366f1 används fortfarande BAKGRUND ONLY, ej text. */
+  --txt-violet: #7c3aed;   /* mesh-violet, nu också text-stopp: 5.30 mot papper */
   --txt-rose: #be185d;
   --txt-amber: #b45309;
-  --txt-blue: #4338ca;
+  --txt-blue: #4f46e5;     /* 5.85 mot papper; #4338ca levde bara som fokusring */
 
   --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
   --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -58,6 +64,9 @@ h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; }
 p { margin: 0 0 1em; }
 a { color: var(--txt-violet); text-decoration-thickness: from-font; text-underline-offset: .18em; }
 a:hover { color: var(--txt-blue); }
+/* a:hover annars vit text på egna bakgrunder (mörk text på mörk gradient/
+   bläck, uppmätt 2.3:1) — solid CTA och skip-link behåller vitt även hover. */
+a.btn--solid:hover, a.skip-link:hover { color: #fff; }
 
 :focus-visible {
   outline: 3px solid var(--focus);

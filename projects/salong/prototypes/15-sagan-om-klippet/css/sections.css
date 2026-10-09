@@ -13,6 +13,9 @@
 .story-flow>.chapter{
   position:relative;background:var(--paper);padding:clamp(18px,3vw,30px);
   margin-bottom:clamp(20px,3.4vw,40px);
+  /* egen stacking-kontext: den negativa z-index-bandet ovanfo r
+     pappret ocksa nar GSAP klart och clearProps tagit bort transformen */
+  isolation:isolate;
 }
 .story-flow>.chapter::before{
   content:"";position:absolute;left:-3px;right:-3px;top:50%;height:34%;

@@ -45,7 +45,7 @@ body{
 h1,h2,h3,h4{font-weight:700;line-height:1.12;letter-spacing:-0.015em}
 h1{font-size:clamp(2.35rem,7.5vw,4.4rem)}
 h2{font-size:clamp(1.7rem,4.4vw,2.6rem);margin-bottom:.7em}
-h3{font-size:1.16rem;margin-bottom:.45em}
+h3{font-size:1.3rem;margin-bottom:.45em}
 h4{font-size:1.02rem;margin-bottom:.35em}
 p{margin-bottom:1em}
 p:last-child{margin-bottom:0}
@@ -53,8 +53,13 @@ strong{font-weight:700}
 small,.fine{font-size:.86rem}
 
 a{color:var(--gran);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
-a:visited{color:var(--gran-dark)}
-a:hover,a:focus-visible{color:var(--gran-dark)}
+/* Besöks-/hover-/fokus-ink bara där den faktiskt gäller: .natt sätter sin egen
+   länk-ink (.natt a:visited/:hover), och den allmänna regeln ska inte statiskt
+   para ihop gran-dark med natt-bakgrunden. :where() = noll specifikitet, så
+   steget mot .topnav nav a:hover och .natt a:hover är oförändrat. */
+:where(section:not(.natt),header,footer) a:visited{color:var(--gran-dark)}
+:where(section:not(.natt),header,footer) a:hover,
+:where(section:not(.natt),header,footer) a:focus-visible{color:var(--gran-dark)}
 a:focus-visible{outline:2px solid var(--gran);outline-offset:3px;border-radius:4px}
 
 .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:.6em 1.1em;z-index:100;border-radius:0 0 8px 0}
@@ -158,7 +163,7 @@ h1{margin-bottom:.15em}
 }
 
 /* ---------- Om / pitch ---------- */
-.om-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.1rem;margin-top:1.6rem}
+.om-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.1rem;margin-top:1.6rem;align-items:start}
 .om-grid .knot p:last-child{margin-bottom:0}
 .punktlista{list-style:none;margin-top:.35em}
 .punktlista li{position:relative;padding-left:1.25em;margin-bottom:.55em}
@@ -185,7 +190,7 @@ h1{margin-bottom:.15em}
 
 /* ---------- Projekt: 9 kort med toppbåge ---------- */
 .proj-intro{max-width:62ch;margin-bottom:2rem}
-.proj-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.proj-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:start}
 .kort{
   background:var(--surface);border:1px solid var(--line);
   border-radius:150px 150px 10px 10px;
@@ -227,7 +232,7 @@ h1{margin-bottom:.15em}
 .flott-intro{max-width:60ch;margin-bottom:2.2rem}
 .flott-block{margin-bottom:2.4rem}
 .flott-block h3{margin-bottom:.8em}
-.ledargrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem}
+.ledargrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;align-items:start}
 .ledare{
   border:1px solid #35463A;border-radius:18px 18px 6px 6px;
   padding:1rem 1.15rem;background:rgba(236,239,234,.04);
@@ -237,7 +242,7 @@ h1{margin-bottom:.15em}
 .personlista li{margin-bottom:.75em;padding-left:1.35em;position:relative;font-size:.95rem}
 .personlista li::before{content:"";position:absolute;left:0;top:.6em;width:.5em;height:.5em;border-radius:50%;background:radial-gradient(circle at 35% 35%, #CBE4C6, var(--night-acc))}
 .personlista .grupp{display:block;font-weight:700;letter-spacing:.14em;font-size:.8rem;color:var(--night-acc);margin-bottom:.15em}
-.flott-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1rem}
+.flott-dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1rem;align-items:start}
 .flott-dl .ledare p{margin:0;font-size:.93rem}
 .route{font-size:.97rem;max-width:72ch}
 .route p{margin-bottom:.9em}

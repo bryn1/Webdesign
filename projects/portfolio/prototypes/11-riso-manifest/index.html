@@ -14,6 +14,7 @@
   --paper:#F5EFE1;
   --ink:#191512;
   --pink:#F03D82;
+  --pink-deep:#C41E63; /* dyp riso-magenta för rosa-på-papper i brödtextstorlek (AA 4.9:1) */
   --blue:#2B5FE8;
   --senap:#FFC93C;
   --muted:#8A8272;
@@ -69,7 +70,8 @@ em,i{font-style:italic}
   font-family:var(--display);font-weight:800;letter-spacing:.02em;
   text-decoration:none;color:var(--ink);margin-right:auto;font-size:1.02rem;
 }
-.brand b{color:var(--pink)}
+.brand b{color:var(--pink-deep)}
+.brand:hover b{color:var(--ink)} /* hover: hela wordmarken i bläck på rosa — statisk och beräknad läsning överens */
 .topnav a:not(.brand){
   font-family:var(--display);font-weight:700;font-size:.86rem;
   text-transform:uppercase;letter-spacing:.08em;color:var(--ink);
@@ -322,7 +324,7 @@ a.gh:hover{background:var(--paper);color:var(--ink)}
   text-transform:uppercase;letter-spacing:.16em;
 }
 .foot span{white-space:nowrap}
-.foot .dot{color:var(--paper)}
+.foot .dot{color:var(--ink)}
 
 /* ============ rörelse: enbart under no-preference (DA-fix P-E) ============ */
 @keyframes mq{to{transform:translateX(-50%)}}
@@ -351,6 +353,10 @@ a.gh:hover{background:var(--paper);color:var(--ink)}
 .js-on .op-warm .op-b{transform:translate(-8px,-9px)}
 .js-on .op-3.op-warm .op-p{transform:translate(8px,8px)}
 .js-on .op-3.op-warm .op-b{transform:translate(-6px,-7px)}
+/* Fullbreddsraden .total: garven får inte förskjuta garven så att den läser som en
+   egen rad under den svarta texten (DA-fix P2) — värm där i vila. */
+.js-on .total.op-warm .op-p{transform:translate(3px,4px)}
+.js-on .total.op-warm .op-b{transform:translate(-3px,-4px)}
 .topnav a.active{border-bottom-color:var(--pink)}
 </style>
 </head>
@@ -407,7 +413,7 @@ a.gh:hover{background:var(--paper);color:var(--ink)}
 </header>
 
 <!-- ============ 2 · TICKER ============ -->
-<div class="mq" aria-hidden="false">
+<div class="mq" aria-hidden="true">
   <div class="mq-row r1">
     <p class="mq-set"><span>AI-arkitekt &amp; systemsbyggare</span><span>100 % lokal inferens</span><span>Agentflottor</span><span>Mission Control</span><span>Inferensstack</span><span>GPU-passthrough</span><span>Proxmox</span><span>Router och kö</span><span>RAG</span><span>LoRA</span><span>Karlskrona</span></p>
     <p class="mq-set" aria-hidden="true"><span>AI-arkitekt &amp; systemsbyggare</span><span>100 % lokal inferens</span><span>Agentflottor</span><span>Mission Control</span><span>Inferensstack</span><span>GPU-passthrough</span><span>Proxmox</span><span>Router och kö</span><span>RAG</span><span>LoRA</span><span>Karlskrona</span></p>
@@ -846,9 +852,9 @@ a.gh:hover{background:var(--paper);color:var(--ink)}
 
     <p class="foot">
       <span>Alexander Lektove</span>
-      <span class="dot">✳</span>
+      <span class="dot" aria-hidden="true">✳</span>
       <span>Karlskrona</span>
-      <span class="dot">✳</span>
+      <span class="dot" aria-hidden="true">✳</span>
       <span>Riso Manifest</span>
     </p>
   </div>
