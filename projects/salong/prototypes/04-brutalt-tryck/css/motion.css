@@ -42,7 +42,7 @@
 
 /* ---------- Sektionsklossar: hårda röda plattor i marginalen, bakom
    innehållet (.wrap lyfter fram). Döljs < 701px (mobil: ingen bred x). --- */
-.section { position: relative; }
+.section { position: relative; overflow-x: clip; } /* plattorna sticker right:-2.5rem + GSAP x:±70 utanför viewporten; clip-stoppar dokumentflödet, skapar ingen scrollruta, synlig marginal bevarad */
 .wrap { position: relative; z-index: 1; }
 .slab {
   position: absolute;
