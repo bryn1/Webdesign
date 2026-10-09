@@ -17,7 +17,7 @@
 @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover { transform: none; } }
 
 .btn--solid {
-  /* vit text 7.10:1 / 6.04:1 över gradientstopsen — AA för normal text */
+  /* vit text ≥5.70:1 över gradientstopsen (5.70/6.04/6.29) — AA för normal text */
   background: linear-gradient(120deg, var(--txt-violet), var(--txt-rose) 70%, var(--txt-blue));
   color: #fff;
   box-shadow: 0 8px 22px -10px rgba(109, 40, 217, .55);
@@ -49,9 +49,9 @@
   border-radius: 999px;
   margin-right: .5em;
 }
-.tag--violet { background: #f1eafe; color: var(--txt-violet); } /* 6.07:1 */
+.tag--violet { background: #f1eafe; color: var(--txt-violet); } /* 4.87:1 */
 .tag--pink   { background: #fce8f0; color: var(--txt-rose); }   /* 5.16:1 */
-.tag--blue   { background: #e5e4fb; color: var(--txt-blue); }   /* 6.33:1 */
+.tag--blue   { background: #e5e4fb; color: var(--txt-blue); }   /* 5.04:1 */
 
 /* ---------- Tjänster ---------- */
 
@@ -172,7 +172,8 @@
   border-color: transparent;
 }
 .slot--taken, .slot:disabled {
-  color: #7c7688;
+  /* 5.13:1 på #ecebee — upptagetillståndet bär information, måste kunna läsas */
+  color: #665f72;
   background: #ecebee;
   border-color: #dcd9e2;
   text-decoration: line-through;

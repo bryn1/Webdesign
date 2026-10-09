@@ -9,6 +9,8 @@
      #a98d5f på #2b1d20 = 5.13:1   (AA, även för liten text)
      #a98d5f på #362529 = 4.58:1   (AA)
      #5a4038 på #2b1d20 = 1.71:1   (decor: regler/ornament, ej text)
+   Bläckvignetten (body::before) målas sedan FIX-17-R1 UNDER allt innehåll
+   (z -1) — ingen text sitter under den, så tabellen gäller undantagslöst.
    ============================================================ */
 
 :root {
@@ -36,13 +38,19 @@ body {
   overflow-x: clip;
 }
 
-/* bläckvignett över hela fältet — mörknar mot brämna */
+/* bläckvignett över hela fältet — mörknar mot brämna.
+   FIX-17-R1 (2026-10-08, DA-funn P2): låg tidigare OVANPÅ innehållet
+   (z 3) och sänkte brämtextens kontrast under det headern utlovar
+   (guld mot mörkret ≈ 2.5:1 vid full alfabet). Målas nu UNDER allt
+   innehåll (z -1, bakom canvas-inkhållet men ovanpå fälttonen):
+   fältet vinjetterar fortfarande, men texten står aldrig under lagret
+   — siffrorna i headertabellen gäller undantagslöst. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 3;
+  z-index: -1;
   background:
     radial-gradient(120% 90% at 50% 12%, transparent 55%, rgba(16, 9, 10, 0.42) 100%);
 }
@@ -69,6 +77,11 @@ a:hover { color: var(--ink); }
   z-index: 10;
 }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
+/* FIX-17-R1 (DA-funn P2, cascade-artefakt): generella a:hover (0-1-1)
+   vann mot .skip-link (0-1-0) och gjorde länktexten pappersfärgad på
+   sin egen pappersplåt (1.0:1 i detektorns hover-avläsning). Nu håller
+   den specifika regelstatic == computed även i hover/focus. */
+.skip-link:hover, .skip-link:focus { color: var(--bg); }
 
 h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.12; }
 h1 { font-size: clamp(3rem, 2rem + 7vw, 6.2rem); margin: 0.4rem 0; letter-spacing: 0.01em; }
@@ -128,7 +141,11 @@ address { font-style: normal; margin-block: 0.4rem 0.9rem; }
 .hero-sub { font-size: 1.22rem; font-style: italic; color: var(--ink); }
 .hero-cta { font-family: var(--display); font-size: 1.3rem; }
 .pen-link { color: var(--gold); }
-.middot { color: var(--brown); padding-inline: 0.5rem; }
+/* FIX-17-R1 (2026-10-08, DA-funn P2): punkten är en TEXTGLYF i CTA-raden,
+   inte ett ornament — brun (1.71:1) var osynlig och bröt mot raden i
+   headerkommentaren "ej text". Guld = 5.13:1 mot fältet, samma utseende
+   i sin roll som synlig separering. */
+.middot { color: var(--gold); padding-inline: 0.5rem; }
 .hero-mark, .colophon-mark { font-size: 1.4rem; color: var(--gold); margin: 1.4rem 0 0; }
 .hero::before, .hero::after {
   content: "";

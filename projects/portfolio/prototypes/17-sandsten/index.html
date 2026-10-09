@@ -54,6 +54,9 @@ b,strong{font-weight:700}
 
 .skip{position:absolute;left:-9999px;top:0;background:var(--accent-deep);color:var(--on-dark);padding:.6em 1em;z-index:200;border-radius:0 0 6px 0}
 .skip:focus{left:0}
+/* FIX MC10249: generella a:hover (0,1,1) vann över .skip (0,1,0) -> text #1B5A4C
+   på egen botten #1B5A4C vid hover+focus (osynlig skip-länk). Explicit hover-par: */
+.skip:hover{color:var(--on-dark)}
 
 /* ============ Stormenyn (djup sjötång, AAA) ============ */
 .nav{
@@ -67,7 +70,7 @@ b,strong{font-weight:700}
   margin-right:auto;color:var(--on-dark);font-weight:700;
   text-decoration:none;font-size:.95rem;white-space:nowrap;
 }
-.nav .brand small{display:block;font-weight:400;font-size:.68rem;color:var(--on-dark-2);letter-spacing:.06em}
+.nav .brand small{display:block;font-weight:400;font-size:.7rem;color:var(--on-dark-2);letter-spacing:.06em}
 .nav nav{display:flex;align-items:center;gap:.15em;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav nav a{
   color:var(--on-dark);text-decoration:none;font-size:.92rem;

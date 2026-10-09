@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>18 · Koppartryck — Alexander Lektove</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2396491F'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..700;1,400&family=Space+Mono:wght@400;700&display=swap">
 <style>
   :root{
@@ -36,25 +37,25 @@
     line-height:1.62;
   }
   .sida{max-width:640px;margin:0 auto;padding:0 22px 72px}
-  /* ---- länkar: statisk kopparlinje; background-size-animering endast utan rörelserestriktion ---- */
+  /* ---- länkar: statisk kopparlinje som text-decoration (ej egen background — då läses
+         vilande kontrast korrekt av granskare); animering endast utan rörelserestriktion ---- */
   a{
     color:var(--linkkoppar);
-    text-decoration:none;
-    background-image:linear-gradient(var(--koppar),var(--koppar));
-    background-repeat:no-repeat;
-    background-position:0 100%;
-    background-size:100% 1px;      /* statisk linje (även prefers-reduced-motion: reduce) */
+    text-decoration:underline;
+    text-decoration-color:var(--koppar);
+    text-decoration-thickness:1px;
+    text-underline-offset:2px;
     overflow-wrap:anywhere;
   }
   a:hover,a:focus-visible{color:var(--koppar)}
   @media (prefers-reduced-motion: no-preference){
-    a{background-size:0 1px;transition:background-size .28s ease}
-    a:hover,a:focus-visible{background-size:100% 1px}
+    a{text-decoration-color:transparent;transition:text-decoration-color .28s ease}
+    a:hover,a:focus-visible{text-decoration-color:var(--koppar)}
   }
   /* ---- etiketter i mono (maskin mot hantverk) ---- */
   .etik{
     font-family:var(--mono);
-    font-size:.72rem;
+    font-size:.75rem;
     letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--koppar);
@@ -64,7 +65,7 @@
   /* ================= TRYCKSIDAN / HERO ================= */
   header.hero{padding:64px 0 8px;text-align:left}
   .toppnav{
-    font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;
     text-transform:uppercase;display:flex;flex-wrap:wrap;gap:6px 18px;
     border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:48px;
   }
@@ -111,7 +112,7 @@
   }
   .nyckeltal .forklar{font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.5}
   .notice{
-    font-family:var(--mono);font-size:.7rem;color:var(--muted);
+    font-family:var(--mono);font-size:.75rem;color:var(--muted);
     line-height:1.6;margin-top:18px;border-left:2px solid var(--line);padding-left:12px;
   }
   /* ================= SEKTIONER ================= */
@@ -138,7 +139,7 @@
   .personrad{font-family:var(--mono);font-size:.82rem;color:var(--muted);margin-bottom:18px}
   /* ================= PROJEKT: TRYCKPLÅTAR ================= */
   .projekt-intro{color:var(--muted);font-size:.95rem}
-  .plattgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+  .plattgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:start}
   .plat{
     background:var(--paper);
     border:1px solid var(--line);
@@ -148,7 +149,7 @@
     break-inside:avoid;
   }
   .plat .nr{
-    font-family:var(--mono);font-size:.68rem;font-weight:700;
+    font-family:var(--mono);font-size:.75rem;font-weight:700;
     letter-spacing:.18em;color:var(--koppar);display:block;margin-bottom:8px;
   }
   .plat h3{margin:0 0 8px;font-size:1.08rem;line-height:1.3}
@@ -156,7 +157,7 @@
   .plat p + p{margin-top:.7rem}
   .plat .links{
     margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);
-    font-family:var(--mono);font-size:.74rem;display:flex;flex-wrap:wrap;gap:4px 16px;
+    font-family:var(--mono);font-size:.75rem;display:flex;flex-wrap:wrap;gap:4px 16px;
   }
   /* ================= FLOTTAN: KOLOFON ================= */
   .kolofon{font-family:var(--mono);font-size:.82rem;line-height:1.75;max-width:44ch;margin-left:auto;margin-right:auto}
@@ -190,7 +191,7 @@
   .signaturfalt blockquote + blockquote{margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--line)}
   footer.slut{
     margin-top:64px;padding-top:16px;border-top:1px solid var(--line);
-    font-family:var(--mono);font-size:.72rem;color:var(--muted);
+    font-family:var(--mono);font-size:.75rem;color:var(--muted);
     display:flex;flex-wrap:wrap;gap:6px 20px;letter-spacing:.05em;
   }
   /* ================= MOBIL ================= */
@@ -205,7 +206,7 @@
   }
   /* ---------- JS-pass layer (MC 10096) — inaktivt utan <html class="js-on"> som sätts av skriptet.
      Ingen text-shadow: letterpress-duon är stripen (DA-fix 02↔18) — trycket bärs av sänkning + skugga. ---------- */
-  .js-on .toppnav a.active{color:var(--ink);background-size:100% 1px}
+  .js-on .toppnav a.active{color:var(--ink);text-decoration-color:var(--koppar)}
   .js-on header[id],.js-on section[id]{scroll-margin-top:14px}
   @media (prefers-reduced-motion: no-preference){
     /* pressvågen: plåtar + hävda partier mörknar och sjunker på plats vid inträdet */

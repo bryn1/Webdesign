@@ -125,8 +125,12 @@ nav.top a:hover,nav.top a:focus-visible{color:var(--ink);border-bottom-color:var
 
 /* ---------- numer: giant CONTENT key figures ---------- */
 .numer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--bw)}
-.stat{background:var(--panel);border:var(--bw) solid var(--ink);padding:clamp(20px,4vw,36px)}
-.giant{font-size:clamp(3rem,13vw,7rem);line-height:.95;white-space:nowrap}
+.stat{background:var(--panel);border:var(--bw) solid var(--ink);padding:clamp(20px,4vw,36px);container-type:inline-size}
+/* FIX 2026-10-07 (audit P1): at 1440 the vw-scaled number rendered 368-476px wide in a 264px cell,
+   spilling over the neighbouring card. Fallback caps at a width that fits the narrowest multi-column
+   cell; where cq units are supported the size tracks the actual card (cqi) and 13vw still governs narrow viewports. */
+.giant{font-size:clamp(3rem,13vw,3.4rem);line-height:.95;white-space:nowrap}
+@supports (width:1cqi){.giant{font-size:clamp(3rem,min(13vw,22cqi),3.75rem)}}
 .stat .label{display:block;margin-top:14px;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
 .stat .proof{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
 .stat.accent .giant{color:var(--acid)}
@@ -184,7 +188,7 @@ blockquote.pull{
 }
 .chan a:hover,.chan a:focus-visible{background:#121212;color:var(--acid)}
 .backtop{font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:#121212}
-.colophon{margin-top:26px;font-size:13px;color:#3a3733}
+.colophon{margin-top:26px;font-size:13px;color:#121212} /* FIX 2026-10-07 (gate detect): gray #3a3733 on acid = hard-set gray-on-color; rest of kontakt already uses #121212 */
 
 /* ---------- mobile: rules 2px per spec risk, shadows tightened ---------- */
 @media (max-width:640px){

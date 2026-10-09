@@ -202,6 +202,22 @@ address { font-style: normal; margin: 0 0 1.4em; }
 .sw--free { background: var(--ink); }
 .sw--taken { background: var(--muted); }
 .cal { overflow-x: auto; }
+.cal-wrap { position: relative; }
+.cal-hint { display: none; }        /* visas bara nar kalendern faktiskt behover skrollas */
+/* Under ~605px ryms inte 34-rems-gallret i flodet (544px + 2 x pad 5vw): da
+   markeras kantklippningen med en mork dimring och en svep-hansking. */
+@media (max-width: 604px) {
+  .cal-wrap::after {                /* dekorativ scrollkant — ror ej klickbarhet */
+    content: "";
+    position: absolute; top: 0; right: 0; bottom: 0; width: 2.25rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(6, 13, 27, 0), rgba(6, 13, 27, .55));
+  }
+  .cal-hint {
+    display: block; color: var(--meta); font-size: .9rem;
+    letter-spacing: .04em; margin: .7em 0 0;
+  }
+}
 .cal-grid { display: grid; grid-template-columns: minmax(3.2em, max-content) repeat(5, minmax(4.6em, 1fr));
   gap: .4rem; min-width: 34rem; }
 .cal-day { font-size: .8rem; color: var(--meta); letter-spacing: .1em; padding: .4em .2em; text-align: center; }
@@ -212,7 +228,10 @@ address { font-style: normal; margin: 0 0 1.4em; }
 }
 .slot:hover { background: #fff; }
 .slot[disabled] {
-  background: transparent; color: var(--muted); border-color: var(--line); cursor: not-allowed;
+  /* åsidoskrivning av --muted här: upptagna prickar räknas av kontrastgrinden
+     trots disabled-undantaget i WCAG — trycket (–) bär --meta (4.7:1 mot
+     #24365a), tillståndet skiljs ändå genom hålet mot de fyllda "Ledig"-chippen. */
+  background: transparent; color: var(--meta); border-color: var(--line); cursor: not-allowed;
 }
 dialog {
   background: var(--surface); color: var(--ink); border: 1px solid var(--line);
