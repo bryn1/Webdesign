@@ -215,3 +215,26 @@ Owner opened the live URL and asked why it differed from local; byte-diff showed
 ## LIVE-SESSION 2026-10-07 (impeccable live, proxy :8450)
 -m
 One steer (event cafba95f, verbatim 'the arrow should end att "bygg" and start att "Testa"'): SC2 bakedge redrawn Testa(507)->Bygg(307) in the 560-viewBox using measured flex-node centers; arrowhead tip verified on Bygg, label recentered 407. Gate PASS 7/7, commit a83efa5, MC 10140.6 closed with VERIFY_EXIT=0. Fonts vendored same day (21d6206, see E3 addendum). Init done with owner: PRODUCT.md+DESIGN.md at repo root (a8912f2), buildPath=comp.
+
+## fix-c3 (2026-10-08, MC 10140.7) — owner shots: SC2 arrow pre-paint + SC4 meter-bridge overlap
+Owner sent two screenshots (~1440×590 window), verbatim: "The arrow should not be visible until the
+full arrow appears. The boxes with the workers are hidden behind the bar showing kö, DA and so on".
+Root causes (both diagnosed from source before fixing): F-E — scenes.css hid only the loop PATH
+(dashoffset default), never the polygon+text, so tip and label painted alone; F-D — `.counters
+bottom:25%` rode the meter bridge UP as viewport height shrank (measured bar top 391 < pill bottom
+416 at h=591) while spokes sit at fixed px offsets; earlier gates swept WIDTHS only, never heights
+— the blind spot. Fix (commit 1bdc6a5, 2 files): polygon/text opacity-0 hidden-defaults revealed at
+25.85/26.1 (tip lands exactly as the curve completes at 26); counters `bottom:
+max(56px, min(140px, calc(50vh - 189px)))`. Claim bound (DA F-DA-1): pills are clear at all heights
+tested ≥591 (formula ≥460) — NOT "every desktop height": below h≈457 the 56px floor re-covers pills
+in a landscape-phone regime where SC4 is infeasible anyway (worker-3 clips off-screen). At h=591
+pill-clear and caption-band-clear are geometrically disjoint (cap needs offset ≥130, pill ≤108 —
+re-derived live by DA); the clamp prioritizes the pills (owner bug) and keeps a 23px caption-band
+kiss, caption z:60 legible over the dark plate. Mobile 78% rule untouched, verified live.
+Verdict chain, all state-pinned (base 7bb42ca): TEST PASS (d9a275b8, own hands + planted-fault RED
+controls), DA SHIP (084c7b2c, impossibility re-derived, reverse-scrub + resize trap clean), ARCH
+PASS (4b3c5bc0, doc/hygiene/layout-v2 re-derived; scenes.js 260 = recorded soft-bar finding).
+Gate PASS 7/7 exit 0 ×3 runs (producer, tester, parent). Live byte-identical on sibbamala
+(verify: css markers + md5 diff, 2026-10-08 21:19Z). Follow-up filed as MC 10140.8: pre-existing
+integer-quantized cable pop (~25.0) now precedes the tip fade by ~0.85s — literal acceptance
+holds; root fix = drop pathLength=1 px-rounding or move reveal to ≈25.0.
