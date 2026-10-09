@@ -21,7 +21,8 @@ wave (owner rulings 2026-10-05) made the shared motion mechanism large enough to
 > GENERATED browse site `_site/` (`tools/build-index.py`; root = one card per project) so `.git`/`.audits` are not
 > reachable; `:8092` serves `projects/portfolio/concepts`. `.audits/` is no longer tracked (kept on disk; the dsh
 > DoD tooling reads verdict files from disk, verified). NOTE: the pytest gate under `.audits/202610041341-*/out/`
-> was written for the old `prototypes/` path and is history, not a live gate. See README.md.
+> was written for the old `prototypes/` path; it was repaired 2026-10-08 under owner ruling 1a and
+> re-pointed at `projects/salong/prototypes/` — it is a LIVE gate. See README.md.
 
 ## 1. Shape in one line
 
@@ -31,8 +32,9 @@ portfolio: 20 single-file themes + the workflow-explode concept) — where what 
 `python3 -m http.server` on :8090 is the GENERATED browse site `_site/` (`tools/build-index.py`), not
 the repo root (so `.git`/`.audits` are unreachable — both probe 404, measured this pass); content canon
 for salong in `projects/salong/spec.md`; the DoD record is the verdict files under
-`.audits/<run>/out/` (on disk, untracked) — the pytest file under `.audits/202610041341-*/out/` is
-history, not a live gate (per the v3 note above).
+`.audits/<run>/out/` (on disk, untracked) — the pytest file under `.audits/202610041341-*/out/` was
+repaired 2026-10-08 (owner ruling 1a) and is a live gate re-pointed at `projects/salong/prototypes/`
+(per the v3 note above).
 
 ## 2. Repo layout (as it actually is)
 
@@ -82,7 +84,8 @@ Every theme dir has exactly three parts (bijection: 20 dirs ↔ 20 gallery cards
 ```
 NN-name/
   index.html      one full page; 6 mandatory section ids: top om tjanster galleri boka kontakt
-  css/            2–4 files (typical split: tokens + layout/base + components/sections [+ scroll/motion])
+  css/            2–5 files (typical split: tokens + layout/base + components/sections [+ scroll/motion];
+                  measured max 5 = 04-brutalt-tryck: base/components/layout/motion/tokens)
   js/             2–6 files, ONE of which is the motion file (§4); the rest are per-theme
                   non-scroll interactions (booking demo, contact demo, gallery nav, cursor,
                   preloader, tilt) — none of these register scroll triggers
@@ -178,10 +181,12 @@ workflow-explode run, MC 10140 — not this product.)
 
 ```
 .audits/202610041341-f6053f16/out/
-  test_prototypes.py     pytest DoD gate, 5 tests (190 lines, runs from any cwd, absolute paths):
+  test_prototypes.py     pytest DoD gate — LIVE (repaired 2026-10-08, owner ruling 1a, re-pointed at
+                          projects/salong/prototypes/), 6 tests (249 lines, runs from any cwd, absolute paths):
                          test_brief_and_assets · test_prototypes_exist · test_each_prototype_structure
                          · test_index_page_lists_all_prototypes · test_all_prototypes_served
-                         (parses <img> srcs via HTMLParser — copy can never fake the photo check;
+                          · test_persona_ruling_markers_and_motion
+                          (parses <img> srcs via HTMLParser — copy can never fake the photo check;
                           live-HTTP checks target the PORT file)
   DONE.md                ledger — sections A (research) B/C (20 themes + gates)
                          E (JS wave S-01..S-20 + S-R + S-F1..F3) C2 (absence/surfaces) D (open/N/A)
@@ -202,7 +207,7 @@ verdicts).
    text file this pass:
    - **salong — 9 files, every one now reasoned.** Pre-ruled three: `08-organiskt-hantverk/index.html`
      **456** (single-page theme kept whole; fragmenting markup would separate each hand-drawn SVG from
-     its copy — ruled 2026-10-05, sha f5b2de9), `17-mork-akademien/css/style.css` **414** (one coherent
+     its copy — ruled 2026-10-05, sha f5b2de9), `17-mork-akademien/css/style.css` **431** (one coherent
      theme dress), `18-bara-typsnitt/js/scroll-motion.js` **470** (word-gap safety clamp must stay
      beside the amplitudes it guards). Six lab-build files gained their header reason in FIX-ARCH-01
      (2026-10-07), each specific to its file, line counts counted after that line landed:
