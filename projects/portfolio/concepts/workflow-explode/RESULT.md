@@ -243,7 +243,7 @@ holds; root fix = drop pathLength=1 px-rounding or move reveal to ≈25.0.
 
 > Dropped `pathLength="1"` from the loop path (the normalized 1-unit dash space integer-quantized in-browser → pop at ~25); scene2 now tweens `strokeDashoffset` over measured `getTotalLength()` via a native GSAP function-based value (re-measured at tween init under the timeline's `invalidateOnRefresh`, never per frame); the `html.js` hidden-default became an oversized 1000-unit dash (measured bound 2026-10-09: desktop 229.8 fixed, mobile ≤ 291 across 320–767 → 1000 hides every cable pre-20s); arrowhead 25.85/26.1 + the 26s yoyo untouched. Supersedes fix-c2 F-A's "`pathLength=1` stays" and closes MC 10140.8. scenes.js 260→266 (soft-bar 250 stays recorded, ≤ §6 300).
 
-Verdicts (state pin `c5eba206…d780`, base `7bb42ca`): TEST PASS — 9-step numeric sweep + render-level
+Verdicts (wall pinned `c5eba206…d780`, base `7bb42ca`; DA re-verified post-record on `7ee51fe9…974e` with `git diff 739d77f..HEAD` = 0 code lines, SHIP again): TEST PASS — 9-step numeric sweep + render-level
 pixel mutation control RED→GREEN (cycle-2 re-run; the numeric probe alone can stay green over the
 old bug — Chromium `getTotalLength()` ignores `pathLength` — so red was proven on painted pixels);
 DA SHIP — 1000-bound measured (mobile max 291, margin ≥3.4×), jump/resize/reverse-scrub/reduced-motion clean;
