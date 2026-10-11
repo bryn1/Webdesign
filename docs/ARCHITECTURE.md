@@ -98,9 +98,12 @@ Rules that hold across all 20 (measured this pass):
   themes **15** and **18 are photo-free by brief** and must state it *inside* `#galleri`
   (gate checks parsed img-srcs and the in-section statement, not prose).
 - The six section ids are identical across themes on purpose — themes are drop-in swappable.
-- External requests: Google Fonts CDN only (accepted exception, DONE E3 — BLOCKED pending an
-  owner vendoring ruling). Zero other non-font https refs (grep re-run this pass: only an
-  instagram.com content link).
+- External requests: Google Fonts CDN only — **E3 SETTLED 2026-10-10, owner ruling "rec"**: the
+  prototypes keep the CDN exception (no vendoring pass); fonts degrade to fallbacks offline, which
+  the no-JS/offline behavior already tolerates. The hero build at
+  `projects/portfolio/concepts/workflow-explode/` is NOT covered by the exception — it self-hosts
+  (Saira local, commit 21d6206) because it is the served showcase page. Zero other non-font https
+  refs (grep re-run this pass: only an instagram.com content link).
 
 ## 4. The motion standard (owner ruling 2026-10-05, DONE.md §E)
 
@@ -233,8 +236,8 @@ verdicts).
    `wc -l` there is meaningless, ~11 lines of megabytes).
 3. Themes 15 + 18 photo-free — by brief, gate-enforced (see §3).
 4. Theme 11 IO reveal remnant — P2, queued for next touch (§4 table); cite DONE S-F3.
-5. Google Fonts stay CDN — owner decision pending (DONE E3, BLOCKED); fonts degrade to fallback
-   stacks offline; non-blocking for LAN demo.
+5. Google Fonts stay CDN — **DECIDED 2026-10-10, owner "rec"**: settled as the standing exception
+   (§3), not pending anymore; fonts degrade to fallback stacks offline; non-blocking for LAN demo.
 6. Repo-root `out/` stray dir — **REAPPEARED 2026-10-07**: `out/.tmp/t6c5/live2.html` present
    (re-verified 2026-10-08, `ls -la out` + `find out`). The 2026-10-05 rmdir was real; a later child
    ran from the repo root with the relative path `out/.tmp/…` again, and git stayed silent because
