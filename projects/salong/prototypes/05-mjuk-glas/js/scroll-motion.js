@@ -156,15 +156,18 @@
 
     /* 4 · PORTRÄTT-KEN-BURNS + RAMDRIFT: bilden zoomar/panar långsamt inuti
            sin rundade glasram medan ramen själv driver snett — dubbel rörelse
-           i samma lugn. Tjänstekorten sjunker in med lätt skala = djup. */
-    var portraitImg = document.querySelector('.portrait-frame img');
-    if (portraitImg) {
-      g.fromTo(portraitImg, { scale: 1.14, x: 8 }, {
+           i samma lugn. Tjänstekorten sjunker in med lätt skala = djup.
+           T2 (MC 10442): per ram, inte första träff — hero-plattan och Om-
+           plattan får samma behandling, varsitt scrub-ankare. */
+    g.utils.toArray('.portrait-frame').forEach(function (frame) {
+      var img = frame.querySelector('img');
+      if (!img) { return; }
+      g.fromTo(img, { scale: 1.14, x: 8 }, {
         scale: 1, x: -8, ease: 'none',
-        scrollTrigger: { trigger: '.portrait-frame', start: 'top bottom',
+        scrollTrigger: { trigger: frame, start: 'top bottom',
                          end: 'bottom top', scrub: true }
       });
-    }
+    });
     g.utils.toArray('.gallery-card__media img').forEach(function (img) {
       g.fromTo(img, { scale: 1.08 }, {
         scale: 1, ease: 'none',
@@ -191,7 +194,7 @@
       drift(blob, null, null, speed);
     });
     drift('.om-text', null, -18);
-    drift('.portrait-frame', 16, 26);
+    drift('.portrait-frame', 16, 26);   /* T2: selector → both plates, same drift */
 
     /* 6 · TÄT GLASDRIFT (DENSITY-03b): många små lager samtidigt — glaskort
            i tre+.distincta takt, nummrutorna kontradriftar mot sina kort,

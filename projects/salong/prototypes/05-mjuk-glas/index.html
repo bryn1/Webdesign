@@ -57,13 +57,24 @@
 
   <!-- Hero -->
   <section class="hero" id="top" aria-labelledby="hero-rubrik">
-    <p class="eyebrow" data-reveal>Frisör i Malmö</p>
-    <h1 id="hero-rubrik" data-reveal>Jane Cooper</h1>
-    <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
-    <p class="hero-cta" data-reveal>
-      <a class="btn btn--accent" href="#boka">Boka tid</a>
-      <a class="btn btn--ghost" href="#kontakt">Hitta mig</a>
-    </p>
+    <div class="hero-copy">
+      <p class="eyebrow" data-reveal>Frisör i Malmö</p>
+      <h1 id="hero-rubrik" data-reveal>Jane Cooper</h1>
+      <p class="hero-sub" data-reveal>Klippning, färg och vård med lugn och omsorg.</p>
+      <p class="hero-cta" data-reveal>
+        <a class="btn btn--accent" href="#boka">Boka tid</a>
+        <a class="btn btn--ghost" href="#kontakt">Hitta mig</a>
+      </p>
+    </div>
+    <!-- T2 (MC 10442, 2026-10-09): portrait plate in the hero's empty right half —
+         the SAME glass plate as the Om portrait (glass-card portrait-frame, same
+         asset, same alt, caption-free). Placement only via .hero .portrait-frame
+         in css/layout.css; no new card style, no new copy. -->
+    <div class="glass-card portrait-frame" data-reveal>
+      <img src="../_assets/jane-portrait.jpg"
+           alt="Jane Cooper, frisör på Jane Cooper i Malmö"
+           width="1656" height="2208">
+    </div>
     <hr class="rule-glass" aria-hidden="true">
   </section>
 
