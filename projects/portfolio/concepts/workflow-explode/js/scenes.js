@@ -215,8 +215,15 @@ const Scenes = (() => {
         onUpdate: () => { el.textContent = String(Math.round(state.v)); },
       }), 43);
     });
-    // 48–50s collapse leaves the faint signal dot SC5 expands from
-    tl.to(".hubg", { opacity: 0, scale: 1.1, duration: 2 }, 48);
+    // 48–50s collapse leaves the faint signal dot SC5 expands from.
+    // FIX-c5 (10140.11): the collapse INWARDS (was scale 1.1 outwards). The old grow scaled
+    // the group about stage centre and walked the counters' rect DOWN ~27px while the SC4
+    // caption exits UP (captions() y:0→−16 at 48) — head-on into the shared band on wide/tall
+    // viewports (text-on-text 48.5–50, owner laptop). Inward: counters retreat toward centre
+    // (≥28px at the shortest vh) faster than the caption's 16px rise, so the settled ≥10px
+    // gap only grows through the exit; it also matches this comment's "collapse … dot SC5
+    // expands from". Uniform scale: no new internal spoke/hub counters overlaps.
+    tl.to(".hubg", { opacity: 0, scale: 0.85, duration: 2 }, 48);
     tl.to(".seed", { opacity: 0.5, duration: 1 }, 48.5);
   }
 
