@@ -52,6 +52,7 @@ public surface, not loose site dirs.
 | `projects/salong/spec.md` | Content canon — every theme's Swedish copy/section contract (single source). |
 | `PORT` | Demo port, committed: `8090`. Gate + keepalive read it. |
 | `projects/salong/prototypes/` | The product. 20 theme dirs + `_assets/` + gallery `index.html`. |
+| `projects/wedding/` | REAL wedding homepage (MC 10511): spec.md canon + 5 classical drafts under prototypes/ + real couple photo in _assets/. LOCAL-ONLY — committed, NEVER pushed; not in --root mode, not on the vm106 mirror. :8093 serves it. |
 | `tools/build-index.py` | The browse-site generator (stdlib only, deterministic): scans `projects/<project>/{prototypes,concepts}/<name>/index.html` and writes `_site/` — a root page with one card per project, one page per project (title from `<title>`, thumbnail, link), and relative symlinks `prototypes`/`concepts` pointing back into `projects/` so relative assets resolve. With `--root` it ALSO writes the TRACKED public surface for the vm106 mirror (root `index.html` + the two committed `<project>/index.html` pages — one shared per-project page writer serves both `_site` and the root mode — + `thumbs/**`, thumbnails made as needed; tracked, not gitignored). Run after adding a build (with `--root` when the public surface must follow). |
 | `tools/check-links.py` | HTTP crawler for the served site: follows every same-host page and requests every local reference (a/link/script/img/srcset, inline+file CSS `url()`/`@import`, JS asset strings); external refs are counted, not fetched; asserts forbidden paths (`/.git/`, `/.audits/`, …) answer 404. Exit 0 = zero broken. |
 | `tools/gen-placeholders.py` | The deterministic placeholder-art generator (SEED 20261006): redraws its 17 tracked image targets as abstract paper/ink/clay color washes — no faces, no text, no recognizable objects — opening each existing file first so every replacement keeps that file's exact pixel size and format (owner ruling R2, §5). |
@@ -174,6 +175,8 @@ honest "Bild kommer" frames (DONE L1 — PoC reality, not a bug).
 LAN: http://192.168.5.231:8090/   (PORT file = 8090, committed)
 keepalive: cron  @reboot + */5  ~/.dsh/bin/proto-server-keepalive.sh
              curl-probe → restart via setsid nohup; log ~/.dsh/proto-server.log
+
+:8093 wedding drafts (MC 10511): python3 -m http.server 8093 --bind 0.0.0.0 --directory /home/claudecode/Hemsidor/projects/wedding/prototypes — LAN http://192.168.5.231:8093/, no keepalive (manual, run-scoped). PORT file unchanged (8090).
 ```
 
 No server code lives in the repo — the only runtime is the stdlib static server.
@@ -238,6 +241,7 @@ verdicts).
 4. Theme 11 IO reveal remnant — P2, queued for next touch (§4 table); cite DONE S-F3.
 5. Google Fonts stay CDN — **DECIDED 2026-10-10, owner "rec"**: settled as the standing exception
    (§3), not pending anymore; fonts degrade to fallback stacks offline; non-blocking for LAN demo.
+   **Scoped 2026-10-12: does not extend to `projects/wedding/` — see item 8 (offline fonts rule).**
 6. Repo-root `out/` stray dir — **REAPPEARED 2026-10-07**: `out/.tmp/t6c5/live2.html` present
    (re-verified 2026-10-08, `ls -la out` + `find out`). The 2026-10-05 rmdir was real; a later child
    ran from the repo root with the relative path `out/.tmp/…` again, and git stayed silent because
@@ -247,6 +251,13 @@ verdicts).
    present, `rmdir` no longer suffices).
 7. `projects/portfolio/concepts/` + `.audits/202610051009-workflow-explode/` — a different, newer run (MC 10140)
    living legitimately in the same repo; not product surface of MC 10088.
+8. **wedding is local-only (owner privacy ruling, 2026-10-12, MC 10510/10511):** wedding content
+   is real; the public mirror carries placeholders only; `tools/build-index.py` is run WITHOUT
+   `--root` for this project; a `git push` from this checkout is BANNED while wedding commits are
+   in history, until an owner ruling lifts or scrubs it (technical backstop: `.git/hooks/pre-push`
+   aborts any push whose commits touch `projects/wedding/`, red/green proven 2026-10-12).
+   Exception-5 (Google Fonts CDN) does NOT extend to wedding builds: `projects/wedding/spec.md`
+   requires offline assets — fonts self-hosted as woff2 (implemented at 2472eff).
 
 ## 9. Data & dependency picture
 
