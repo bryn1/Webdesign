@@ -69,19 +69,12 @@
     /* 5 · PIN + ZOOM — sidvändningen: den nålade bildens ram hålls stilla
            medan texten rullar förbi, och bilden i ramen sjunker på plats
            (rotera + skala, scrubbat) som när ett uppslag faller till ro.
-           Endast på breda skärmar, där ramen står vid sidan av texten. */
-    var stage = document.querySelector('.story-stage');
-    var stageArt = document.querySelector('.stage-art');
-    var storyGrid = document.querySelector('.story-grid');
-    if (stage && stageArt && storyGrid) {
-      g.fromTo(stageArt, { rotate: -2.4, scale: 1.06 }, {
-        rotate: 0, scale: 1, ease: 'none',
-        scrollTrigger: {
-          trigger: storyGrid, start: 'top 110px', end: 'bottom bottom',
-          scrub: true, pin: stage, pinSpacing: false
-        }
-      });
-    }
+           Endast på breda skärmar, där ramen står vid sidan av texten.
+           MC 10475 T4: kommentaren lovade "breda skärmar" men grenen saknades —
+           på 375 står ramen i hel kolumn (motion.css) och det nålada opaka
+           figuren red över kapiteltexten (3 findings, 375). Sidan-bred-grid
+           definieras i motion.css vid min-width:900px — samma villkor sätter
+           grenen nu; under 900 står ram + text i flödet, orörda. */
 
     /* 6 · DRIFT + ZOOM — tjänstekorten: ikonillustrationen svävar mot
            scrollriktningen (jämn/udda åt var sitt håll) medan kortet
@@ -125,6 +118,26 @@
         scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 55%', scrub: true }
       });
     });
+  });
+
+  /* 5b · PIN + ZOOM (900px+) — själva sidvändningen bor i egen gren:
+         .story-grid blir tvåkolumns (ram vid sidan av texten) först vid
+         min-width:900px (motion.css); under den bredden står ramen i
+         hel kolumn och en pin med pinSpacing:false låter den opaka
+         figuren målas över kapiteltexten (MC 10475 T4, RED 375). */
+  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 900px)', function () {
+    var stage = document.querySelector('.story-stage');
+    var stageArt = document.querySelector('.stage-art');
+    var storyGrid = document.querySelector('.story-grid');
+    if (stage && stageArt && storyGrid) {
+      g.fromTo(stageArt, { rotate: -2.4, scale: 1.06 }, {
+        rotate: 0, scale: 1, ease: 'none',
+        scrollTrigger: {
+          trigger: storyGrid, start: 'top 110px', end: 'bottom bottom',
+          scrub: true, pin: stage, pinSpacing: false
+        }
+      });
+    }
   });
 
   /* 7b · ZOOM (560px+) — plattornas zoom-sättning lever i eget

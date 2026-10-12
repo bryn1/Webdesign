@@ -350,9 +350,14 @@
     });
   });
 
-  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 721px)', function () {
+  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 76rem)', function () {
     /* 16 · PIN: kapitälrubriken i Tjänster hålls stilla medan hela
-           postlistan rinner förbi under den — ett fast ögonblick. */
+            postlistan rinner förbi under den — ett fast ögonblick.
+            MC 10475 T4 (MC 10506): grenen gick vid 721px men tvåkolumns-
+            layouten (rubriken i frilagd marginal, listan i egen kolumn —
+            css/style.css) först vid 76rem; under det red listan in under
+            den opaka rubriken (6 findings @1440). Pin + marginal samma
+            villkor: listan rinner förbi BIDAN OM, aldrig under. */
     var chapter = document.querySelector('.chapter-pin');
     if (chapter) {
       ST.create({

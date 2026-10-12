@@ -95,7 +95,7 @@ b,strong{font-weight:700}
 .layer > .in{max-width:1060px;margin:0 auto}
 .layer.narrow > .in{max-width:760px}
 /* erosionsskalopp — överkantens "sandlager" (ren CSS, ingen animation) */
-.layer + .layer::before{
+.strata + .strata > .layer::before{
   content:"";position:absolute;left:0;right:0;top:calc(-1 * var(--edge));height:var(--edge);
   background:var(--tone,var(--bg));
   --scallop:radial-gradient(circle at 50% 100%, transparent 0 7px, #000 7.5px);
@@ -225,11 +225,21 @@ b,strong{font-weight:700}
 /* ============ Sticky-stapling ENDAST >= 768px (DA-fix P-A),
    och endast med JS (progressive enhancement: utan JS = statiska lager).
    JS sätter --stick per lager: låga lager nålas vid menyn,
-   högre lager nålas med underkant mot viewportbotten (inget innehåll göms). ============ */
+   högre lager nålas med underkant mot viewportbotten (inget innehåll göms).
+   MC 10475 T4 (MC 10506): löftet hölls inte — sticky-klämmen gick ända till
+   main.stack:s underkant, så ett nålat lager frös fast medan nästa opaka
+   lager svek upp över det (hero-CTA 3/3 under #om, 75 findings @1440+reduced).
+   Varje lager når nu sitt nål-band inuti sin egen .strata; .pass-bandet
+   (240 px, tomt, samma papperston) är genomfarten nästa lager glider genom
+   INNAN det når nålat innehåll — hållret kvarstår, svepet stannar utanför
+   texten. Undantaget under "inget innehåll göms" är nu geometriskt sant. ============ */
 @media (min-width:768px){
-  :root{--edge:20px}
+  :root{--edge:20px;--pass:240px}
   .layer{min-height:calc(100vh - 58px)}
   .js .layer{position:sticky;top:var(--stick,54px)}
+  .pass{display:none}
+  .js .pass{display:block;height:var(--pass)}
+  .strata:last-child .pass{height:0}
 }
 
 /* ============ Reducerad rörelse ============ */
@@ -257,6 +267,7 @@ b,strong{font-weight:700}
 <main class="stack" id="main">
 
   <!-- ─── Lager 01 · hero / pitch ─── -->
+  <div class="strata">
   <section class="layer" id="top" style="z-index:1">
     <div class="in">
       <p class="kicker">Lager 01 · sats</p>
@@ -282,8 +293,11 @@ b,strong{font-weight:700}
         verifierade mot systemets loggar; texten kan släpa efter.</p>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 02 · Vem jag är / pitch ─── -->
+  <div class="strata">
   <section class="layer narrow prose" id="om" style="z-index:2">
     <div class="in">
       <p class="kicker"><span class="num">02</span>Vem jag är</p>
@@ -336,8 +350,11 @@ b,strong{font-weight:700}
         drift.</p>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 03 · Bakgrund ─── -->
+  <div class="strata">
   <section class="layer narrow prose" id="bakgrund" style="z-index:3">
     <div class="in">
       <p class="kicker"><span class="num">03</span>Bakgrund</p>
@@ -373,8 +390,11 @@ b,strong{font-weight:700}
         till en hemsida jag ville bygga — men biprodukten blev snabbt min huvudsyssla.</p></blockquote>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 04 · Projekt (sats-rader, löpande nr per DA-regel 8) ─── -->
+  <div class="strata">
   <section class="layer" id="projekt" style="z-index:4">
     <div class="in">
       <p class="kicker"><span class="num">04</span>Projekt</p>
@@ -524,8 +544,11 @@ b,strong{font-weight:700}
       </article>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 05 · Autonoma flottan ─── -->
+  <div class="strata">
   <section class="layer" id="flottan" style="z-index:5">
     <div class="in">
       <p class="kicker"><span class="num">05</span>Autonoma flottan</p>
@@ -624,8 +647,11 @@ b,strong{font-weight:700}
         <a href="https://sibbamala.com/presentation/" target="_blank" rel="noopener">presentationen</a>.</p>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 06 · Case ─── -->
+  <div class="strata">
   <section class="layer narrow prose" id="case" style="z-index:6">
     <div class="in">
       <p class="kicker"><span class="num">06</span>Case</p>
@@ -659,8 +685,11 @@ b,strong{font-weight:700}
         ovan om uppdateringar som måste bäras in.</p>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
   <!-- ─── Lager 07 · Kontakt (tång-färgad CTA-yta) ─── -->
+  <div class="strata">
   <section class="layer narrow" id="kontakt" style="z-index:7">
     <div class="in">
       <p class="kicker"><span class="num">07</span>Kontakt</p>
@@ -681,6 +710,8 @@ b,strong{font-weight:700}
       <p class="foot">Alexander Lektove · Karlskrona — byggt på lokal hårdvara av flottan.</p>
     </div>
   </section>
+    <div class="pass" aria-hidden="true"></div>
+  </div>
 
 </main>
 

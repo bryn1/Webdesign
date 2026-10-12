@@ -277,6 +277,21 @@ address { font-style: normal; margin-block: 0.4rem 0.9rem; }
 .price-line { font-size: 0.95rem; color: var(--gold); margin: 0.3rem 0 0; }
 .price { color: var(--ink); padding-left: 0.35rem; }
 
+/* MC 10475 T4 (MC 10506, ägarrapporterad frost-band-klass): kapitälrubriken
+   stod i samma kolumn som listan och GSAP-pinnen (js/scroll-motion.js block 16,
+   nu samma 76rem-villkor) lät den opaka rubriken ligga 3/3 över h3/entry-no
+   medan listan rann förbi. Rubriken står i frilagd vänstermarginal — samma
+   marginalgeometri som .marginalia, spegelbild — listan rinner förbi BIDAN OM
+   den stilla rubriken, aldrig under. Utan JS/pin: statisk marginalrubrik,
+   fullt läsbar; reduced motion: ingen pin, rubriken står i marginalen. */
+@media (min-width: 76rem) {
+  #tjanster .chapter-pin {
+    width: 13rem;
+    margin-inline-start: calc(-1 * (13rem + 2.6rem));
+    padding-block: 0;
+  }
+}
+
 /* ── galleri ────────────────────────────────────────────── */
 
 .gallery {
