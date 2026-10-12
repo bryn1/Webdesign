@@ -170,9 +170,13 @@
    rubriken är fast (fixed, pinSpacing false) måste glaskorten glida
    UNDER frostbandet, inte över det (.gallery-shell är position: relative
    och målas annars senare i lagret). */
+/* MC 10472 T1 (2026-10-12): vilande gap 40 px — större än frostbandets
+   utlöpare (0.7 rem) + kortens y-drift (≤16 px) + scrub-eftersläpning:
+   bandet kan inte längre nudda korten ens under full drift. */
 .galleri-head {
   position: relative;
   z-index: 20;
+  margin-bottom: 2.5rem;
 }
 
 .galleri-head.is-frozen::before {
@@ -199,6 +203,12 @@
   display: grid;
   gap: var(--space-3);
   margin-top: var(--space-3);
+}
+
+/* MC 10472 T1: ärlighetsnotisen får botten-clearance ovanpå grid-gapet —
+   dagkortets nedåtdrift (≤14 px) kan inte nudda den. */
+.booking-note {
+  margin-top: var(--space-4);
 }
 
 .booking-day__head {

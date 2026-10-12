@@ -69,6 +69,16 @@
         drift(el, axis === 'y' ? a : null, axis === 'x' ? a : null);
       });
     }
+    /* MC 10472 T1 (2026-10-12): FASLÅST DRIFT — samma amplitud och tecken på
+       alla träffar. För strukturer med en rytm som läsaren räknar ut
+       (dagkortens grid-gap, tidchipsens baslinje) är kontradriften fel:
+       .booking-day växlade [15,-17,11] → gapen 24 px svängde 5↔40 px och
+       korten kunde överlappa (gaps ≤ 0 vid sidans fot). Faslåst driver
+       gruppen som en enhet: rörelsen finns kvar mot sidan runt omkring,
+       rytmens inbördes avstånd ändras aldrig. */
+    function driftAll(sel, yAmp, xAmp) {
+      each(sel).forEach(function (el) { drift(el, yAmp, xAmp); });
+    }
 
     /* 0 · Reveal (ärver js/enhance.js): one-shot per element när den glider
            in. GSAP sätter startsänkan; utan JS finns den aldrig. */
@@ -221,9 +231,13 @@
     drift('.form-honesty', null, -9);
     drift('.demo-badge', 22, null);
     drift('.needs-js-note', null, -12);
-    driftLoop('.booking-day', [15, 17, 11], 'y');
-    driftLoop('.booking-day__head', [9, 7, 8], 'x');
-    driftLoop('.slot', [10, 12, 9, 11], 'y');
+    /* MC 10472 T1: bokningen körs faslåst (driftAll) — tidigare driftLoop
+       [15,17,11]/[9,7,8]/[10,12,9,11] med alternerande tecken: dagkortens
+       24 px-rytm svängde 5↔40 px (≤0 i sidans botten) och chipsen la sig
+       15 px ur linje per kort ("boxes look wird when missaligned"). */
+    driftAll('.booking-day', 14);
+    driftAll('.booking-day__head', null, 6);
+    driftAll('.slot', 8);
     driftLoop('.site-footer nav a', [7, 5, 8, 6, 6, 4], 'x');
     drift('.site-footer__inner > div', 22, null);
     drift('.site-footer nav', -24, null);
@@ -259,26 +273,31 @@
      vudet och kläs i frost medan galleriet rullar förbi — sektionens lugna
      landning. Endast på bred skärm och utan reduced motion; utan JS/pin är
      rubriken ett vanligt block.
-     AUDIT-FIX r1 (2026-10-07): pinSpacing false — tidigare lade spacet
-     ~600 px tom gradient mellan rubrik och kort (nästan två tomma
-     skärmar). Nu ligger korten direkt under rubriken och glider under
-     det frysta frostbandet, i stället för att vänta inför. */
+     MC 10472 T1 (2026-10-12, ägarrapport): det gamla infinite-steget
+     (end '+=600', pinSpacing false, noll viljegap) lät kort, rubriksord och
+    å-knappar glida UNDER det opaka frostbandet i 600 px scroll — "this
+     type of designmistake ... should not be possible". Nu: begränsat pin
+     +=140 med pinSpacing true — avståndssparen håller korten på avstånd
+     genom hela pinnet (minsta frihöjd = viljegapet 40 px > bandutlöpare
+     11 px + kortdrift ≤16 px) och släppet är kontinuerligt (ingen studs
+     som det gamla spacing-falska steget gav vid kort pin). Känslan finns
+     kvar: bandet fryser 140 px medan galleriet närmnar sig. */
   mm.add('(prefers-reduced-motion: no-preference) and (min-width: 760px)', function () {
     var head = document.querySelector('.galleri-head');
     if (!head) { return; }
     var pin = ST.create({
       trigger: head,
       start: 'top 84px',
-      end: '+=600',
+      end: '+=140',
       pin: head,
-      pinSpacing: false,
+      pinSpacing: true,
       toggleClass: { targets: head, className: 'is-frozen' }
     });
     g.fromTo(head,
       { backgroundColor: 'rgba(247, 248, 244, 0)' },
       { backgroundColor: 'rgba(247, 248, 244, 0.72)', ease: 'none',
         scrollTrigger: { trigger: '#galleri', start: 'top 84px',
-                         end: '+=120', scrub: true } });
+                         end: '+=140', scrub: true } });
     return function () { pin.kill(); };
   });
 
