@@ -1,0 +1,317 @@
+{
+ "url": "http://127.0.0.1:8092/workflow-explode/",
+ "expr": "arrowTip vs Bygg center, pathStart vs Testa center, viewBox coords (closer round-4 expression)",
+ "sizes": [
+  {
+   "width": 1440,
+   "height": 591,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1440,
+   "height": 650,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1440,
+   "height": 720,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1440,
+   "height": 900,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1440,
+   "height": 1200,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1572,
+   "height": 591,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1572,
+   "height": 650,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1572,
+   "height": 720,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1572,
+   "height": 900,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  },
+  {
+   "width": 1572,
+   "height": 1200,
+   "viewBox": "0 0 560 90",
+   "path_d": "M 507.234375 12 C 507.234375 64, 307.3203125 64, 307.3203125 14",
+   "polygon_points": "307.3203125,16 301.3203125,28 313.3203125,28",
+   "pathStart": {
+    "x": 507.2,
+    "y": 12,
+    "x_exact": 507.234375
+   },
+   "arrowTip": {
+    "x": 307.3,
+    "y": 16,
+    "x_exact": 307.3203125
+   },
+   "byggCenter": {
+    "x": 307.3,
+    "y": -44.8,
+    "x_exact": 307.3203125
+   },
+   "testaCenter": {
+    "x": 507.2,
+    "y": -44.8,
+    "x_exact": 507.234375
+   },
+   "tip_vs_bygg_dx": 0,
+   "start_vs_testa_dx": 0,
+   "tip_vs_bygg_dx_full": 0,
+   "start_vs_testa_dx_full": 0
+  }
+ ],
+ "equal": true
+}
