@@ -10,6 +10,10 @@ writes a generated, gitignored _site/:
   _site/thumbs/<project>/<kind>-<name>.png   thumbnails (only with --thumbs)
 _site/ is what the :8090 server serves, so neither .git nor .audits is reachable over HTTP.
 
+A project is LOCAL-ONLY (real, private content — MC 10510 privacy guard) iff projects/<project>/LOCAL_ONLY
+exists; scan() skips such projects in ALL modes (root cards, per-project page writer, thumbs, _site) and
+names each skipped project on stderr, so the guard never runs silently.
+
 With --root it ALSO writes the committed public surface (MC 10088 HOSTING-01; two-level layout per
 the owner's BROWSE-V2 ruling, MC 10088.12 — root = one card per project, then /<project>/ lists the
 builds) that the vm106 reconciler serves for the static app "webdesign" — these files are tracked,
@@ -25,7 +29,7 @@ Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--root]
   --root          also write repo-root index.html + <project>/index.html pages + committed thumbs/
                   (thumbs made as needed)
 
-Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; ~320 lines > 250 soft): this generator is
+Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; ~330 lines > 250 soft): this generator is
 deliberately ONE file — build() (_site), root mode (committed public surface), the shared
 project_page()/root_card() templates and make_thumb() stay in one stdlib-only mechanism (monogamy
 per ARCH-c5 C3); splitting would fork the card templates, the defect this avoids.
@@ -114,6 +118,9 @@ def scan():
     for proj in sorted(os.listdir(PROJECTS)) if os.path.isdir(PROJECTS) else []:
         pdir = os.path.join(PROJECTS, proj)
         if proj.startswith((".", "_")) or not os.path.isdir(pdir):
+            continue
+        if os.path.isfile(os.path.join(pdir, "LOCAL_ONLY")):
+            print(f"build-index: skipped local-only project {proj} (projects/{proj}/LOCAL_ONLY)", file=sys.stderr)
             continue
         entries = []
         for kind in KINDS:
