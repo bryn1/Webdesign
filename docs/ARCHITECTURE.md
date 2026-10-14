@@ -176,7 +176,7 @@ LAN: http://192.168.5.231:8090/   (PORT file = 8090, committed)
 keepalive: cron  @reboot + */5  ~/.dsh/bin/proto-server-keepalive.sh
              curl-probe → restart via setsid nohup; log ~/.dsh/proto-server.log
 
-:8093 wedding prototypes (01–05 drafts + built 06; MC 10511/10524): python3 -m http.server 8093 --bind 0.0.0.0 --directory /home/claudecode/Hemsidor/projects/wedding/prototypes — LAN http://192.168.5.231:8093/, no keepalive (manual, run-scoped). PORT file unchanged (8090).
+:8093 wedding prototypes (01–05 drafts + built 06; MC 10511/10524): python3 -m http.server 8093 --bind 0.0.0.0 --directory /home/claudecode/Hemsidor/projects/wedding/prototypes — LAN http://192.168.5.231:8093/, keeper loop since 2026-10-14 (added fleet-host-side after the OOM + planned-reboot deaths): while-loop restarts the server within 2 s, log ~/.dsh/wedding-8093.log. Still run-scoped: NOT a cron @reboot entry — a host reboot still needs a manual restart. PORT file unchanged (8090).
 ```
 
 No server code lives in the repo — the only runtime is the stdlib static server.
