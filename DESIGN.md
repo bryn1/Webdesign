@@ -100,3 +100,4 @@ Faceplates carry dark ink on aluminium (plate labels, URL pill). Dark plates car
 - Don't paint vermilion or green as body text; lamps and marks only.
 - Don't add a second font family, a second radius, or decorative glow on non-lamp elements.
 - Don't show unlabelled data: any number on screen is invented and must be chip-labelled.
+- Don't place SC4 counters against a viewport shorter than 591px: >= 591px is the supported floor, sub-591px viewports are out of scope (measured collision onset ~577px, 2026-10-14; owner ruling MC 10140.9, 2026-10-15).
