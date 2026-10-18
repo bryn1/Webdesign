@@ -8,6 +8,15 @@ __pycache__/
 !projects/portfolio/concepts/workflow-explode/.audits/
 projects/portfolio/concepts/workflow-explode/.audits/*
 !projects/portfolio/concepts/workflow-explode/.audits/fix-c6/
+# MC 10193 (2026-10-18, same ratified pattern, root-anchored): the T5-P1 fix records (node-check sweep + :8090 render eval) and the §C RECIPE run dir become tracked so knut probes read back committed bytes. Other `.audits/` run dirs stay untracked.
+!/.audits/
+/.audits/*
+!/.audits/20261006-1412-vm106-hosting/
+/.audits/20261006-1412-vm106-hosting/*
+!/.audits/20261006-1412-vm106-hosting/out/
+!projects/salong/prototypes/00-poc-live-site/.audits/
+projects/salong/prototypes/00-poc-live-site/.audits/*
+!projects/salong/prototypes/00-poc-live-site/.audits/t5-p1-rebind/
 .impeccable/
 .dsh/
 _site/

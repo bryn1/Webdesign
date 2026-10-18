@@ -1,0 +1,2 @@
+[type:design] MC 10088.12a — ARCH-c5 closing verdict for BROWSE-V2 (dsh child 082dd394), repo @ dd328b8.
+DoD: file .audits/20261006-1412-vm106-hosting/out/ARCH-verdict-c5.md exists, ending "# JUDGED: <sha>" + "# VERDICT: PASS|FIX|FAIL", covering: doc rows vs tree for the two new root pages + root index, placement ruling for root-level salong//portfolio/, monogamy + hygiene of build-index.py, hosting.yaml §2 row truth, pre-push coherence statement.

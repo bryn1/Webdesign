@@ -1,0 +1,1 @@
+node --check projects/salong: files=82 errors=0 (MC 10193 round-2 rebind, run 2026-10-18T22:10Z; every *.js under projects/salong parsed, zero SyntaxErrors)

@@ -1,0 +1,2 @@
+[type:test] MC 10088.13 — POST-PUSH LIVE ACCEPTANCE at https://sibbamala.com/webdesign/ (dsh subagent child 99a7c404).
+DoD: TEST-verdict-live.md exists in the run out dir ending '# JUDGED: <sha>' + '# VERDICT: PASS|FAIL|BLOCKED', covering: root 200 + cards decode; every theme page 200 + normalized PI-scan zero outside owner-approved persona; nested vendored gsap byte-match; QUARANTINE (no .md bodies, no dir listings) proven with red-proof; console-clean + motion file ran; adopt timeline.

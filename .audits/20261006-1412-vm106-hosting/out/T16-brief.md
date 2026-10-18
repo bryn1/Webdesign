@@ -1,0 +1,2 @@
+[type:test] MC 10088.16 — POST-PUSH live acceptance v2 (dsh child 6aabee06).
+DoD: TEST-verdict-live-v2.md exists in run out dir ending '# JUDGED: <sha>' + '# VERDICT: PASS|FAIL|BLOCKED' covering the two-level public flip (root 2 cards, /salong/ + /portfolio/ pages, quarantine, PI-scan, console). RESULT: BLOCKED honestly — reconciler write tick missing push+108 min (33 probes, old mirror persisted; not cache: DYNAMIC + pinned origin last-modified). Unblocks via T17 diagnosis.

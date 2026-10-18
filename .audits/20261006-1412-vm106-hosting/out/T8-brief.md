@@ -1,0 +1,2 @@
+[type:infra] MC 10088.8 — HOSTING-01 (dsh subagent child c9ad218a; no push).
+DoD: hosting.yaml at root passes the reconciler's own validator exit 0 (output pasted); committed root index.html + thumbs + favicon.ico; tools/build-index.py still regenerates _site (check-links 0 broken); mirror dry-run subset file on disk with served/dropped counts and 3 negative checks (theme html served, nested vendor gsap served, zero .md/tools/docs/_site/.audits served); banned-token sweep over the served set clean except owner-approved portfolio persona.

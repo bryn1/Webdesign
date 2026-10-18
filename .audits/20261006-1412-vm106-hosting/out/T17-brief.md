@@ -1,0 +1,2 @@
+[type:infra] MC 10088.16p — P2 reconciler stall diagnosis (dsh child 2d35fd79).
+DoD: out/P2-diagnosis.md exists ending '# JUDGED: <sha>' + '# VERDICT: RESOLVED|MITIGATED|NEEDS-OWNER' with quoted reconcile.log/cron.log verbs for webdesign since push 06:28Z, the observed cause (lock/clone/alert-loop/queue/other), actions taken (read-only or skill-sanctioned only; never reconcile.py/apps.yaml/nginx), and the public flip state at time of writing.
