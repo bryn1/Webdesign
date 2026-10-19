@@ -1,10 +1,10 @@
 // scenes.js — pure builders: sceneN(tl, mobile) append tweens to the SHARED master timeline
-// only at their own label window (CONCEPT §1/§6). Exports nothing to globals: `Scenes` is a
-// top-level const in the shared script scope, read by main.js. A broken scene can be commented
-// out in buildAll without touching the others. Times are timeline seconds; 1s = 120px scroll.
-// Beat map is CONCEPT §1 (unchanged by the 2026-10 redesign — mechanism monogamy: one
-// pinned stage, one scrubbed master timeline, scenes as labels). Motion is dressed as signal
-// flow: cables draw, lamps light on their cue (PROJEKTIONSHÄNDNING), the tick rail advances.
+// only at their own label window (CONCEPT §1/§6). `Scenes` is a top-level const in the shared
+// script scope, read by main.js; a broken scene can be commented out in buildAll without
+// touching the others. Times are timeline seconds; 1s = 120px scroll. Beat map is CONCEPT §1;
+// mechanism monogamy: one pinned stage, one scrubbed master timeline, scenes as labels. Motion
+// is dressed as signal flow: cables draw, lamps light on their cue (PROJEKTIONSHÄNDNING), the
+// tick rail advances.
 const Scenes = (() => {
   "use strict";
   const cap = (n) => `.cap[data-scene="${n}"]`;
@@ -14,8 +14,8 @@ const Scenes = (() => {
   // Caption floor F2 is CSS-side (≥16px); captions are never 3D-transformed here.
 
   function scene0(tl) {
-    // 0–2s rise. opacity starts at .35 (not 0): at scrub position 0 a literal 0→1 would load
-    // a blank hero; .35 keeps the rise honest while the page top is never empty.
+    // 0–2s rise; opacity starts at .35 (not 0): at scrub 0 a literal 0→1 would load a blank
+    // hero, .35 keeps the rise honest while the page top is never empty.
     tl.fromTo(".hero", { y: 24, opacity: 0.35 }, { y: 0, opacity: 1, duration: 2, ease: "power2.out" }, 0);
     // 6–10s scroll-zoom inhale (the Proto Homes move, run forward here)
     tl.to(".hero", { scale: 1.08, rotateX: 6, duration: 4 }, 6);
@@ -24,8 +24,7 @@ const Scenes = (() => {
   }
 
   function scene1(tl, mobile) {
-    const rx = mobile ? 12 : 22;
-    const z = mobile ? 70 : 140;
+    const rx = mobile ? 12 : 22, z = mobile ? 70 : 140;
     // 10–12s: the picture opens into three clip-path slice planes (§2; clip insets stay forever)
     tl.to(".slice-a", { rotateX: -rx, z: z, y: "-6%", x: "-3%", duration: 2, ease: "power2.inOut" }, 10);
     tl.to(".slice-b", { rotateX: rx * 0.2, z: z * 0.5, duration: 2, ease: "power2.inOut" }, 10.2);
@@ -34,8 +33,7 @@ const Scenes = (() => {
     tl.set(".code", { opacity: 1 }, 10.5);
     if (mobile) {
       // §5.3: one panel at a time (stacked swap), not the trio spread
-      const panels = gsap.utils.toArray(".code-panel");
-      panels.forEach((p, i) => {
+      gsap.utils.toArray(".code-panel").forEach((p, i) => {
         const t = 11 + i * 2.2;
         tl.fromTo(p, { z: -60, scale: 0.7, opacity: 0 }, { z: 0, scale: 1, opacity: 1, duration: 0.6 }, t);
         tl.to(p, { opacity: 0, y: -16, duration: 0.6 }, t + 1.8);
@@ -47,26 +45,24 @@ const Scenes = (() => {
       // 16–18s panels slide out left — the picture has become its parts
       tl.to(".code-panel", { x: "-8%", opacity: 0, duration: 2 }, 16);
     }
-    // 18–20s: slices fade (re-assembly is SC5's job, same elements, F7) + the unit's frame
-    // leaves with the shot (chrome rail + its screw foot, so no lone strip hangs on the wall)
+    // 18–20s: slices fade (re-assembly is SC5's job, same elements, F7) + the unit's frame leaves with the shot (chrome rail + screw foot, so no lone strip hangs on the wall)
     tl.to(".slice-a, .slice-b, .slice-c, .chrome, .unitfoot", { opacity: 0, duration: 2 }, 18);
     tl.set(".code", { opacity: 0 }, mobile ? 18 : 18.6);
   }
 
-  // F-A (fix-cycle 2, DA P2): mobile SC2 — the row wraps to three lines, so a
-  // connector that once ended on the next jack dangles off the line end, and the return
-  // arc (fixed 560-unit viewBox on a 375px svg → CTM 0.67) painted its label at ~10px
-  // under the §5.3 floor, detached from its jacks. Mobile: connectors are taken out of
-  // the flow and RE-SEATED jack→jack in the measured gap when their two jacks share a
-  // line, dropped when the chain wraps between them; the return cable is RE-ANCHORED to
-  // the measured jack rects (Testa-zone → under the wrap → back up into the Bygg-zone,
-  // arrow at the jack),
-  // and the svg viewBox is rewritten to measured px so CTM = 1 → the label
-  // `varv 1 · 2 · 3` paints at a true 15px. Desktop: the canonical markup attributes are
-  // restored byte-for-byte (mobile→desktop resize never leaks mobile numbers). No new
-  // ScrollTrigger, no new tween: the existing 24s dash-draw + pulse run on the new path
-  // (its real length is re-measured at tween init). Called at build, on resize and after
-  // webfonts (wrap depends on loaded font metrics).
+  // F-A (fix-cycle 2, DA P2): mobile SC2 — the row wraps to three lines, so a connector that
+  // once ended on the next jack dangles off the line end, and the return arc (fixed 560-unit
+  // viewBox on a 375px svg → CTM 0.67) painted its label at ~10px under the §5.3 floor, detached
+  // from its jacks. Mobile: connectors leave the flow, RE-SEATED jack→jack in the measured gap
+  // when their two jacks share a line, dropped when the chain wraps between them; the return
+  // cable is RE-ANCHORED to measured jack rects (Testa → under the wrap → up into Bygg, arrow at
+  // the jack) and the viewBox is rewritten to measured px (CTM = 1) so `varv 1 · 2 · 3` paints
+  // at a true 15px. Desktop: canonical markup attributes restored byte-for-byte (a
+  // mobile→desktop resize never leaks mobile numbers). No new ScrollTrigger, no new tween: the
+  // existing 24s dash-draw + pulse run on the new path. layoutFlow runs at build, on resize and
+  // after webfonts; a fonts-only re-wrap rewrites the path attributes, and the dash re-measures
+  // on the NEXT tween init — invalidateOnRefresh drives that on the next refresh/resize, not
+  // inside the fonts.ready callback.
   let flowBase = null, flowHooks = false;
   function layoutFlow() {
     const svg = document.querySelector(".flow__loop");
@@ -74,8 +70,7 @@ const Scenes = (() => {
     if (!svg || !row) return;
     const path = svg.querySelector("path"), poly = svg.querySelector("polygon"), text = svg.querySelector("text");
     if (!flowBase) flowBase = { vb: svg.getAttribute("viewBox"), d: path.getAttribute("d"), pts: poly.getAttribute("points"), x: text.getAttribute("x"), y: text.getAttribute("y") };
-    const links = gsap.utils.toArray(".wf-link");
-    const nodes = gsap.utils.toArray(".wf-node");
+    const links = gsap.utils.toArray(".wf-link"), nodes = gsap.utils.toArray(".wf-node");
     const restore = () => {
       svg.setAttribute("viewBox", flowBase.vb); svg.removeAttribute("style");
       path.setAttribute("d", flowBase.d); poly.setAttribute("points", flowBase.pts);
@@ -84,11 +79,9 @@ const Scenes = (() => {
     };
     if (!window.matchMedia("(max-width: 767px)").matches) { restore(); return; }
     const sameRow = (a, b) => Math.abs(a.offsetTop - b.offsetTop) < 8;
-    // Connectors LEAVE the flow (absolute): hiding or re-seating one can then never
-    // re-wrap the line it lives on — one pass over node-only flex is deterministic and
-    // idempotent (hiding them in-flow made the wrap oscillate). A connector whose two
-    // jacks do not share a line is dropped (its flex slot is gone anyway); one whose
-    // jacks are adjacent is seated in the measured gap, jack→jack.
+    // Connectors LEAVE the flow (absolute): a hidden/re-seated connector can then never re-wrap
+    // its line — one pass over node-only flex is deterministic and idempotent (in-flow hiding
+    // oscillated). Non-shared line → dropped; adjacent jacks → seated in the gap, jack→jack.
     links.forEach((l) => { l.style.display = ""; l.style.position = "absolute"; });
     const W = document.documentElement.clientWidth;
     const rowBot = row.offsetTop + row.offsetHeight, runY = rowBot + 14;
@@ -96,8 +89,7 @@ const Scenes = (() => {
       const a = nodes[i], c = nodes[i + 1];
       const x0 = a.offsetLeft + a.offsetWidth, x1 = c.offsetLeft;
       if (!sameRow(a, c) || x1 - x0 < 8) { l.style.display = "none"; return; }
-      l.style.left = x0 - 1 + "px";
-      l.style.top = a.offsetTop + a.offsetHeight / 2 - 1.5 + "px";
+      l.style.left = x0 - 1 + "px"; l.style.top = a.offsetTop + a.offsetHeight / 2 - 1.5 + "px";
       l.style.width = x1 - x0 + 2 + "px";
     });
     // Return cable geometry from real rects (offset* ignore the in-flight tweens).
@@ -117,7 +109,7 @@ const Scenes = (() => {
     path.setAttribute("d", `M ${xDrop} ${tBot} L ${xDrop} ${runY} L ${xRise} ${runY} L ${xRise} ${bBot + 13}`);
     poly.setAttribute("points", `${xRise},${bBot + 2} ${xRise - 6},${bBot + 13} ${xRise + 6},${bBot + 13}`);
     text.setAttribute("x", (xDrop + xRise) / 2); text.setAttribute("y", runY + 20);
-    if (!flowHooks) {
+    if (!flowHooks) { // one set of hooks for all rebuilds
       flowHooks = true;
       window.addEventListener("resize", layoutFlow);
       if (document.fonts) document.fonts.ready.then(layoutFlow); // webfont metrics can re-wrap the row
@@ -130,23 +122,22 @@ const Scenes = (() => {
     // 20–24s: jacks pop in, patch segments draw jack→jack (STATIONORDNING: one fixed order)
     tl.fromTo(".wf-node", { scale: 0.6, y: 24, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: "back.out(1.4)" }, 20.4);
     tl.fromTo(".wf-link", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 1, stagger: 0.1 }, 21);
-    // 24–26s: the coiled return cable Testa⇒Bygg draws, then 2 pulse passes — current
-    // flowing the wrong way on purpose. FIX-c4 (10357): the draw runs over the path's REAL
-    // length, not the markup's old pathLength="1" (that normalized dash into a 1-unit space
-    // the browser integer-quantized: the tween held 1px, then 0px — one pop at ~25). The
-    // function-based dash re-measures at tween init only (invalidateOnRefresh re-inits on
-    // resize, after layoutFlow re-anchors the mobile path) — never per frame.
+    // 24–26s: the coiled return cable Testa⇒Bygg draws, then 2 pulse passes (current the wrong
+    // way on purpose). FIX-c4 (10357): the draw runs over the path's REAL length, not the old
+    // pathLength="1" (that normalized dash into a 1-unit space the browser integer-quantized:
+    // held 1px, then 0px — one pop at ~25). The function-based dash re-measures at tween init
+    // only (invalidateOnRefresh re-inits on resize, after layoutFlow re-anchors the mobile
+    // path) — never per frame.
     const cable = document.querySelector(".flow__loop path");
     const cableLen = () => Math.ceil(cable.getTotalLength());
     tl.set(".flow__loop path", { strokeDasharray: cableLen, strokeDashoffset: cableLen }, 20);
     tl.to(".flow__loop path", { strokeDashoffset: 0, duration: 2 }, 24);
-    // F-E (fix-c3): arrowhead + label ride the END of the draw (CSS hidden-defaults, same
-    // pattern as the path) — the tip appears exactly as the curve lands on Bygg (draw ends 26).
+    // F-E (fix-c3): arrowhead + label ride the END of the draw (CSS hidden-defaults, same pattern as the path) — the tip appears exactly as the curve lands on Bygg (draw ends 26).
     tl.to(".flow__loop polygon", { opacity: 1, duration: 0.25 }, 25.85);
     tl.to(".flow__loop text", { opacity: 1, duration: 0.4 }, 26.1);
-    tl.to(".flow__loop", { opacity: 0.35, duration: 0.5, yoyo: true, repeat: 3 }, 26);
-    // 28–30s: unplug — the collapse toward stage centre leaves the wall BARE for two seconds
-    // before SC3 (MA raise: one genuinely empty handoff beat; the rail keeps the only light)
+    // polish-pass item 5 (MC 10140.10): yoyo floor 0.35→0.6 — tip/label alpha (parent-multiplied; tip is 1 after 26.1) never dips below 0.6 during 26–28s.
+    tl.to(".flow__loop", { opacity: 0.6, duration: 0.5, yoyo: true, repeat: 3 }, 26);
+    // 28–30s: unplug — collapse toward stage centre leaves the wall BARE two seconds before SC3 (MA raise: one genuinely empty handoff beat; the rail keeps the only light)
     tl.to(".flow", { scale: 0.9, opacity: 0, duration: 2 }, 28);
   }
 
@@ -165,39 +156,33 @@ const Scenes = (() => {
   }
 
   // Hub-and-spoke geometry: desktop spokes at 210°/330°/90° (§1). Mobile (calib A5b fix): a
-  // downward cascade below the hub, given as direct stage-px — at 375px with the 15px text floor
-  // a mono spoke pill measures ~208px wide, so §5.3's literal 180° arc physically piles pills
-  // on each other and on the hub. Wires stay radial (rot = vector angle). Desktop unchanged.
+  // downward cascade below the hub as direct stage-px — at 375px with the 15px text floor a mono
+  // spoke pill is ~208px wide, so §5.3's literal 180° arc piles pills on each other and the hub.
   function spokeTargets(mobile) {
-    if (mobile) {
-      return [
-        { dx: -60, dy: 62, rot: 134 },
-        { dx: 60, dy: 112, rot: 62 },
-        { dx: -60, dy: 162, rot: 110 },
-      ];
-    }
-    const R = 200;
-    const angles = [210, 330, 90];
+    if (mobile) return [
+      { dx: -60, dy: 62, rot: 134 },
+      { dx: 60, dy: 112, rot: 62 },
+      { dx: -60, dy: 162, rot: 110 },
+    ];
+    const R = 200, angles = [210, 330, 90];
     return angles.map((a) => ({ dx: Math.cos(rad(a)) * R, dy: -Math.sin(rad(a)) * R, rot: -a }));
   }
 
   function scene4(tl, mobile) {
     tl.set(".hubg", { opacity: 1 }, 40);
-    // The <b>s carry their FINAL digits in HTML (the no-JS view must show real data), but with
-    // immediateRender:false they would flash those digits from 40s and snap to 0 when the 43s
-    // tween's onUpdate first writes — same pre-paint class as calib A1–A4. Zero them at reveal.
+    // The <b>s carry their FINAL digits in HTML (no-JS shows real data); with immediateRender:false
+    // they flash from 40s then snap to 0 when the 43s tween's onUpdate first writes (calib A1–A4).
     tl.set(".counters b", { textContent: "0" }, 40);
     const tg = spokeTargets(mobile);
     // 40–43s hub plate scales up at centre; cables draw from the hub, workers fly out on them
     tl.fromTo(".hub", { xPercent: -50, yPercent: -50, scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6, ease: "back.out(1.6)" }, 40.2);
     tg.forEach((s, i) => {
       const spoke = `.spoke[data-a]:nth-of-type(${i + 1})`;
-      // F-B (fix-c2, DA P3): wire reaches its pill — width = hub→spoke-center distance,
-      // measured from the same targets, +10px tucked UNDER the pill (spokes paint over
-      // wires: DOM order). Mobile cascade distances differ per spoke (86/127/173px), a
-      // fixed 100px CSS width died ~65px short of worker-3 and 12px short of worker-2.
-      // Desktop: hypot(±R components) is exactly 200 = the CSS width — set explicitly so
-      // a mobile→desktop resize can never leak a mobile length. Pixel-identical.
+      // F-B (fix-c2, DA P3): wire reaches its pill — width = hub→spoke-center distance from the
+      // same targets, +10px tucked UNDER the pill (spokes paint over wires: DOM order). Mobile
+      // cascade distances differ per spoke (86/127/173px); a fixed 100px width died ~65px short
+      // of worker-3. Desktop: hypot(±R) is exactly 200 = the CSS width — set explicitly so a
+      // mobile→desktop resize never leaks a mobile length.
       const wireLen = Math.round(Math.hypot(s.dx, s.dy)) + (mobile ? 10 : 0);
       tl.set(`.wire:nth-of-type(${i + 1})`, { rotation: s.rot, width: wireLen, scaleX: 0, yPercent: -50 }, 40);
       tl.to(`.wire:nth-of-type(${i + 1})`, { scaleX: 1, duration: 1.2, ease: "power1.inOut" }, 40.6 + i * 0.25);
@@ -205,8 +190,7 @@ const Scenes = (() => {
         { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: 0.3, opacity: 0 },
         { x: s.dx, y: s.dy, scale: 1, opacity: 1, duration: 1.6, ease: "power2.out" }, 41 + i * 0.25);
     });
-    // 43–46s meter bridge digits tween scrubbed (§1 onUpdate + Math.round), consistent with §3.2;
-    // the unlit ghost "8" behind each digit is CSS (.counters b::before) — STRUKET SIFFER.
+    // 43–46s meter bridge digits tween scrubbed (§1 onUpdate + Math.round); the unlit ghost "8" behind each digit is CSS (.counters b::before) — STRUKET SIFFER.
     gsap.utils.toArray(".counters b").forEach((el) => {
       const state = { v: 0 };
       const target = Number(el.dataset.count) || 0;
@@ -215,22 +199,17 @@ const Scenes = (() => {
         onUpdate: () => { el.textContent = String(Math.round(state.v)); },
       }), 43);
     });
-    // 48–50s collapse leaves the faint signal dot SC5 expands from.
-    // FIX-c5 (10140.11): the collapse INWARDS (was scale 1.1 outwards). The old grow scaled
-    // the group about stage centre and walked the counters' rect DOWN ~27px while the SC4
-    // caption exits UP (captions() y:0→−16 at 48) — head-on into the shared band on wide/tall
-    // viewports (text-on-text 48.5–50, owner laptop). Inward: counters retreat toward centre
-    // (≥28px at the shortest vh) faster than the caption's 16px rise, so the settled ≥10px
-    // gap only grows through the exit; it also matches this comment's "collapse … dot SC5
-    // expands from". Uniform scale: no new internal spoke/hub counters overlaps.
+    // 48–50s collapse leaves the faint signal dot SC5 expands from. FIX-c5 (10140.11): collapse
+    // INWARDS (was 1.1 outwards). The old grow walked the counters' rect DOWN ~27px into the SC4
+    // caption's exit rise (captions() y:0→−16 at 48) — text-on-text 48.5–50 on wide/tall. Inward:
+    // counters retreat ≥28px at the shortest vh, faster than the 16px rise, so the settled ≥10px
+    // gap only grows through the exit. Uniform scale: no new internal overlaps.
     tl.to(".hubg", { opacity: 0, scale: 0.85, duration: 2 }, 48);
     tl.to(".seed", { opacity: 0.5, duration: 1 }, 48.5);
   }
 
   function scene5(tl) {
-    // 50–53s the SAME slice elements return transform-only to identity (§2 F7 — clip insets
-    // stay, invisible at identity). No fragments tween: every SC1–SC4 layer is already
-    // opacity:0 by now, so a tween there could not paint anything.
+    // 50–53s the SAME slice elements return transform-only to identity (§2 F7 — clip insets stay, invisible at identity). No fragments tween: every SC1–SC4 layer is already opacity:0.
     tl.to(".slice-a, .slice-b, .slice-c", { rotateX: 0, z: 0, x: 0, y: 0, opacity: 1, duration: 2.5, ease: "power2.inOut" }, 50.2);
     tl.to(".seed", { scale: 3, opacity: 0, duration: 1 }, 50.2);
     // 53–56s the assembled plane shrinks and racks in at left as the nav preview card
@@ -251,9 +230,7 @@ const Scenes = (() => {
   }
 
   function rail(tl) {
-    // TIKRÄL (kept line, timetable rack): the story's extent and position, always on the wall.
-    // One amber level travels the meter top→bottom across the whole 60s — the page's one
-    // continuous instrument; hidden on mobile (§5.3 edge budget).
+    // TIKRÄL (kept line, timetable rack): the story's extent and position, always on the wall — one amber level travels the meter top→bottom across the whole 60s; hidden on mobile (§5.3).
     tl.fromTo(".tickrail__fill", { scaleY: 0 }, { scaleY: 1, duration: 60, ease: "none" }, 0);
   }
 

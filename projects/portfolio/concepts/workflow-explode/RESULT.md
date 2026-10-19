@@ -271,3 +271,29 @@ Machine-readable records (committed, and served at :8092 so a curl PROBE can rea
 > Gate re-run on the delivered tree: quality-gate 1.0.5 exit 0, folder `QUALITY.md` line 1 `# QUALITY: PASS`, all 10 checks PASS (contrast AA 0/77 at 1440+375, console 0 errors ×5 contexts, overflow 375/1280/1440 clean load+scroll, mid-scrub occlusions 0, reduced ScrollTriggers 0 / hidden-at-load 0/41, nojs 0/41, links 13/13 ok). Raw run: folder `.audits/quality/20261018T213820Z` (untracked per standing ruling b5978c4). Non-gating REVIEW stays as recorded: slop advisories x10, no hard-set findings.
 > Own-eyes screenshot review by the closing session (2026-10-18): `desktop-1440-top.png` (1440×900) shows the pinned Signalväg world intact — graphite rack wall with screw-dots on top/bottom rails, vertical SIGNAL tick-rail right, centered prototype plate with amber chrome dots + address `127.0.0.1:8090/12-forgyllda-salongen/`, JANE COOPER hero in ivory/amber on dark green, `MINA PROTOTYPER` chip + "Den här ser färdig ut. / Det gör den inte. än." + amber `DEMO · FEJKAD DATA` chip, no horizontal overflow. `mobile-375-top.png` (750×1624 @2x) stacks the plate above the heading, 78% strip intact, all Swedish copy rendered, chips legible, no overflow. No new findings beyond the recorded non-gating slop list.
 > sibbamala.com URL re-verified live 2026-10-18: `https://sibbamala.com/` → HTTP 200, first bytes `<!DOCTYPE html>` / `<html lang="sv">` (fetch record `.audits/20261018T213820Z-10211-rebind/sibbamala-root.txt`). The concept mock itself serves on the fleet at `http://127.0.0.1:8092/workflow-explode/` (README); the sibbamala.com route for the concept path 404s, as recorded in the 2026-10-14 close trail.
+
+## polish-pass (2026-10-19, MC 10140.10 / raw 10453 — accepted-findings sweep)
+
+> The seven accepted P3/P4 findings, all folded into existing mechanisms, no new tween, no new
+> ScrollTrigger. css/base.css 208→133 lines (soft target 180 met): every declaration block
+> collapsed to one line, semantics byte-comparable. js/scenes.js 273→250 (soft bar met).
+> 1 SC1 faceplate tops: `html.js .code` gains `align-items: flex-start` (scenes.css) — the three
+>   panels differ in height; measured tops at t=14 @1440×900 now −36/−36/−36 (was ragged).
+> 2 SC4 jack sockets: `.wire::before/::after` metal rings at both cable ends (scenes.css,
+>   pure-CSS concern; hub-side and pill-side seat, concept-art detail).
+> 3 reduced-motion read order: base.css gives BOTH static contexts (no JS via `html:not(.js)`,
+>   reduce via @media) a paired scene→caption order through `display: contents` + `order:1..12`;
+>   measured y-tops increase in story order hero→cap0→code→cap1→flow→cap2→board→cap3→hubg→
+>   cap4→outro→cap5 (record .audits/20261019T0130-mc10453-polish/invariants.txt).
+> 4 arrow-tip alpha: `.flow__loop` yoyo floor 0.35→0.6 — sampled 26.25–27.5 the parent opacity
+>   bottoms at 0.6067, so multiplied tip alpha stays ≥0.6 (was ~0.35).
+> 5 fonts.ready comment made true: the callback re-seats path ATTRIBUTES only; the dash's real
+>   length re-measures at the NEXT tween init, which invalidateOnRefresh drives on the next
+>   refresh/resize — the comment now states exactly that.
+> Invariants re-measured UNCHANGED on the same headless pin-scrub (1440×900, settle ≥2.8 s):
+> dash sweep t=24→26 gives 9 distinct strictly-decreasing offsets 229→0; arrowhead contract
+> polygon/text 0,0 at t≤24.5, 1,1 at 26.5 (.flow__loop 1 through the sweep, 0.9933 mid-tween at
+> 26.0 — same shape as the fix-c4 record); SC4 counters vs caption plates 0 intersections at
+> t=44/48.5/50 (rest gap [16,68] vs visible cap[771,868]); 375 overflow false; gsap console
+> errors 0. quality-gate.sh on the folder: # QUALITY: PASS, exit 0 (gate 1.0.5, 10/10 — the
+> 1.0.1 "7/7" floor grew its three record-checks into 1.0.5's 10; same deterministic engine).
