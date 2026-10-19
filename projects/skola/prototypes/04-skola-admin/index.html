@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skola – Admin</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="top">
+    <h1>Skola</h1>
+    <p class="meta">Admin · inloggad som administratör</p>
+  </header>
+
+  <nav class="rail" aria-label="Adminsektioner">
+    <ol>
+      <li><a href="#oversikt">Översikt</a></li>
+      <li><a href="#anvandare">Användare</a></li>
+      <li><a href="#amnen">Ämnen</a></li>
+      <li><a href="#audit">Auditlogg</a></li>
+      <li><a href="#granska">Granska</a></li>
+      <li><a href="#installningar">Inställningar</a></li>
+    </ol>
+  </nav>
+
+  <main class="main">
+
+    <section id="oversikt">
+      <h2>Översikt</h2>
+      <p class="meta">Syntetisk demodata.</p>
+      <dl class="siffror">
+        <div class="siffra"><dt>Användare</dt><dd>128</dd></div>
+        <div class="siffra"><dt>Ämnen</dt><dd>6</dd></div>
+        <div class="siffra"><dt>Väntar på granskning</dt><dd>4</dd></div>
+        <div class="siffra"><dt>Händelser (24 h)</dt><dd>57</dd></div>
+      </dl>
+      <h3>Senaste händelser</h3>
+      <ul class="hendelser">
+        <li><span>Elev 12 lämnade in slutprov, matematik</span> <time>08:42</time></li>
+        <li><span>Fråga 7 godkänd i granskningskön</span> <time>08:15</time></li>
+        <li><span> Jakob Lind skapade uppgift 12</span> <time>07:58</time></li>
+      </ul>
+    </section>
+
+    <section id="anvandare">
+      <h2>Användare</h2>
+      <div class="falt">
+        <label for="filter">Filtrera på namn eller roll</label>
+        <input id="filter" type="search" placeholder="t.ex. elev" autocomplete="off">
+      </div>
+      <div class="tabell-wrap">
+        <table>
+          <thead>
+            <tr><th>Namn</th><th>Roll</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Elin Nyström</td><td>elev</td><td><span class="pill pill-aktiv">aktiv</span></td></tr>
+            <tr><td>Max Berg</td><td>elev</td><td><span class="pill pill-aktiv">aktiv</span></td></tr>
+            <tr><td>Jakob Lind</td><td>lärare</td><td><span class="pill pill-aktiv">aktiv</span></td></tr>
+            <tr><td>Sara Åkesson</td><td>elev</td><td><span class="pill pill-inaktiv">inaktiv</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="anvandare-tom" class="tommar-state" hidden><strong>Inga användare hittades.</strong>Ändra filtret eller rensa det för att se alla.</p>
+
+      <h3>Användare 42 · Elin Nyström</h3>
+      <div class="panel">
+        <p><strong>Roll:</strong> elev · <strong>Status:</strong> aktiv</p>
+        <p><strong>Ämnen:</strong> matematik, svenska</p>
+        <p><strong>Senaste aktivitet:</strong> lämnade in slutprov i matematik 08:42.</p>
+        <div class="knappar">
+          <a class="knapp" href="#anvandare">Tillbaka till listan</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="amnen">
+      <h2>Ämnen</h2>
+      <div class="tabell-wrap">
+        <table>
+          <thead>
+            <tr><th>Ämne</th><th>Bedömning</th><th>Antal begrepp</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>matematik</td><td>omdömen</td><td>12</td></tr>
+            <tr><td>svenska</td><td>omdömen</td><td>9</td></tr>
+            <tr><td>NO</td><td>Bedömning</td><td>7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Valt ämne: matematik</h3>
+      <div class="panel">
+        <p><strong>Slug:</strong> matematik · <strong>Bedömning:</strong> omdömen</p>
+        <p><strong>Lärare:</strong> Jakob Lind</p>
+      </div>
+
+      <h3>Begrepp · matematik</h3>
+      <ul class="begrepp">
+        <li><b>Bråk</b> – del av ett helt</li>
+        <li><b>Nämnare</b> – talet under strecket i en bråkdel</li>
+        <li><b>Area</b> – ytan inuti en figur</li>
+      </ul>
+    </section>
+
+    <section id="audit">
+      <h2>Auditlogg</h2>
+      <div id="skelett" class="panel" aria-hidden="true">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+      <div class="tabell-wrap">
+        <table>
+          <thead>
+            <tr><th>Tid</th><th>Användare</th><th>Händelse</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>08:42</td><td>Elin Nyström</td><td>Lämnade in slutprov</td></tr>
+            <tr><td>08:15</td><td>Admin</td><td>Godkände fråga 7</td></tr>
+            <tr><td>07:58</td><td>Jakob Lind</td><td>Skapade uppgift 12</td></tr>
+            <tr><td>07:30</td><td>Max Berg</td><td>Startade lektion 5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="granska">
+      <h2>Granska</h2>
+      <p class="meta">AI-genererat innehåll som väntar på godkännande.</p>
+      <div class="panel">
+        <p><strong>Uppgift 12</strong> · matematik · AI-genererad</p>
+        <p>Vilken nämnare har bråket 3/8?</p>
+        <div class="knappar">
+          <button class="knapp" type="button">Godkänn</button>
+          <button class="knapp-andra" type="button">Behåll</button>
+        </div>
+      </div>
+      <div class="panel">
+        <p><strong>Uppgift 13</strong> · svenska · AI-genererad</p>
+        <p>Skriv ett omdömen om texten i tre meningar.</p>
+        <div class="knappar">
+          <button class="knapp" type="button">Godkänn</button>
+          <button class="knapp-andra" type="button">Behåll</button>
+        </div>
+      </div>
+      <div class="fel">
+        <p><strong>Kunde inte hämta granskningskön.</strong> Inget svar från API:t på port 8401.</p>
+        <button class="knapp" type="button">Försök igen</button>
+      </div>
+    </section>
+
+    <section id="installningar">
+      <h2>Inställningar</h2>
+      <div class="panel">
+        <div class="falt">
+          <label for="port">API-port</label>
+          <input id="port" type="text" inputmode="numeric" value="8401">
+        </div>
+        <div class="falt">
+          <label for="antal">Antal poster per sida</label>
+          <select id="antal">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+          </select>
+        </div>
+        <div class="knappar">
+          <button class="knapp" type="button">Spara</button>
+        </div>
+        <p class="note">Sparad 08:40.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="meta">
+    <p>Prototype 04 – kluster admin. Innehåll: projects/skola/spec.md. Demodata är syntetisk.</p>
+  </footer>
+
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
