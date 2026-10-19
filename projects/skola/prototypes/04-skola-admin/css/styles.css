@@ -130,7 +130,7 @@ tr:target td, .rad-vald td { background: var(--accent-surface); }
   font-size: var(--text-xs); font-weight: var(--font-medium);
 }
 .pill-aktiv { color: var(--success); background: var(--success-surface); }
-.pill-inaktiv { color: var(--warning); background: var(--warning-surface); }
+.pill-inaktiv { color: var(--warning-hover); background: var(--warning-surface); }
 
 /* kort och paneler */
 .panel {
@@ -192,4 +192,8 @@ input::placeholder { color: var(--text-secondary); }
 footer {
   grid-column: 1 / -1; border-top: 1px solid var(--border-subtle); margin-top: var(--space-8);
   padding-top: var(--space-3);
+}
+@media (prefers-color-scheme: dark) {
+  .knapp { color: #060708; }
+  .knapp:hover { color: #060708; background: var(--accent-hover); }
 }
