@@ -26,6 +26,7 @@
   --warning-hover: #8c4f00;
   --warning-surface: #fef3c7;
   --danger: #e7000b;
+  --danger-hover: #b90009;
   --danger-surface: #fee2e2;
   --info: #008697;
   --info-hover: #006b79;
@@ -87,6 +88,7 @@
     --warning-hover: #fcd34d;
     --warning-surface: rgba(251, 191, 36, 0.15);
     --danger: #ef4444;
+    --danger-hover: #f87171;
     --danger-surface: rgba(239, 68, 68, 0.15);
     --info: #22d3ee;
     --info-hover: #67e8f9;
