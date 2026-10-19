@@ -15,11 +15,14 @@
   --accent-hover:  #4332d5;
   --accent-surface:#eef2ff;
   --success:       #0e8127;
+  --success-hover: #0b671f;
   --success-surface:#dcfce7;
   --warning:       #af6300;
+  --warning-hover: #8c4f00;
   --warning-surface:#fef3c7;
   --danger:        #e7000b;
   --danger-surface:#fee2e2;
+  --info-hover:    #006b79;
   --focus-ring:    #564ef3;
   --shadow-sm:     0 1px 2px rgba(0,0,0,0.04);
   --shadow-md:     0 2px 6px rgba(0,0,0,0.06);
@@ -40,9 +43,10 @@
     --border-subtle:#25272b; --border-default:#303238; --border-strong:#50545c;
     --text-primary:#f3f4f7; --text-secondary:#c6c9d0;
     --accent:#7682ff; --accent-hover:#939eff; --accent-surface:rgba(86,78,243,0.15);
-    --success:#22c55e; --success-surface:rgba(34,197,94,0.15);
-    --warning:#fbbf24; --warning-surface:rgba(251,191,36,0.15);
+    --success:#22c55e; --success-hover:#4ade80; --success-surface:rgba(34,197,94,0.15);
+    --warning:#fbbf24; --warning-hover:#fcd34d; --warning-surface:rgba(251,191,36,0.15);
     --danger:#ef4444; --danger-surface:rgba(239,68,68,0.15);
+    --info-hover:#67e8f9;
     --focus-ring:#7682ff;
     --shadow-sm:0 1px 2px rgba(0,0,0,0.3); --shadow-md:0 2px 6px rgba(0,0,0,0.4);
   }

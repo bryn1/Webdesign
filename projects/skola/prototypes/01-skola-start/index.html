@@ -74,7 +74,7 @@
   .f-admin:checked ~ .work .panel-admin,
   .f-pass:checked ~ .work .panel-pass{
     background:var(--accent-surface);border-color:var(--accent);color:var(--text-primary)}
-  .panel{display:none;flex-direction:column;gap:var(--space-4)}
+  form.panel{display:none;flex-direction:column;gap:var(--space-4)}
   .f-login:checked ~ .work .panel-login,
   .f-reg:checked ~ .work .panel-reg,
   .f-admin:checked ~ .work .panel-admin,
@@ -136,12 +136,11 @@
   <span class="sub">Inloggning · fyra ingångar, ett formulär</span>
 </header>
 
-<input class="f-login" type="radio" name="state" id="f-login" checked>
-<input class="f-reg" type="radio" name="state" id="f-reg">
-<input class="f-admin" type="radio" name="state" id="f-admin">
-<input class="f-pass" type="radio" name="state" id="f-pass">
-
 <main>
+  <input class="f-login" type="radio" name="state" id="f-login" checked>
+  <input class="f-reg" type="radio" name="state" id="f-reg">
+  <input class="f-admin" type="radio" name="state" id="f-admin">
+  <input class="f-pass" type="radio" name="state" id="f-pass">
   <h1>Börja här — välj ingång</h1>
   <div class="work">
     <nav class="rail" aria-label="Ingångar">
