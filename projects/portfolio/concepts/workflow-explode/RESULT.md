@@ -297,3 +297,19 @@ Machine-readable records (committed, and served at :8092 so a curl PROBE can rea
 > t=44/48.5/50 (rest gap [16,68] vs visible cap[771,868]); 375 overflow false; gsap console
 > errors 0. quality-gate.sh on the folder: # QUALITY: PASS, exit 0 (gate 1.0.5, 10/10 — the
 > 1.0.1 "7/7" floor grew its three record-checks into 1.0.5's 10; same deterministic engine).
+
+## fix-c5 re-bind (2026-10-19, MC 10458 — knut r1: full grids inlined, vh=591 row measured)
+
+> Fresh full-grid re-measure on the polished tree (ff75bb2), pin-scrub settle >=2.8 s, record
+> .audits/20261019T0158-mc10458-rebind/measurements.txt (tracked, served at :8095). 1900x823:
+> 12 samples t=48.5..50 step 1.5/11 — counters band walks 31->75 top (inward collapse), visible
+> cap[4] plate [678,775] — 0/12 intersections, cap alpha 0.75->0 through the exit. vh=591
+> (1900x591): t=48.5 counters [421,26,1410,77] vs cap [458,555]; t=49 [441,37,1392,85] vs
+> [454,551]; t=49.5 [462,47,1374,94] vs [450,547]; t=50 [483,58,1356,102] vs [446,543] — rest
+> gap 381px at the worst row, 0 hits. fix-c3 pill clearance re-run: 25/25 (5 heights
+> 591/650/720/900/1200 x t 40.6/42.5/44/46.5/49.3, counters vs 3 pills + visible plates, 0 hits).
+> c4 invariants UNCHANGED (.audits/20261019T0130-mc10453-polish/invariants.txt): dash 229->0
+> strictly decreasing 9 samples, arrowhead 0,0 at t<=24.5 / 1,1 at 26.5. mobile 375x812 overflow
+> false and counters/cap non-intersect at t in {40.6,42.5,49.3}. Gate: # QUALITY: PASS, exit 0
+> (1.0.5, 10/10 — the 7/7 floor grew three record-checks since 1.0.1). PNGs: 1440x900 + 1900x823
+> at t=44 and t=48.6 in the same run dir.

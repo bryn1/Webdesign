@@ -1,0 +1,23 @@
+# QUALITY: PASS
+
+workflow-webdesign quality gate 1.0.5, 2026-10-19T01:37:08Z. Deterministic: no model judged this page.
+Prototype: `/home/claudecode/Hemsidor/projects/portfolio/concepts/workflow-explode` (served as http://127.0.0.1:40017/workflow-explode/). Raw output: `/home/claudecode/Hemsidor/projects/portfolio/concepts/workflow-explode/.audits/quality/20261019T013548Z` (untracked).
+Engine: impeccable 0.1.11, sha256 0221607e1f535af937ea267c347b1f90233b85dc2563cbd2eeefdf42e0e5c594 (pinned OK).
+
+| check | result | detail |
+|---|---|---|
+| detect | PASS | hard-set findings: 0 (none) |
+| contrast | PASS | AA failures 1440: 0/77, 375: 0/77 |
+| console | PASS | errors per context {"desktop1440":0,"laptop1280":0,"mobile375":0,"reduced1440":0,"reduced375":0} |
+| overflow375 | PASS | load scrollWidth 375/375, after scroll 375/375 |
+| overflow1440 | PASS | load scrollWidth 1440/1440, after scroll 1440/1440 |
+| overflow1280 | PASS | load scrollWidth 1280/1280, after scroll 1280/1280 |
+| scroll-overlap | PASS | mid-scrub occlusions 0: 1440 0 findings, 60 steps/57 probes/12546ms; 375 0 findings, 60 steps/57 probes/12517ms; reduced1440 0 findings, 29 steps/57 probes/6024ms |
+| reduced | PASS | hidden at load 0/41 (display:none 0, not gated), ScrollTriggers under reduce 0 (normal: 1) |
+| nojs | PASS | hidden without JS 0/41 (display:none 0, not gated) |
+| links | PASS | check-links.py: 1 pages, 13 local refs, 0 broken |
+
+REVIEW (impeccable findings outside the hard set; not gating -- fix them or keep them on purpose): slop/dark-glow/warning x8, slop/repeating-stripes-gradient/advisory x1, slop/em-dash-overuse/advisory x1
+
+All checks passed. This is a floor, not a design verdict: the owner still judges the page.
+exit 0

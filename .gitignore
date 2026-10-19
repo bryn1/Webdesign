@@ -13,6 +13,11 @@ projects/portfolio/concepts/workflow-explode/.audits/*
 /.audits/*
 !/.audits/20261006-1412-vm106-hosting/
 /.audits/20261006-1412-vm106-hosting/*
+!/.audits/20261019T0130-mc10453-polish/
+!/.audits/20261019T0130-mc10453-polish/*
+# MC 10458 (2026-10-19, same ratified pattern): the rebind measurement record + the four DoD PNGs.
+!/.audits/20261019T0158-mc10458-rebind/
+!/.audits/20261019T0158-mc10458-rebind/*
 !/.audits/20261006-1412-vm106-hosting/out/
 !projects/salong/prototypes/00-poc-live-site/.audits/
 projects/salong/prototypes/00-poc-live-site/.audits/*
