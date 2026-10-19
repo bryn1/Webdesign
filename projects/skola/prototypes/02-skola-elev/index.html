@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>skola — Elev</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#huvud">Hoppa till innehåll</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <p class="brand">skola</p>
+    <p class="role">Elev</p>
+  </div>
+</header>
+
+<nav class="junction container" aria-label="Sektioner">
+  <ul class="jump">
+    <li><a href="#oversikt">Översikt</a></li>
+    <li><a href="#lektion">Lektion</a></li>
+    <li><a href="#plugga">Plugga</a></li>
+    <li><a href="#ai">AI-svar</a></li>
+    <li><a href="#bedomning">Bedömning</a></li>
+    <li><a href="#framsteg">Framsteg</a></li>
+    <li><a href="#schema">Schema</a></li>
+    <li><a href="#meddelanden">Meddelanden</a></li>
+    <li><a href="#repetera">Repetera</a></li>
+    <li><a href="#tasks">Tasks</a></li>
+    <li><a href="#tidigare">Tidigare</a></li>
+    <li><a href="#installningar">Inställningar</a></li>
+  </ul>
+</nav>
+
+<main id="huvud" class="container stack">
+
+  <figure class="hero">
+    <svg viewBox="0 0 1536 1024" role="img" aria-label="Still liv: öppen bok, penna och två böcker på ett skrivbord i dagsljus.">
+      <rect width="1536" height="1024" fill="#f9fafb"/>
+      <ellipse cx="560" cy="800" rx="420" ry="26" fill="#e9ebef"/>
+      <ellipse cx="1150" cy="770" rx="220" ry="20" fill="#e9ebef"/>
+      <rect x="220" y="330" width="680" height="440" rx="10" fill="#ffffff" stroke="#dfe1e6" stroke-width="4"/>
+      <line x1="560" y1="330" x2="560" y2="770" stroke="#dfe1e6" stroke-width="4"/>
+      <g stroke="#c6c9d0" stroke-width="8" stroke-linecap="round">
+        <line x1="270" y1="410" x2="510" y2="410"/><line x1="270" y1="470" x2="480" y2="470"/><line x1="270" y1="530" x2="510" y2="530"/><line x1="270" y1="590" x2="450" y2="590"/>
+        <line x1="610" y1="410" x2="850" y2="410"/><line x1="610" y1="470" x2="820" y2="470"/><line x1="610" y1="530" x2="850" y2="530"/>
+      </g>
+      <rect x="544" y="306" width="32" height="86" fill="#564ef3"/>
+      <rect x="610" y="600" width="180" height="26" rx="6" fill="#564ef3"/>
+      <text x="270" y="712" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#16171a">skola</text>
+      <rect x="960" y="700" width="380" height="52" rx="8" fill="#16171a"/>
+      <rect x="980" y="640" width="340" height="52" rx="8" fill="#564ef3"/>
+      <rect x="1000" y="584" width="300" height="48" rx="8" fill="#ffffff" stroke="#dfe1e6" stroke-width="4"/>
+      <g transform="rotate(-18 700 830)"><rect x="420" y="820" width="330" height="20" rx="6" fill="#16171a"/><path d="M750 820 l36 10 -36 10 z" fill="#564ef3"/></g>
+    </svg>
+  </figure>
+
+  <section id="oversikt" aria-labelledby="h-oversikt">
+    <h2 id="h-oversikt">Översikt</h2>
+    <p class="lead">Dina kurser, nästa lektion och ditt framsteg på ett ställe.</p>
+    <ul class="kpi">
+      <li><span class="kpi-n">3</span><span class="kpi-l">aktiva kurser</span></li>
+      <li><span class="kpi-n">2</span><span class="kpi-l">uppgifter att göra</span></li>
+      <li><span class="kpi-n">1</span><span class="kpi-l">lektion i dag</span></li>
+    </ul>
+    <div class="table-scroll">
+      <table>
+        <caption class="sr-only">Kurser med framsteg</caption>
+        <thead>
+          <tr><th>Kurs</th><th>Framsteg</th><th>Nästa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Matematik</td><td>4/6 moment</td><td>Plugga: diagnostic</td></tr>
+          <tr><td>Svenska</td><td>6/8 moment</td><td>Lektion 7</td></tr>
+          <tr><td>Engelska</td><td>2/5 moment</td><td>Retention</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="meta">Exempeldata — kursnamn och antal är skydd som visar hur vyerna fylls.</p>
+  </section>
+
+  <section id="lektion" aria-labelledby="h-lektion">
+    <h2 id="h-lektion">Lektion</h2>
+    <ol class="list">
+      <li><span class="tag tag-done">Klar</span> Lektion 6 — Sammansatta räknesätt <span class="meta">fullförd</span></li>
+      <li><span class="tag tag-now">Pågående</span> Lektion 7 — Bråk i vardagen <span class="meta">Öppna lektionen</span></li>
+      <li><span class="tag">Ej påbörjad</span> Lektion 8 — Dekimaltal <span class="meta">låses upp efter lektion 7</span></li>
+    </ol>
+  </section>
+
+  <section id="plugga" aria-labelledby="h-plugga">
+    <h2 id="h-plugga">Plugga</h2>
+    <p class="lead">Sex inövningsformer, samma flöde: öppna, svara, få svar direkt.</p>
+    <div class="grid">
+      <div class="card"><h3>Diagnostic</h3><p>Kartlägg vad du kan inför ett moment.</p></div>
+      <div class="card"><h3>Formulär</h3><p>Träna på formulär med direkt rättning.</p></div>
+      <div class="card"><h3>Slutprov</h3><p>Avslutar ett moment med betyg.</p></div>
+      <div class="card"><h3>Retention</h3><p>Repetera gamla svar så de stannar kvar.</p></div>
+      <div class="card"><h3>Helhet</h3><p>Kopplar ihop momenten i hela kursen.</p></div>
+      <div class="card"><h3>Session</h3><p>Träffa läraren — live, med uppgift före och efter.</p></div>
+    </div>
+  </section>
+
+  <section id="ai" aria-labelledby="h-ai">
+    <h2 id="h-ai">AI-svar</h2>
+    <div class="qa">
+      <p class="q"><strong>Fråga:</strong> Vad skiljer ett jämnt bråk på ett ojämnt?</p>
+      <p class="a"><strong>Svar:</strong> Bägge är bråk, men den övre och undre gränsen visar hur många tiondelar som blir jämna. Ett jämnt bråk får samma siffra i täljare och nämnare när man förkortar, ett ojämnt får olika stora tal.</p>
+      <div class="sources">
+        <h3>Källor</h3>
+        <ol class="list">
+          <li>Lektionsblock 7, stycke 2 — Bråk</li>
+          <li>Repetera-kort 12 — Förkortning</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="bedomning" aria-labelledby="h-bedomning">
+    <h2 id="h-bedomning">Bedömning</h2>
+    <div class="table-scroll">
+      <table>
+        <caption class="sr-only">Bedömning per moment</caption>
+        <thead>
+          <tr><th>Moment</th><th>Form</th><th>Resultat</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Moment 1 — Tal</td><td>Slutprov</td><td>Godkänt</td></tr>
+          <tr><td>Moment 2 — Mätning</td><td>Formulär</td><td>Väl godkänt</td></tr>
+          <tr><td>Moment 3 — Bråk</td><td>Diagnostic</td><td>Ej klart än</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="framsteg" aria-labelledby="h-framsteg">
+    <h2 id="h-framsteg">Framsteg</h2>
+    <ul class="bars">
+      <li><span class="bl">Matematik</span><span class="bar"><i style="--w:66%"></i></span><span class="bn">66 %</span></li>
+      <li><span class="bl">Svenska</span><span class="bar"><i style="--w:75%"></i></span><span class="bn">75 %</span></li>
+      <li><span class="bl">Engelska</span><span class="bar"><i style="--w:40%"></i></span><span class="bn">40 %</span></li>
+    </ul>
+    <div class="statebox" aria-label="Laddar mer">
+      <p class="meta">Laddar mer …</p>
+      <div class="skeleton" style="--h:12px"></div>
+      <div class="skeleton skeleton--short" style="--h:12px"></div>
+    </div>
+  </section>
+
+  <section id="schema" aria-labelledby="h-schema">
+    <h2 id="h-schema">Schema</h2>
+    <div class="table-scroll">
+      <table>
+        <caption class="sr-only">Veckans schema</caption>
+        <thead>
+          <tr><th>Dag</th><th>Klockan</th><th>Ämne</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Måndag</td><td>08:30–10:00</td><td>Matematik — lektion 7</td></tr>
+          <tr><td>Tisdag</td><td>10:15–11:45</td><td>Svenska — lektion 7</td></tr>
+          <tr><td>Onsdag</td><td>09:00–09:40</td><td>Engelska — session</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="statebox statebox--err" role="group" aria-label="Felmeddelande för schema">
+      <p><strong>Schemat kunde inte hämtas.</strong> Kontrollera anslutningen och försök igen.</p>
+      <button type="button" id="retry" class="btn">Försök igen</button>
+    </div>
+  </section>
+
+  <section id="meddelanden" aria-labelledby="h-meddelanden">
+    <h2 id="h-meddelanden">Meddelanden</h2>
+    <ul class="list">
+      <li><strong>Läraren:</strong> Lektion 7 är öppnad — börja med diagnosen.</li>
+      <li><strong>Systemet:</strong> Retention för Engelska blir tillgänglig på onsdag.</li>
+    </ul>
+    <div class="empty">
+      <h3>Inga fler meddelanden</h3>
+      <p class="meta">Nya meddelanden från läraren dyker upp här, närmast överst.</p>
+    </div>
+  </section>
+
+  <section id="repetera" aria-labelledby="h-repetera">
+    <h2 id="h-repetera">Repetera</h2>
+    <ol class="list">
+      <li>Kort 12 — Förkortning <span class="meta">i dag</span></li>
+      <li>Kort 9 — Tiondelar <span class="meta">i morgon</span></li>
+      <li>Kort 5 — Enhetsomvandling <span class="meta">om 3 dagar</span></li>
+    </ol>
+  </section>
+
+  <section id="tasks" aria-labelledby="h-tasks">
+    <h2 id="h-tasks">Tasks</h2>
+    <ul class="list">
+      <li><span class="tag tag-now">Att göra</span> Diagnostic — Matematik</li>
+      <li><span class="tag">Ej startad</span> Retention — Engelska</li>
+      <li><span class="tag tag-done">Klar</span> Formulär 2 — Svenska</li>
+    </ul>
+  </section>
+
+  <section id="tidigare" aria-labelledby="h-tidigare">
+    <h2 id="h-tidigare">Tidigare</h2>
+    <ul class="list">
+      <li>Läsår 2025/26 — Matematik: moment 1–2 klarade</li>
+      <li>Läsår 2025/26 — Svenska: moment 1–6 klarade</li>
+    </ul>
+  </section>
+
+  <section id="installningar" aria-labelledby="h-installningar">
+    <h2 id="h-installningar">Inställningar</h2>
+    <dl class="defs">
+      <dt>Språk</dt><dd>Svenska</dd>
+      <dt>Tema</dt><dd>Följer systemet (ljust och mörkt)</dd>
+      <dt>Meddelanden</dt><dd>Från lärare och system</dd>
+      <dt>API</dt><dd>skola-api på port 8401</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="container footer">
+  <p class="meta">02-skola-elev · elevklustret: /elev, /elev/lektion, /elev/plugga, /elev/ai, /elev/bedomning, /elev/framsteg, /elev/schema, /elev/meddelanden, /elev/repetera, /elev/tasks, /elev/tidigare, /elev/installningar</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
