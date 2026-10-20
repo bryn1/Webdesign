@@ -1,0 +1,12 @@
+/* Grid internals: field columns, time ticks, ruler as printed hairlines (not a painted bar). */
+.grid-field .col { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--hairline); }
+
+.search-pill { position: absolute; left: 63%; top: 1.6%; width: 13%; height: 4.6%; background: #f3f4f7; border: 1px solid var(--hairline); border-radius: 999px; display: flex; align-items: center; gap: 8px; padding: 0 12px; color: var(--ink-secondary); font-size: var(--fs-label); }
+.today-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--indigo); }
+.rail-rows .lit-card { background: var(--indigo); color: var(--paper); }
+.card.lit .subject, .rail-rows .lit-card b, .rail-rows .lit-card time { font-variant-numeric: tabular-nums; }
+.card.lit .meta { font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; }
+.now-line { box-shadow: 0 0 0 1px rgba(86, 78, 243, 0.25); }
+
+.hair2 { position: absolute; left: 0; right: 0; height: 2px; background: #1c2461; }
+.today-pill { position: relative; }

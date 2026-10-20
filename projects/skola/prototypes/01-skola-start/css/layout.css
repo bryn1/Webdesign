@@ -1,0 +1,55 @@
+/* Measured layout of the approved comp (b4130b97 · C — The Week, Vertical) as region boxes.
+   Generated from .impeccable/build/scaffold/layout.css; bind to semantic markup. */
+:root {
+  --r-wordmark-x: 1.210%; --r-wordmark-y: 1.220%; --r-wordmark-w: 8.710%; --r-wordmark-h: 5.280%;
+  --r-wordmark-cap: 34px; --r-wordmark-font: 49px; --r-wordmark-weight: 700;
+  --r-header-tabs-x: 13.060%; --r-header-tabs-y: 1.830%; --r-header-tabs-w: 22.100%; --r-header-tabs-h: 4.270%;
+  --r-header-tabs-cap: 20px; --r-header-tabs-font: 30px;
+  --r-day-labels-x: 6.700%; --r-day-labels-y: 11.180%; --r-day-labels-w: 69.660%; --r-day-labels-h: 6.300%;
+  --r-day-labels-cap: 24px; --r-day-labels-font: 36px;
+  --r-ruler-labels-x: 1.210%; --r-ruler-labels-y: 17.780%; --r-ruler-labels-w: 4.290%; --r-ruler-labels-h: 76.220%;
+  --r-block-subject-x: 6.700%; --r-block-subject-y: 38.110%; --r-block-subject-w: 69.660%; --r-block-subject-h: 6.100%;
+  --r-block-subject-cap: 21px; --r-block-subject-font: 31px;
+  --r-block-meta-x: 6.700%; --r-block-meta-y: 43.190%; --r-block-meta-w: 69.660%; --r-block-meta-h: 3.050%;
+  --r-block-meta-cap: 6px; --r-block-meta-font: 9px;
+  --r-now-line-x: 6.360%; --r-now-line-y: 30.490%; --r-now-line-w: 70.660%; --r-now-line-h: 1.220%;
+  --r-today-chip-x: 39.520%; --r-today-chip-y: 26.930%; --r-today-chip-w: 8.710%; --r-today-chip-h: 3.460%;
+  --r-lunch-band-x: 6.360%; --r-lunch-band-y: 47.760%; --r-lunch-band-w: 70.660%; --r-lunch-band-h: 8.130%;
+  --r-lit-block-x: 35.160%; --r-lit-block-y: 76.730%; --r-lit-block-w: 12.730%; --r-lit-block-h: 7.930%;
+  --r-lit-block-cap: 20px; --r-lit-block-font: 30px;
+  --r-rail-heading-x: 77.700%; --r-rail-heading-y: 13.410%; --r-rail-heading-w: 12.730%; --r-rail-heading-h: 4.070%;
+  --r-rail-heading-cap: 24px; --r-rail-heading-font: 35px;
+  --r-rail-rows-x: 78.230%; --r-rail-rows-y: 18.800%; --r-rail-rows-w: 20.430%; --r-rail-rows-h: 26.630%;
+  --r-rail-rows-cap: 24px; --r-rail-rows-font: 36px;
+  --r-nasta-chip-x: 91.760%; --r-nasta-chip-y: 38.410%; --r-nasta-chip-w: 6.700%; --r-nasta-chip-h: 6.100%;
+  --r-nasta-chip-cap: 14px; --r-nasta-chip-font: 21px;
+  --r-inlamning-heading-x: 77.700%; --r-inlamning-heading-y: 51.020%; --r-inlamning-heading-w: 10.720%; --r-inlamning-heading-h: 4.270%;
+  --r-inlamning-heading-cap: 25px; --r-inlamning-heading-font: 36px;
+  --r-checklist-rows-x: 78.230%; --r-checklist-rows-y: 56.910%; --r-checklist-rows-w: 20.430%; --r-checklist-rows-h: 23.370%;
+  --r-checklist-rows-cap: 19px; --r-checklist-rows-font: 28px;
+  --r-footer-x: 1.340%; --r-footer-y: 95.330%; --r-footer-w: 6.030%; --r-footer-h: 4.070%;
+  --r-footer-cap: 14px; --r-footer-font: 20px;
+  --r-grid-plate-field-x: 6.360%; --r-grid-plate-field-y: 10.980%; --r-grid-plate-field-w: 70.660%; --r-grid-plate-field-h: 83.330%;
+  --r-grid-caret-x: 3.480%; --r-grid-caret-y: 11.990%; --r-grid-caret-w: 3.480%; --r-grid-caret-h: 4.470%;
+  --r-paus-band-x: 43.540%; --r-paus-band-y: 56.500%; --r-paus-band-w: 13.400%; --r-paus-band-h: 3.460%;
+}
+.r { position: absolute; }
+.r-wordmark        { left: var(--r-wordmark-x); top: var(--r-wordmark-y); width: var(--r-wordmark-w); height: var(--r-wordmark-h); }
+.r-header-tabs     { left: var(--r-header-tabs-x); top: var(--r-header-tabs-y); width: var(--r-header-tabs-w); height: var(--r-header-tabs-h); }
+.r-day-labels      { left: var(--r-day-labels-x); top: var(--r-day-labels-y); width: var(--r-day-labels-w); height: var(--r-day-labels-h); }
+.r-ruler-labels    { left: var(--r-ruler-labels-x); top: var(--r-ruler-labels-y); width: var(--r-ruler-labels-w); height: var(--r-ruler-labels-h); }
+.r-block-subject   { left: var(--r-block-subject-x); top: var(--r-block-subject-y); width: var(--r-block-subject-w); height: var(--r-block-subject-h); }
+.r-block-meta      { left: var(--r-block-meta-x); top: var(--r-block-meta-y); width: var(--r-block-meta-w); height: var(--r-block-meta-h); }
+.r-now-line        { left: var(--r-now-line-x); top: var(--r-now-line-y); width: var(--r-now-line-w); height: var(--r-now-line-h); }
+.r-today-chip      { left: var(--r-today-chip-x); top: var(--r-today-chip-y); width: var(--r-today-chip-w); height: var(--r-today-chip-h); }
+.r-lunch-band      { left: var(--r-lunch-band-x); top: var(--r-lunch-band-y); width: var(--r-lunch-band-w); height: var(--r-lunch-band-h); }
+.r-lit-block       { left: var(--r-lit-block-x); top: var(--r-lit-block-y); width: var(--r-lit-block-w); height: var(--r-lit-block-h); }
+.r-rail-heading    { left: var(--r-rail-heading-x); top: var(--r-rail-heading-y); width: var(--r-rail-heading-w); height: var(--r-rail-heading-h); }
+.r-rail-rows       { left: var(--r-rail-rows-x); top: var(--r-rail-rows-y); width: var(--r-rail-rows-w); height: var(--r-rail-rows-h); }
+.r-nasta-chip      { left: var(--r-nasta-chip-x); top: var(--r-nasta-chip-y); width: var(--r-nasta-chip-w); height: var(--r-nasta-chip-h); }
+.r-inlamning-heading { left: var(--r-inlamning-heading-x); top: var(--r-inlamning-heading-y); width: var(--r-inlamning-heading-w); height: var(--r-inlamning-heading-h); }
+.r-checklist-rows  { left: var(--r-checklist-rows-x); top: var(--r-checklist-rows-y); width: var(--r-checklist-rows-w); height: var(--r-checklist-rows-h); }
+.r-footer          { left: var(--r-footer-x); top: var(--r-footer-y); width: var(--r-footer-w); height: var(--r-footer-h); }
+.r-grid-plate-field { left: var(--r-grid-plate-field-x); top: var(--r-grid-plate-field-y); width: var(--r-grid-plate-field-w); height: var(--r-grid-plate-field-h); }
+.r-grid-caret      { left: var(--r-grid-caret-x); top: var(--r-grid-caret-y); width: var(--r-grid-caret-w); height: var(--r-grid-caret-h); }
+.r-paus-band       { left: var(--r-paus-band-x); top: var(--r-paus-band-y); width: var(--r-paus-band-w); height: var(--r-paus-band-h); }

@@ -1,212 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sv">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skola — Inloggning</title>
-<style>
-  :root {
-    --bg-primary:#ffffff; --bg-secondary:#f9fafb; --bg-tertiary:#f3f4f7;
-    --surface:#ffffff; --surface-hover:#f9fafb; --surface-active:#f3f4f7;
-    --border-subtle:#e9ebef; --border-default:#dfe1e6; --border-strong:#c6c9d0;
-    --text-primary:#16171a; --text-secondary:#6e737c;
-    --accent:#564ef3; --accent-hover:#4332d5; --accent-active:#3425a8;
-    --accent-surface:rgba(86,78,243,0.08);
-    --focus-ring:#564ef3;
-    --shadow-sm:0 1px 2px rgba(0,0,0,0.04); --shadow-md:0 2px 6px rgba(0,0,0,0.06);
-    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --text-xs:12.8px; --text-sm:16.0px; --text-md:20.0px; --text-lg:25.0px;
-    --lh-normal:1.45; --lh-relaxed:1.5;
-    --font-normal:400; --font-medium:500; --font-semibold:600;
-    --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem; --space-4:1rem;
-    --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem;
-    --radius-sm:0.25rem; --radius-md:0.375rem; --radius-lg:0.5rem;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-primary:#060708; --bg-secondary:#16171a; --bg-tertiary:#25272b;
-      --surface:#16171a; --surface-hover:#25272b; --surface-active:#303238;
-      --border-subtle:#25272b; --border-default:#303238; --border-strong:#50545c;
-      --text-primary:#f3f4f7; --text-secondary:#c6c9d0;
-      --accent:#7682ff; --accent-hover:#939eff;
-      --accent-surface:rgba(86,78,243,0.15);
-      --focus-ring:#7682ff;
-      --shadow-sm:0 1px 2px rgba(0,0,0,0.3); --shadow-md:0 2px 6px rgba(0,0,0,0.4);
-    }
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg-primary);color:var(--text-primary);
-    font:var(--font-normal) var(--text-sm)/var(--lh-relaxed) var(--font-sans);
-    -webkit-font-smoothing:antialiased}
-  ::selection{background:var(--accent-surface);color:var(--text-primary)}
-
-  .topbar{background:var(--accent-active);color:#ffffff;
-    padding:var(--space-3) var(--space-6);display:flex;align-items:baseline;gap:var(--space-4)}
-  .topbar .name{font:var(--font-semibold) var(--text-md)/var(--lh-normal) var(--font-sans)}
-  .topbar .sub{font:var(--font-medium) var(--text-xs)/var(--lh-normal) var(--font-sans);color:#ffffff;opacity:0.95}
-
-  main{max-width:1080px;margin-inline:auto;padding:var(--space-6)}
-  h1{font:var(--font-semibold) var(--text-lg)/var(--lh-normal) var(--font-sans);
-    font-size:25px;
-    margin-block:var(--space-4) var(--space-5)}
-
-  .work{display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--space-8);
-    align-items:start}
-
-  .rail{display:flex;flex-direction:column;gap:var(--space-2)}
-  .rail input{position:absolute;opacity:0;pointer-events:none}
-  .rail label{display:flex;gap:var(--space-2);align-items:baseline;
-    padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);
-    border:1px solid var(--border-subtle);background:var(--bg-secondary);
-    font:var(--font-medium) var(--text-xs)/var(--lh-normal) var(--font-sans);
-    color:var(--text-secondary);cursor:pointer;
-    transition:background-color .15s ease,border-color .15s ease,color .15s ease}
-  .rail label .n{font:var(--font-semibold) var(--text-xs)/1 var(--font-sans);color:var(--accent)}
-  .rail label:hover{background:var(--surface-hover)}
-  .rail input:focus-visible + label{outline:2px solid var(--focus-ring);outline-offset:2px}
-
-  .f-login:checked ~ .work .rail-login,
-  .f-reg:checked ~ .work .rail-reg,
-  .f-admin:checked ~ .work .rail-admin,
-  .f-pass:checked ~ .work .rail-pass,
-  .f-login:checked ~ .work .panel-login,
-  .f-reg:checked ~ .work .panel-reg,
-  .f-admin:checked ~ .work .panel-admin,
-  .f-pass:checked ~ .work .panel-pass{
-    background:var(--accent-surface);border-color:var(--accent);color:var(--text-primary)}
-  form.panel{display:none;flex-direction:column;gap:var(--space-4)}
-  .f-login:checked ~ .work .panel-login,
-  .f-reg:checked ~ .work .panel-reg,
-  .f-admin:checked ~ .work .panel-admin,
-  .f-pass:checked ~ .work .panel-pass{display:flex}
-
-  .card{background:var(--surface);border:1px solid var(--border-subtle);
-    border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);
-    padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);
-    max-width:440px}
-  .card h2{font:var(--font-semibold) var(--text-md)/var(--lh-normal) var(--font-sans);
-    font-size:20px}
-  .field{display:flex;flex-direction:column;gap:var(--space-1)}
-  .field label{font:var(--font-medium) var(--text-xs)/var(--lh-normal) var(--font-sans);
-    color:var(--text-secondary)}
-  .field input{border:1px solid var(--border-default);border-radius:var(--radius-md);
-    padding:var(--space-2) var(--space-3);background:var(--surface);color:var(--text-primary);
-    font:var(--font-normal) var(--text-sm)/var(--lh-normal) var(--font-sans);
-    transition:border-color .15s ease,box-shadow .15s ease}
-  .field input::placeholder{color:var(--text-secondary)}
-  .field input:focus-visible{border-color:var(--accent);
-    box-shadow:0 0 0 3px var(--accent-surface);outline:none}
-  .btn{background:var(--accent);color:#ffffff;border:none;
-    padding:var(--space-2) var(--space-4);border-radius:var(--radius-md);
-    font:var(--font-semibold) var(--text-sm)/var(--lh-normal) var(--font-sans);
-    cursor:pointer;transition:background-color .15s ease,transform .1s ease}
-  .btn:hover{background:var(--accent-hover)}
-  .btn:active{transform:scale(0.98)}
-  .btn:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
-  .hint{font:var(--font-normal) var(--text-xs)/var(--lh-relaxed) var(--font-sans);
-    color:var(--text-secondary)}
-
-  .meta{margin-top:var(--space-8);border-top:1px solid var(--border-subtle);
-    padding-top:var(--space-4);display:grid;gap:var(--space-2)}
-  .meta p{font:var(--font-normal) var(--text-xs)/var(--lh-relaxed) var(--font-sans);
-    color:var(--text-secondary)}
-  .meta strong{font-weight:var(--font-semibold);color:var(--text-primary)}
-
-  figure{margin:0}
-  figure img{display:block;width:100%;border-radius:var(--radius-lg);
-    border:1px solid var(--border-subtle)}
-  figcaption{font:var(--font-normal) var(--text-xs)/var(--lh-relaxed) var(--font-sans);
-    color:var(--text-secondary);margin-top:var(--space-2)}
-
-  @media (max-width:760px){
-    .work{grid-template-columns:1fr}
-    .rail{flex-direction:row;flex-wrap:wrap}
-  }
-  @media (prefers-color-scheme: dark){
-    .btn{color:#060708}
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none}
-  }
-</style>
+<title>Skola — Elev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mada:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/week.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/grid.css">
 </head>
 <body>
-<header class="topbar">
-  <span class="name">Skola</span>
-  <span class="sub">Inloggning · fyra ingångar, ett formulär</span>
-</header>
+<div class="sheet" aria-label="Skola elev-start">
+  <header class="r r-wordmark"><span class="wordmark">Skola</span></header>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="#" aria-current="page">Elev</a><a href="#">Lärare</a><a href="#">Admin</a>
+  </nav>
+  <div class="header-rule" aria-hidden="true"></div>
+  <div class="search-pill" aria-hidden="true">⌕ Sök schema ✕</div>
 
-<main>
-  <input class="f-login" type="radio" name="state" id="f-login" checked>
-  <input class="f-reg" type="radio" name="state" id="f-reg">
-  <input class="f-admin" type="radio" name="state" id="f-admin">
-  <input class="f-pass" type="radio" name="state" id="f-pass">
-  <h1>Börja här — välj ingång</h1>
-  <div class="work">
-    <nav class="rail" aria-label="Ingångar">
-      <label for="f-login" class="rail-login"><span class="n">1</span> Logga in</label>
-      <label for="f-reg" class="rail-reg"><span class="n">2</span> Registrera</label>
-      <label for="f-admin" class="rail-admin"><span class="n">3</span> Admin-login</label>
-      <label for="f-pass" class="rail-pass"><span class="n">4</span> Byt lösenord</label>
-    </nav>
+  <section class="r r-day-labels day-labels" aria-label="Veckodagar">
+    <span class="chip">MAN</span><span class="chip">TIS</span><span class="chip">ONS</span><span class="chip">TOR</span><span class="chip">FRE</span>
+  </section>
 
-    <section>
-      <form class="card panel panel-login" aria-label="Logga in">
-        <h2>Logga in</h2>
-        <div class="field"><label for="l-epost">E-postadress</label>
-          <input id="l-epost" type="email" placeholder="elev@skola.se"></div>
-        <div class="field"><label for="l-losen">Lösenord</label>
-          <input id="l-losen" type="password" placeholder="Ditt lösenord"></div>
-        <button class="btn" type="submit">Logga in</button>
-        <p class="hint">Fel e-postadress eller lösenord — kontrollera och försök igen.</p>
-      </form>
-
-      <form class="card panel panel-reg" aria-label="Registrera">
-        <h2>Registrera</h2>
-        <div class="field"><label for="r-namn">Namn</label>
-          <input id="r-namn" type="text" placeholder="För- och efternamn"></div>
-        <div class="field"><label for="r-epost">E-postadress</label>
-          <input id="r-epost" type="email" placeholder="elev@skola.se"></div>
-        <div class="field"><label for="r-kod">Klasskod</label>
-          <input id="r-kod" type="text" placeholder="Koden från din lärare"></div>
-        <button class="btn" type="submit">Registrera</button>
-        <p class="hint">Fält: namn, e-post, klasskod — representative värden, ej i spec.md.</p>
-      </form>
-
-      <form class="card panel panel-admin" aria-label="Admin-login">
-        <h2>Admin-login</h2>
-        <div class="field"><label for="a-epost">E-postadress</label>
-          <input id="a-epost" type="email" placeholder="admin@skola.se"></div>
-        <div class="field"><label for="a-losen">Lösenord</label>
-          <input id="a-losen" type="password" placeholder="Ditt lösenord"></div>
-        <button class="btn" type="submit">Logga in</button>
-        <p class="hint">Admin når användare, ämnen, audit-logg, granska och inställningar.</p>
-      </form>
-
-      <form class="card panel panel-pass" aria-label="Byt lösenord">
-        <h2>Byt lösenord</h2>
-        <div class="field"><label for="p-nu">Nuvarande lösenord</label>
-          <input id="p-nu" type="password" placeholder="Gammalt lösenord"></div>
-        <div class="field"><label for="p-ny">Nytt lösenord</label>
-          <input id="p-ny" type="password" placeholder="Nytt lösenord"></div>
-        <div class="field"><label for="p-bek">Bekräfta nytt lösenord</label>
-          <input id="p-bek" type="password" placeholder="Skriv igen"></div>
-        <button class="btn" type="submit">Spara nytt lösenord</button>
-      </form>
-
-      <figure>
-        <img src="../_assets/skola-start.png" alt="Decoratorisk bild: anteckningsbok, passes och geometriska figurer på ett skrivbord.">
-        <figcaption>Decorativ bild, genererad lokalt (vm100).</figcaption>
-      </figure>
-    </section>
+  <section class="r r-ruler-labels ruler" aria-label="Tid">
+    <span style="top:4%">08:00</span><span style="top:25%">10:00</span><span style="top:46%">12:00</span><span style="top:67%">14:00</span><span style="top:88%">16:00</span>
+  </section>
+  <div class="r r-grid-caret grid-caret" aria-hidden="true">▼</div>
+  <div class="r r-grid-plate-field grid-field" aria-hidden="true">
+    <i class="col" style="left:20%"></i><i class="col" style="left:40%"></i><i class="col" style="left:60%"></i><i class="col" style="left:80%"></i>
+    <i class="hair2" style="top:71.2%"></i>
   </div>
 
-  <div class="meta">
-    <p><strong>Elev</strong> fortsätter under /elev/… — dashboard, lektion, plugga, bedömning, framsteg.</p>
-    <p><strong>Lärare</strong> fortsätter under /larare/… — klasser, planera, lektion, omdomen, granska.</p>
-    <p><strong>Admin</strong> fortsätter under /admin/… — användare, ämnen, audit, granska, inställningar.</p>
-    <p>API:ets inkörningsport: 8401. Språk: svenska.</p>
+  <!-- A blocks -->
+  <div class="card" style="left:21%;top:20%;width:13%;height:10.5%"></div>
+  <div class="card" style="left:35.2%;top:20%;width:13%;height:10.5%"></div>
+
+  <div class="r r-today-chip"><span class="today-pill">today.</span></div>
+
+  <div class="card" style="left:6.9%;top:36.6%;width:13%;height:9.9%"><div class="subject">Svenska</div><div class="meta">room 204 11:30</div></div>
+  <div class="card" style="left:21%;top:36.6%;width:13%;height:9.9%"><div class="subject">Matematik</div><div class="meta">room 203 10:30</div></div>
+  <div class="card" style="left:35.2%;top:36.6%;width:13%;height:9.9%"><div class="subject">Engelska</div><div class="meta">room 201 11:30</div></div>
+  <div class="card" style="left:49.3%;top:36.6%;width:13%;height:9.9%"><div class="subject">NO</div><div class="meta">rummet</div></div>
+  <div class="card" style="left:63.4%;top:36.6%;width:13%;height:9.9%"><div class="subject">NO</div><div class="meta">2200t</div></div>
+
+  <div class="r r-lunch-band lunch-band"><div class="tag"><span style="left:0%">Lunch 11:30</span><span style="left:20%">Lunch 12:00</span><span style="left:40%">Lunch 11:15</span><span style="left:60%">Lunch 11:45</span><span style="left:80%">Lunch 12:15</span></div></div>
+  <div class="r r-paus-band paus-band"><span style="left:12%">Paus</span><span style="left:48%">Paus</span><span style="left:82%">Paus</span></div>
+
+  <div class="card" style="left:6.9%;top:55.8%;width:13%;height:8.6%"><div class="subject">Engelska</div><div class="meta">room C0 11:30</div></div>
+  <div class="card" style="left:21%;top:55.8%;width:13%;height:8.6%"><div class="subject">Kemi</div><div class="meta">room C20 12:30</div></div>
+  <div class="card" style="left:49.3%;top:55.8%;width:13%;height:8.6%"><div class="subject">NO</div><div class="meta">rummet</div></div>
+  <div class="card empty-grey" style="left:6.9%;top:66.6%;width:13%;height:6%"></div>
+  <div class="card" style="left:21%;top:65.2%;width:13%;height:6.6%"><div class="subject">NO</div><div class="meta">room 204 11:15</div></div>
+  <div class="card empty-white" style="left:49.3%;top:65%;width:13%;height:6.6%"><div class="subject">.</div></div>
+  <div class="card empty-grey" style="left:6.9%;top:74%;width:13%;height:6%"></div>
+
+  <div class="r r-now-line" aria-hidden="true"><span class="now-line"></span></div>
+
+  <div class="r r-lit-block card lit">
+    <div class="subject">Kemi kap 3</div><div class="meta">10:15</div><span class="nu-badge">NU</span>
   </div>
-</main>
+
+  <h2 class="r r-rail-heading rail-heading">Idag</h2>
+  <section class="r r-rail-rows rail-rows" aria-label="Idag">
+    <div class="card"><b>Svenska</b><time>08:15</time></div>
+    <div class="card"><b>Kemi</b><time>10:15</time></div>
+    <div class="card"><b>Idrott</b><time>12:30</time><span class="icon-dot">✻</span></div>
+  </section>
+  <div class="r r-nasta-chip nasta-chip">Nästa<br>om 22 min</div>
+
+  <h2 class="r r-inlamning-heading inlamning-heading">Inlämning:</h2>
+  <section class="r r-checklist-rows checklist" aria-label="Inlamning">
+    <div class="card klar">Svenska uppsats — klar</div>
+    <div class="card">Matematikprov — sparat</div>
+    <div class="card">Engelska ordlista — ej startad</div>
+  </section>
+
+  <footer class="r r-footer">v. 42</footer>
+</div>
 </body>
 </html>

@@ -1,0 +1,24 @@
+/* The Weekly Schema Grid — signature motion: the week breathes around "now" */
+.card { transition: transform .14s ease, box-shadow .14s ease; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(22, 24, 34, .12); }
+.card.lit { box-shadow: 0 0 0 0 rgba(86, 78, 243, .35); animation: lit-breathe 3.2s ease-in-out infinite; }
+@keyframes lit-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122, 116, 255, .0); }
+  50% { box-shadow: 0 0 22px 2px rgba(122, 116, 255, .22); }
+}
+.now-line { animation: now-pulse 3.2s ease-in-out infinite; }
+@keyframes now-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+.nu-badge { animation: nu-blink 1.6s steps(2, jump-none) infinite; }
+@keyframes nu-blink { 50% { opacity: .55; } }
+.rail-rows .card, .checklist .card { animation: rise .4s ease backwards; }
+.rail-rows .card:nth-child(2) { animation-delay: .05s; }
+.rail-rows .card:nth-child(3) { animation-delay: .10s; }
+.checklist .card:nth-child(2) { animation-delay: .05s; }
+.checklist .card:nth-child(3) { animation-delay: .10s; }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+.day-labels .chip { transition: background .12s ease; cursor: pointer; }
+.day-labels .chip:hover { background: #e7eaeb; }
+@media (prefers-reduced-motion: reduce) {
+  .card, .card:hover { transition: none; transform: none; }
+  .card.lit, .now-line, .nu-badge, .rail-rows .card, .checklist .card { animation: none; }
+}

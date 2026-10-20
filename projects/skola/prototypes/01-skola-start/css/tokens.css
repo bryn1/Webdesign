@@ -1,0 +1,38 @@
+/* Skola — pinned token world (projects/skola/DESIGN.md). Zinc ground, one indigo voice, 4px rhythm. */
+:root {
+  --ink: #16171a;
+  --ink-secondary: #6e737c;
+  --paper: #ffffff;
+  --paper-tinted: #f9fafb;
+  --paper-inset: #f3f4f7;
+  --hairline: #e9ebef;
+  --stroke: #dfe1e6;
+  --indigo: #564ef3;
+  --indigo-deep: #4332d5;
+  --indigo-rail: #3425a8;
+  --indigo-veil: rgba(86, 78, 243, 0.08);
+  /* Major Third scale (16px body) */
+  --fs-label: 12.8px;
+  --fs-body: 16px;
+  --fs-title: 20px;
+  --fs-display: 25px;
+  /* spacing rhythm */
+  --s-xs: 4px; --s-sm: 8px; --s-md: 12px; --s-lg: 16px; --s-xl: 24px; --s-xxl: 32px;
+  --font-display: 'Mada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f3f4f7;
+    --ink-secondary: #c6c9d0;
+    --paper: #060708;
+    --paper-tinted: #0c0d0f;
+    --paper-inset: #16171a;
+    --hairline: #25272b;
+    --stroke: #303238;
+    --indigo: #7682ff;
+    --indigo-deep: #8a7bff;
+    --indigo-rail: #2a1f8f;
+    --indigo-veil: rgba(118, 130, 255, 0.12);
+  }
+}
