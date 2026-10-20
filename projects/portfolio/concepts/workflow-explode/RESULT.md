@@ -313,3 +313,19 @@ Machine-readable records (committed, and served at :8092 so a curl PROBE can rea
 > false and counters/cap non-intersect at t in {40.6,42.5,49.3}. Gate: # QUALITY: PASS, exit 0
 > (1.0.5, 10/10 — the 7/7 floor grew three record-checks since 1.0.1). PNGs: 1440x900 + 1900x823
 > at t=44 and t=48.6 in the same run dir.
+
+## MC 10493 — resize/refresh from-state check (2026-10-20, measured on 697d42a)
+
+> DoD repro green with fresh per-phase st.start reads: entrance t=44 [alpha 1, scale 1]; after
+> exit at t=50 [0, 0.85]; resize 1900x823 -> 1440x900 and scrub back to t=44: [44, 1, 1] —
+> alpha 1, scale-match 0.000 (bar <= 0.005). The 0.154/0.873 in the DA by-probe is the SAME
+> timeline read with a stale PRE-resize pin start (-0.001 vs post-resize -683; range stays
+> 7200 px): 5280 px then maps to t=49.69, whose scrub values are alpha 0.1545/scale 0.873.
+> Mechanism already restores per refresh: invalidateOnRefresh:true (main.js:34) re-inits the
+> timeline and every entrance layer carries EXPLICIT from-states (fromTo .hub 40.2 s, three
+> spokes 41 s; .hubg is a set at 40 s), so no special-case patch is needed. Battery unchanged
+> on this tree: exit sweep 1900x823 0/12, vh=591 0/4, pill clearance 25/25, c4 dashoffset
+> 230->0 (9 samples, strictly decreasing) + arrowhead 0,0@<=24.5 -> 1,1@26.5, mobile 375 no
+> overflow + non-intersect 3/3, quality-gate all checks PASS exit 0 (engine now 10 checks).
+> Instruments + full rows: .tmp/gsap-refresh-repro.mjs, .tmp/gsap-refresh-battery.mjs,
+> .tmp/gsap-refresh-result.md (VERDICT: DONE).
