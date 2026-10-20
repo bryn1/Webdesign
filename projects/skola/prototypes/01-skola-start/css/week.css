@@ -17,9 +17,9 @@ header.r-wordmark, header.r-header-tabs { z-index: 5; }
   display: flex; align-items: center; height: 100%;
 }
 .header-rule { position: absolute; left: 0; right: 0; top: 7.2%; height: 1px; background: var(--hairline); }
-.tabs { display: flex; gap: var(--s-xl); align-items: flex-start; font-family: var(--font-display); }
-.tabs a { text-decoration: none; color: #5d5f60; font-size: calc(var(--r-header-tabs-font) * 0.97); letter-spacing: -2px; padding-bottom: 4px; }
-.tabs a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom: 3px solid var(--indigo); }
+.tabs { display: flex; gap: var(--s-xl); align-items: flex-start; font-family: var(--font-display); background: #edeff0; border-radius: 10px; padding: 4px 6px 2px 2px; }
+.tabs a { text-decoration: none; color: #565d6b; font-weight:700; font-size: calc(var(--r-header-tabs-font) * 1.08); letter-spacing: -1px; padding-bottom: 4px; }
+.tabs a[aria-current="page"] { color: var(--ink); font-weight: 700;  }
 /* grid field: one undivided element — ground + five hairline columns */
 .grid-field { background: #dde1e5; border-radius: var(--s-xs);
   background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(20% - 1px), var(--hairline) calc(20% - 1px), var(--hairline) 20%);
