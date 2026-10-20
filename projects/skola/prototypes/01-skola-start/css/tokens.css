@@ -1,5 +1,6 @@
 /* Skola — pinned token world (projects/skola/DESIGN.md). Zinc ground, one indigo voice, 4px rhythm. */
 :root {
+  color-scheme: light;
   --ink: #16171a;
   --ink-secondary: #6e737c;
   --paper: #ffffff;
@@ -21,7 +22,9 @@
   --font-display: 'Mada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
+/* dark parity is a semantic-layer feature: applied via [data-theme="dark"], not OS preference
+   (the comp world is light; auto-dark produced illegible mixes on dark-mode phones) */
+html[data-theme="dark"] {
   :root {
     --ink: #f3f4f7;
     --ink-secondary: #c6c9d0;

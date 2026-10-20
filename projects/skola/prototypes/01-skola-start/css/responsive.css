@@ -3,11 +3,27 @@
 @media (max-width: 560px) {
   /* phone: stack — the rail and checklist flow under the grid instead of beside it */
   .sheet { zoom: 1; width: 100%; height: auto; min-height: 100vh; overflow: hidden; }
-  .sheet .r, .sheet .card, .sheet .tabs, .sheet .search-pill, .sheet header, .sheet footer { position: static; }
-  .grid-field, .ruler, .now-line, .hair2 { display: none; }
-  header { display: flex; justify-content: space-between; padding: 12px 16px; }
-  .day-labels, .rail-rows, .checklist, .r-lunch-band, .r-paus-band { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 16px; }
-  .day-labels .chip { flex: 1 1 24%; height: 44px; display: flex; align-items: center; justify-content: center; }
-  .rail-rows .card, .checklist .card { width: 100%; height: auto; padding: 12px 16px; }
-  .card { position: static; width: auto; height: auto; margin: 8px 16px; padding: 12px 16px; }
+  .sheet .r, .sheet .card, .sheet header, .sheet footer { position: static !important; left: auto !important; top: auto !important; width: auto !important; height: auto !important; }
+  .sheet .card { margin: 10px 16px; padding: 14px 16px; text-align: left; }
+  .grid-field, .ruler, .now-line, .hair2, .search-pill, .r-today-chip, .r-nasta-chip, .r-grid-caret, .nu-badge, .icon-dot { display: none !important; }
+  .sheet .card:empty { display: none; }
+  header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 16px 8px; }
+  .header-rule { display: none; }
+  .day-labels { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 16px 0; }
+  .day-labels .chip { flex: 1 1 28%; margin: 0; height: 44px; display: flex; align-items: center; justify-content: center; }
+  .r-lunch-band, .r-paus-band { padding: 12px 16px !important; }
+  .lunch-band .tag { position: static; }
+  .lunch-band .tag span, .paus-band span { position: static; display: inline-block; width: auto; margin-right: 14px; font-size: 15px; }
+  .paus-band { background: #eef0f1; border-radius: 8px; margin: 0 16px; padding: 12px 16px; }
+  .rail-heading, .checklist-heading, .today-pill { font-size: 22px; }
+  .rail-rows, .checklist { padding: 0 0 8px; }
+  .rail-rows .card, .checklist .card { margin: 8px 16px; width: auto !important; height: auto !important; padding: 12px 16px; }
+  .rail-rows .card { display: flex; justify-content: space-between; gap: 12px; }
+  .checklist .card { display: block; }
+  footer { padding: 16px; }
+}
+@media (max-width: 1024px) { /* narrow desktop / desktop-mode phone: keep labels off each other */
+  .lunch-band .tag span { font-size: 15px; }
+  .wordmark { font-size: 26px; }
+  .tabs a { font-size: 18px; }
 }
