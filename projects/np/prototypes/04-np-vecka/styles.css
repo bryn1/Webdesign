@@ -1,0 +1,205 @@
+/* VECKOSCHEMAT — the printed week schema over the classroom door.
+   One stylesheet for the four screens. No webfonts, no remote URLs. */
+
+:root{
+  --paper:#faf8f3; --paper-2:#f2eee4; --rule:#c9c3b6; --rule-2:#ded8cb;
+  --ink:#15181b; --muted:#4b5157; --box:2px; --ratt:#1d4024; --fel:#8a2417;
+  --band:#eef0ea; --band-deep:#f2eee4; --band-ink:#15181b;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+/* ONE hue band per subject — each band holds AA against its own ink (measured, meta.json) */
+.sub-engelska{--band:#e2ecd4;--band-deep:#cee1b3;--band-ink:#23331b}
+.sub-franska{--band:#f4dcd7;--band-deep:#eebcb2;--band-ink:#48201a}
+.sub-matematik{--band:#d8e4f0;--band-deep:#b6cee7;--band-ink:#14283c}
+.sub-biologi{--band:#d5ecd6;--band-deep:#b5e1b7;--band-ink:#194026}
+.sub-fysik{--band:#d9def1;--band-deep:#b7c1e8;--band-ink:#222547}
+.sub-kemi{--band:#d3ebe6;--band-deep:#b3e0d6;--band-ink:#10352d}
+.sub-religion{--band:#e5dcf0;--band-deep:#cebbe5;--band-ink:#361f47}
+.sub-geografi{--band:#f0e0b4;--band-deep:#eed48b;--band-ink:#3d2b08}
+.sub-historia{--band:#eedbc9;--band-deep:#e7c5a4;--band-ink:#442618}
+.sub-samhallskunskap{--band:#f3dbe2;--band-deep:#ebb8c7;--band-ink:#431d2e}
+.sub-spanska{--band:#eaecc6;--band-deep:#e1e5a2;--band-ink:#33380c}
+.sub-tyska{--band:#e3ded2;--band-deep:#d4cbb6;--band-ink:#2b271f}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.45;font-variant-numeric:tabular-nums lining-nums;
+  overflow-wrap:anywhere}
+p,h1,h2,h3,ul,ol,dl,dd,dt,figure{margin:0}
+ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+strong{font-weight:700}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+:where(a,summary,audio):focus-visible{outline:var(--box) solid var(--ink);outline-offset:2px}
+
+/* ── the sheet of paper ─────────────────────────────────────────── */
+.shell{max-width:46rem;margin:0 auto;padding:0 12px 40px;background:var(--paper);
+  border-left:1px solid var(--rule-2);border-right:1px solid var(--rule-2)}
+@media (min-width:900px){.shell{max-width:56rem;padding:0 24px 56px}}
+
+/* ── header: the schema hanging on the wall ─────────────────────── */
+.top{padding-top:10px;border-bottom:1px solid var(--ink)}
+.prod{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.vecka{display:none;gap:0;margin-top:10px;color:var(--muted);font-size:.68rem;font-weight:700;
+  letter-spacing:.24em}
+.vecka span{flex:1;text-align:center;padding:2px 0;border-left:1px solid var(--rule-2)}
+.vecka span:first-child{border-left:0}
+/* at phone width the week rail collapses to the three ladder cells only */
+@media (min-width:700px){.vecka{display:flex}}
+
+/* ── the ladder rail: ämne → ämnesområde → fråga ────────────────── */
+.rail{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  margin-top:8px;--fx:-100%;--fy:0%}
+.rail .cell{padding:8px 6px 10px;min-height:62px}
+.rail .cell .es{font-size:.6rem;letter-spacing:.04em}
+.rail .cell .var{font-size:.85rem;line-height:1.25;overflow-wrap:normal;hyphens:auto}
+.rail .cell + .cell{border-left:1px solid var(--rule)}
+
+/* ── the cell, and the signature move: rutan är öppen ───────────── */
+.cell{position:relative;display:flex;flex-direction:column;justify-content:center;gap:1px;
+  min-height:52px;padding:9px 10px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.cell::before{content:"";position:absolute;inset:0;border:var(--box) solid var(--ink);
+  pointer-events:none;opacity:0}
+/* the box slides out of the cell before it — the hand-over, 0.2 s */
+.cell[data-ruta]::before,.cell:is(:hover,:focus-visible)::before{opacity:1;
+  animation:overlamnande .2s ease-out both}
+/* and the cell that handed it over lets go of its dashed box */
+.cell:has(+ .cell[data-ruta]),.cell:has(+ .cell:is(:hover,:focus-visible))::before{
+  opacity:1;border-style:dashed;animation:oppgift .2s linear both}
+/* the ladder step you stand on is filled, the open cell is the one boxed */
+.rail .cell[aria-current="step"]{background:var(--band-deep);color:var(--band-ink);
+  box-shadow:inset 0 var(--box) 0 var(--ink)}
+.rail .cell[aria-current="step"] .es{color:var(--band-ink)}
+@keyframes overlamnande{from{opacity:.2;transform:translate(var(--fx,0%),var(--fy,-100%))}
+  to{opacity:1;transform:translate(0,0)}}
+@keyframes oppgift{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cell::before{animation:none !important}}
+
+.es{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  hyphens:none;word-break:keep-all}
+.es--blk{display:block;margin-top:16px}
+.var{font-weight:600}
+.cell--band{background:var(--band);color:var(--band-ink)}
+.cell--band .es{color:var(--band-ink)}
+.cell:hover{background:var(--band-deep)}
+.cell--band:hover{background:var(--band-deep)}
+
+/* ── the day's column: ruled cells with the count as the number ─── */
+.grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);
+  margin-top:16px;border-top:1px solid var(--ink);--fx:0%;--fy:-100%}
+@media (min-width:700px){.grid{--fx:-100%;--fy:0%}}
+@media (min-width:1000px){.grid--amnen{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.grid .cell + .cell{border-left:1px solid var(--rule)}
+@media (min-width:1000px){
+  .grid--amnen .cell:nth-child(2n+1){border-left:0}
+  .grid--amnen{--fx:-100%;--fy:-100%}
+}
+.row{display:flex;flex-direction:column;gap:2px}
+.kod{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  hyphens:none;word-break:keep-all}
+.cell--band .kod{color:var(--band-ink)}
+.namn{font-weight:600}
+.antal{display:flex;align-items:baseline;gap:6px;margin-top:1px}
+.antal b{font-size:1.4rem;font-weight:700;line-height:1}
+.enhet{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+/* ── breadcrumb on the deep screens ─────────────────────────────── */
+.brev{display:flex;flex-wrap:wrap;align-items:center;gap:0 8px;padding-top:4px;
+  font-size:.82rem;color:var(--muted)}
+.brev a{display:inline-flex;align-items:center;min-height:44px;padding:0 3px;
+  text-decoration:underline;text-underline-offset:3px}
+.brev b{color:var(--ink)}
+.brev .pil{font-weight:700;color:var(--muted)}
+
+/* ── headings ───────────────────────────────────────────────────── */
+h1{font-size:1.3rem;line-height:1.25;margin-top:16px}
+.lead{margin-top:6px;color:var(--muted);font-size:.9rem}
+.avd{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  margin-top:26px;padding-top:8px;border-top:1px solid var(--ink)}
+.avd h2{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+
+/* ── the enlarged current cell ──────────────────────────────────── */
+.cell--ruta{display:block;min-height:0;padding:14px 12px;margin-top:14px;
+  background:var(--band-deep);color:var(--band-ink)}
+.cell--ruta.papper{background:var(--paper);color:var(--ink)}
+.q{font-size:1.25rem;font-weight:600;line-height:1.3;padding:2px 0 12px}
+@media (min-width:700px){.q{font-size:1.45rem}}
+.radr{border-top:1px dashed var(--rule)}
+.radr > div{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:8px 0;
+  border-bottom:1px dashed var(--rule)}
+.radr dt{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  min-width:6.6rem}
+.radr dd{flex:1 1 12rem;font-size:.95rem;font-weight:600}
+.cell--ruta .radr dt,.cell--ruta .es,.cell--ruta .kod{color:var(--band-ink)}
+
+/* ── the anteckning flap ────────────────────────────────────────── */
+.flap{margin-top:14px;background:var(--paper-2);border:1px solid var(--rule)}
+.flap > summary{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 12px;
+  cursor:pointer;list-style:none;font-weight:700;font-size:.92rem}
+.flap > summary::-webkit-details-marker{display:none}
+.flap > summary::after{content:"+";margin-left:auto;font-size:1.3rem;line-height:1}
+.flap[open] > summary::after{content:"\2212"}
+.flap[open] > summary{border-bottom:1px solid var(--rule)}
+.in{padding:12px}
+.in h3{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-top:14px}
+.in h3:first-child{margin-top:0}
+.in p,.in li{font-size:.92rem;padding:5px 0;border-bottom:1px dashed var(--rule-2)}
+.in p:last-child,.in li:last-child{border-bottom:0}
+
+/* ── rätt / fel: glyph + word, never colour alone ───────────────── */
+.cue{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px dashed var(--rule)}
+.cue .m{min-width:5rem;font-weight:700}
+.cue .t{flex:1 1 14rem}
+.cue--ratt .m{color:var(--ratt)}
+.cue--fel .m{color:var(--fel)}
+
+/* ── the real letter/column grid (matrix) ───────────────────────── */
+.matrix{width:100%;table-layout:auto;border-collapse:collapse;margin-top:12px;font-size:.88rem}
+.matrix caption{text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;padding-bottom:6px;color:var(--muted)}
+.matrix th,.matrix td{padding:10px 6px;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);overflow-wrap:normal;word-break:normal;hyphens:manual}
+.matrix th[scope="col"]{border-bottom:1px solid var(--ink);font-size:.66rem;
+  letter-spacing:.02em;text-transform:uppercase}
+.matrix th[scope="row"]{font-weight:400}
+.matrix td{text-align:center;padding:13px 4px;font-weight:700;white-space:nowrap}
+.matrix thead th,.matrix td{width:1%}
+.matrix th[scope="row"]{width:auto}
+.matrix .x{font-size:1.05rem}
+.matrix .nr{margin-right:6px;font-weight:700}
+.matrix th[scope="col"] + th,.matrix td + td{border-left:1px solid var(--rule-2)}
+
+/* ── the day's column of short rows + the three option shapes ───── */
+.cell--remsa{flex-direction:row;align-items:baseline;gap:10px}
+.cell--remsa .nr{font-size:1.05rem}
+.cell--remsa .fraga{flex:1 1 12rem}
+.cell--remsa .p{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.grid .cell[aria-current="true"]{background:var(--band-deep)}
+.prov{margin-top:12px;padding:12px;border:1px solid var(--rule);background:var(--paper-2)}
+.prov > .kod{display:block;margin-bottom:8px}
+.prov p{font-size:.9rem;padding:6px 0;border-bottom:1px dashed var(--rule-2)}
+.tomruta{display:block;min-height:44px;border:1px dashed var(--rule);background:var(--paper);
+  padding:12px;font-weight:700}
+.pkt{display:grid;grid-template-columns:minmax(0,1fr);gap:0 14px}
+.pkt li{display:flex;justify-content:space-between;gap:8px;padding:5px 0;
+  border-bottom:1px dashed var(--rule-2);font-size:.8rem}
+.pkt b{font-weight:700}
+@media (min-width:700px){.pkt{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.pkt{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ── the listening cell ─────────────────────────────────────────── */
+.ljud{margin:12px 0 4px}
+.ljud audio{display:block;width:100%;min-height:44px;background:var(--paper)}
+.bok{border-top:1px solid var(--ink)}
+.bok > li{display:flex;align-items:baseline;gap:10px;padding:10px 0;min-height:44px;
+  border-bottom:1px solid var(--rule)}
+.bok .b{min-width:1.8rem;font-weight:700}
+.bok .r{flex:1}
+.bok .vald{font-weight:700;color:var(--ratt)}
+
+/* ── footer: the next cell of the week ──────────────────────────── */
+.botten{margin-top:26px;border-top:1px solid var(--ink);display:flex;flex-wrap:wrap}
+.botten .cell{flex:1 1 14rem}
+.botten .cell + .cell{border-left:1px solid var(--rule)}

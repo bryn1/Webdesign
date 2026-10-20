@@ -1,0 +1,11 @@
+{
+  "key": "facit",
+  "title": "Facitspalten",
+  "world": "Arbetsbokens facitspalt: varm nearvit pappersyta (aldrig #fff), tryckt bläcksvart text, linjerade rader och en enda rödpenna reserverad för rättning och inget annat.",
+  "first_viewport": "På telefon: frågan som en bred linjerad rad med hängande nr 1, 1–39-rutan som sessionens ryggrad strax ovanför, och facit redan vridet till baksidan i ett tryckt fält där svaret står kort.",
+  "signature_move": "vrid om-sidan — frågesidan och facitsidan är samma ark, och tillståndsskiftet är att arket vrids (0,2 s, direkt under prefers-reduced-motion), aldrig en modal; 1–39-rutan fyller en ruta per facitad fråga på varje skärm.",
+  "risk": "Den mest bekanta landningsplatsen i kategorin — en varm pappersarbetsbok kan likna alla andra quizappar om inte de linjerade raderna, rutraden och rödpennan bär den; bekantskapet är priset.",
+  "verdict": "pick",
+  "contrast": "beräknad relativ luminans ur egna hex: ink #1f1d19 / paper #f7f2e9 15.09:1 · ink / facitfält #efe7d6 13.68:1 · muted #5c5647 / paper 6.55:1 · muted / facitfält 5.93:1 · röd penna #a0261d / paper 6.75:1 · röd / facitfält 6.12:1 · paper / bläckruta 15.09:1 (WCAG-formeln rätt ur hex-värdena i styles.css; alla textpar över 4.5)",
+  "files": ["index.html", "amne.html", "frage.html", "lyssna.html", "styles.css"]
+}

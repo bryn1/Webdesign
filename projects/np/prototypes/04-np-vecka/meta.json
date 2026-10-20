@@ -1,0 +1,17 @@
+{
+ "key": "vecka",
+ "title": "Veckoschemat",
+ "world": "Det utskrivna veckoschemat över klassdörren: ljus pappersgrund, tunt linjalt rutnät, svart humanistisk systemtyp och ett färgband per ämne som bär samma nyans genom alla fyra skärmarna.",
+ "first_viewport": "I 375 px överst ladder-räcket ämne → ämnesområde → fråga i tre celler, där dagens steg är mörkare och den öppna rutan är boxad, och under det dagens celler med antalet som cellens tal.",
+ "signature_move": "rutan är öppen — 2 px-boxen som visar var man är i veckan glider ut ur föregående cell på 0,2 s medan den föregående släpper sin streckade kant; med prefers-reduced-motion sker bytet utan animation.",
+ "risk": "De tolv banden är ljusa pappersnyanser och engelska, spanska och geografi ligger nära varandra i grön-gult, så på en ojusterad skärm måste ämneskoden och namnet bära — färgen är aldrig den enda ledtråden.",
+ "verdict": "competitive",
+ "contrast": "text #15181b på #faf8f3 = 16.79:1; label #4b5157 på #faf8f3 = 7.57:1; engelska: band #e2ecd4 mot egen bläck #23331b = 11.01:1; franska: band #f4dcd7 mot egen bläck #48201a = 10.73:1; matematik: band #d8e4f0 mot egen bläck #14283c = 11.64:1; biologi: band #d5ecd6 mot egen bläck #194026 = 9.32:1; fysik: band #d9def1 mot egen bläck #222547 = 11.01:1; kemi: band #d3ebe6 mot egen bläck #10352d = 10.7:1; religion: band #e5dcf0 mot egen bläck #361f47 = 10.96:1; geografi: band #f0e0b4 mot egen bläck #3d2b08 = 10.36:1; historia: band #eedbc9 mot egen bläck #442618 = 10.16:1; samhallskunskap: band #f3dbe2 mot egen bläck #431d2e = 11.03:1; spanska: band #eaecc6 mot egen bläck #33380c = 10.11:1; tyska: band #e3ded2 mot egen bläck #2b271f = 11.07:1; engelska: öppen ruta #cee1b3 mot black #23331b = 9.64:1; franska: öppen ruta #eebcb2 mot black #48201a = 8.33:1; rätt/fel-text: #1d4024 = 10.92:1, #8a2417 = 8.44:1 på #faf8f3",
+ "files": [
+  "index.html",
+  "amne.html",
+  "frage.html",
+  "lyssna.html",
+  "styles.css"
+ ]
+}

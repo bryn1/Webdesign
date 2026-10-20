@@ -1,0 +1,11 @@
+{
+  "key": "gate",
+  "title": "Gateboard",
+  "world": "Avgångstavlan och bordingkortet: mattsvarta tavlor med vit press och en enda amber för larm, frågan som ett stämplat resedokument med perforerad klaff och facittryck på avsnittet.",
+  "first_viewport": "På telefon: listsidorna öppnar med svart tavla vars rader är avgångar (kod/namn/antal, sedan NR · FRÅGA · TYP · STATUS); frågesidan öppnar med passets huvudsegment och den utstansade beteckningen 559.",
+  "signature_move": "Rowen byter inte plats — ett statusbyte stiliserar om raden på sin plats, håller amberfärgen 0,2 s och låter den brinna tills besökaren går vidare; vid reducerad rörelse är övergången omedelbar.",
+  "risk": "Resetryck är ett identifieringsmedium mot vardagsbrädet i klassrummet; på 1440 kan den neutrala paletten bli monotom om kolumnrytmen i tavlan inte bär skalan.",
+  "verdict": "competitive",
+  "contrast": "beräknad relativ luminans ur egna hex: ink #141414 / paper #F4F2EC 16.46:1 · silver #C6C6BE / ink 10.72:1 · amber #FFB300 / ink 10.26:1 · ink / amber (tänd rad) 10.26:1 · grey #6A6A62 / paper 4.87:1 · amber på paper 1.6:1 är förbjuden som text",
+  "files": ["index.html", "amne.html", "frage.html", "lyssna.html", "styles.css"]
+}

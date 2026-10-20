@@ -1,0 +1,244 @@
+/*
+  TAVLAN — the classroom chalkboard. One sheet for the four picker screens.
+  Drenched board green edge to edge, chalk-white ink, amber for STATE ONLY
+  (right / wrong / active / focus). System stacks only, no webfonts.
+  The number column (ui-monospace, tabular figures) is the spine on every screen.
+  Contrast (measured from these hex values, WCAG relative luminance):
+    chalk #f4f5f0 / board #24362c 11.7:1 · chalk / board-2 #1d2c24 13.3:1
+    chalk / board-3 #2b3e34 10.4:1 · dim #c2ccbe / board 7.7:1 · amber #eda63f / board 6.2:1
+*/
+
+:root {
+  color-scheme: dark;
+  --board: #24362c;
+  --board-2: #1d2c24;
+  --board-3: #2b3e34;
+  --chalk: #f4f5f0;
+  --dim: #c2ccbe;
+  --amber: #eda63f;
+  --hair: rgba(244, 245, 240, .28);
+  --sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 16px/20px var(--sans);
+  color: var(--chalk);
+  background-color: var(--board);
+  background-image:
+    radial-gradient(150% 62% at 50% -8%, var(--board-3) 0%, var(--board) 52%, var(--board-2) 100%),
+    repeating-linear-gradient(0deg, rgba(244, 245, 240, .02) 0 2px, rgba(244, 245, 240, 0) 2px 7px);
+  background-attachment: fixed;
+}
+
+a { color: var(--chalk); text-decoration: none; }
+a:hover, a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+code, .n, .lt, .facts b, .cnt { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+code { overflow-wrap: anywhere; }
+h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.01em; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 32px; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 8px; top: 8px; z-index: 30; display: inline-flex; align-items: center; min-height: 44px; background: var(--amber); color: #1d2c24; padding: 0 16px; }
+
+/* ── the chalk header rail: product name + the three-step crumb, one hairline ── */
+.rail { position: sticky; top: 0; z-index: 10; background: var(--board-2); border-bottom: 1px solid var(--hair); }
+.rail-in { max-width: 720px; margin: 0 auto; padding: 8px 16px; }
+.rail-k {
+  margin: 0; font-size: 12px; line-height: 16px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; font-variant-caps: small-caps;
+}
+.crumbs { display: flex; flex-wrap: wrap; gap: 0 8px; margin: 4px 0 0; font-size: 13px; line-height: 16px; color: var(--dim); }
+.crumbs a { color: var(--dim); display: inline-block; padding: 14px 2px; margin: -14px -2px; }
+.crumbs a:hover, .crumbs a:focus-visible { color: var(--chalk); }
+.crumbs [aria-current] { color: var(--chalk); }
+.crumbs i { font-style: normal; color: var(--hair); }
+
+/* ── the ruled numbered list: one grammar for ämne, ämnesområde, alternativ ── */
+.lede { margin: 16px 0 0; font-size: 13px; line-height: 16px; color: var(--dim); }
+.ladder { list-style: none; margin: 12px 0 0; padding: 0; border-top: 1px solid var(--hair); }
+.ladder li { border-bottom: 1px solid var(--hair); }
+.ladder a {
+  display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 0 12px; align-items: baseline;
+  min-height: 44px; padding: 8px 0;
+}
+.ladder a:hover, .ladder a:focus-visible { background: rgba(244, 245, 240, .06); text-decoration: none; }
+.n { display: block; font-size: 15px; line-height: 20px; color: var(--dim); letter-spacing: .04em; }
+.lab { font-size: 17px; line-height: 24px; }
+.code { display: block; font-family: var(--mono); font-size: 11px; line-height: 16px; letter-spacing: .06em; color: var(--dim); font-style: normal; }
+.cnt { font-size: 13px; color: var(--dim); white-space: nowrap; }
+.cnt b { color: var(--chalk); font-weight: 600; }
+.here-mark { display: block; font-size: 10px; line-height: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.page-h { margin: 16px 0 0; font-size: 20px; line-height: 24px; }
+.state-note { margin: 8px 0 0; font-size: 12px; line-height: 16px; color: var(--dim); }
+
+/* ── the question: the number at 40px beside the text, boxed by a 2px chalk rule ── */
+.q {
+  display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 0 12px;
+  margin: 16px 0 0; padding: 12px; border: 2px solid var(--chalk); background: rgba(43, 62, 52, .55);
+}
+.q-side { position: relative; }
+.q-n { font-size: 40px; line-height: 44px; letter-spacing: -.02em; font-weight: 500; }
+.q-tag { display: block; font-size: 10px; line-height: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.q-text { margin: 0; max-width: 34ch; font-size: 20px; line-height: 30px; font-weight: 600; hyphens: auto; overflow-wrap: break-word; }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 0; font-size: 12px; line-height: 16px; color: var(--dim); }
+.facts b { color: var(--chalk); font-weight: 600; }
+
+/* ── SIGNATURE MOVE: kritt-strecken vid numret — facit written beside the number ── */
+.stroke {
+  position: absolute; left: 0; top: 52px; width: 48px; height: 3px;
+  background: var(--chalk); transform: rotate(-3deg); clip-path: inset(0 100% 0 0);
+}
+.lamp { display: inline-block; width: 10px; height: 10px; border: 1px solid var(--hair); border-radius: 50%; flex: none; }
+.done .stroke { animation: kritt .2s linear both; }
+.done .lamp, .is-ok .lamp { background: var(--chalk); border-color: var(--chalk); }
+.is-fel .lamp { background: var(--amber); border-color: var(--amber); }
+@keyframes kritt { to { clip-path: inset(0 0 0 0); } }
+
+/* ── facit, below the fold, in the same chalk vocabulary ── */
+.facit { margin: 16px 0 0; border-top: 1px solid var(--hair); }
+.facit summary {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 0;
+  font-size: 12px; line-height: 16px; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; list-style: none;
+}
+.facit summary::-webkit-details-marker { display: none; }
+.facit summary::after { content: "Öppna"; margin-left: auto; color: var(--dim); letter-spacing: .1em; }
+.facit[open] summary::after { content: "Stäng"; }
+.facit-in { max-width: 72ch; padding: 0 0 16px; font-size: 15px; line-height: 24px; }
+.facit-in p { margin: 0 0 8px; }
+.facit-in h3 { margin: 16px 0 4px; font-size: 13px; line-height: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.facit-in ul { margin: 0; padding-left: 20px; }
+.facit-in li { margin: 0 0 4px; font-size: 14px; line-height: 20px; }
+.kass { padding: 8px 12px; border: 2px solid var(--chalk); font-weight: 600; font-size: 16px; line-height: 24px; }
+.nil { font-size: 12px; line-height: 16px; color: var(--dim); }
+.nil code { font-size: 11px; }
+.lvl { font-size: 14px; line-height: 20px; }
+.lvl b { font-family: var(--mono); }
+
+/* ── the self-check: a rätt / fel cue that never leans on colour alone ── */
+.selfcheck { margin: 16px 0 0; padding: 8px 0 0; border-top: 1px solid var(--hair); }
+.sc-lbl { margin: 0; font-size: 12px; line-height: 16px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.sc-rows { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.selfcheck label { display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 16px; }
+.selfcheck input { width: 20px; height: 20px; accent-color: var(--amber); }
+.verdict { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 16px; color: var(--dim); }
+.verdict.is-ok { color: var(--chalk); }
+.verdict.is-fel { color: var(--amber); }
+.w { display: none; font-style: normal; font-weight: 600; font-size: 12px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; }
+.is-ok .w-ok, .is-fel .w-fel, .is-none .w-none { display: inline; }
+.selfcheck:has(.sc-ok:checked) .verdict { color: var(--chalk); }
+.selfcheck:has(.sc-ok:checked) .lamp { background: var(--chalk); border-color: var(--chalk); }
+.selfcheck:has(.sc-ok:checked) .w-ok { display: inline; }
+.selfcheck:has(.sc-fel:checked) .verdict { color: var(--amber); }
+.selfcheck:has(.sc-fel:checked) .lamp { background: var(--amber); border-color: var(--amber); }
+.selfcheck:has(.sc-fel:checked) .w-fel { display: inline; }
+
+/* ── the option list (letter → text) — the ruled list grammar again ── */
+.opts { margin: 16px 0 0; border-top: 1px solid var(--hair); }
+.opt {
+  display: grid; grid-template-columns: 48px minmax(0, 1fr) 60px; gap: 0 8px; align-items: center;
+  min-height: 48px; padding: 8px 0; border-bottom: 1px solid var(--hair); cursor: pointer;
+}
+.opt:hover { background: rgba(244, 245, 240, .06); }
+.opt input { width: 20px; height: 20px; accent-color: var(--amber); flex: none; }
+.opt .lt { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 15px; color: var(--dim); }
+.opt .ot { font-size: 16px; line-height: 24px; }
+.opt .mark { display: flex; align-items: center; gap: 6px; visibility: hidden; }
+.opt.is-ok .lt, .opt.is-ok .mark { visibility: visible; color: var(--chalk); }
+.opt.is-ok { border-bottom-color: var(--chalk); }
+.opt.is-fel .lt, .opt.is-fel .mark { visibility: visible; color: var(--amber); }
+.opt.is-fel { border-bottom-color: var(--amber); }
+audio { display: block; width: 100%; height: 48px; margin: 16px 0 0; }
+
+/* ── the matrix grid: one header row carries the column names, a body cell is
+   empty except the chalk cross facit points at ── */
+.gridq { margin: 24px 0 0; }
+.matrix { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.matrix caption { text-align: left; padding: 8px 0; font-size: 15px; line-height: 24px; }
+.matrix caption .facts { margin: 8px 0 0; }
+/* the column name is printed once, in the header, in the bank's own spelling —
+   mixed case at 11 px is what actually fits one line inside the cell at 375 */
+.matrix th[scope="col"] {
+  padding: 4px 2px; border-bottom: 2px solid var(--chalk); font-size: 11px; line-height: 14px;
+  letter-spacing: .02em; color: var(--chalk); font-weight: 600;
+  vertical-align: bottom; text-align: center; overflow-wrap: anywhere;
+}
+.matrix th[scope="col"]:first-child { text-align: left; width: 43%; }
+.matrix th[scope="col"]:not(:first-child) { width: 19%; }
+.matrix th[scope="row"] {
+  padding: 8px 8px 8px 0; border-bottom: 1px solid var(--hair);
+  font-size: 12px; line-height: 16px; font-weight: 400; text-align: left; vertical-align: top; hyphens: auto;
+}
+.matrix td {
+  padding: 6px 4px 10px; border-bottom: 1px solid var(--hair); border-left: 1px solid var(--hair);
+  text-align: center; vertical-align: top;
+}
+.matrix td .k { display: block; font: 600 18px/24px var(--mono); color: var(--chalk); }
+.matrix td.ok { box-shadow: inset 0 0 0 2px var(--chalk); }
+
+/* ── the three answer shapes, each labelled as the bank names it ── */
+.form-h {
+  margin: 32px 0 0; padding: 0 0 8px; border-bottom: 1px solid var(--hair);
+  font-size: 12px; line-height: 16px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
+}
+.shape { margin: 24px 0 0; }
+.shape-k {
+  display: inline-block; margin: 0; padding: 4px 8px; border: 1px solid var(--hair);
+  font: 600 12px/16px var(--mono); letter-spacing: .06em; color: var(--chalk);
+}
+.shape-q { margin: 8px 0 0; max-width: 46ch; font-size: 16px; line-height: 24px; hyphens: auto; }
+.plate {
+  position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 240px; margin: 12px 0 0;
+  border: 1px solid var(--hair); background: rgba(43, 62, 52, .4);
+}
+.plate span { position: absolute; border: 1px solid var(--chalk); background: rgba(244, 245, 240, .14); }
+
+/* ── the chalk tray under the thumb: the Svara button, last ~60px ── */
+.tray { position: sticky; bottom: 0; z-index: 10; margin-top: 32px; background: var(--board-2); border-top: 1px solid var(--hair); }
+.tray-in { max-width: 720px; margin: 0 auto; padding: 8px 16px; display: flex; align-items: center; gap: 16px; }
+.btn {
+  min-height: 48px; padding: 0 24px; flex: 1;
+  font: 600 16px/20px var(--sans); letter-spacing: .04em;
+  color: var(--chalk); background: transparent; border: 2px solid var(--chalk); border-radius: 2px; cursor: pointer;
+}
+.btn:hover { background: rgba(244, 245, 240, .1); }
+.btn:active { background: rgba(244, 245, 240, .18); }
+
+.foot { max-width: 720px; margin: 0 auto; padding: 24px 16px 32px; border-top: 1px solid var(--hair); font-size: 12px; line-height: 16px; color: var(--dim); }
+.foot p { margin: 0 0 8px; }
+.foot a { color: var(--chalk); padding: 14px 0; }
+
+/* ── 1440: the number-column rhythm carries the scale, not more colour.
+   Bigger numerals, 4 px rhythm kept tight (8/12/16/24), no new hue is added. ── */
+@media (min-width: 900px) {
+  .rail-in, .wrap, .tray-in, .foot { max-width: 1080px; }
+  body { font-size: 17px; line-height: 24px; }
+  .q { grid-template-columns: 128px minmax(0, 1fr); gap: 0 24px; padding: 24px; margin-top: 24px; }
+  .q-n { font-size: 108px; line-height: 108px; letter-spacing: -.04em; }
+  .q-tag { font-size: 12px; line-height: 16px; }
+  .q-text { font-size: 28px; line-height: 40px; }
+  .stroke { top: 128px; width: 112px; height: 4px; }
+  .ladder a, .ladder .row { grid-template-columns: 72px minmax(0, 1fr) auto; min-height: 48px; padding: 8px 0; }
+  .n { font-size: 28px; line-height: 28px; }
+  .lab { font-size: 22px; line-height: 28px; }
+  .cnt { font-size: 15px; }
+  .form-h { font-size: 14px; line-height: 16px; }
+  .shape-k { font-size: 14px; line-height: 20px; }
+  .shape-q { font-size: 20px; line-height: 32px; }
+  .matrix th[scope="row"] { font-size: 16px; line-height: 24px; }
+  .matrix td .k { font-size: 24px; line-height: 32px; }
+  .tray { position: static; margin-top: 40px; }
+  .btn { flex: none; min-width: 240px; }
+}
+
+/* ── reduced motion: the kritt stroke lands instantly, nothing else moves ── */
+@media (prefers-reduced-motion: reduce) {
+  .done .stroke { animation: none; clip-path: inset(0 0 0 0); }
+  * { scroll-behavior: auto; }
+}

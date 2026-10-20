@@ -1,0 +1,11 @@
+{
+  "key": "tavla",
+  "title": "Tavlan",
+  "world": "Klassrummets gröna tablettavla: drenchad board green #24362c kant till kant, krita vit #f4f5f0 som bläck, en enda amber #eda63f för tillstånd (rätt/fel/aktiv), systemstacks utan webfonts.",
+  "first_viewport": "Kritig header-rail med NATIONELLA PROV · ÅK 9 i small caps + brödsmulor över ett hårstrich; närmast under läs siffran 01 i 40px-monospace bredvid frågetexten i 20px/1.5 i en 2px krit-box; facit öppet under frågan, de tre svarsformerna märkta som banken kallar dem, sista ~60px kritkonturerad Svara vid tumhöjd.",
+  "signature_move": "kritt-strecken vid numret: facit ritas som ett kritstreck i nummerkolumnen bredvid 01 (0,2s line-mask, reduced-motion direkt), fel tänder en amber lampa och raden hoppar aldrig.",
+  "risk": "Ett mättat mörkgrönt fält med bara systemansikter kan platta ut sig på 1440; nummerkolumnens rytm och lampan bär skalan — på 1440 är siffran 108px med 4px-rytm och listraden 48px, ingen ny färg är tillagd.",
+  "verdict": "assigned",
+  "contrast": "chalk #f4f5f0/board #24362c 11.69:1 · chalk/board-2 #1d2c24 13.33:1 · chalk/board-3 #2b3e34 10.41:1 · dim #c2ccbe/board 7.73:1 · dim/board-2 8.81:1 · amber #eda63f/board 6.18:1 · amber/board-3 5.50:1 · board-2 #1d2c24/amber 7.04:1 (WCAG relativ luminans, räknad ur HEX-värdena i styles.css; alla textpar över 4.5)",
+  "files": ["index.html", "amne.html", "frage.html", "lyssna.html", "styles.css"]
+}

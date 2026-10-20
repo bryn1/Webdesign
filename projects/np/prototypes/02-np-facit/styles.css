@@ -1,0 +1,286 @@
+/* FACITSPALTEN — workbook facit page. One workbook, four sheets:
+   the ruled list, the sheet (question + vrid om), the slot strip, the facit column.
+   Palette measured (WCAG relative luminance from these hex values):
+   ink/paper 15.09 · ink/facit-field 13.68 · muted/paper 6.55 · red/paper 6.75 · red/facit-field 6.12 */
+
+:root {
+  --paper: #f7f2e9;      /* warm near-white ground, never #fff */
+  --paper-2: #efe7d6;    /* facit field / printed band */
+  --ink: #1f1d19;        /* ink-black text */
+  --muted: #5c5647;      /* secondary text — 5.93:1 on --paper-2 */
+  --rule: #d9d1be;       /* ruled line, decoration only */
+  --red: #a0261d;        /* red pencil — reserved for correction, nothing else */
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  /* the workbook's horizontal ruling, hairline every 2rem */
+  background-image: repeating-linear-gradient(to bottom, transparent 0 2rem, var(--rule) 2rem calc(2rem + 1px));
+  color: var(--ink);
+  font: 400 1rem/1.5 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+main { max-width: 46rem; margin: 0 auto; padding: 0 1rem 4rem; }
+
+h1, h2, p, ul, ol { margin: 0; }
+ul, ol { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: none; }
+
+.count, .meta { font-variant-numeric: tabular-nums; }
+
+/* — header rail + breadcrumb ————————————————————— */
+.rail {
+  border-bottom: 2px solid var(--ink);
+  padding: .75rem 1rem 0;
+}
+.rail-in { max-width: 46rem; margin: 0 auto; }
+.rail h1 {
+  font: 600 .8125rem/1.3 var(--sans);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.rail .grad { color: var(--muted); font-weight: 400; letter-spacing: .08em; }
+.breadcrumbs { padding: .35rem 0 .6rem; font-size: .875rem; color: var(--muted); }
+.breadcrumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.breadcrumbs [aria-current] { color: var(--ink); }
+.breadcrumbs li { display: inline; }
+.breadcrumbs li + li::before { content: " → "; text-decoration: none; }
+
+/* — the 1..n slot strip: the spine of the session — */
+.slotbar { display: flex; flex-wrap: wrap; gap: .25rem; margin: .9rem 0; }
+.slotbar li {
+  width: 1.75rem; min-height: 1.75rem;
+  border: 1px solid var(--ink);
+  font: 500 .75rem/1.75rem var(--mono);
+  text-align: center;
+  color: var(--muted);
+  background: var(--paper);
+}
+.slotbar .klar { background: var(--ink); color: var(--paper); }         /* answered */
+.slotbar .nu { outline: 2px solid var(--ink); outline-offset: 2px; }    /* current, open */
+
+/* dotted slot count on list rows — n slots drawn from --n, capped so a
+   78-question topic never overflows a 375 px row */
+.strip {
+  display: inline-block; vertical-align: middle;
+  width: min(calc(var(--n, 0) * 7px), 9rem);
+  max-width: 100%;
+  height: 9px;
+  background: repeating-linear-gradient(90deg, var(--muted) 0 4px, transparent 4px 7px);
+}
+
+/* — ruled list rows (ämnen, ämnesområden) —————————— */
+.rows li { border-bottom: 1px solid var(--rule); }
+.rows a, .rows .row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  grid-template-areas: "num namn count" "num strip count";
+  gap: 0 .75rem;
+  align-items: center;
+  min-height: 44px;
+  padding: .65rem 0;
+}
+.rows .oppnad { background: var(--paper-2); box-shadow: inset 3px 0 0 var(--ink); }
+.rows .rownum {
+  grid-area: num;
+  font: 500 .9375rem var(--mono);
+  color: var(--muted);
+}
+.rows .namn { grid-area: namn; font: 500 1.0625rem/1.35 var(--serif); }
+.rows .kod { display: block; font: 400 .6875rem var(--mono); color: var(--muted); letter-spacing: .08em; }
+.rows .strip { grid-area: strip; }
+.rows .count {
+  grid-area: count;
+  font: 500 .8125rem var(--mono);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* — the sheet: question side + facit side ————————————————— */
+.sheet { border: 2px solid var(--ink); background: var(--paper); margin-top: 1rem; }
+.sheet .halv {
+  display: flex; align-items: baseline; gap: .75rem;
+  padding: .9rem 1rem .8rem;
+  border-bottom: 1px solid var(--rule);
+}
+.sheet .biggare {
+  flex: 0 0 auto;
+  font: 600 2.25rem/1 var(--mono);
+}
+.sheet .biggare small { display: block; font: 400 .5625rem var(--sans); letter-spacing: .1em; color: var(--muted); }
+.frage-text { font: 400 1.25rem/1.45 var(--serif); flex: 1 1 auto; }
+.meta {
+  display: flex; flex-wrap: wrap; gap: .25rem 1.1rem;
+  padding: .55rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  font: 400 .8125rem var(--sans);
+  color: var(--muted);
+}
+.meta b { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+h2.meta { display: block; font-size: .875rem; margin-top: 1rem; }
+
+/* svara: the ruled line you write on */
+.svara { display: block; padding: .9rem 1rem 1.1rem; border-bottom: 1px solid var(--rule); }
+.svara span { display: block; font: 600 .75rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+.svara input {
+  display: block; width: 100%; height: 44px;
+  border: 0; border-bottom: 2px solid var(--ink);
+  background: transparent;
+  font: 400 1.125rem/1.4 var(--serif);
+  color: var(--ink);
+}
+
+/* — vrid om-sidan: the same sheet turns, never a modal ——— */
+.vrid summary {
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  min-height: 48px; padding: .6rem 1rem;
+  cursor: pointer;
+  font: 600 .9375rem/1.3 var(--sans);
+  letter-spacing: .06em;
+  list-style: none;
+}
+.vrid summary::-webkit-details-marker { display: none; }
+.vrid summary::after { content: "↻ vrid om"; font: 500 .8125rem var(--mono); color: var(--muted); }
+.vrid[open] summary::after { content: "↺ tillbaks"; }
+.vrid .facitsida {
+  background: var(--paper-2);
+  border-top: 2px solid var(--ink);
+  padding: .9rem 1rem 1.2rem;
+  transform-origin: top center;
+  animation: vrid .2s ease-out;   /* the sheet turning, 0.2 s */
+}
+@keyframes vrid {
+  from { transform: perspective(60rem) rotateX(-88deg); }
+  to   { transform: perspective(60rem) rotateX(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vrid .facitsida { animation: none; }
+}
+.vrid h2 { font: 600 .75rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+.vrid .ratt-svar { font: 400 1.125rem/1.4 var(--serif); }
+.vrid .ratt-svar b { font-weight: 700; }
+.dom { display: flex; gap: 1.25rem; margin-top: .6rem; }
+.dom span {
+  font: 500 .875rem/1 var(--sans);
+  border: 1px solid var(--red); color: var(--red);
+  padding: .4rem .6rem; min-height: 32px;
+}
+.dom .m { font-family: var(--mono); margin-right: .3rem; }  /* ✓/✗ glyph carries it, not colour */
+.forklaring { margin-top: .8rem; font: 400 .9375rem/1.55 var(--sans); color: var(--muted); }
+.forklaring h3 { font: 600 .8125rem/1.4 var(--sans); margin: .7rem 0 .25rem; color: var(--ink); }
+.forklaring ul { padding-left: 1.1rem; }
+.forklaring li { list-style: disc; margin: .15rem 0; }
+
+/* — the three form samples: label printed above, then the shape itself ——— */
+.avdelning { margin-top: 2rem; }
+.avdelning > h2 {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem;
+  font: 600 .8125rem/1.3 var(--sans); letter-spacing: .1em;
+  color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: .45rem;
+}
+.avdelning .form {
+  flex: none; background: var(--ink); color: var(--paper);
+  font: 600 .625rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  padding: .3rem .45rem;
+}
+.avdelning .led { font: 400 1.0625rem/1.45 var(--serif); padding: .7rem 0; }
+.not { font: 400 .8125rem/1.5 var(--sans); color: var(--muted); padding-top: .5rem; }
+.not b { font-family: var(--mono); color: var(--ink); }
+code {
+  font: 500 .75rem/1.4 var(--mono); color: var(--ink);
+  background: var(--paper-2); padding: .05rem .25rem; overflow-wrap: anywhere;
+}
+.bandrubrik {
+  margin-top: 2rem; font: 600 .75rem/1 var(--sans); letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--ink); padding-bottom: .45rem;
+}
+.forts { border-top: 1px solid var(--rule); }
+.forts li { border-bottom: 1px solid var(--rule); }
+.forts a {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0 .75rem;
+  align-items: baseline; min-height: 44px; padding: .6rem 0;
+}
+.forts .rownum { font: 500 .9375rem var(--mono); color: var(--muted); }
+.forts .namn { font: 400 1.0625rem/1.35 var(--serif); }
+.forts .count { grid-column: 2; font: 400 .75rem var(--mono); color: var(--muted); }
+
+/* punktmarkering: the option rectangles placed by their own x/y/w/h, in % */
+.markplate {
+  position: relative; aspect-ratio: 16 / 10; max-height: 15rem; width: 100%;
+  border: 1px solid var(--rule); background: var(--paper);
+}
+.markplate span { position: absolute; border: 1px solid var(--ink); background: var(--paper-2); }
+
+/* — matris: the real single-mode grid. Column names live in the header only;
+   a body cell is empty except the correction mark facit points at. ——— */
+table { width: 100%; border-collapse: collapse; }
+caption { text-align: left; font: 400 .8125rem/1.4 var(--sans); color: var(--muted); padding: .4rem 0; }
+th, td { border: 1px solid var(--rule); padding: .5rem .55rem; text-align: left; vertical-align: top; }
+thead th { background: var(--paper-2); font: 600 .8125rem var(--sans); }
+tbody th { font: 400 .9375rem/1.4 var(--serif); width: 100%; }
+table.matrix { table-layout: fixed; }        /* the statement column keeps the rest */
+table.matrix th:first-child { width: auto; }
+table.matrix td, table.matrix thead th:not(:first-child) { width: 4rem; }
+/* the column name is printed once, in the header — the cell is sized so the
+   whole word fits inside it at 375 px instead of running into its neighbour */
+table.matrix thead th { padding: .5rem .25rem; text-align: center; }
+table.matrix thead th:first-child { text-align: left; }
+table.matrix thead th:not(:first-child) {
+  font: 600 .625rem/1.25 var(--sans); letter-spacing: 0;
+  overflow-wrap: anywhere; hyphens: auto;
+}
+td { width: 2.75rem; min-width: 2.75rem; text-align: center; font: 400 .75rem var(--mono); color: var(--muted); }
+td b { display: block; font: 700 1.125rem var(--mono); color: var(--red); }  /* correction mark */
+td.ok { background: var(--paper-2); }
+
+/* kryssen print onto the grid once the sheet is turned; without :has the
+   grid simply stays in its facit (open) state — the required no-JS reading */
+.sheet:not(:has(.vrid[open])) ~ .avdelning td b { visibility: hidden; }
+
+/* — lyssna ——————————————————————————————————————————————— */
+.lyssna { border: 2px solid var(--ink); background: var(--paper); margin-top: 1rem; padding-bottom: .2rem; }
+audio { display: block; width: calc(100% - 2rem); margin: .8rem 1rem; min-height: 44px; }
+.valj { border-top: 1px solid var(--rule); }
+.valj li { border-bottom: 1px solid var(--rule); }
+.valj .row {
+  display: grid; grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: .75rem; align-items: baseline;
+  min-height: 48px; padding: .6rem 1rem;
+  font: 400 1.0625rem/1.4 var(--serif);
+}
+.valj .bokstav { font: 600 .9375rem var(--mono); color: var(--muted); }
+.valj .ratt .bokstav { color: var(--red); }
+.valj .riktig { font: 500 .75rem var(--sans); color: var(--red); }
+
+/* — focus: visible on everything interactive ————————————— */
+a:focus-visible, summary:focus-visible, input:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* — the wide desk: reading column + facit on the right ——— */
+@media (min-width: 40rem) {
+  td { width: 5.5rem; min-width: 5.5rem; }
+  table.matrix td, table.matrix thead th:not(:first-child) { width: 5.5rem; }
+  table.matrix thead th:not(:first-child) { font-size: .8125rem; padding: .5rem; overflow-wrap: normal; }
+  .dom { gap: 2rem; }
+}
+@media (min-width: 60rem) {
+  main { max-width: 54rem; }
+  .rail-in { max-width: 54rem; }
+  .sheet .biggare { font-size: 3rem; }
+  .frage-text { font-size: 1.375rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
