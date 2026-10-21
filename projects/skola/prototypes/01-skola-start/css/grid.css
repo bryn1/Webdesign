@@ -14,3 +14,5 @@
 /* AA pass: secondary hue darkened for 4.5:1 (quality-gate hard set). */
 .search-pill { color: #646971; }
 .checklist .klar { color: #646971; }
+/* polish: keep Idrott row clear of the Nasta chip gutter (chip stays at comp position) */
+@media (min-width: 901px) { .rail-rows .card:nth-of-type(3) { width: calc(100% - 118px); gap: 10px; } .rail-rows .card:nth-of-type(3) b { font-size: calc(var(--r-rail-rows-cap) * 1.28) !important; } .rail-rows .card:nth-of-type(3) time { font-size: calc(var(--r-rail-rows-cap) * 1.28) !important; } }
