@@ -1,10 +1,10 @@
 /* Mada self-hosted (remote font links break gate input fingerprinting).
    ASSETS PROVISIONAL: points at the 01 prototype's copy until assets are per-prototype (dup on bash recovery). */
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 400; font-display: swap;
-  src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 500; font-display: swap;
-  src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 700; font-display: swap;
-  src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 900; font-display: swap;
-  src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }

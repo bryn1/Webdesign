@@ -1,73 +1,79 @@
 <!doctype html>
-<html lang="sv">
+<html lang="sv" data-theme="light">
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="data:,">
-<link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta http-equiv="Cache-Control" content="no-store">
-<title>Skola — Elev</title>
-<link rel="stylesheet" href="css/fonts.css">
+<title>Skola — Din vecka</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/elev.css">
 </head>
 <body>
-<div class="sheet" aria-label="Skola elev">
-  <header class="top">
-    <span class="wordmark">Skola</span>
-    <nav class="tabs" aria-label="Roller">
-      <a href="../02-skola-elev/" aria-current="page">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/">Admin</a>
-    </nav>
-    <span class="search-pill">⌕ Sök schema</span>
-  </header>
+<div class="frame">
 
-  <section class="week" aria-label="Min vecka">
-    <div class="ruler" aria-hidden="true">
-      <span style="top:4%">08:00</span><span style="top:25%">10:00</span><span style="top:46%">12:00</span><span style="top:67%">14:00</span><span style="top:88%">16:00</span>
-    </div>
+  <span class="r r-brand-emblem emblem" aria-hidden="true">
+    <svg viewBox="0 0 52 52" width="100%" height="100%"><circle cx="26" cy="26" r="24" fill="#1c2461"/><circle cx="26" cy="20" r="8" fill="#eef0f7"/><path d="M10 40c4-9 28-9 32 0z" fill="#eef0f7"/></svg>
+  </span>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/" class="active" aria-current="page">Elev</a>
+    <a href="../03-skola-larare/">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span class="mag" aria-hidden="true">⌕</span>&nbsp; Sök schema</span>
 
-    <div class="day active"><span class="chip">MAN</span>
-      <div class="les" style="--t:6.1;--h:7.9"><div class="subject">Svenska</div><div class="meta">sal 204 08:15</div></div>
-      <div class="les lit" style="--t:27.6;--h:9.5"><div class="subject">Kemi kap 3</div><div class="meta">10:15</div><span class="nu-badge">NU</span></div>
-      <div class="lunch" style="--t:41.1">Lunch 11:30</div>
-      <div class="les" style="--t:50.5;--h:7.9"><div class="subject">Idrott</div><div class="meta">hallen 12:30</div></div>
-    </div>
-    <div class="day"><span class="chip">TIS</span>
-      <div class="les" style="--t:6.1;--h:7.9"><div class="subject">Engelska</div><div class="meta">sal 210 08:15</div></div>
-      <div class="les" style="--t:27.6;--h:7.9"><div class="subject">NO</div><div class="meta">sal C20 10:15</div></div>
-      <div class="lunch" style="--t:47">Lunch 12:00</div>
-    </div>
-    <div class="day"><span class="chip">ONS</span>
-      <div class="les" style="--t:6.1;--h:7.9"><div class="subject">Matematik</div><div class="meta">sal 203 08:15</div></div>
-      <div class="lunch" style="--t:38.1">Lunch 11:15</div>
-      <div class="les" style="--t:54.7;--h:7.9"><div class="subject">Svenska</div><div class="meta">sal 204 13:00</div></div>
-    </div>
-    <div class="day"><span class="chip">TOR</span>
-      <div class="les" style="--t:6.1;--h:7.9"><div class="subject">NO</div><div class="meta">sal C20 08:15</div></div>
-      <div class="les" style="--t:18.3;--h:7.9"><div class="subject">Kemi</div><div class="meta">sal C20 09:30</div></div>
-      <div class="lunch" style="--t:44.4">Lunch 11:45</div>
-    </div>
-    <div class="day"><span class="chip">FRE</span>
-      <div class="les" style="--t:6.1;--h:7.9"><div class="subject">Matematik</div><div class="meta">sal 203 08:15</div></div>
-      <div class="les" style="--t:27.6;--h:7.9"><div class="subject">Engelska</div><div class="meta">sal 210 10:15</div></div>
-      <div class="lunch" style="--t:50.3">Lunch 12:15</div>
-    </div>
-    <div class="now-line" aria-hidden="true"></div>
+  <div class="r r-day-chips chips" role="tablist" aria-label="Veckodagar">
+    <span class="chip active" role="tab" aria-selected="true">MAN</span><span class="chip" role="tab">TIS</span><span class="chip" role="tab">ONS</span><span class="chip" role="tab">TOR</span><span class="chip" role="tab">FRE</span>
+  </div>
+
+  <section class="r r-grid-field grid-field" aria-label="Veckans schema">
+    <span class="colrule" style="left:13.556%"></span><span class="colrule" style="left:27.111%"></span><span class="colrule" style="left:40.667%"></span><span class="colrule" style="left:54.222%"></span>
+    <span class="hrule" style="top:20%"></span><span class="hrule" style="top:40%"></span><span class="hrule" style="top:60%"></span><span class="hrule" style="top:80%"></span>
   </section>
 
-  <aside class="rail">
-    <h2>Idag</h2>
+  <!-- LUNCH IS PER-DAY AT ITS OWN CLOCK HEIGHT (owner ruling, verbatim 2026-10-20:
+       "Lunch will almost never occur at the same time every day. this must be taken into concideration") -->
+  <div class="r r-lunch-band" aria-hidden="true"></div>
+  <div class="lunches" aria-label="Lunch per dag">
+    <span class="lb" style="left:1.19%; top:54.32%">Lunch 11:30</span>
+    <span class="lb" style="left:16.68%; top:58.24%">Lunch 12:00</span>
+    <span class="lb" style="left:32.15%; top:52.29%">Lunch 11:00</span>
+    <span class="lb" style="left:47.65%; top:56.44%">Lunch 11:15</span>
+    <span class="lb" style="left:63.1%; top:60.48%">Lunch 11:45</span>
+  </div>
+
+  <article class="r r-les-man-1 les"><div class="subject">Svenska</div><div class="meta">sal 204 · 08:15</div></article>
+  <article class="r r-les-man-2 les"><div class="subject">Idrott</div><div class="meta">hallen · 12:30</div></article>
+  <article class="r r-les-man-3 les"><div class="subject">NO</div><div class="meta">sal 118 · 14:00</div></article>
+  <article class="r r-les-tis-1 les"><div class="subject">Matematik</div><div class="meta">sal 204 · 08:15</div></article>
+  <article class="r r-les-tis-2 les"><div class="subject">Musik</div><div class="meta">musiken · 13:00</div></article>
+  <article class="r r-les-ons-1 les"><div class="subject">Engelska</div><div class="meta">sal 112 · 08:15</div></article>
+  <article class="r r-les-tor-1 les"><div class="subject">Kemi</div><div class="meta">sal 204 · 10:15</div></article>
+  <article class="r r-les-fre-1 les"><div class="subject">Idrott</div><div class="meta">hallen · 09:00</div></article>
+
+  <article class="r r-nu-card nu-card">
+    <span class="nu-badge">NU</span>
+    <div class="subject">Kemi kap 3</div>
+    <div class="meta">10:15</div>
+  </article>
+
+  <h2 class="r r-rail-heading rail-heading">Idag</h2>
+  <div class="r r-rail-today rail-today">
     <div class="row"><b>Svenska</b><time>08:15</time></div>
     <div class="row"><b>Kemi</b><time>10:15</time></div>
     <div class="row"><b>Idrott</b><time>12:30</time></div>
-    <h2>Inlämning:</h2>
-    <div class="row klar"><span class="row-text">Svenska uppsats</span><span class="pill klar">klar</span></div>
-    <div class="row"><span>Matematikprov</span><span class="pill">påbörjad</span></div>
-    <div class="row"><span>Engelska ordlista</span><span class="pill">ej startad</span></div>
-  </aside>
-
-  <footer>v. 42</footer>
+  </div>
+  <h3 class="r r-inlamning-heading inlamning-heading">Inlämning:</h3>
+  <div class="r r-checklist-rows checklist">
+    <div class="crow"><span class="ctext klar">Svenska uppsats</span><span class="pill">klar</span></div>
+    <div class="crow"><span class="ctext klar">Matematikprov</span><span class="pill">klar</span></div>
+    <div class="crow"><span class="ctext">Uppgift</span><span class="pill">ej startad</span></div>
+    <div class="crow"><span class="ctext">Engelska ordlista</span></div>
+  </div>
+  <span class="r r-vecka-chip vecka-chip">v. 42</span>
 </div>
 </body>
 </html>

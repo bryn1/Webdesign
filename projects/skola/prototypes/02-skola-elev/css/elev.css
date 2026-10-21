@@ -1,91 +1,52 @@
-/* 02-skola-elev — Weekly Schema Grid world (provisional flow build; boxes get rebound by build-phase scaffold once the comp is approved). */
+/* 02-skola-elev — Weekly Schema Grid world, bound to the approved comp A (skola-elev-a.png) scaffold. */
 * { margin: 0; box-sizing: border-box; }
-html, body { background: var(--paper); }
-body { font-family: var(--font-body); color: var(--ink); }
-.sheet { width: 100%; max-width: 1493px; min-height: 100vh; margin: 0 auto; background: var(--paper);
-  display: grid; grid-template-columns: 1fr 340px; grid-template-rows: auto 1fr auto; }
-header.top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--s-xl); padding: 18px 24px 12px; border-bottom: 1px solid var(--hairline); }
-.wordmark { font-family: var(--font-display); font-weight: 900; font-size: 40px; line-height: 1; letter-spacing: -1px; }
-.tabs { display: flex; gap: var(--s-lg); font-family: var(--font-display); background: #edeff0; border-radius: 10px; padding: 4px 14px 2px 10px; }
-.tabs a { text-decoration: none; color: #565d6b; font-weight: 700; font-size: 30px; letter-spacing: -1px; padding-bottom: 4px; }
-.tabs a[aria-current="page"] { color: var(--ink); border-bottom: 3px solid var(--indigo); }
-.search-pill { margin-left: auto; background: var(--paper-inset); border: 1px solid var(--hairline); border-radius: 999px; padding: 10px 22px; color: var(--ink-secondary); font-size: 15px; }
+html, body { background: #363a49; }
+body { font-family: var(--font-display); color: #23272c; }
+.frame { position: relative; width: 87.54vw; height: 89.13vh; margin: 5.44vh 6.23vw; background: #fff; border-radius: 18px; box-shadow: 0 18px 60px rgba(10,14,40,.45); overflow: hidden; }
 
-.week { position: relative; margin: 20px 0 20px 24px; background: #dde1e5; border-radius: 4px;
-  display: grid; grid-template-columns: 56px repeat(5, 1fr); min-height: 640px; }
-.ruler { position: relative; background: #1c2461; color: #eef0f7; border-radius: 16px; margin: 6px 0 6px 9px; }
-.ruler::before { content: ""; position: absolute; inset: 0; border-radius: inherit;
-  background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.5) 0 1px, transparent 1px 12px); }
-.ruler span { position: absolute; left: 16px; writing-mode: vertical-rl; transform: rotate(180deg); color: #eef0f7;
-  font: 700 15px ui-monospace, Menlo, Consolas, monospace; }
-.day { position: relative; border-left: 1px solid var(--hairline); }
-.chiprow { display: contents; }
-.chip { grid-row: 1; margin: 6px; height: 58px; background: #f2f4f5; border: 1px solid var(--stroke); border-radius: var(--s-lg);
-  display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700;
-  letter-spacing: -3px; font-size: 28px; box-shadow: 0 2px 4px rgba(20,22,30,.08); }
-.day:first-of-type .chip, .day.active .chip { border: 2px solid #192655; background: var(--paper); }
+/* header */
+.emblem { display: block; }
+.wordmark { font-weight: 900; font-size: calc(var(--r-wordmark-cap) * 1.5); line-height: 1; letter-spacing: -1.2px; color: #14161c; text-decoration: none; display: flex; align-items: center; }
+.tabs { display: flex; align-items: center; gap: calc(2.2% * var(--r-header-tabs-w) / 22px * 22); font-size: var(--r-header-tabs-font); font-weight: 700; letter-spacing: -1px; }
+.tabs { gap: clamp(18px, 2.4vw, 44px); }
+.tabs a { text-decoration: none; color: #6f747d; padding-bottom: 6px; }
+.tabs a.active { color: #1c2461; border-bottom: 4px solid #1c2461; }
+.search-pill { display: flex; align-items: center; justify-content: center; background: #1c2461; color: #f0f2fa; border-radius: 999px; font-size: 19px; font-weight: 500; letter-spacing: 0.3px; }
+.search-pill .mag { font-size: 19px; }
 
-/* lesson card: one element, position by --t (start %) and --h (height %) of the day column */
-.les { position: absolute; left: 6%; right: 6%; top: calc(var(--t) * 1%); height: calc(var(--h) * 1%);
-  background: #f3f5f5; border-radius: var(--s-lg); box-shadow: 0 2px 5px rgba(22,24,34,.07);
-  padding: 10px 14px 0; text-align: center; }
-.les .subject { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.1; }
-.les .meta { color: #5f646b; font-size: 13px; font-weight: 500; margin-top: 8px; }
-.les.lit { background: #1c2461; color: var(--paper); border-radius: 24px; text-align: left; padding: 12px 18px 0; }
-.les.lit .subject { color: #f4f5fa; white-space: nowrap; }
-.les.lit .meta { color: #aab2c9; }
-.nu-badge { position: absolute; right: 8px; top: -10px; min-width: 26px; height: 20px; border-radius: var(--s-xs);
-  background: #7c8291; color: #16171a; border: 1px solid #9aa0ad; font-size: 11px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; }
+/* day chips */
+.chips { display: flex; gap: clamp(10px, 1vw, 18px); }
+.chip { flex: 1; display: flex; align-items: center; justify-content: center; background: #eceef0; border-radius: 26px; font-size: 25px; font-weight: 800; letter-spacing: -1px; color: #23272c; border: 2px solid transparent; }
+.chip.active { background: #fff; border-color: #1c2461; }
 
-/* LUNCH IS PER-DAY AND PER-TIME: each day's band sits at its own clock position.
-   top% = 4 + ((hour-8)/8)*84 on the 08:00–16:00 ruler. */
-.lunch { position: absolute; left: 4%; right: 4%; top: calc(var(--t) * 1%); height: 3.6%;
-  background: #c8ccd0; border-radius: 2px; color: #3f4348; font-size: 15px; font-weight: 500;
-  display: flex; align-items: center; justify-content: center; white-space: nowrap; }
-.now-line { position: absolute; left: 56px; right: 0; top: 40%; height: 3px;
-  background: linear-gradient(90deg, #19265f 0%, #19265f 32%, rgba(25,38,95,.4) 48%, rgba(25,38,95,0) 62%); z-index: 2; }
+/* week grid field: faint hairlines only, no time ruler (comp A has none) */
+.grid-field { background: #fff; }
+.colrule { position: absolute; top: 0; bottom: 0; width: 1px; background: #e7e9ee; }
+.hrule { position: absolute; left: 0; right: 0; height: 1px; background: #e7e9ee; }
 
-aside.rail { padding: 24px; display: flex; flex-direction: column; gap: var(--s-md); }
-.rail h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; margin-top: var(--s-lg); }
-.row { background: #f2f4f3; border-radius: var(--s-md); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.row b { font-family: var(--font-display); font-weight: 700; font-size: 22px; }
-.row time { font-weight: 500; }
-.pill { font-size: 12.8px; font-weight: 700; border-radius: 999px; padding: 3px 10px; background: var(--paper-inset); color: var(--ink-secondary); border: 1px solid var(--hairline); }
-.pill.klar { color: var(--ink-secondary); }
-.klar .row-text { text-decoration: line-through; color: var(--ink-secondary); }
-footer { grid-column: 1 / -1; font-family: var(--font-display); font-weight: 600; background: #dde1e5; border-radius: 6px; margin: 0 24px 16px; padding: 10px 14px; }
+/* lesson cards */
+.les { background: #f2f4f5; border-radius: 18px; padding: 4% 3%; display: flex; flex-direction: column; justify-content: center; gap: 6px; text-align: center; }
+.les .subject { font-size: 25px; font-weight: 700; letter-spacing: -0.5px; color: #1d2330; white-space: normal; }
+.les .meta { font-size: 12.5px; font-weight: 500; color: #646971; white-space: nowrap; }
 
-@media (max-width: 900px) {
-  .sheet { grid-template-columns: 1fr; }
-  .week { margin: 12px; }
-  .les .subject { font-size: 20px; } .les .meta { display: none; }
-  .lunch { font-size: 12px; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .les, .row { animation: rise .45s cubic-bezier(.2,.7,.3,1) both; }
-  @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
-}
+/* per-day lunch bands at their own clock heights (owner ruling, verbatim) */
+.lb { position: absolute; width: 12.1%; height: 3.4%; background: #cdd3dc; color: #3b414d; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; }
 
-/* AA contrast pass + phone stack (quality-gate hard set). Secondary-text hue darkened to keep 4.5:1 on paper-tints. */
-.search-pill, .pill:not(.navy), .panel .when, .stat span, .grade, .pill.klar, .klar .row-text { color: #646971; }
-@media (max-width: 560px) {
-  header.top { flex-wrap: wrap; gap: 8px; padding: 12px 14px 10px; }
-  .wordmark { font-size: 30px; }
-  .tabs { gap: 10px; } .tabs a { font-size: 20px; }
-  .search-pill { display: none; }
-  .sheet { grid-template-columns: 1fr; }
-  main { margin: 14px 0 14px 14px; padding-right: 14px; }
-}
+/* NU card */
+.nu-card { position: absolute; background: #232b52; border-radius: 18px; padding: 5% 6%; display: flex; flex-direction: column; justify-content: center; gap: 8px; text-align: center; }
+.nu-card .subject { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: -0.5px; white-space: normal; }
+.nu-card .meta { color: #b9c0dd; font-size: 15px; }
+.nu-badge { position: absolute; top: -12px; right: 18px; background: #fff; color: #1c2461; border-radius: 999px; padding: 3px 14px; font-size: 15px; font-weight: 800; }
 
-@media (max-width: 560px) {
-  .week { grid-template-columns: 34px repeat(5, minmax(0, 1fr)); min-height: 560px; margin: 14px 0 14px 14px; }
-  .now-line { left: 34px; }
-  .les { padding: 4px 4px 0; overflow-wrap: anywhere; } .les .subject { font-size: 13px; letter-spacing: -.5px; white-space: normal; } .les .meta { font-size: 11px; margin-top: 2px; }
-  .lunch { font-size: 11px; } .chip { font-size: 14px; letter-spacing: -1px; height: 40px; }
-  .ruler span { font-size: 11px; left: 8px; }
-  aside.rail { padding: 14px; }
-  footer { margin: 0 14px 12px; }
-  .row { flex-wrap: wrap; }
-  .lunch { white-space: normal; }
-}
+/* rail */
+.rail-heading { font-size: var(--r-rail-heading-font); font-weight: 900; letter-spacing: -1px; color: #23272c; display: flex; align-items: flex-end; }
+.rail-today { display: flex; flex-direction: column; gap: clamp(8px, 1vw, 16px); }
+.rail-today .row { flex: 1; background: #f2f4f5; border-radius: 14px; padding: 0 7%; display: flex; align-items: center; justify-content: space-between; font-size: var(--r-rail-today-font); font-weight: 700; letter-spacing: -1px; }
+.rail-today .row time { font-weight: 600; }
+.inlamning-heading { font-size: var(--r-inlamning-heading-font); font-weight: 700; letter-spacing: 1.2px; color: #23272c; display: flex; align-items: flex-end; }
+.checklist { display: flex; flex-direction: column; gap: clamp(10px, 1.1vw, 18px); }
+.checklist .crow { flex: 1; background: #f2f4f5; border-radius: 12px; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 22px; font-weight: 600; }
+.checklist .ctext { white-space: normal; color: #23272c; }
+.checklist .ctext.klar { color: #646971; text-decoration: line-through; }
+.checklist .pill { flex: none; background: #1c2461; color: #fff; border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.vecka-chip { display: flex; align-items: center; font-size: var(--r-vecka-chip-font); color: #646971; font-weight: 600; }
