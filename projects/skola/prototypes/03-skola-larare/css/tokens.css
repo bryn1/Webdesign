@@ -1,0 +1,12 @@
+/* Skola — pinned token world (projects/skola/DESIGN.md). */
+:root {
+  color-scheme: light;
+  --ink: #16171a; --ink-secondary: #6e737c;
+  --paper: #ffffff; --paper-tinted: #f9fafb; --paper-inset: #f3f4f7;
+  --hairline: #e9ebef; --stroke: #dfe1e6;
+  --indigo: #564ef3; --indigo-deep: #4332d5; --indigo-rail: #3425a8; --indigo-veil: rgba(86,78,243,.08);
+  --fs-label: 12.8px; --fs-body: 16px; --fs-title: 20px; --fs-display: 25px;
+  --s-xs: 4px; --s-sm: 8px; --s-md: 12px; --s-lg: 16px; --s-xl: 24px; --s-xxl: 32px;
+  --font-display: 'Mada', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}

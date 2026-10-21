@@ -1,0 +1,42 @@
+/* 03-skola-larare — Weekly Schema Grid world (provisional flow build; measurement rebind happens in the hero loop after comp approval). */
+* { margin: 0; box-sizing: border-box; }
+html, body { background: var(--paper); }
+body { font-family: var(--font-body); color: var(--ink); }
+.sheet { width: 100%; max-width: 1493px; min-height: 100vh; margin: 0 auto; background: var(--paper);
+  display: grid; grid-template-columns: 1fr 340px; grid-template-rows: auto 1fr auto; }
+header.top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--s-xl); padding: 18px 24px 12px; border-bottom: 1px solid var(--hairline); }
+.wordmark { font-family: var(--font-display); font-weight: 900; font-size: 40px; line-height: 1; letter-spacing: -1px; }
+.tabs { display: flex; gap: var(--s-lg); font-family: var(--font-display); background: #edeff0; border-radius: 10px; padding: 4px 14px 2px 10px; }
+.tabs a { text-decoration: none; color: #565d6b; font-weight: 700; font-size: 30px; letter-spacing: -1px; padding-bottom: 4px; }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom: 3px solid var(--indigo); }
+.search-pill { margin-left: auto; background: var(--paper-inset); border: 1px solid var(--hairline); border-radius: 999px; padding: 10px 22px; color: var(--ink-secondary); font-size: 15px; }
+
+main { margin: 20px 0 20px 24px; display: flex; flex-direction: column; gap: var(--s-lg); padding-right: 8px; }
+.classrow { display: flex; gap: var(--s-sm); }
+.classchip { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -1px;
+  background: #f2f4f5; border: 1px solid var(--stroke); border-radius: var(--s-lg); padding: 10px 26px;
+  box-shadow: 0 2px 4px rgba(20,22,30,.08); }
+.classchip.active { border: 2px solid #192655; background: var(--paper); }
+h2 { font-family: var(--font-display); font-weight: 900; font-size: 28px; }
+.panel { background: #f3f5f5; border-radius: var(--s-lg); box-shadow: 0 2px 5px rgba(22,24,34,.07); padding: 8px 0; }
+.panel .rowline { display: flex; align-items: center; gap: 16px; padding: 12px 20px; border-bottom: 1px solid var(--hairline); }
+.panel .rowline:last-child { border-bottom: 0; }
+.panel .name { font-family: var(--font-display); font-weight: 700; font-size: 20px; flex: 1; }
+.pill { font-size: 12.8px; font-weight: 700; border-radius: 999px; padding: 3px 10px; background: var(--paper-inset); color: var(--ink-secondary); border: 1px solid var(--hairline); }
+.pill.navy { background: #1c2461; color: #fff; border-color: #1c2461; }
+.grading { display: flex; gap: var(--s-sm); margin: 0 20px 12px; }
+.grade { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--stroke);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: var(--ink-secondary); }
+.grade.filled { background: #1c2461; border-color: #1c2461; color: #fff; }
+
+aside.rail { padding: 24px; display: flex; flex-direction: column; gap: var(--s-md); }
+aside.rail h2 { margin-top: var(--s-lg); }
+.row { background: #f2f4f3; border-radius: var(--s-md); padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.row b { font-family: var(--font-display); font-weight: 700; font-size: 20px; }
+.row time { font-weight: 500; white-space: nowrap; }
+.card.lit { background: #1c2461; border-radius: 24px; color: var(--paper); padding: 16px 20px; text-align: left; }
+.card.lit .subject { font-family: var(--font-display); font-weight: 700; font-size: 24px; color: #f4f5fa; }
+.card.lit .meta { color: #aab2c9; font-size: 14px; margin-top: 6px; }
+.nu-badge { display: inline-block; margin-left: 8px; min-width: 26px; height: 20px; border-radius: var(--s-xs); background: #7c8291; color: #16171a; font-size: 11px; font-weight: 700; text-align: center; line-height: 20px; }
+footer { grid-column: 1 / -1; font-family: var(--font-display); font-weight: 600; background: #dde1e5; border-radius: 6px; margin: 0 24px 16px; padding: 10px 14px; }
+@media (max-width: 900px) { .sheet { grid-template-columns: 1fr; } }
