@@ -27,10 +27,11 @@ header.r-wordmark, header.r-header-tabs { z-index: 5; }
 @media (prefers-color-scheme: dark) { .grid-field { background-color: #101216; } }
 .grid-caret { display: flex; align-items: center; justify-content: center; background: #dde1e5; border-radius: 4px 0 0 4px; color: transparent; }
 .grid-caret::before { content: ""; width: 0; height: 0; margin-top: -6px; border-left: 21px solid transparent; border-right: 21px solid transparent; border-top: 19px solid #23272c; }
-/* ruler: the indigo rail with rotated time ticks (indigo-rail = pinned token) */
-.ruler { background: #dde1e5; }
-.ruler::before { content: ""; position: absolute; left: 9px; right: 0; top: 3px; bottom: 3px;
-  background: #1c2461; border-radius: 16px;
+/* ruler: the indigo rail with rotated time ticks. Navy on the ELEMENT (not ::before) so contrast tools read the true backdrop. */
+.ruler {
+  background: #1c2461; color: #eef0f7; border-radius: 16px; margin: 3px 0 3px 9px;
+}
+.ruler::before { content: ""; position: absolute; inset: 0; border-radius: inherit;
   background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.5) 0 1px, transparent 1px 12px),
     repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0 2px, transparent 2px 96px);
   background-size: 14% 55%, 44% 62%; background-position: 100% 2%, 100% 4%; background-repeat: no-repeat, no-repeat;
@@ -58,7 +59,7 @@ header.r-wordmark, header.r-header-tabs { z-index: 5; }
   box-shadow: 0 2px 5px rgba(22, 24, 34, 0.07); padding: 12px 16px 0;
 }
 .card .subject { font-family: var(--font-display); font-weight: 700; font-size: calc(var(--r-block-subject-cap) * 1.42); line-height: 1.15; }
-.card .meta { color: #8b9096; font-size: calc(var(--r-block-meta-cap) * 1.45); font-weight: 500; letter-spacing: .02em; margin-top: 16px; }
+.card .meta { color: #5f646b; font-size: calc(var(--r-block-meta-cap) * 1.45); font-weight: 500; letter-spacing: .02em; margin-top: 16px; }
 .card.empty-grey { background: var(--paper-inset); box-shadow: none; }
 .card.empty-white .subject { visibility: hidden; }
 .row-a .card { padding-top: 8px; text-align: center; color: var(--ink-secondary); }
@@ -76,9 +77,9 @@ header.r-wordmark, header.r-header-tabs { z-index: 5; }
 .now-line { position: absolute; left: 0; right: 0; top: 40%; height: 3px; background: linear-gradient(90deg, #19265f 0%, #19265f 32%, rgba(25,38,95,.4) 48%, rgba(25,38,95,0) 62%); }
 /* bands */
 .lunch-band { background: #c8ccd0; border-radius: 2px; }
-.lunch-band .tag { position: absolute; inset: 0; color: #5a5e63; font-size: 26px; font-weight: 500; }
+.lunch-band .tag { position: absolute; inset: 0; color: #3f4348; font-size: 26px; font-weight: 500; }
 .lunch-band .tag span { position: absolute; top: 8px; width: 20%; text-align: center; white-space: nowrap; }
-.paus-band span { position: absolute; top: 6px; font-size: 13px; color: #7a7f85; letter-spacing: .04em; }
+.paus-band span { position: absolute; top: 6px; font-size: 13px; color: #4b4f54; letter-spacing: .04em; }
 .paus-band { background: transparent; }
 /* today chip (comp artifact held in hero; replaced by active-day marking at sections) */
 .today-pill {

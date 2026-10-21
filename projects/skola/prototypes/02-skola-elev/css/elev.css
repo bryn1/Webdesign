@@ -13,8 +13,8 @@ header.top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(-
 
 .week { position: relative; margin: 20px 0 20px 24px; background: #dde1e5; border-radius: 4px;
   display: grid; grid-template-columns: 56px repeat(5, 1fr); min-height: 640px; }
-.ruler { position: relative; background: #dde1e5; }
-.ruler::before { content: ""; position: absolute; left: 9px; right: 0; top: 6px; bottom: 6px; background: #1c2461; border-radius: 16px;
+.ruler { position: relative; background: #1c2461; color: #eef0f7; border-radius: 16px; margin: 6px 0 6px 9px; }
+.ruler::before { content: ""; position: absolute; inset: 0; border-radius: inherit;
   background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.5) 0 1px, transparent 1px 12px); }
 .ruler span { position: absolute; left: 16px; writing-mode: vertical-rl; transform: rotate(180deg); color: #eef0f7;
   font: 700 15px ui-monospace, Menlo, Consolas, monospace; }
@@ -30,7 +30,7 @@ header.top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(-
   background: #f3f5f5; border-radius: var(--s-lg); box-shadow: 0 2px 5px rgba(22,24,34,.07);
   padding: 10px 14px 0; text-align: center; }
 .les .subject { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.1; }
-.les .meta { color: #8b9096; font-size: 13px; font-weight: 500; margin-top: 8px; }
+.les .meta { color: #5f646b; font-size: 13px; font-weight: 500; margin-top: 8px; }
 .les.lit { background: #1c2461; color: var(--paper); border-radius: 24px; text-align: left; padding: 12px 18px 0; }
 .les.lit .subject { color: #f4f5fa; white-space: nowrap; }
 .les.lit .meta { color: #aab2c9; }
@@ -41,7 +41,7 @@ header.top { grid-column: 1 / -1; display: flex; align-items: center; gap: var(-
 /* LUNCH IS PER-DAY AND PER-TIME: each day's band sits at its own clock position.
    top% = 4 + ((hour-8)/8)*84 on the 08:00–16:00 ruler. */
 .lunch { position: absolute; left: 4%; right: 4%; top: calc(var(--t) * 1%); height: 3.6%;
-  background: #c8ccd0; border-radius: 2px; color: #5a5e63; font-size: 15px; font-weight: 500;
+  background: #c8ccd0; border-radius: 2px; color: #3f4348; font-size: 15px; font-weight: 500;
   display: flex; align-items: center; justify-content: center; white-space: nowrap; }
 .now-line { position: absolute; left: 56px; right: 0; top: 40%; height: 3px;
   background: linear-gradient(90deg, #19265f 0%, #19265f 32%, rgba(25,38,95,.4) 48%, rgba(25,38,95,0) 62%); z-index: 2; }
@@ -65,4 +65,27 @@ footer { grid-column: 1 / -1; font-family: var(--font-display); font-weight: 600
 @media (prefers-reduced-motion: no-preference) {
   .les, .row { animation: rise .45s cubic-bezier(.2,.7,.3,1) both; }
   @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+}
+
+/* AA contrast pass + phone stack (quality-gate hard set). Secondary-text hue darkened to keep 4.5:1 on paper-tints. */
+.search-pill, .pill:not(.navy), .panel .when, .stat span, .grade, .pill.klar, .klar .row-text { color: #646971; }
+@media (max-width: 560px) {
+  header.top { flex-wrap: wrap; gap: 8px; padding: 12px 14px 10px; }
+  .wordmark { font-size: 30px; }
+  .tabs { gap: 10px; } .tabs a { font-size: 20px; }
+  .search-pill { display: none; }
+  .sheet { grid-template-columns: 1fr; }
+  main { margin: 14px 0 14px 14px; padding-right: 14px; }
+}
+
+@media (max-width: 560px) {
+  .week { grid-template-columns: 34px repeat(5, minmax(0, 1fr)); min-height: 560px; margin: 14px 0 14px 14px; }
+  .now-line { left: 34px; }
+  .les { padding: 4px 4px 0; overflow-wrap: anywhere; } .les .subject { font-size: 13px; letter-spacing: -.5px; white-space: normal; } .les .meta { font-size: 11px; margin-top: 2px; }
+  .lunch { font-size: 11px; } .chip { font-size: 14px; letter-spacing: -1px; height: 40px; }
+  .ruler span { font-size: 11px; left: 8px; }
+  aside.rail { padding: 14px; }
+  footer { margin: 0 14px 12px; }
+  .row { flex-wrap: wrap; }
+  .lunch { white-space: normal; }
 }

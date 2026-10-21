@@ -10,3 +10,7 @@
 
 .hair2 { position: absolute; left: 0; right: 0; height: 2px; background: #1c2461; }
 .today-pill { position: relative; }
+
+/* AA pass: secondary hue darkened for 4.5:1 (quality-gate hard set). */
+.search-pill { color: #646971; }
+.checklist .klar { color: #646971; }
