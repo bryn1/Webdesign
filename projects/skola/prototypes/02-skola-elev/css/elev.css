@@ -50,3 +50,13 @@ body { font-family: var(--font-display); color: #23272c; }
 .checklist .ctext.klar { color: #646971; text-decoration: line-through; }
 .checklist .pill { flex: none; background: #1c2461; color: #fff; border-radius: 999px; padding: 4px 14px; font-size: 14px; font-weight: 700; white-space: nowrap; }
 .vecka-chip { display: flex; align-items: center; font-size: var(--r-vecka-chip-font); color: #646971; font-weight: 600; }
+
+/* === owner ruling 2026-10-21: 5-minute windows, lessons placed at real clock slots (08:00-16:00) === */
+.grid-field::before { content:""; position:absolute; inset:0; pointer-events:none;
+  background: repeating-linear-gradient(to bottom, #eef0f4 0 1px, transparent 1px calc(100%/96)); }
+.les { position: absolute; padding: 2.5% 4%; }
+.les .subject { font-size: 22px; }
+.les.lit { background: #232b52; }
+.les.lit .subject { color: #fff; }
+.les.lit .meta { color: #b9c0dd; }
+.lb { width: auto; height: auto; }
