@@ -284,7 +284,12 @@ verdicts).
    tracked wedding files. **Why the marker is deliberately UNTRACKED:** making it tracked would
    deadlock the repo's own push path — the (c) hook denies ANY commit touching
    `projects/wedding/`, even a zero-byte marker (measured: push rc=1, control commit rc=0), so a
-   tracked marker could never reach origin and would block every later push containing it. Whether
+   tracked marker could never reach origin and would block every later push containing it. The path
+   is therefore NAMED-EXACTLY in `.gitignore` (`/projects/wedding/LOCAL_ONLY`, commented on the spot)
+   — not a wildcard hiding generated output (the §2 rule above forbids that), but a documented
+   machine-local guard state: it stops `git status` nagging and stops a stray `git add` from ever
+   recreating the deadlock. The guard is armed by THE FILE ON DISK, not by tracking; caveat stated
+   honestly: `git clean -fdX` removes it — re-arm with `touch projects/wedding/LOCAL_ONLY`. Whether
    the hook exempts exactly `projects/wedding/LOCAL_ONLY` (then track it) or the marker stays
    machine-local is an OWNER call the MC 11003 follow-up routed; this row describes the protection
    in force, not the protection imagined. `git push` from this checkout stays BANNED while wedding
