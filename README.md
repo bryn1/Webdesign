@@ -12,10 +12,20 @@ projects/<project>/
   prototypes/_assets/        shared images + vendored scripts (salong only; themes use ../_assets/)
   concepts/<name>/           concept mocks (optional)
   <entry>/SOURCE.md          for copied prototypes: origin path, repo, commit, date
+  .tmp/                      this project's scratch (layout v2's `.tmp/`, one level down)
+  .audits/<YYYYMMDDHHMM>-<slug>/out/   this project's run records — its verdicts and evidence;
+                             out/shots/ = the screenshots and records that run took
 tools/build-index.py         generates _site/ (the browse site) — stdlib Python, no model call
 tools/check-links.py         crawls the served site; every local reference must answer 200
 docs/ARCHITECTURE.md         how the repo and the server fit together
 ```
+
+Both `.audits/` names are the SAME layout at two depths, chosen by what a run touches: a run whose
+object is the **repo** (docs, tools, the browse surface) logs at the root `.audits/`; a run whose
+object is **one project** logs inside `projects/<site>/.audits/`. Layout v2 applied one level down —
+not a second convention. Neither is a loose file at the root: the unanchored `.tmp/` and `.audits/`
+rules hide them at any depth (`git check-ignore -v projects/np/.tmp/x`), which is exactly why
+"ignored" must not be read as "tidy" — see the Do-NOT rule below.
 
 Projects today: **salong** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
 builds), **portfolio** (20 portfolio design themes + the workflow-explode concept), **np** (4 np
@@ -29,8 +39,11 @@ protection in force). One row per project in docs/ARCHITECTURE.md §2.
 When you create a new website: first create `projects/<website>/` (lowercase-kebab, one website =
 one folder) BEFORE writing any file. Inside it: `spec.md` (content canon) + `prototypes/<NN-name>/`
 (one prototype = one folder with its own `index.html` — a prototype never lives outside its site's
-folder). Do NOT: leave loose site dirs at the repo root, put a second website inside another site's
-folder, or scratch outside `.tmp/` (never `out/` at the repo root). Then run
+folder). Do NOT: leave loose files or site dirs at the repo root, put a second website inside another
+site's folder, or scratch outside `.tmp/` (never `out/` at the repo root). An ignored file is not a
+tidy file — `.gitignore` hides a stray from `git status`, not from the workspace — so a run checks the
+ignored paths too (`git status --porcelain --ignored=matching -uall | grep '^!! [^/]*$'`) and keeps
+every artifact it made under its own project's dir, never at the root. Then run
 `python3 tools/build-index.py --thumbs` so the browse site picks the new project up.
 Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
 `thumbs/**` — written ONLY on the explicit `tools/build-index.py --host-surface` opt-in and mirrored

@@ -44,7 +44,12 @@ repaired 2026-10-08 (owner ruling 1a) and is a live gate re-pointed at `projects
 create `projects/<website>/` FIRST (lowercase-kebab, one website = one folder, created before any
 file is written), with `spec.md` + `prototypes/<NN-name>/`; prototypes live only under their site's
 folder. No loose site dirs at the repo root; no second website inside another site's folder.
-Scratch goes to `.tmp/` — never `out/` at the repo root (see §8.6 for why that recurs).
+Scratch goes to `projects/<site>/.tmp/`, and a project run's records to
+`projects/<site>/.audits/<YYYYMMDDHHMM>-<slug>/out/` (its shots under `out/shots/`); a run whose
+object is the **repo** keeps the root `.tmp/` and root `.audits/` — the same layout at two depths,
+not a second convention. Scratch still never goes to `out/` at the repo root (see §8.6 for why that
+recurs), and an ignored file is not a tidy file: `.gitignore` hides a root artifact from `git
+status`, not from the workspace (§8 item 9).
 Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
 `thumbs/**` — written by `tools/build-index.py --host-surface` and mirrored (§2 table, §10) are the
 public surface, not loose site dirs. They are a MIRROR of `projects/<site>/` and never a source: the
@@ -310,6 +315,27 @@ verdicts).
    woff2, no Google Fonts CDN) applied to wedding builds — exception-5 never extended to them; the
    row's old pointer to a `projects/wedding/spec.md` was corrected with the §2 row: no spec.md
    exists in this checkout (2472eff likewise names no reachable commit here).
+9. **Fifteen root-level PNGs stranded at the repo root — registered, NOT moved (2026-10-22, MC 11003
+   hygiene pass).** Plain `git status --porcelain -uall` reports **0** lines for all fifteen, because
+   `.gitignore:39` is `/*.png`; the instrument that actually sees them is
+   `git status --porcelain --ignored=matching -uall | grep '^!! [^/]*$'` → **15** (re-measured this
+   pass): `qa-01-1440`, `qa-01-375`, `qa-04-375`, `shot-gate-375`, `shot-facit-375`, `shot-tavla-375`,
+   `shot-vecka-375`, `picker-index-1440`, `pick-facit-frage-375`, `review-home-1440`,
+   `review-question-1440`, `review-listening-1440`, `review-listening-375`, `review-matrix-375`,
+   `qpage.png`. Classed by attribution (`.audits/202610221843-cad8462a/out/PLACEMENT.md` §3): **4**
+   are byte-identical copies of card images already tracked in
+   `projects/np/prototypes/01-np-gateboard … 04-np-vecka/` (VERIFIED this pass, `cmp` + a `sha256sum`
+   join over `projects/np/prototypes`); **5** belong to runs named in their own records or their
+   cluster (`picker-index-1440`, `pick-facit-frage-375`, `qa-01-1440`; `qa-01-375` and `qa-04-375`
+   INFERRED by prefix + minute, not proven); **6** (`review-*` ×5, `qpage.png`) carry no reference
+   anywhere and are unattributable repo history. **Zero of them may be moved by a docs run** — none
+   is that run's own byte, so the append-only rule holds and all fifteen stay where they are;
+   removal is left to the owning run/owner — the same disposition as item 6, and no `rm` was run
+   here. The classing and the per-file attribution instrument are in
+   `.audits/202610221843-cad8462a/out/PLACEMENT.md` §3. The register exists so the next reader
+   deletes with proof instead of guessing, and so "the tree is clean" stops being a lie: an ignored
+   file is not a tidy file. A run's own screenshots belong in
+   `projects/<site>/.audits/<YYYYMMDDHHMM>-<slug>/out/shots/` (§2), not at this root.
 
 ## 9. Data & dependency picture
 
