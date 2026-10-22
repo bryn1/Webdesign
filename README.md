@@ -56,7 +56,12 @@ retired flag as success; any other token is refused the same way, including a ba
 the code means "that flag is gone", never "nothing was written"). Every page `--host-surface` writes
 must be committable by a plain `git add` — no ignore rule
 hides it (MC 11003 follow-up), and a `<site>/` page whose project is deleted or carries a
-`LOCAL_ONLY` marker is pruned by the next `--host-surface` run.
+`LOCAL_ONLY` marker is pruned by the next `--host-surface` run. **Edit the `<title>` of one of those
+generated pages by hand and you have opted that page out of the prune**: the writer only deletes a page
+carrying both halves of its own signature (the `← Alla projekt` nav mark and its own `<title>`), so an
+edited page stays public and every later publish says so on stderr (`KEPT, review <site>/index.html …`)
+instead of removing it — re-publish it with `--host-surface`, or delete it yourself
+(MC 11003 cycle-3 DA P1; docs/ARCHITECTURE.md §2).
 
 ## Add a prototype
 

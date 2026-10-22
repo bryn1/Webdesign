@@ -28,6 +28,11 @@ never gitignored, and must be committable by a plain `git add` (MC 11003 follow-
   thumbs/<project>/<kind>-<name>.png   committed thumbnails (same naming as _site/thumbs)
 Like build() prunes _site/, build_root() prunes a stale generated <project>/index.html the moment its
 project is gone from the scan (deleted or marked LOCAL_ONLY) — a public page never outlives its card.
+It removes ONLY a page carrying both halves of this writer's signature (its nav-back mark AND its own
+<title>); a page carrying one half — a hand-edited <title>, or one an older wording left — is KEPT and
+announced on stderr as "KEPT, review <site>/index.html …", never dropped and never kept in silence,
+because silence is how an edited title stopped the privacy guard applying, forever, at rc 0 (MC 11003
+cycle-3 DA P1; README says the same in the words a page-editor reads).
 If no browser is available, a surface publish still writes the PAGES: make_thumb reports the thumb
 failure per file instead of aborting the publish (MC 11003 follow-up, DA P2-D).
 
@@ -76,12 +81,21 @@ RETIRED_ROOT_FLAG = "--root"
 FLAGS = ("--thumbs", "--force-thumbs", HOST_SURFACE_FLAG, RETIRED_ROOT_FLAG)
 EXIT_FLAG_ERROR = 2
 # Identity of a page THIS writer wrote, for the prune loop: BOTH halves that project_page(public=True)
-# emits — the nav-back mark and the page's own <title> stem. The mark alone was the MC 11003 cycle-2
-# DA P2-A defect: identity was a 13-character Swedish string, so a hand-written root page quoting
-# "← Alla projekt" was deleted, its directory rmdir'd with it. project_page() emits THESE constants, so
-# writer and prune predicate cannot drift apart (the same verdict's P4 note).
+# emits — the nav-back mark and the page's own <title>, read back through the SAME constants the
+# writer emits (surface_title()). The mark alone was the MC 11003 cycle-2 DA P2-A defect: identity was
+# a 13-character Swedish string, so a hand-written root page quoting "← Alla projekt" was deleted,
+# its directory rmdir'd with it. What cannot drift is the pair WITHIN a version — writer and predicate
+# both derive the title from surface_title(). A copy-edit of these words is NOT covered: it orphans
+# every page the previous wording left on disk, which is why that case is loud, not silent
+# (cycle-3 DA P1; pinned by test_host_surface_says_so_when_a_copy_edit_of_its_own_title_stem_…).
 SURFACE_MARK = "← Alla projekt"
 SURFACE_TITLE_STEM = "— prototyper"
+# One head window for every reader in this tool (MC 11003 cycle-3 DA P1): the prune read
+# fh.read(4096) in TEXT mode — 4 096 CHARACTERS — while a committed surface page puts the 14-char
+# mark at char 1 884-1 888, so ~2 200 characters of head/CSS growth moved the mark out of the window
+# and the writer's own stale page then survived every publish, silently, rc 0. title_of() already
+# read 65 536; the prune now reads through the same reader instead of authoring a second one.
+HEAD_CHARS = 65536
 
 CSS = """
 :root{--bg:#f6f5f2;--fg:#1f1f1d;--muted:#66655f;--card:#fff;--line:#dedcd5;--accent:#2b5bd7}
@@ -110,11 +124,28 @@ ul.projects .card .txt{padding:16px}
 """
 
 
-def title_of(index_html):
-    with open(index_html, encoding="utf-8", errors="replace") as fh:
-        head = fh.read(65536)
+def head_of(page):
+    """The ONE head read in this tool: 65 536 characters of a page, for the title parser and for the
+    prune's signature test alike (the prune's own 4 096-character window was cycle-3 DA P1: it cut a
+    surface page's mark out of the text the guard looked at, so the page became unprunable)."""
+    with open(page, encoding="utf-8", errors="replace") as fh:
+        return fh.read(HEAD_CHARS)
+
+
+def title_from(head):
+    """The <title> TEXT of a head: unescaped, whitespace-collapsed — the one parser in this tool."""
     m = re.search(r"<title[^>]*>(.*?)</title>", head, re.I | re.S)
     return " ".join(html.unescape(m.group(1)).split()) if m else ""
+
+
+def title_of(index_html):
+    return title_from(head_of(index_html))
+
+
+def surface_title(name):
+    """The <title> text project_page(public=True) gives a surface page, and the ONLY form the prune
+    accepts as the writer's own (MC 11003 cycle-3 DA P1: writer and predicate derive it from here)."""
+    return f"{name} {SURFACE_TITLE_STEM} & koncept"
 
 
 def label_of(entry_dir):
@@ -259,7 +290,7 @@ def project_page(p, tdir, *, thumbs=False, force=False, public=False, report=Non
         intro = ""
         counts = f"{n_proto} prototyper" + (f", {n_conc} koncept" if n_conc else "") + "."
         nav = f"<a href=\"../\">{SURFACE_MARK}</a>"
-        title = f"{p['name']} {SURFACE_TITLE_STEM} & koncept"
+        title = surface_title(p['name'])
     else:
         intro = f"<p class=\"muted\">{html.escape(p['summary'])}</p>\n" if p["summary"] else ""
         counts = (f"{n_proto} prototype{'s' if n_proto != 1 else ''}"
@@ -338,8 +369,12 @@ def build_root(thumbs=False, force=False, opt_in=None):
     if the project was deleted or a LOCAL_ONLY marker armed, its stale public page is removed, so a
     privacy project can never keep a page on the surface after its card disappears (MC 11003
     follow-up, DA P1-B; MC 10510). A page is removed only when it carries THIS writer's signature —
-    SURFACE_MARK and its own "<project> — prototyper" <title> — never merely for quoting the nav-back
-    link, which is what deleted a hand-written docs/index.html (cycle-2 DA P2-A).
+    SURFACE_MARK and its own surface_title(<project>) <title>, read through head_of()/title_from() —
+    never merely for quoting the nav-back link, which is what deleted a hand-written docs/index.html
+    (cycle-2 DA P2-A). A page carrying ONE half of that signature is KEPT and said out loud on stderr
+    ("KEPT, review …"): a human who edited the <title> of a generated page opted it out of the prune
+    by design, and silence was how that quietly stopped the privacy guard applying forever, rc 0
+    (cycle-3 DA P1).
 
     NOTE (MC 11003 follow-up, DA P1-C — owner decision pending, deliberately NOT resolved here):
     every href/src is relative, but the card set is scan(), while hosting.yaml's mirror include names
@@ -358,11 +393,27 @@ def build_root(thumbs=False, force=False, opt_in=None):
         stale = os.path.join(d, "index.html")
         if not os.path.isdir(d) or os.path.islink(d) or not os.path.isfile(stale):
             continue
-        with open(stale, encoding="utf-8", errors="replace") as fh:
-            head = fh.read(4096)
-        # Both halves of the writer's signature, not just the nav string (cycle-2 DA P2-A: identity was
-        # a 13-character string, so a hand-written page quoting it was deleted together with its dir).
-        if SURFACE_MARK not in head or f"<title>{html.escape(n)} {SURFACE_TITLE_STEM}" not in head:
+        head = head_of(stale)
+        # Both halves of the writer's signature, read through the tool's OWN reader and parser
+        # (cycle-2 DA P2-A: identity was a 13-character string, so a hand-written page quoting it was
+        # deleted together with its dir. Cycle-3 DA P1: the second, 4 096-character reader in this
+        # loop was a window the writer's own page could grow past, and the skip was silent).
+        marked = SURFACE_MARK in head
+        title = title_from(head)
+        own_title = title == surface_title(n)
+        if marked != own_title:
+            # Loud preserving (MC 11003 cycle-3 DA P1): one half of the signature is present and the
+            # other is not, so this is either a page a human edited or one an older writer left — the
+            # prune KEEPS it (deleting on a half-signature is the cycle-2 P2-A defect), but silence is
+            # what let a hand-edited <title> opt a page out of the privacy prune forever, rc 0.
+            half = (f"the <title> is not this writer's ({title!r}, not {surface_title(n)!r})" if marked
+                    else f"the nav-back mark is not this writer's ({SURFACE_MARK!r} absent)")
+            print(f"build-index: KEPT, review {n}/index.html — its card is gone and it carries half "
+                  f"the writer's signature: {half}. A page that is not a byte-exact page this writer "
+                  f"wrote is never deleted, and never silently kept either — re-publish it with "
+                  f"{HOST_SURFACE_FLAG} or remove it by hand.", file=sys.stderr)
+            continue
+        if not marked:
             continue
         os.remove(stale)
         if not os.listdir(d):

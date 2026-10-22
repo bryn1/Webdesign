@@ -20,6 +20,11 @@ red proof):
     git show fde3a26^:tools/build-index.py > .tmp/idx-fix/tools/build-index.py
     git show fde3a26^:.gitignore           > .tmp/idx-fix/.gitignore
     BUILD_INDEX_TOOL=.tmp/idx-fix/tools/build-index.py python3 -m pytest -q tools/test_build_index.py
+
+The parity leg's env var names a PRE-change copy too, and the sha is the literal (cycle-3 TEST W3 —
+"`8c48865^` works, `8c48865` does not" was tribal knowledge): BUILD_INDEX_LEGACY=$(git show
+8c48865^:tools/build-index.py). Point it at 8c48865's own copy and that leg fails with
+FileNotFoundError on legacy/np/index.html — that commit's writer is the post-change one.
 """
 import importlib.util
 import os
@@ -201,6 +206,104 @@ def test_host_surface_never_prunes_a_page_the_writer_did_not_write(repo):
     assert (plant / "index.html").is_file(), "prune deleted a page this writer never wrote"
     assert plant.is_dir(), "prune rmdir'd a directory it never created"
     assert "pruned stale surface page docs/" not in r.stderr, r.stderr
+
+
+def test_title_shape_alone_does_not_identify_a_writer_page(repo):
+    """MC 11003 cycle-3 TEST T1: the OTHER half of the signature is load-bearing too. A page carrying
+    the writer's TITLE shape and no nav mark anywhere is not a page this writer wrote, so it and its
+    directory are kept. The committed suite stayed GREEN on the mutant that drops the SURFACE_MARK
+    clause (13 passed, 1 skipped — the tester reproduced it twice) while that mutant deleted this very
+    plant and rmdir'd `notes/`; this leg is what makes the marker clause asserted, not decoration."""
+    assert run(repo, "--host-surface").returncode == 0
+    plant = repo / "notes"                        # the title shape of a surface page, minus its mark
+    plant.mkdir()
+    (plant / "index.html").write_text("<!doctype html>\n<title>notes — prototyper &amp; koncept</title>\n"
+                                      "<body><h1>hand-authored, no nav-back mark anywhere</h1>\n",
+                                      encoding="utf-8")
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert (plant / "index.html").is_file(), "prune deleted a page over its <title> shape alone"
+    assert plant.is_dir(), "prune rmdir'd a directory it never created"
+    assert "pruned stale surface page notes/" not in r.stderr, r.stderr
+
+
+def test_host_surface_says_so_when_a_stale_page_carries_the_mark_without_the_title(repo):
+    """MC 11003 cycle-3 DA P1: the preserve-foreign rule is right, the SILENCE was the defect. A stale
+    <site>/index.html that carries the nav mark but not the writer's own <title> is a page a human
+    edited (the DA's one-character typo fix: prototyper → Prototyper), and it opts out of the privacy
+    prune FOREVER — so the run must name it and the reason on stderr instead of exiting rc 0 quiet.
+    RED on the shipped loop: rc 0, page kept, stderr mentions the stale dir zero times."""
+    assert run(repo, "--host-surface").returncode == 0
+    stale = repo / SITE / "index.html"
+    stale.write_text(stale.read_text(encoding="utf-8").replace("prototyper", "Prototyper", 1),
+                     encoding="utf-8")
+    (repo / "projects" / SITE / "LOCAL_ONLY").write_text("", encoding="utf-8")   # MC 10510 privacy
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert stale.is_file(), "a hand-edited page must be KEPT, not deleted — the loud line is the fix"
+    assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
+    assert "<title>" in r.stderr, f"the reason is missing from: {r.stderr!r}"
+
+
+def test_host_surface_says_so_when_a_copy_edit_of_its_own_title_stem_orphans_old_pages(repo):
+    """Cycle-3 DA P1 case 2, the decisive one: a legitimate copy-edit of the writer's OWN constant
+    (SURFACE_TITLE_STEM "— prototyper" → "— sidor") orphans every page the previous version left on
+    disk, and the committed suite cannot see it — it only ever round-trips same-version writes, so it
+    stayed green (13 passed, 1 skipped) while the old page survived its project's deletion. The prune
+    must say so out loud. RED on the shipped loop: 0 prune lines, page kept, stderr silent."""
+    assert run(repo, "--host-surface").returncode == 0
+    stale = repo / SITE / "index.html"                      # written by the PREVIOUS wording
+    assert "prototyper" in stale.read_text(encoding="utf-8")
+    writer = repo / "tools" / "build-index.py"              # this run is the copy-edited writer
+    reworded = writer.read_text(encoding="utf-8").replace(
+        'SURFACE_TITLE_STEM = "— prototyper"', 'SURFACE_TITLE_STEM = "— sidor"', 1)
+    assert reworded != writer.read_text(encoding="utf-8"), "the stem constant moved — find the new literal"
+    writer.write_text(reworded, encoding="utf-8")
+    shutil.rmtree(repo / "projects" / SITE)
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert stale.is_file(), "the orphan was deleted — the copy-edit widened the prune instead"
+    assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
+
+
+def test_host_surface_still_sees_a_mark_that_sits_past_the_old_4096_character_window(repo):
+    """Cycle-3 DA P1 case 3 + TEST W1: the read was fh.read(4096) in TEXT mode, so the window is 4 096
+    CHARACTERS — a committed page puts the 14-character mark at char 1 884-1 888, ~2 200 characters of
+    head/CSS growth moves it out of the window, and the writer's OWN stale page then survives every
+    publish, silently, rc 0. This leg pins the property that matters: the mark lies inside whatever the
+    tool reads. It does it at the behaviour, on a page whose head was grown past 4 096. RED on the
+    shipped reader (the 4 096-char window), green once the mark and the title share one window."""
+    assert run(repo, "--host-surface").returncode == 0
+    stale = repo / SITE / "index.html"
+    mark = load(repo).SURFACE_MARK             # the constant of the tool UNDER TEST, not a literal
+    grown = stale.read_text(encoding="utf-8").replace("<style>", "<style>" + "/*" + "x" * 3000 + "*/", 1)
+    assert grown.index(mark) > 4096, "fixture no longer exercises the window (grow the padding)"
+    stale.write_text(grown, encoding="utf-8")
+    shutil.rmtree(repo / "projects" / SITE)
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert not stale.is_file(), f"a page this writer wrote survived because the reader stopped early: {r.stderr!r}"
+    assert "pruned stale surface page" in r.stderr, r.stderr
+
+
+def test_host_surface_prunes_the_old_page_of_a_renamed_project(repo):
+    """Cycle-3 TEST W2: the rename case worked and nothing pinned it. `mv projects/np
+    projects/gymnasiet` must remove np/index.html and np/ and leave ONE card, for gymnasiet. It works
+    because the expected <title> is derived from the STALE DIR's own name — the name the page on disk
+    was written with. RED mutant (the tester's mut_rename_blind, plausible "improvement"): key that
+    title off the live scan instead, and the old page survives next to the new one, both public,
+    silent, while the root cards already point at the new name."""
+    assert run(repo, "--host-surface").returncode == 0
+    assert (repo / SITE / "index.html").is_file()
+    shutil.move(str(repo / "projects" / SITE), str(repo / "projects" / "gymnasiet"))
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert not (repo / SITE / "index.html").exists(), "the renamed project kept its old public page"
+    assert not (repo / SITE).exists(), "the old shadow dir survived its own page"
+    assert (repo / "gymnasiet" / "index.html").is_file(), "the rename wrote no page under the new name"
+    root = (repo / "index.html").read_text(encoding="utf-8")
+    assert f'href="{SITE}/"' not in root and 'href="gymnasiet/"' in root, root
+    assert "pruned stale surface page" in r.stderr, r.stderr
 
 
 def test_local_only_project_is_skipped_in_every_mode(repo):
