@@ -1,57 +1,72 @@
 <!doctype html>
-<html lang="sv">
+<html lang="sv" data-theme="light">
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="data:,">
-<link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<meta http-equiv="Cache-Control" content="no-store">
 <title>Skola — Admin</title>
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-<div class="sheet" aria-label="Skola admin">
-  <header class="top">
-    <span class="wordmark">Skola</span>
-    <nav class="tabs" aria-label="Roller">
-      <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" aria-current="page">Admin</a>
-    </nav>
-    <span class="search-pill">⌕ Sök schema</span>
-  </header>
+<div class="frame">
+<div class="sheet" aria-hidden="true"></div>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" class="active" aria-current="page">Admin</a>
+  </nav>
+  <span class="r r-header-icons header-icons" aria-hidden="true"><span class="ghost-ic">⚙</span><span class="ghost-ic">▤</span></span>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
 
-  <main>
-    <h2>Översikt</h2>
-    <section class="statrow" aria-label="Nyckeltal">
-      <div class="stat"><b>124</b><span>elever aktiva</span></div>
-      <div class="stat"><b>11</b><span>lärare aktiva</span></div>
-      <div class="stat"><b>6</b><span>ämnen live</span></div>
-    </section>
-    <h2>Granska — AI-genererat innehåll</h2>
-    <section class="panel" aria-label="Granskningskö">
-      <div class="rowline"><span class="name">Matematik — ekvationer (7A)</span><span class="pill">3 väntar</span><span class="when">idag 09:12</span></div>
-      <div class="rowline"><span class="name">NO — cellen (8C)</span><span class="pill navy">granskas</span><span class="when">idag 08:40</span></div>
-      <div class="rowline"><span class="name">Svenska — kap 3 begrepp (7B)</span><span class="pill">godkänd</span><span class="when">igår 15:03</span></div>
-    </section>
-    <h2>Audit-logg</h2>
-    <section class="panel" aria-label="Audit-logg">
-      <div class="rowline"><span class="name">Anna Berg (lärare) publicerade lektion</span><span class="when">08:47</span></div>
-      <div class="rowline"><span class="name">Ny elev registrerad — 7B</span><span class="when">08:15</span></div>
-      <div class="rowline"><span class="name">Ämne NO uppdaterat — begreppslista</span><span class="when">igår 16:22</span></div>
-    </section>
-  </main>
+  <h1 class="r r-page-heading page-heading">Schemaläggning v. 43</h1>
+  <div class="r r-day-labels day-labels" aria-hidden="true"><span>MAN</span><span>TIS</span><span>ONS</span><span>TOR</span><span>FRE</span></div>
+  <div class="r r-week-minigrid minigrid">
+    <div class="mday"><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div></div>
+    <div class="mday"><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div></div>
+    <div class="mday"><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div></div>
+    <div class="mday"><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div></div>
+    <div class="mday"><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell on"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div><div class="mcell"></div></div>
+  </div>
+  <div class="r r-band-row band" aria-label="Paus- och lunchband, egen tid per dag (ägarruling)">
+    <span class="bd" style="position:absolute; left:7.92%; top:35.78%; width:11.01%; height:5.2%;">Rast 09:45</span>
+    <span class="bd" style="position:absolute; left:19.33%; top:44.41%; width:11.01%; height:5.2%;">Lunch 12:00</span>
+    <span class="bd" style="position:absolute; left:30.75%; top:36.74%; width:11.01%; height:5.2%;">Rast 10:00</span>
+    <span class="bd" style="position:absolute; left:42.16%; top:41.54%; width:11.01%; height:5.2%;">Lunch 11:15</span>
+    <span class="bd" style="position:absolute; left:53.58%; top:43.46%; width:11.01%; height:5.2%;">Lunch 11:30</span>
+  </div>
+  <div class="r r-resource-chips resource-chips" aria-label="Resurser">
+    <div class="res">Sal 204 — 82%<span class="dots" aria-hidden="true"><i></i><i></i></span></div>
+    <div class="res">Sal 112 — 64%<span class="dots" aria-hidden="true"><i></i><i></i></span></div>
+    <div class="res">Rörelsehall — bokad<span class="dots" aria-hidden="true"><i></i><i></i></span></div>
+  </div>
 
-  <aside class="rail">
-    <div class="card lit"><span class="subject">Schema v. 43 ute</span><span class="nu-badge">NU</span><div class="meta">publicerat till alla klasser</div></div>
-    <h2>Att göra:</h2>
-    <div class="row"><span>Godkänn 2 ämnesprover</span><span class="pill navy">nu</span></div>
-    <div class="row"><span>Se över uploads (3)</span><span class="pill">idag</span></div>
-    <div class="row"><span>Backup verifierad</span><span class="pill">v. 42</span></div>
+  <section class="r r-personal-card personal-card" aria-label="Personalläge">
+    <h3>Personalläge</h3>
+    <div class="prow">Anna Svensson — frisk<span class="more" aria-hidden="true"></span></div>
+    <div class="prow">Erik Lund — ledig<span class="more" aria-hidden="true"></span></div>
+    <div class="prow">Maria Holm — frisk<span class="more" aria-hidden="true"></span></div>
+    <div class="prow">Johan Nor — sjuk<span class="more" aria-hidden="true"></span></div>
+  </section>
+
+  <aside class="r r-nu-rail-card nu-rail" aria-label="NU">
+    <div class="nu-top">
+      <div class="nu-head">NU — schema v. 43 ute</div>
+      <span class="nu-badge">NU</span>
+    </div>
+    <div class="rail-list-h">Att göra:</div>
+    <div class="rail-list">
+      <div class="rrow">Godkänn schema v. 43</div>
+      <div class="rrow">Servera mat från kök</div>
+      <div class="rrow">Beställ material</div>
+    </div>
+    <div class="rail-list-h">Nyheter:</div>
+    <div class="rail-list">
+      <div class="rrow">Schema på plats</div>
+      <div class="rrow">Ny personal 7B</div>
+    </div>
+    <span class="vecka-chip">v. 42</span>
   </aside>
-
-  <footer>v. 42</footer>
 </div>
 </body>
 </html>
