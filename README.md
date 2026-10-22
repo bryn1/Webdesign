@@ -36,9 +36,12 @@ Exception: the generated public browse pages — root `index.html`, `<project>/i
 `thumbs/**` — written ONLY on the explicit `tools/build-index.py --host-surface` opt-in and mirrored
 (docs/ARCHITECTURE.md §2 table, §10) are the public surface, not loose site dirs. They are a generated
 MIRROR of `projects/<site>/`, never a source — `projects/<site>/` is canon (owner ruling MC 11003,
-2026-10-22: "doctrine is /projects/np"), and `--root` is retired (it writes nothing and EXITS 2, so a
-script or cron cannot read a retired flag as success; unknown/malformed flags are rejected the same
-way). Every page `--host-surface` writes must be committable by a plain `git add` — no ignore rule
+2026-10-22: "doctrine is /projects/np"), and `--root` is retired (it writes no root `<site>/` surface —
+the ordinary `_site/` build of that same run still runs — and EXITS 2, so a script or cron cannot read a
+retired flag as success; any other token is refused the same way, including a bare positional like
+`build-index.py host-surface`. `--host-surface --root` together still write the mirror and THEN exit 2:
+the code means "that flag is gone", never "nothing was written"). Every page `--host-surface` writes
+must be committable by a plain `git add` — no ignore rule
 hides it (MC 11003 follow-up), and a `<site>/` page whose project is deleted or carries a
 `LOCAL_ONLY` marker is pruned by the next `--host-surface` run.
 

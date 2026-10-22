@@ -36,7 +36,8 @@ fix the np/, projects/np trap. doctrine is /projects/np"). A root-level <site>/ 
 MIRROR of projects/<site>/, NEVER a source: it duplicates the source folder's name one Tab away and
 silently disagrees with it the moment anything under projects/<site>/ changes. So the surface is
 opt-in only: --host-surface, passed explicitly, names the projects/<project>/ collision on stderr
-BEFORE it writes, and build_root() itself refuses without the flag. --root writes nothing any more.
+BEFORE it writes, and build_root() itself refuses without the flag. --root writes no root <site>/
+surface any more (the ordinary _site/ build of the same run still runs).
 No invocation of this tool creates a root <site>/ dir unless the caller names the surface flag;
 gitignore is deliberately NOT a second mechanism for this (DA P2-A: its only net effect would be
 making a stray invisible to git status — the writer's refusal is the enforcement).
@@ -48,10 +49,15 @@ Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--host-surface]
                    <project>/index.html pages + committed thumbs/ (thumbs made as needed; missing
                    thumbs degrade to a placeholder, a dead browser never aborts the publish).
                    Explicit opt-in only; warns about the projects/<project>/ name collision first.
-  --root           RETIRED (MC 11003): writes nothing, prints where the writer moved, and EXITS 2 —
+  --root           RETIRED (MC 11003): writes no root <site>/ surface (the ordinary _site/ build of
+                   this run still runs), prints where the writer moved, and EXITS 2 —
                    a retired flag that exits 0 is indistinguishable from success to a script or cron.
-Any other token (unknown or malformed, e.g. --root=yes or --host-surface=1) is REJECTED with exit 2
-before anything is written; exit 1 = a thumb step failed (pages were still written).
+                   --host-surface --root together STILL publish the surface and then exit 2: the
+                   mirror is written before the retirement is reported, so a script must read the
+                   non-zero code as "the flag you passed is gone", never as "nothing was written".
+Any other token — an unknown or malformed flag (--root=yes, --host-surface=1) or a bare positional
+(host-surface, np) — is REJECTED with exit 2 before anything is written; exit 1 = a thumb step failed
+(pages were still written).
 """
 import html
 import os
@@ -69,9 +75,13 @@ HOST_SURFACE_FLAG = "--host-surface"
 RETIRED_ROOT_FLAG = "--root"
 FLAGS = ("--thumbs", "--force-thumbs", HOST_SURFACE_FLAG, RETIRED_ROOT_FLAG)
 EXIT_FLAG_ERROR = 2
-# Unique string in every <project>/index.html build_root() writes (the public page's nav-back);
-# the prune loop only removes a root page carrying it — the writer prunes its own output, nothing else.
+# Identity of a page THIS writer wrote, for the prune loop: BOTH halves that project_page(public=True)
+# emits — the nav-back mark and the page's own <title> stem. The mark alone was the MC 11003 cycle-2
+# DA P2-A defect: identity was a 13-character Swedish string, so a hand-written root page quoting
+# "← Alla projekt" was deleted, its directory rmdir'd with it. project_page() emits THESE constants, so
+# writer and prune predicate cannot drift apart (the same verdict's P4 note).
 SURFACE_MARK = "← Alla projekt"
+SURFACE_TITLE_STEM = "— prototyper"
 
 CSS = """
 :root{--bg:#f6f5f2;--fg:#1f1f1d;--muted:#66655f;--card:#fff;--line:#dedcd5;--accent:#2b5bd7}
@@ -248,8 +258,8 @@ def project_page(p, tdir, *, thumbs=False, force=False, public=False, report=Non
     if public:
         intro = ""
         counts = f"{n_proto} prototyper" + (f", {n_conc} koncept" if n_conc else "") + "."
-        nav = "<a href=\"../\">← Alla projekt</a>"
-        title = f"{p['name']} — prototyper & koncept"
+        nav = f"<a href=\"../\">{SURFACE_MARK}</a>"
+        title = f"{p['name']} {SURFACE_TITLE_STEM} & koncept"
     else:
         intro = f"<p class=\"muted\">{html.escape(p['summary'])}</p>\n" if p["summary"] else ""
         counts = (f"{n_proto} prototype{'s' if n_proto != 1 else ''}"
@@ -327,8 +337,9 @@ def build_root(thumbs=False, force=False, opt_in=None):
     Pruning mirrors build() over _site/: a generated <project>/index.html never outlives its card —
     if the project was deleted or a LOCAL_ONLY marker armed, its stale public page is removed, so a
     privacy project can never keep a page on the surface after its card disappears (MC 11003
-    follow-up, DA P1-B; MC 10510). Only a page carrying SURFACE_MARK (written by this very writer)
-    is ever removed.
+    follow-up, DA P1-B; MC 10510). A page is removed only when it carries THIS writer's signature —
+    SURFACE_MARK and its own "<project> — prototyper" <title> — never merely for quoting the nav-back
+    link, which is what deleted a hand-written docs/index.html (cycle-2 DA P2-A).
 
     NOTE (MC 11003 follow-up, DA P1-C — owner decision pending, deliberately NOT resolved here):
     every href/src is relative, but the card set is scan(), while hosting.yaml's mirror include names
@@ -348,8 +359,11 @@ def build_root(thumbs=False, force=False, opt_in=None):
         if not os.path.isdir(d) or os.path.islink(d) or not os.path.isfile(stale):
             continue
         with open(stale, encoding="utf-8", errors="replace") as fh:
-            if SURFACE_MARK not in fh.read(4096):
-                continue
+            head = fh.read(4096)
+        # Both halves of the writer's signature, not just the nav string (cycle-2 DA P2-A: identity was
+        # a 13-character string, so a hand-written page quoting it was deleted together with its dir).
+        if SURFACE_MARK not in head or f"<title>{html.escape(n)} {SURFACE_TITLE_STEM}" not in head:
+            continue
         os.remove(stale)
         if not os.listdir(d):
             os.rmdir(d)
@@ -395,7 +409,8 @@ def main(argv):
         return EXIT_FLAG_ERROR
     retired = RETIRED_ROOT_FLAG in argv
     if retired:
-        print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and writes nothing — the generated "
+        print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and writes no root <site>/ surface "
+              f"(the ordinary _site/ build of this run still runs) — the generated "
               f"public surface requires the explicit {HOST_SURFACE_FLAG} opt-in "
               f"(projects/<site>/ is canon, the root <site>/ page is a mirror). This run exits "
               f"{EXIT_FLAG_ERROR}: a retired flag must never read as success to a script or cron.", file=sys.stderr)

@@ -10,10 +10,16 @@ unmistakable to scripts (exit codes), and survivable without a browser.
 
 Each test runs the tool against a throwaway fixture repo, so nothing here writes into this repo.
 Which file is under test is one env var away — that is how the RED leg is shown against the
-pre-change tool (its legs go red: root shadow, stale page, rc=0 on --root, traceback on timeout):
+pre-change tool (its legs go red: root shadow, stale page, rc=0 on --root, traceback on timeout).
+The committability leg gates the PAIR (writer, the .gitignore of the repo that writer came from), so
+extract BOTH halves next to each other; a BUILD_INDEX_TOOL copy with no .gitignore beside it FAILS
+that leg instead of skipping it (MC 11003 cycle-2 DA P3-A — a leg the recipe silently drops is not a
+red proof):
 
-    git show 8c48865^:tools/build-index.py > .tmp/idx-fix/old-build-index.py
-    BUILD_INDEX_TOOL=.tmp/idx-fix/old-build-index.py python3 -m pytest -q tools/test_build_index.py
+    mkdir -p .tmp/idx-fix/tools
+    git show fde3a26^:tools/build-index.py > .tmp/idx-fix/tools/build-index.py
+    git show fde3a26^:.gitignore           > .tmp/idx-fix/.gitignore
+    BUILD_INDEX_TOOL=.tmp/idx-fix/tools/build-index.py python3 -m pytest -q tools/test_build_index.py
 """
 import importlib.util
 import os
@@ -25,6 +31,7 @@ from pathlib import Path
 import pytest
 
 TOOL = Path(os.environ.get("BUILD_INDEX_TOOL") or Path(__file__).with_name("build-index.py"))
+TOOL_OVERRIDDEN = bool(os.environ.get("BUILD_INDEX_TOOL"))  # set => this run is a RED proof, not a gate
 LEGACY = os.environ.get("BUILD_INDEX_LEGACY")  # optional pre-change copy, for the byte-parity leg
 SITE = "np"                                    # the fixture project, named after the site the ruling names
 ENTRY = "01-gate"
@@ -123,7 +130,16 @@ def test_every_surface_page_is_committable_after_git_add(repo):
     /*/index.html ignore rule made `git add -A` silently DROP np/index.html on a project's FIRST
     publish. Committability is an assertion now — the escape-hatch knowledge stops being tribal."""
     ignore = TOOL.resolve().parent.parent / ".gitignore"
-    if not ignore.is_file():  # a bare `git archive HEAD tools` export carries no .gitignore —
+    if not ignore.is_file():
+        # What this leg gates is the PAIR (writer, the .gitignore of the repo that writer came from).
+        # A bare `git archive HEAD tools` export carries no .gitignore at all, so there is nothing to
+        # gate — an honest skip. A BUILD_INDEX_TOOL the CALLER chose is different: that is a red proof
+        # missing half its pair, and a missing half must be loud (cycle-2 DA P3-A — the documented
+        # recipe extracted the tool alone and this leg dropped out of the proof unnoticed).
+        if TOOL_OVERRIDDEN:
+            pytest.fail(f"{TOOL} carries no .gitignore beside it — this leg gates the writer AND the "
+                        f"repo .gitignore it came from; extract both (module docstring), e.g. "
+                        f"`git show fde3a26^:.gitignore > <dir holding the tool copy>/.gitignore`")
         pytest.skip("no .gitignore alongside the tool — this leg gates the repo's real .gitignore")  # nothing to gate
     shutil.copyfile(ignore, repo / ".gitignore")
     r = run(repo, "--host-surface")
@@ -166,6 +182,27 @@ def test_host_surface_prunes_a_stale_page_when_a_marker_arms(repo):
     assert f'href="{SITE}/"' not in (repo / "index.html").read_text(encoding="utf-8")
 
 
+def test_host_surface_never_prunes_a_page_the_writer_did_not_write(repo):
+    """MC 11003 cycle-2 (DA P2-A): the prune loop removed ANY root index.html whose first 4 KB carried
+    the nav-back string, so a hand-written page that merely quotes "← Alla projekt" was deleted — and
+    its directory with it, by the rmdir that follows. Root identity is the writer's signature (the mark
+    AND its own "<project> — prototyper" <title>), not a 13-character Swedish string. RED pre-fix: the
+    plant below is gone and docs/ is gone; the two prune legs above stay green either way, which is
+    exactly why this leg had to exist. Its RED object is the shipped loop (d89443c) — against the
+    pre-repair writer there is no prune loop at all, so the plant survives and this leg passes."""
+    assert run(repo, "--host-surface").returncode == 0
+    plant = repo / "docs"                       # a path build_root() never generates (not a project)
+    plant.mkdir()
+    (plant / "index.html").write_text(
+        "<!doctype html>\n<title>Contributor style guide</title>\n"
+        "<body><p>The nav-back link reads <a href=\"../\">← Alla projekt</a></p>\n", encoding="utf-8")
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert (plant / "index.html").is_file(), "prune deleted a page this writer never wrote"
+    assert plant.is_dir(), "prune rmdir'd a directory it never created"
+    assert "pruned stale surface page docs/" not in r.stderr, r.stderr
+
+
 def test_local_only_project_is_skipped_in_every_mode(repo):
     """MC 10510 privacy guard, end-to-end (grep -c LOCAL_ONLY used to be 0 in this file — zero
     coverage while the docs asserted the guard live): with the marker armed NOTHING is written for
@@ -185,18 +222,28 @@ def test_local_only_project_is_skipped_in_every_mode(repo):
 
 def test_retired_root_flag_exits_nonzero(repo):
     """MC 11003 follow-up (DA P2-C): --root still writes no root <site>/ page, but it EXITS 2.
-    RED pre-change: rc=0 — a retired flag indistinguishable from success to a script or a cron."""
+    RED pre-change: rc=0 — a retired flag indistinguishable from success to a script or a cron.
+    The combo case is the same contract, measured for the cycle-2 TEST W2 note: --host-surface --root
+    WRITES the mirror (the ordinary _site/ build runs too) and still exits 2, so a script must treat
+    the code as "the flag you passed is gone", never as "nothing happened"."""
     r = run(repo, "--root")
     assert r.returncode == 2, f"--root exited {r.returncode} — a retired flag must not read as success"
     assert "retired" in r.stderr
     assert not (repo / SITE / "index.html").exists(), "--root wrote a root shadow"
+    assert (repo / "_site" / SITE / "index.html").is_file(), "the ordinary _site/ build must still run"
+    combo = run(repo, "--host-surface", "--root")
+    assert combo.returncode == 2, "--host-surface --root must still report the refusal"
+    assert (repo / SITE / "index.html").is_file(), "the combo wrote no mirror — the W2 note would be false"
+    assert "retired" in combo.stderr
 
 
 def test_unknown_or_malformed_flags_are_rejected_before_any_write(repo):
     """MC 11003 follow-up (DA P2-C): --root=yes printed NO notice at all and --host-surface=1 was
     silently an ordinary run. RED pre-change: both rc=0 and silent; now every stray token is a
-    usage error (exit 2) and nothing at all is written."""
-    for argv in (["--root=yes"], ["--host-surface=1"], ["--bogus"]):
+    usage error (exit 2) and nothing at all is written. The bare positionals are the cycle-2 TEST T2
+    row: validating only `--`-prefixed tokens (mutation M10) left `build-index.py host-surface`
+    exiting 0 having published nothing, with this suite green."""
+    for argv in (["--root=yes"], ["--host-surface=1"], ["--bogus"], ["host-surface"], ["np"]):
         r = run(repo, *argv)
         assert r.returncode == 2, f"{argv} exited {r.returncode}"
         assert "refusing to run" in r.stderr, f"{argv}: {r.stderr}"
