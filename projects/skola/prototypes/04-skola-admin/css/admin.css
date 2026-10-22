@@ -41,8 +41,9 @@ body { font-family: 'Mada', sans-serif; color: #23272c; }
 .mcell.on { background: #16204f; }
 /* bands at per-day clock heights inside their column (owner ruling verbatim: never same time every day) */
 .r-band-row { background: none; }
-.band .bd { display: flex; align-items: center; justify-content: center; font-size: clamp(12px, 1.05vw, 15px); font-weight: 700; color: #fff; letter-spacing: 0; }
-.bd { background: #6b7683; border-radius: 6px; margin: 0 3px; white-space: nowrap; overflow: hidden; }
+.band { pointer-events: none; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(12, 1fr); gap: 4px; border: 1px solid transparent; padding: 5px 6px; }
+.band .bd { grid-area: auto; position: static; left: auto; top: auto; width: auto; height: auto; display: flex; align-items: center; justify-content: center; font-size: clamp(9px, 0.82vw, 12px); font-weight: 700; color: #fff; letter-spacing: 0; }
+.bd { background: #6b7683; border-radius: 6px; margin: 0 5px; white-space: nowrap; overflow: hidden; }
 
 /* resource chips */
 .resource-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.2vw, 20px); }
