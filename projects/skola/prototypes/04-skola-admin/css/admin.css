@@ -25,8 +25,8 @@ body { font-family: 'Mada', sans-serif; color: #23272c; }
 .tabs { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 44px); font-size: clamp(20px, 1.9vw, 28px); font-weight: 700; letter-spacing: -1px; }
 .tabs a { text-decoration: none; color: #6f747d; padding-bottom: 6px; }
 .tabs a.active { color: #1c2461; border-bottom: 4px solid #1c2461; }
-.header-icons { display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
-.ghost-ic { width: clamp(30px, 2.4vw, 38px); height: clamp(30px, 2.4vw, 38px); border-radius: 10px; background: #dde1e6; color: #5b6068; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.header-icons { display: block; }
+.header-icons-plate { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; opacity: .95; }
 .search-pill { display: flex; align-items: center; justify-content: center; gap: 8px; background: #dde1e6; color: #3b414d; border-radius: 999px; font-size: 18px; font-weight: 500; }
 
 .page-heading { display: flex; align-items: center; font-size: clamp(22px, 2.3vw, 33px); font-weight: 800; letter-spacing: -1.4px; color: #16181d; }
