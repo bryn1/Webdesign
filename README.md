@@ -18,7 +18,11 @@ docs/ARCHITECTURE.md         how the repo and the server fit together
 ```
 
 Projects today: **salong** (Jane Cooper, frisör — 20 themes, the live PoC snapshot, 6 impeccable lab
-builds) and **portfolio** (20 portfolio design themes + the workflow-explode concept).
+builds), **portfolio** (20 portfolio design themes + the workflow-explode concept), **np** (4 np
+prototypes — `projects/np/` is doctrine: owner ruling MC 11003, "doctrine is /projects/np"), **skola**
+(4 Operate-mode prototypes for bryn1/skola) and **wedding** (real content, LOCAL-ONLY — its
+`projects/wedding/LOCAL_ONLY` marker is armed on disk; §8.8 of docs/ARCHITECTURE.md states the
+protection in force). One row per project in docs/ARCHITECTURE.md §2.
 
 ## Add a website (new project) — do this FIRST
 
@@ -32,7 +36,11 @@ Exception: the generated public browse pages — root `index.html`, `<project>/i
 `thumbs/**` — written ONLY on the explicit `tools/build-index.py --host-surface` opt-in and mirrored
 (docs/ARCHITECTURE.md §2 table, §10) are the public surface, not loose site dirs. They are a generated
 MIRROR of `projects/<site>/`, never a source — `projects/<site>/` is canon (owner ruling MC 11003,
-2026-10-22: "doctrine is /projects/np"), and `--root` is retired (it writes nothing).
+2026-10-22: "doctrine is /projects/np"), and `--root` is retired (it writes nothing and EXITS 2, so a
+script or cron cannot read a retired flag as success; unknown/malformed flags are rejected the same
+way). Every page `--host-surface` writes must be committable by a plain `git add` — no ignore rule
+hides it (MC 11003 follow-up), and a `<site>/` page whose project is deleted or carries a
+`LOCAL_ONLY` marker is pruned by the next `--host-surface` run.
 
 ## Add a prototype
 
@@ -43,4 +51,6 @@ MIRROR of `projects/<site>/`, never a source — `projects/<site>/` is canon (ow
 3. `python3 tools/check-links.py http://127.0.0.1:8090/` must end with 0 broken.
 
 Only the final site and its images are committed. Run records (`.audits/`), impeccable state
-(`.impeccable/`), screenshots, thumbnails, `node_modules/` and `_site/` stay on disk, untracked.
+(`.impeccable/`), screenshots, loose thumbnails, `node_modules/` and `_site/` stay on disk, untracked
+— the committed card thumbnails under `thumbs/` are the named exception: tracked product (docs/
+ARCHITECTURE.md §2).

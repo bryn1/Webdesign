@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Build the browse site for the Webdesign repo (MC 10062.30.1). Deterministic, stdlib only, no model call.
 
+reason (file hygiene, 400 ceiling, MC 11003 follow-up): deliberately ONE file — build() (_site) and
+build_root() (the opt-in public surface) share project_page()/root_card()/make_thumb(); splitting would
+fork the card templates, the defect this avoids (monogamy per ARCH-c5 C3; reason moved up per hygiene rule).
+
 Scans projects/<project>/prototypes/<name>/index.html and projects/<project>/concepts/<name>/index.html and
 writes a generated, gitignored _site/:
   _site/index.html                    root index: one card per project with its prototype count
@@ -17,11 +21,15 @@ names each skipped project on stderr, so the guard never runs silently.
 With --host-surface it ALSO writes the committed public surface (MC 10088 HOSTING-01; two-level layout
 per the owner's BROWSE-V2 ruling, MC 10088.12 — root = one card per project, then /<project>/ lists
 the builds) that the vm106 reconciler serves for the static app "webdesign" — these files are tracked,
-not gitignored:
+never gitignored, and must be committable by a plain `git add` (MC 11003 follow-up, DA P1-A):
   index.html (repo root)               one card per project (count + cover thumb), links to <project>/
   <project>/index.html (repo root)     one page per project: prototypes (+ concepts) with thumbs,
                                        nav-back ../, links into ../projects/<project>/...
   thumbs/<project>/<kind>-<name>.png   committed thumbnails (same naming as _site/thumbs)
+Like build() prunes _site/, build_root() prunes a stale generated <project>/index.html the moment its
+project is gone from the scan (deleted or marked LOCAL_ONLY) — a public page never outlives its card.
+If no browser is available, a surface publish still writes the PAGES: make_thumb reports the thumb
+failure per file instead of aborting the publish (MC 11003 follow-up, DA P2-D).
 
 CANON IS projects/<site>/ (owner ruling MC 11003, 2026-10-22 09:53:32+02:00, verbatim: "rec on all and
 fix the np/, projects/np trap. doctrine is /projects/np"). A root-level <site>/ page is a GENERATED
@@ -29,21 +37,21 @@ MIRROR of projects/<site>/, NEVER a source: it duplicates the source folder's na
 silently disagrees with it the moment anything under projects/<site>/ changes. So the surface is
 opt-in only: --host-surface, passed explicitly, names the projects/<project>/ collision on stderr
 BEFORE it writes, and build_root() itself refuses without the flag. --root writes nothing any more.
-No invocation of this tool creates a root <site>/ dir unless the caller names the surface flag.
+No invocation of this tool creates a root <site>/ dir unless the caller names the surface flag;
+gitignore is deliberately NOT a second mechanism for this (DA P2-A: its only net effect would be
+making a stray invisible to git status — the writer's refusal is the enforcement).
 
 Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--host-surface] [--help]
   --thumbs         make missing/stale thumbnails with screenshot.mjs (headless Chromium)
   --force-thumbs   remake every thumbnail
   --host-surface   ALSO write the generated HOSTING-01 mirror — repo-root index.html + the
-                   <project>/index.html pages + committed thumbs/ (thumbs made as needed).
+                   <project>/index.html pages + committed thumbs/ (thumbs made as needed; missing
+                   thumbs degrade to a placeholder, a dead browser never aborts the publish).
                    Explicit opt-in only; warns about the projects/<project>/ name collision first.
-  --root           RETIRED (MC 11003): writes nothing, only prints where the writer moved.
-
-Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; over the ~250 soft target, under the 400
-ceiling — `wc -l` this file for the measured count): this generator is deliberately ONE file —
-build() (_site), build_root() (the committed public surface, opt-in only), the shared
-project_page()/root_card() templates and make_thumb() stay in one stdlib-only mechanism (monogamy per
-ARCH-c5 C3); splitting would fork the card templates, the defect this avoids.
+  --root           RETIRED (MC 11003): writes nothing, prints where the writer moved, and EXITS 2 —
+                   a retired flag that exits 0 is indistinguishable from success to a script or cron.
+Any other token (unknown or malformed, e.g. --root=yes or --host-surface=1) is REJECTED with exit 2
+before anything is written; exit 1 = a thumb step failed (pages were still written).
 """
 import html
 import os
@@ -59,6 +67,11 @@ SHOT = os.path.expanduser("~/.dsh/skills/describe-image/scripts/screenshot.mjs")
 KINDS = ("prototypes", "concepts")
 HOST_SURFACE_FLAG = "--host-surface"
 RETIRED_ROOT_FLAG = "--root"
+FLAGS = ("--thumbs", "--force-thumbs", HOST_SURFACE_FLAG, RETIRED_ROOT_FLAG)
+EXIT_FLAG_ERROR = 2
+# Unique string in every <project>/index.html build_root() writes (the public page's nav-back);
+# the prune loop only removes a root page carrying it — the writer prunes its own output, nothing else.
+SURFACE_MARK = "← Alla projekt"
 
 CSS = """
 :root{--bg:#f6f5f2;--fg:#1f1f1d;--muted:#66655f;--card:#fff;--line:#dedcd5;--accent:#2b5bd7}
@@ -166,14 +179,22 @@ def make_thumb(entry, dest, force):
         return "kept"
     tmp = dest + ".d"
     shutil.rmtree(tmp, ignore_errors=True)
-    r = subprocess.run(["node", SHOT, entry["index"], "--out", tmp, "--widths", "1280", "--height", "800",
-                        "--wait-ms", "1500", "--timeout", "40"], capture_output=True, text=True, timeout=120)
+    # A dead browser is a per-file outcome, never a publish abort (MC 11003 follow-up, DA P2-D):
+    # the page is still written, the card degrades to its placeholder, main() still exits 1.
+    try:
+        r = subprocess.run(["node", SHOT, entry["index"], "--out", tmp, "--widths", "1280", "--height", "800",
+                            "--wait-ms", "1500", "--timeout", "40"], capture_output=True, text=True, timeout=120)
+        rc, err = r.returncode, r.stderr.strip()[:200]
+    except subprocess.TimeoutExpired:
+        rc, err = -1, "browser timed out (>120 s)"
+    except OSError as exc:
+        rc, err = -1, f"browser unavailable ({exc})"
     png = os.path.join(tmp, "shot-1280.png")
     if os.path.isfile(png):
         os.replace(png, dest)
-        status = f"made (screenshot rc={r.returncode})"
+        status = f"made (screenshot rc={rc})"
     else:
-        status = f"FAILED rc={r.returncode}: {r.stderr.strip()[:200]}"
+        status = f"FAILED rc={rc}: {err}"
     shutil.rmtree(tmp, ignore_errors=True)
     return status
 
@@ -303,12 +324,37 @@ def build_root(thumbs=False, force=False, opt_in=None):
     a root <site>/ page is a generated mirror of projects/<site>/, never a source, so it is never
     written as a side effect of an ordinary run.
 
-    Every href/src is relative and points ONLY into paths the vm106 mirror serves
-    (projects/**, <project>/**, thumbs/**, favicon.ico) — never .md, tools/, docs/, _site/."""
+    Pruning mirrors build() over _site/: a generated <project>/index.html never outlives its card —
+    if the project was deleted or a LOCAL_ONLY marker armed, its stale public page is removed, so a
+    privacy project can never keep a page on the surface after its card disappears (MC 11003
+    follow-up, DA P1-B; MC 10510). Only a page carrying SURFACE_MARK (written by this very writer)
+    is ever removed.
+
+    NOTE (MC 11003 follow-up, DA P1-C — owner decision pending, deliberately NOT resolved here):
+    every href/src is relative, but the card set is scan(), while hosting.yaml's mirror include names
+    /index.html + /salong/*.html + /portfolio/*.html only — a page generated for a project outside
+    that include (np/, skola/; the tracked root page even links wedding/) links a path the mirror
+    does not publish. Widen the include or narrow the cards: repo-vs-served is the owner's call."""
     if opt_in != HOST_SURFACE_FLAG:
         sys.exit(f"build-index: refusing to write the repo-root public surface without {HOST_SURFACE_FLAG} "
                  f"(MC 11003: projects/<site>/ is canon, a root <site>/ page is a generated mirror)")
     projects = scan()
+    live = {p["name"] for p in projects}
+    for n in sorted(os.listdir(ROOT)):
+        d = os.path.join(ROOT, n)
+        if n in live or n.startswith((".", "_")) or n in ("projects", "thumbs"):
+            continue
+        stale = os.path.join(d, "index.html")
+        if not os.path.isdir(d) or os.path.islink(d) or not os.path.isfile(stale):
+            continue
+        with open(stale, encoding="utf-8", errors="replace") as fh:
+            if SURFACE_MARK not in fh.read(4096):
+                continue
+        os.remove(stale)
+        if not os.listdir(d):
+            os.rmdir(d)
+        print(f"build-index: pruned stale surface page {n}/index.html — no live project {n}/ "
+              f"(deleted or LOCAL_ONLY; its card is gone, so its page goes too)", file=sys.stderr)
     collide = ", ".join(f"{p['name']}/ ↔ projects/{p['name']}/" for p in projects) or "(no projects scanned)"
     print(f"build-index: {HOST_SURFACE_FLAG} — writing the GENERATED HOSTING-01 mirror into the repo root "
           f"(index.html, <project>/index.html, thumbs/). Name collision with the source: {collide}. "
@@ -340,12 +386,21 @@ def main(argv):
     if "--help" in argv or "-h" in argv:
         print(__doc__.strip())
         return 0
+    bad = sorted({a for a in argv if a not in FLAGS})
+    if bad:
+        for a in bad:
+            print(f"build-index: refusing to run: {a} is not a flag of this tool (accepted: --thumbs "
+                  f"--force-thumbs {HOST_SURFACE_FLAG} {RETIRED_ROOT_FLAG} (retired) --help). Nothing was written.",
+                  file=sys.stderr)
+        return EXIT_FLAG_ERROR
+    retired = RETIRED_ROOT_FLAG in argv
+    if retired:
+        print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and writes nothing — the generated "
+              f"public surface requires the explicit {HOST_SURFACE_FLAG} opt-in "
+              f"(projects/<site>/ is canon, the root <site>/ page is a mirror). This run exits "
+              f"{EXIT_FLAG_ERROR}: a retired flag must never read as success to a script or cron.", file=sys.stderr)
     force = "--force-thumbs" in argv
     projects, report = build(thumbs=force or "--thumbs" in argv, force=force)
-    if RETIRED_ROOT_FLAG in argv and HOST_SURFACE_FLAG not in argv:
-        print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and wrote nothing — the generated "
-              f"public surface now requires the explicit {HOST_SURFACE_FLAG} opt-in "
-              f"(projects/<site>/ is canon, the root <site>/ page is a mirror).", file=sys.stderr)
     if HOST_SURFACE_FLAG in argv:
         report += build_root(thumbs=True, force=force, opt_in=HOST_SURFACE_FLAG)
     for p in projects:
@@ -353,6 +408,8 @@ def main(argv):
               f"{sum(1 for e in p['entries'] if e['kind'] == 'concepts')} concepts")
     for line in report:
         print("thumb", line)
+    if retired:
+        return EXIT_FLAG_ERROR
     failed = [r for r in report if "FAILED" in r]
     return 1 if failed else 0
 
