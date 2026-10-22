@@ -1,6 +1,10 @@
 ---
 name: Skola prototypes
-description: Operate-mode learning-platform UI — zinc ground, one indigo voice, 4px rhythm.
+description: Operate-mode learning-platform UI. [SUPERSEDED 2026-10-22 MC 11056: the shipped
+  world is The Weekly Schema Grid (owner comp pick "C") — paper #e1e9eb, deep navy #0d283a,
+  printed-sheet plan; live tokens are each surface's css/tokens.css + world css under
+  prototypes/*/css/, comps under .impeccable/mocks/. The zinc/indigo token set below is the
+  pre-remake world, kept only as history.]
 colors:
   ink: "#16171a"
   ink-secondary: "#6e737c"
