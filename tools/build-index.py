@@ -14,25 +14,36 @@ A project is LOCAL-ONLY (real, private content — MC 10510 privacy guard) iff p
 exists; scan() skips such projects in ALL modes (root cards, per-project page writer, thumbs, _site) and
 names each skipped project on stderr, so the guard never runs silently.
 
-With --root it ALSO writes the committed public surface (MC 10088 HOSTING-01; two-level layout per
-the owner's BROWSE-V2 ruling, MC 10088.12 — root = one card per project, then /<project>/ lists the
-builds) that the vm106 reconciler serves for the static app "webdesign" — these files are tracked,
+With --host-surface it ALSO writes the committed public surface (MC 10088 HOSTING-01; two-level layout
+per the owner's BROWSE-V2 ruling, MC 10088.12 — root = one card per project, then /<project>/ lists
+the builds) that the vm106 reconciler serves for the static app "webdesign" — these files are tracked,
 not gitignored:
   index.html (repo root)               one card per project (count + cover thumb), links to <project>/
   <project>/index.html (repo root)     one page per project: prototypes (+ concepts) with thumbs,
                                        nav-back ../, links into ../projects/<project>/...
   thumbs/<project>/<kind>-<name>.png   committed thumbnails (same naming as _site/thumbs)
 
-Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--root]
-  --thumbs        make missing/stale thumbnails with screenshot.mjs (headless Chromium)
-  --force-thumbs  remake every thumbnail
-  --root          also write repo-root index.html + <project>/index.html pages + committed thumbs/
-                  (thumbs made as needed)
+CANON IS projects/<site>/ (owner ruling MC 11003, 2026-10-22 09:53:32+02:00, verbatim: "rec on all and
+fix the np/, projects/np trap. doctrine is /projects/np"). A root-level <site>/ page is a GENERATED
+MIRROR of projects/<site>/, NEVER a source: it duplicates the source folder's name one Tab away and
+silently disagrees with it the moment anything under projects/<site>/ changes. So the surface is
+opt-in only: --host-surface, passed explicitly, names the projects/<project>/ collision on stderr
+BEFORE it writes, and build_root() itself refuses without the flag. --root writes nothing any more.
+No invocation of this tool creates a root <site>/ dir unless the caller names the surface flag.
 
-Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; ~330 lines > 250 soft): this generator is
-deliberately ONE file — build() (_site), root mode (committed public surface), the shared
-project_page()/root_card() templates and make_thumb() stay in one stdlib-only mechanism (monogamy
-per ARCH-c5 C3); splitting would fork the card templates, the defect this avoids.
+Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--host-surface] [--help]
+  --thumbs         make missing/stale thumbnails with screenshot.mjs (headless Chromium)
+  --force-thumbs   remake every thumbnail
+  --host-surface   ALSO write the generated HOSTING-01 mirror — repo-root index.html + the
+                   <project>/index.html pages + committed thumbs/ (thumbs made as needed).
+                   Explicit opt-in only; warns about the projects/<project>/ name collision first.
+  --root           RETIRED (MC 11003): writes nothing, only prints where the writer moved.
+
+Header reason (hygiene, MC 10088.13 after TEST-c4 P3-1; over the ~250 soft target, under the 400
+ceiling — `wc -l` this file for the measured count): this generator is deliberately ONE file —
+build() (_site), build_root() (the committed public surface, opt-in only), the shared
+project_page()/root_card() templates and make_thumb() stay in one stdlib-only mechanism (monogamy per
+ARCH-c5 C3); splitting would fork the card templates, the defect this avoids.
 """
 import html
 import os
@@ -46,6 +57,8 @@ PROJECTS = os.path.join(ROOT, "projects")
 SITE = os.path.join(ROOT, "_site")
 SHOT = os.path.expanduser("~/.dsh/skills/describe-image/scripts/screenshot.mjs")
 KINDS = ("prototypes", "concepts")
+HOST_SURFACE_FLAG = "--host-surface"
+RETIRED_ROOT_FLAG = "--root"
 
 CSS = """
 :root{--bg:#f6f5f2;--fg:#1f1f1d;--muted:#66655f;--card:#fff;--line:#dedcd5;--accent:#2b5bd7}
@@ -281,14 +294,26 @@ def build(thumbs=False, force=False):
     return projects, report
 
 
-def build_root(thumbs=False, force=False):
+def build_root(thumbs=False, force=False, opt_in=None):
     """Write the COMMITTED public browse surface (BROWSE-V2 two-level layout, MC 10088.12):
     repo-root index.html = one card per project; <project>/index.html per project = the build
     listing (shared writer with _site); committed thumbs/.
 
+    opt_in must be HOST_SURFACE_FLAG. This writer REFUSES without that explicit opt-in (MC 11003):
+    a root <site>/ page is a generated mirror of projects/<site>/, never a source, so it is never
+    written as a side effect of an ordinary run.
+
     Every href/src is relative and points ONLY into paths the vm106 mirror serves
     (projects/**, <project>/**, thumbs/**, favicon.ico) — never .md, tools/, docs/, _site/."""
+    if opt_in != HOST_SURFACE_FLAG:
+        sys.exit(f"build-index: refusing to write the repo-root public surface without {HOST_SURFACE_FLAG} "
+                 f"(MC 11003: projects/<site>/ is canon, a root <site>/ page is a generated mirror)")
     projects = scan()
+    collide = ", ".join(f"{p['name']}/ ↔ projects/{p['name']}/" for p in projects) or "(no projects scanned)"
+    print(f"build-index: {HOST_SURFACE_FLAG} — writing the GENERATED HOSTING-01 mirror into the repo root "
+          f"(index.html, <project>/index.html, thumbs/). Name collision with the source: {collide}. "
+          f"projects/<site>/ is canon (MC 11003); this mirror is never a source and is never read back "
+          f"by scan().", file=sys.stderr)
     report = []
     troot = os.path.join(ROOT, "thumbs")
     cards = []
@@ -312,10 +337,17 @@ def build_root(thumbs=False, force=False):
 
 
 def main(argv):
+    if "--help" in argv or "-h" in argv:
+        print(__doc__.strip())
+        return 0
     force = "--force-thumbs" in argv
     projects, report = build(thumbs=force or "--thumbs" in argv, force=force)
-    if "--root" in argv:
-        report += build_root(thumbs=True, force=force)
+    if RETIRED_ROOT_FLAG in argv and HOST_SURFACE_FLAG not in argv:
+        print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and wrote nothing — the generated "
+              f"public surface now requires the explicit {HOST_SURFACE_FLAG} opt-in "
+              f"(projects/<site>/ is canon, the root <site>/ page is a mirror).", file=sys.stderr)
+    if HOST_SURFACE_FLAG in argv:
+        report += build_root(thumbs=True, force=force, opt_in=HOST_SURFACE_FLAG)
     for p in projects:
         print(f"{p['name']}: {sum(1 for e in p['entries'] if e['kind'] == 'prototypes')} prototypes, "
               f"{sum(1 for e in p['entries'] if e['kind'] == 'concepts')} concepts")

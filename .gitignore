@@ -37,3 +37,7 @@ __pycache__/
 
 # root-level *.png = transient browser-QA staging for ALL lanes (owner ruling MC 10062.30.1 precedent, generalized 2026-10-08: zero tracked root PNGs ever; product images live under projects/). Run owners still relocate their own shots to their run dirs.
 /*.png
+
+# MC 11003 (owner ruling 2026-10-22 09:53:32+02:00, verbatim: "rec on all and fix the np/, projects/np trap. doctrine is /projects/np"): a repo-root `<site>/` browse page is a GENERATED HOSTING-01 mirror (tools/build-index.py --host-surface), never source, so it must never be able to enter the repo as source either. Root-anchored and exactly ONE directory deep. `!/projects/index.html` is NOT decoration: the wildcard also reaches one level under `projects/`, and that line is what keeps the canon directory `projects/` free of this rule (verified with `git check-ignore` — every real `projects/**` path answers "not ignored"). `thumbs/**` is deliberately NOT ignored: the committed card thumbnails are tracked product. The four already-tracked root pages (`index.html`, `portfolio/index.html`, `salong/index.html`, `skola/index.html`) stay tracked untouched — an ignore rule never untracks a tracked path; they are named in the MC 11003 result as the owner's own call.
+/*/index.html
+!/projects/index.html

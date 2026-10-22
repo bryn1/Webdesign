@@ -29,8 +29,10 @@ folder). Do NOT: leave loose site dirs at the repo root, put a second website in
 folder, or scratch outside `.tmp/` (never `out/` at the repo root). Then run
 `python3 tools/build-index.py --thumbs` so the browse site picks the new project up.
 Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
-`thumbs/**` — written by `tools/build-index.py --root` and mirrored (docs/ARCHITECTURE.md §2
-table, §10) are the public surface, not loose site dirs.
+`thumbs/**` — written ONLY on the explicit `tools/build-index.py --host-surface` opt-in and mirrored
+(docs/ARCHITECTURE.md §2 table, §10) are the public surface, not loose site dirs. They are a generated
+MIRROR of `projects/<site>/`, never a source — `projects/<site>/` is canon (owner ruling MC 11003,
+2026-10-22: "doctrine is /projects/np"), and `--root` is retired (it writes nothing).
 
 ## Add a prototype
 
