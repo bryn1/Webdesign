@@ -1,11 +1,11 @@
-/* Mada self-hosted. Every candidate base covered so the face loads over http AND under the
-   review-capture loader (inline-relative, css-relative, page-relative, origin-root, project-root).
-   Source of truth: projects/skola/prototypes/02-skola-elev/fonts/mada-02.woff2 (identical copies at css/, page dir, repo /fonts/). */
+/* Mada self-hosted (remote font links break gate input fingerprinting).
+   One relative url: loads on the http mirror origin; copies kept in css/, page dir and repo
+   /fonts/ are for the review-capture loader's alternate bases. */
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 400; font-display: block;
-  src: url(mada-02.woff2) format('woff2'), url(../fonts/mada-02.woff2) format('woff2'), url(/fonts/mada-02.woff2) format('woff2'), url(/projects/skola/prototypes/02-skola-elev/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 500; font-display: block;
-  src: url(mada-02.woff2) format('woff2'), url(../fonts/mada-02.woff2) format('woff2'), url(/fonts/mada-02.woff2) format('woff2'), url(/projects/skola/prototypes/02-skola-elev/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 700; font-display: block;
-  src: url(mada-02.woff2) format('woff2'), url(../fonts/mada-02.woff2) format('woff2'), url(/fonts/mada-02.woff2) format('woff2'), url(/projects/skola/prototypes/02-skola-elev/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
 @font-face { font-family: 'Mada'; font-style: normal; font-weight: 900; font-display: block;
-  src: url(mada-02.woff2) format('woff2'), url(../fonts/mada-02.woff2) format('woff2'), url(/fonts/mada-02.woff2) format('woff2'), url(/projects/skola/prototypes/02-skola-elev/fonts/mada-02.woff2) format('woff2'); }
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
