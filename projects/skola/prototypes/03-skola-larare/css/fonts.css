@@ -1,5 +1,11 @@
-/* Mada self-hosted. ASSETS PROVISIONAL: uses the 01 prototype copy until per-prototype dup (bash recovery task). */
-@font-face { font-family: 'Mada'; font-style: normal; font-weight: 400; font-display: swap; src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
-@font-face { font-family: 'Mada'; font-style: normal; font-weight: 500; font-display: swap; src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
-@font-face { font-family: 'Mada'; font-style: normal; font-weight: 700; font-display: swap; src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
-@font-face { font-family: 'Mada'; font-style: normal; font-weight: 900; font-display: swap; src: url(../../01-skola-start/fonts/mada-02.woff2) format('woff2'); }
+/* Mada self-hosted (remote font links break gate input fingerprinting).
+   One relative url: loads on the http mirror origin; copies kept in css/, page dir and repo
+   /fonts/ are for the review-capture loader's alternate bases. */
+@font-face { font-family: 'Mada'; font-style: normal; font-weight: 400; font-display: block;
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
+@font-face { font-family: 'Mada'; font-style: normal; font-weight: 500; font-display: block;
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
+@font-face { font-family: 'Mada'; font-style: normal; font-weight: 700; font-display: block;
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
+@font-face { font-family: 'Mada'; font-style: normal; font-weight: 900; font-display: block;
+  src: url(../fonts/mada-02.woff2) format('woff2'); }
