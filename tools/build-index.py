@@ -29,10 +29,11 @@ never gitignored, and must be committable by a plain `git add` (MC 11003 follow-
 Like build() prunes _site/, build_root() prunes a stale generated <project>/index.html the moment its
 project is gone from the scan (deleted or marked LOCAL_ONLY) — a public page never outlives its card.
 It removes ONLY a page carrying both halves of this writer's signature (its nav-back mark AND its own
-<title>); a page carrying one half — a hand-edited <title>, or one an older wording left — is KEPT and
-announced on stderr as "KEPT, review <site>/index.html …", never dropped and never kept in silence,
+<title>); a page carrying ONE half inside the reader's window — a hand-edited <title>, or one an older
+wording left — is KEPT and announced on stderr as "KEPT, review <site>/index.html …", never dropped,
 because silence is how an edited title stopped the privacy guard applying, forever, at rc 0 (MC 11003
-cycle-3 DA P1; README says the same in the words a page-editor reads).
+cycle-3 DA P1; README says the same in the words a page-editor reads). The announcing is BOUNDED by that
+window, not promised for every page: what one page shows outside it is written next to HEAD_CHARS.
 If no browser is available, a surface publish still writes the PAGES: make_thumb reports the thumb
 failure per file instead of aborting the publish (MC 11003 follow-up, DA P2-D).
 
@@ -95,6 +96,12 @@ SURFACE_TITLE_STEM = "— prototyper"
 # mark at char 1 884-1 888, so ~2 200 characters of head/CSS growth moved the mark out of the window
 # and the writer's own stale page then survived every publish, silently, rc 0. title_of() already
 # read 65 536; the prune now reads through the same reader instead of authoring a second one.
+# What that ONE window GUARANTEES, and what it does not (MC 11003 cycle-5 TEST F5, measured): a page
+# showing at least ONE half of the signature inside it is named on stderr and kept, never dropped; a
+# page that hides BOTH halves past 65 536 characters reads as a foreign page and is kept without a word,
+# rc 0. The gap is closed for THIS writer's pages by shape, not by luck: page() emits the <title> before
+# the CSS and the nav mark sits in the BODY after it, so a growing generated page can push only the MARK
+# past the window, never both halves — and a shrunken reader reddens the window leg.
 HEAD_CHARS = 65536
 
 CSS = """
@@ -371,10 +378,13 @@ def build_root(thumbs=False, force=False, opt_in=None):
     follow-up, DA P1-B; MC 10510). A page is removed only when it carries THIS writer's signature —
     SURFACE_MARK and its own surface_title(<project>) <title>, read through head_of()/title_from() —
     never merely for quoting the nav-back link, which is what deleted a hand-written docs/index.html
-    (cycle-2 DA P2-A). A page carrying ONE half of that signature is KEPT and said out loud on stderr
-    ("KEPT, review …"): a human who edited the <title> of a generated page opted it out of the prune
-    by design, and silence was how that quietly stopped the privacy guard applying forever, rc 0
-    (cycle-3 DA P1).
+    (cycle-2 DA P2-A). A page that SHOWS one half of that signature inside head_of()'s window is KEPT and
+    said out loud on stderr ("KEPT, review …"): a human who edited the <title> of a generated page opted
+    it out of the prune by design, and silence was how that quietly stopped the privacy guard applying
+    forever, rc 0 (cycle-3 DA P1). `own_title` is EQUALS, not contains — a title that merely starts with
+    the writer's own is a hand-edited title, and deleting it would break what README promises a
+    page-editor (cycle-5 TEST F2). A page showing neither half inside the window is read as
+    foreign and stays silent; the bound sits at HEAD_CHARS.
 
     NOTE (MC 11003 follow-up, DA P1-C — owner decision pending, deliberately NOT resolved here):
     every href/src is relative, but the card set is scan(), while hosting.yaml's mirror include names
@@ -400,18 +410,22 @@ def build_root(thumbs=False, force=False, opt_in=None):
         # loop was a window the writer's own page could grow past, and the skip was silent).
         marked = SURFACE_MARK in head
         title = title_from(head)
+        # EQUALS, never `in`: a title merely STARTING with the writer's own is a hand-edited one, and a
+        # substring test would delete it in silence — the README promise to a page-editor, broken
+        # (MC 11003 cycle-5 TEST F2, pinned by test_host_surface_keeps_a_page_whose_title_…).
         own_title = title == surface_title(n)
         if marked != own_title:
             # Loud preserving (MC 11003 cycle-3 DA P1): one half of the signature is present and the
             # other is not, so this is either a page a human edited or one an older writer left — the
             # prune KEEPS it (deleting on a half-signature is the cycle-2 P2-A defect), but silence is
-            # what let a hand-edited <title> opt a page out of the privacy prune forever, rc 0.
+            # what let a hand-edited <title> opt a page out of the privacy prune forever, rc 0. BOTH
+            # directions are asserted (cycle-5 TEST F1: guarding only `marked` left this suite green).
             half = (f"the <title> is not this writer's ({title!r}, not {surface_title(n)!r})" if marked
                     else f"the nav-back mark is not this writer's ({SURFACE_MARK!r} absent)")
             print(f"build-index: KEPT, review {n}/index.html — its card is gone and it carries half "
                   f"the writer's signature: {half}. A page that is not a byte-exact page this writer "
-                  f"wrote is never deleted, and never silently kept either — re-publish it with "
-                  f"{HOST_SURFACE_FLAG} or remove it by hand.", file=sys.stderr)
+                  f"wrote is never deleted — re-publish it with {HOST_SURFACE_FLAG} or remove it by "
+                  f"hand.", file=sys.stderr)
             continue
         if not marked:
             continue

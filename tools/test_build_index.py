@@ -21,10 +21,18 @@ red proof):
     git show fde3a26^:.gitignore           > .tmp/idx-fix/.gitignore
     BUILD_INDEX_TOOL=.tmp/idx-fix/tools/build-index.py python3 -m pytest -q tools/test_build_index.py
 
-The parity leg's env var names a PRE-change copy too, and the sha is the literal (cycle-3 TEST W3 —
-"`8c48865^` works, `8c48865` does not" was tribal knowledge): BUILD_INDEX_LEGACY=$(git show
-8c48865^:tools/build-index.py). Point it at 8c48865's own copy and that leg fails with
-FileNotFoundError on legacy/np/index.html — that commit's writer is the post-change one.
+The parity leg's env var names a PRE-change copy too, and the sha IS the literal (cycle-3 TEST W3 —
+"`8c48865^` works, `8c48865` does not" was tribal knowledge). BUILD_INDEX_LEGACY is a PATH, so the copy
+is written out first — these three lines run as pasted, from the repo root (cycle-5 TEST F3: the form
+`BUILD_INDEX_LEGACY=$(git show 8c48865^:tools/build-index.py)` substituted file CONTENT where this leg
+wants a path and died with `OSError: [Errno 36] File name too long`):
+
+    mkdir -p .tmp/legacy/tools
+    git show 8c48865^:tools/build-index.py > .tmp/legacy/tools/build-index.py
+    BUILD_INDEX_LEGACY=$PWD/.tmp/legacy/tools/build-index.py python3 -m pytest -q tools/
+
+Point it at 8c48865's own copy and that leg fails with FileNotFoundError on legacy/np/index.html —
+that commit's writer is the post-change one.
 """
 import importlib.util
 import os
@@ -243,6 +251,53 @@ def test_host_surface_says_so_when_a_stale_page_carries_the_mark_without_the_tit
     assert stale.is_file(), "a hand-edited page must be KEPT, not deleted — the loud line is the fix"
     assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
     assert "<title>" in r.stderr, f"the reason is missing from: {r.stderr!r}"
+
+
+def test_host_surface_says_so_when_a_stale_page_carries_the_title_without_the_mark(repo):
+    """MC 11003 cycle-5 TEST F1 (the tester's t1_marked_only_loud, SURVIVOR): the loud preserving was
+    asserted in ONE direction only. Narrowing `if marked != own_title:` to `if marked and not own_title:`
+    — shouting for a foreign <title> and staying SILENT for the writer's own <title> with no mark — left
+    this suite green (18 passed, 1 skipped, rc 0) while the writer's-own-title-no-mark path the docs call
+    the third measured path went back to a silent keep. Same class cycle-3 TEST T1 gated FAIL for, on the
+    loud side: so this direction gets its own assertions — KEPT, rc still 0, and the announcement names
+    the MISSING MARK as the half (the leg above pins the other direction's token)."""
+    assert run(repo, "--host-surface").returncode == 0
+    stale = repo / SITE / "index.html"
+    mod = load(repo)
+    navless = stale.read_text(encoding="utf-8").replace(
+        f"<a href=\"../\">{mod.SURFACE_MARK}</a>", "<a href=\"../\">Till startsidan</a>", 1)
+    assert mod.SURFACE_MARK not in navless, "fixture no longer strips the mark — the nav wording moved"
+    stale.write_text(navless, encoding="utf-8")                 # the writer's OWN <title>, no mark at all
+    shutil.rmtree(repo / "projects" / SITE)
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert stale.is_file(), "deleted on half a signature — that is the cycle-2 DA P2-A defect"
+    assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
+    assert mod.SURFACE_MARK in r.stderr, f"the missing MARK half is not named: {r.stderr!r}"
+    assert "<title>" not in r.stderr, f"the announcement blames the wrong half: {r.stderr!r}"
+
+
+def test_host_surface_keeps_a_page_whose_title_starts_with_the_writers_own(repo):
+    """MC 11003 cycle-5 TEST F2 (the tester's t2_substring_own_title, SURVIVOR): README promises that
+    hand-editing a generated page's <title> opts that page OUT of the prune. Loosening
+    `own_title = title == surface_title(n)` to `surface_title(n) in title` left this suite green while a
+    HAND-EXTENDED title — the writer's own words kept as a prefix, mark intact — was deleted silently,
+    which is that promise broken. So own_title means EQUALS, not contains, and only a page that contains
+    without BEING the writer's title can tell the two apart."""
+    assert run(repo, "--host-surface").returncode == 0
+    stale = repo / SITE / "index.html"
+    mod = load(repo)
+    own = mod.surface_title(SITE)
+    edited = stale.read_text(encoding="utf-8").replace("</title>", " — utkast</title>", 1)
+    extended = mod.title_from(edited)
+    assert extended.startswith(own) and extended != own, f"plant is not an EXTENDED title: {extended!r}"
+    stale.write_text(edited, encoding="utf-8")
+    (repo / "projects" / SITE / "LOCAL_ONLY").write_text("", encoding="utf-8")   # MC 10510 privacy
+    r = run(repo, "--host-surface")
+    assert r.returncode == 0, r.stderr
+    assert stale.is_file(), "a hand-extended <title> was DELETED — own_title became a substring test"
+    assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
+    assert "<title>" in r.stderr, f"the announcement does not name the title half: {r.stderr!r}"
 
 
 def test_host_surface_says_so_when_a_copy_edit_of_its_own_title_stem_orphans_old_pages(repo):
