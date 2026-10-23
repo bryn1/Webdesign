@@ -42,8 +42,10 @@ one folder) BEFORE writing any file. Inside it: `spec.md` (content canon) + `pro
 folder). Do NOT: leave loose files or site dirs at the repo root, put a second website inside another
 site's folder, or scratch outside `.tmp/` (never `out/` at the repo root). An ignored file is not a
 tidy file — `.gitignore` hides a stray from `git status`, not from the workspace — so a run checks the
-ignored paths too (`git status --porcelain --ignored=matching -uall | grep '^!! [^/]*$'`) and keeps
-every artifact it made under its own project's dir, never at the root. Then run
+ignored paths too, against the register rather than against silence: **a root-level ignored file is
+allowed only if docs/ARCHITECTURE.md §8 item 9 names it**, and the command that item 9 states prints any
+name the register does not excuse (empty output = clean; a git that cannot answer says BLOCKED, which is
+never a pass). Keep every artifact you made under your own project's dir, never at the root. Then run
 `python3 tools/build-index.py --thumbs` so the browse site picks the new project up.
 Exception: the generated public browse pages — root `index.html`, `<project>/index.html`,
 `thumbs/**` — written ONLY on the explicit `tools/build-index.py --host-surface` opt-in and mirrored

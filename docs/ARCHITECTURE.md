@@ -3,6 +3,14 @@
 Exceeds the 250-line doc convention because §4's deviation table and §8's pre-ruled exception
 register are DoD-gate inputs and must not be split from the facts they qualify.
 
+**Document version:** this file carries no `version:` field and keeps no dated copy of itself — it lives
+inside a git-tracked repo, so **git history IS its version store**: the current version is what
+`git log --oneline -1 -- docs/ARCHITECTURE.md` names, and any past one is `git show <sha>:docs/ARCHITECTURE.md`.
+(MC 11003 fix2, 2026-10-23, naming the reading used: the 2026-10-22 versioned-truth ruling's
+archive-the-superseded-copy step is satisfied here by history rather than by a `SUPERSEDED — DO NOT USE`
+duplicate, because a dated clone of a tracked doc would land as an untracked file at the repo root, which
+§8 forbids. No dated copy was created for this pass either.)
+
 Repo: `/home/claudecode/Hemsidor` (GitHub `bryn1/Webdesign`, main). Project intent: **PoC-demo** —
 20 competing scroll-design themes for one real hairdresser site (salon persona placeholder "Jane
 Cooper" — owner ruling R4; the portfolio project's named subject IS the repo owner, Alexander
@@ -329,27 +337,82 @@ verdicts).
    woff2, no Google Fonts CDN) applied to wedding builds — exception-5 never extended to them; the
    row's old pointer to a `projects/wedding/spec.md` was corrected with the §2 row: no spec.md
    exists in this checkout (2472eff likewise names no reachable commit here).
-9. **Fifteen root-level PNGs stranded at the repo root — registered, NOT moved (2026-10-22, MC 11003
-   hygiene pass).** Plain `git status --porcelain -uall` reports **0** lines for all fifteen, because
-   `.gitignore:39` is `/*.png`; the instrument that actually sees them is
-   `git status --porcelain --ignored=matching -uall | grep '^!! [^/]*$'` → **15** (re-measured this
-   pass): `qa-01-1440`, `qa-01-375`, `qa-04-375`, `shot-gate-375`, `shot-facit-375`, `shot-tavla-375`,
-   `shot-vecka-375`, `picker-index-1440`, `pick-facit-frage-375`, `review-home-1440`,
-   `review-question-1440`, `review-listening-1440`, `review-listening-375`, `review-matrix-375`,
-   `qpage.png`. Classed by attribution (`.audits/202610221843-cad8462a/out/PLACEMENT.md` §3): **4**
-   are byte-identical copies of card images already tracked in
-   `projects/np/prototypes/01-np-gateboard … 04-np-vecka/` (VERIFIED this pass, `cmp` + a `sha256sum`
-   join over `projects/np/prototypes`); **5** belong to runs named in their own records or their
-   cluster (`picker-index-1440`, `pick-facit-frage-375`, `qa-01-1440`; `qa-01-375` and `qa-04-375`
-   INFERRED by prefix + minute, not proven); **6** (`review-*` ×5, `qpage.png`) carry no reference
-   anywhere and are unattributable repo history. **Zero of them may be moved by a docs run** — none
-   is that run's own byte, so the append-only rule holds and all fifteen stay where they are;
-   removal is left to the owning run/owner — the same disposition as item 6, and no `rm` was run
-   here. The classing and the per-file attribution instrument are in
-   `.audits/202610221843-cad8462a/out/PLACEMENT.md` §3. The register exists so the next reader
-   deletes with proof instead of guessing, and so "the tree is clean" stops being a lie: an ignored
-   file is not a tidy file. A run's own screenshots belong in
-   `projects/<site>/.audits/<YYYYMMDDHHMM>-<slug>/out/shots/` (§2), not at this root.
+9. **Root-level ignored files — this register IS the allowlist the tidiness check reads (armed
+    2026-10-22, MC 11003; the check rewritten to read it in the MC 11003 fix2 pass).** Plain
+    `git status --porcelain -uall` sees none of them, because `.gitignore:39` is `/*.png`; the
+    instrument that sees them is the ignored-aware command below. **Passing condition, expressible
+    today: a root-level ignored file is allowed ONLY if it is named in this register; anything the
+    command prints that is not named here is the red case** — a stray a docs run may not move (not its
+    own byte) but must name. The command takes git's own exit code instead of piping it away, so a git
+    too old for `--ignored=matching` says BLOCKED and never "clean":
+
+    ```bash
+    WS=$(git -C "$HOME/Hemsidor" rev-parse --show-toplevel) || exit 1
+    TMP=$(mktemp); git -C "$WS" status --porcelain --ignored=matching -uall >"$TMP" \
+      || { echo "BLOCKED: git cannot answer the ignored-aware question"; exit 2; }
+    LC_ALL=C comm -13 \
+      <(awk '/^[[:space:]]*ROOT-STRAY-REGISTER-BEGIN[[:space:]]*$/{f=1;next}
+             /^[[:space:]]*ROOT-STRAY-REGISTER-END[[:space:]]*$/{f=0} f' \
+          "$WS/docs/ARCHITECTURE.md" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' | grep -v '^$' | LC_ALL=C sort) \
+      <(sed -n 's|^!! \([^/]*\)$|\1|p' "$TMP" | LC_ALL=C sort)
+    ```
+
+    `LC_ALL=C` on sort and on `comm` together, because the two must agree on collation or `comm` calls its own
+    input unsorted and prints nothing useful (measured under a UTF-8 locale: unsorted-input warnings and every
+    name reported). Empty output = GREEN; any line printed = RED, that root file is not this register's. **Test the output, not the exit
+    code:** the last command is `comm`, which exits 0 while printing differences (measured — a fixture carrying an
+    unregistered stray printed its name and exited 0), so a caller needing a failing exit code wraps it: run the
+    `comm` as `OUT=$( … )` then `[ -z "$OUT" ] || { echo "ROOT STRAY: $OUT"; exit 1; }` (the wrapped form is kept in
+    this run's `.audits/202610221843-cad8462a/out/.tmp/skill2/wrapped-gate.sh`, green on this tree, red on the
+    planted sixteenth). The only exit code that means something as written is the 2 from the BLOCKED branch. The count is
+    whatever `grep -c '^!! [^/]*$' "$TMP"` prints — no number is quoted here on purpose: a dated count in
+    permanent prose goes stale behind the next reader (the MC 11003 fix2 finding — keep a figure only
+    beside the command that prints it). The two marker patterns are anchored to their own whole line on
+    purpose: the command block above *mentions* both markers, and an unanchored scan would start at that
+    mention and read the command text as register entries (measured in the fix2 fixture, which is why the
+    anchors are there).
+
+    ```text
+    ROOT-STRAY-REGISTER-BEGIN
+    pick-facit-frage-375.png
+    picker-index-1440.png
+    qa-01-1440.png
+    qa-01-375.png
+    qa-04-375.png
+    qpage.png
+    review-home-1440.png
+    review-listening-1440.png
+    review-listening-375.png
+    review-matrix-375.png
+    review-question-1440.png
+    shot-facit-375.png
+    shot-gate-375.png
+    shot-tavla-375.png
+    shot-vecka-375.png
+    ROOT-STRAY-REGISTER-END
+    ```
+
+    Classed by attribution (`.audits/202610221843-cad8462a/out/PLACEMENT.md` §3): some are byte-identical
+    copies of card images already tracked under `projects/np/prototypes/` (VERIFIED by `cmp` + a
+    `sha256sum` join); some belong to runs named in their own records or their cluster (one pair INFERRED
+    by prefix + minute, never proven); the `review-*` set and `qpage.png` carry no reference anywhere and
+    are unattributable repo history. **None of them may be moved by a docs run** — none is that run's own
+    byte, so the append-only rule holds and they all stay where they are; removal is the owning run's or
+    the owner's call, the same disposition as item 6, and no `rm` was run here. A name leaves this register
+    when its owner removes the file; an entry naming a file that no longer exists is harmless to the check
+    (the register can only excuse, never hide) and a later hygiene pass prunes it. The register exists so
+    the next reader deletes with proof instead of guessing, and so "the tree is clean" stops being a lie:
+    an ignored file is not a tidy file. A run's own screenshots belong in
+    `projects/<site>/.audits/<YYYYMMDDHHMM>-<slug>/out/shots/` (§2), not at this root. Root-level ignored
+    **dirs** (`.tmp/`, `_site/`, `.impeccable/`, `.dsh/`, `.playwright-mcp/`, `.pytest_cache/`) are
+    sanctioned by rule and are not this check's object; `out/` at the repo root is neither sanctioned nor
+    ignored, so it shows as `??` (§8.6).
+    **Which mechanism owns which placement case** (said once, so no later pass restates it twice in two
+    strengths): a *generated* root page is owned by `build_root()`'s `--host-surface` refusal plus the
+    prune legs pinned in `tools/test_build_index.py` (the renamed-project leg, the deleted-project leg, the
+    `LOCAL_ONLY` leg); a *write about to happen* is owned by the prose placement guard in the
+    `workflow-webdesign` skill §1; a *root-level ignored file already sitting here* is owned by this
+    register and the command above.
 
 ## 9. Data & dependency picture
 
