@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>Skola — Logga in</title>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/week.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/grid.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+<style>
+/* login.html — static prototype of the login family (MC 11630 B2). Inline css per plan. */
+body { margin: 0; background: var(--paper-tinted); color: var(--ink); font-family: var(--font-body); }
+.wordmark { color: var(--ink); }
+.r-header-tabs a { color: var(--ink-secondary); }
+.r-header-tabs a[aria-current="page"] { color: #1c2461; }
+.search-pill { background: var(--paper); border: 1px solid var(--hairline); color: var(--ink-secondary);
+  font-size: clamp(12px, 1.1vw, 16px); }
+
+.lgn-wrap {
+  position: fixed; top: 10.6vh; left: 1.21%; right: 1.21%; bottom: 2vh;
+  display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
+  grid-template-rows: auto minmax(0,1fr); gap: 1.4vh 1.2vw;
+}
+.lgn-note {
+  grid-column: 1 / -1; justify-self: start;
+  margin: 0; padding: 0.9vh 1.1vw; border-radius: 999px;
+  background: var(--indigo-veil); color: var(--indigo-rail);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(12px, 1.05vw, 15px);
+}
+.lgn-card {
+  background: var(--paper); border: 1px solid var(--hairline); border-radius: 14px;
+  padding: 1.8vh 1.15vw; display: flex; flex-direction: column; gap: 1.1vh;
+  min-height: 0; overflow: hidden;
+}
+.lgn-kicker {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(11px, 0.95vw, 14px); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-secondary);
+}
+.lgn-title {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(16px, 1.45vw, 22px); line-height: 1.2; color: var(--ink);
+}
+.lgn-sub { margin: 0; font-size: clamp(11px, 1vw, 15px); line-height: 1.4; color: var(--ink-secondary); }
+.lgn-sub-quiet { margin: 0; font-size: clamp(10px, 0.9vw, 13px); line-height: 1.4; color: var(--ink-secondary); }
+.lgn-form { display: flex; flex-direction: column; gap: 1.1vh; margin: 0; }
+.lgn-field { display: flex; flex-direction: column; gap: 0.5vh; }
+.lgn-label { font-family: var(--font-display); font-weight: 700; font-size: clamp(10px, 0.95vw, 14px); color: var(--ink); }
+.lgn-field input[type="text"], .lgn-field input[type="email"], .lgn-field input[type="password"] {
+  font: inherit; font-size: clamp(11px, 1vw, 15px); color: var(--ink);
+  background: var(--paper-tinted); border: 1px solid var(--stroke); border-radius: 8px;
+  padding: 0.9vh 0.7vw; width: 100%; box-sizing: border-box;
+}
+.lgn-consent { display: flex; align-items: flex-start; gap: 8px; font-size: clamp(10px, 0.9vw, 13px); color: var(--ink-secondary); }
+.lgn-consent input { margin-top: 0.25em; }
+.lgn-submit {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(12px, 1.1vw, 16px);
+  color: #fff; background: var(--indigo-deep); border: none; border-radius: 999px;
+  padding: 1vh 0.8vw; cursor: pointer;
+}
+.lgn-foot { margin: 0; font-size: clamp(10px, 0.9vw, 13px); color: var(--ink-secondary); }
+.lgn-foot a { color: var(--indigo); }
+.lgn-elev { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.4vh; }
+.lgn-elev .lgn-sub { font-size: clamp(13px, 1.2vw, 18px); color: var(--ink); }
+
+@media (max-width: 560px) {
+  /* stacked mobile block, same pattern as 01's responsive.css */
+  .sheet { height: auto; }
+  header.r-wordmark { display: flex; padding: 12px 16px 4px; }
+  .wordmark { font-family: var(--font-display); font-weight: 700; font-size: 30px; }
+  .r-header-tabs { display: flex; gap: 18px; padding: 6px 16px 10px; }
+  .r-header-tabs a { font-family: var(--font-display); font-weight: 700; font-size: 18px; }
+  .search-pill { display: none !important; }
+  .lgn-wrap { position: static; display: block; padding: 12px 16px 28px; }
+  .lgn-note { margin-bottom: 14px; }
+  .lgn-card { margin: 0 0 14px; padding: 16px; }
+  .lgn-form { gap: 12px; }
+  .lgn-field input[type="text"], .lgn-field input[type="email"], .lgn-field input[type="password"] { font-size: 15px; padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+<div class="sheet" aria-label="Skola inloggning">
+  <header class="r r-wordmark"><span class="wordmark">Skola</span></header>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <div class="header-rule" aria-hidden="true"></div>
+  <div class="search-pill" aria-hidden="true">⌕ Sök schema ✕</div>
+
+  <main class="lgn-wrap">
+    <p class="lgn-note">Prototyp — inloggning fungerar inte</p>
+
+    <section class="lgn-card" aria-labelledby="k1">
+      <p class="lgn-kicker" id="k1">1 · Elev</p>
+      <div class="lgn-elev">
+        <p class="lgn-sub">Elever behöver inte logga in — gå till <a href="index.html">startsidan</a>.</p>
+      </div>
+    </section>
+
+    <section class="lgn-card" id="logga-in" aria-labelledby="k2">
+      <p class="lgn-kicker" id="k2">2 · Admin/Lärare</p>
+      <p class="lgn-title">Logga in för admin- eller lärarkonto</p>
+      <p class="lgn-sub-quiet">Logga in via Google på <strong>skola.sibbamala.com</strong> i vanliga fall.</p>
+      <form class="lgn-form" onsubmit="return false">
+        <div class="lgn-field">
+          <label class="lgn-label" for="login-email">Användarnamn</label>
+          <input type="text" id="login-email" name="email" placeholder="admin" readonly>
+        </div>
+        <div class="lgn-field">
+          <label class="lgn-label" for="login-password">Lösenord</label>
+          <input type="password" id="login-password" name="password" readonly>
+        </div>
+        <button type="submit" class="lgn-submit">Logga in</button>
+      </form>
+      <p class="lgn-foot"><a href="index.html"> Till startsidan</a></p>
+    </section>
+
+    <section class="lgn-card" aria-labelledby="k3">
+      <p class="lgn-kicker" id="k3">3 · Skapa elevkonto</p>
+      <p class="lgn-sub">Med ett konto sparas det du redan har övat på den här enheten.</p>
+      <form class="lgn-form" onsubmit="return false">
+        <div class="lgn-field">
+          <label class="lgn-label" for="reg-name">Namn (valfritt)</label>
+          <input type="text" id="reg-name" name="name" placeholder="Ditt namn" readonly>
+        </div>
+        <div class="lgn-field">
+          <label class="lgn-label" for="reg-email">E-post</label>
+          <input type="email" id="reg-email" name="email" placeholder="namn@exempel.se" readonly>
+        </div>
+        <div class="lgn-field">
+          <label class="lgn-label" for="reg-password">Lösenord</label>
+          <input type="password" id="reg-password" name="password" placeholder="Minst 6 tecken" readonly>
+        </div>
+        <label class="lgn-consent" for="reg-consent">
+          <input type="checkbox" id="reg-consent" name="consent">
+          Jag godkänner att mina uppgifter behandlas enligt integritetspolicyn.
+        </label>
+        <button type="submit" class="lgn-submit">Skapa konto</button>
+      </form>
+      <p class="lgn-foot">Har du redan ett konto? <a href="#logga-in">Logga in</a></p>
+    </section>
+
+    <section class="lgn-card" aria-labelledby="k4">
+      <p class="lgn-kicker" id="k4">4 · Byt lösenord</p>
+      <p class="lgn-sub">Du måste byta lösenord innan du fortsätter.</p>
+      <form class="lgn-form" onsubmit="return false">
+        <div class="lgn-field">
+          <label class="lgn-label" for="cp-current">Nuvarande lösenord</label>
+          <input type="password" id="cp-current" name="current" readonly>
+        </div>
+        <div class="lgn-field">
+          <label class="lgn-label" for="cp-next">Nytt lösenord</label>
+          <input type="password" id="cp-next" name="next" readonly>
+        </div>
+        <div class="lgn-field">
+          <label class="lgn-label" for="cp-confirm">Bekräfta nytt lösenord</label>
+          <input type="password" id="cp-confirm" name="confirm" readonly>
+        </div>
+        <button type="submit" class="lgn-submit">Byt lösenord</button>
+      </form>
+    </section>
+  </main>
+</div>
+</body>
+</html>
