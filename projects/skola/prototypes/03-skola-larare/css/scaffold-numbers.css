@@ -5,26 +5,26 @@
   --r-header-tabs-x: 21.300%; --r-header-tabs-y: 10.980%; --r-header-tabs-w: 25.120%; --r-header-tabs-h: 5.280%;
   --r-header-tabs-cap: 19px; --r-header-tabs-font: 28px;
   --r-search-pill-x: 78.100%; --r-search-pill-y: 10.470%; --r-search-pill-w: 12.190%; --r-search-pill-h: 5.080%;
-  --r-class-chips-x: 7.770%; --r-class-chips-y: 21.140%; --r-class-chips-w: 5.220%; --r-class-chips-h: 32.320%;
+  --r-class-chips-x: 13.032vw; --r-class-chips-y: 24.282vh; --r-class-chips-w: 4.570vw; --r-class-chips-h: 28.807vh;
   --r-class-chips-cap: 21px; --r-class-chips-font: 31px;
-  --r-table-head-x: 15.940%; --r-table-head-y: 20.630%; --r-table-head-w: 51.240%; --r-table-head-h: 7.520%;
-  --r-table-rows-x: 15.940%; --r-table-rows-y: 28.150%; --r-table-rows-w: 34.960%; --r-table-rows-h: 36.590%;
+  --r-table-head-x: 20.184vw; --r-table-head-y: 23.828vh; --r-table-head-w: 44.855vw; --r-table-head-h: 6.703vh;
+  --r-table-rows-x: 20.184vw; --r-table-rows-y: 30.530vh; --r-table-rows-w: 30.604vw; --r-table-rows-h: 32.613vh;
   --r-table-rows-cap: 23px; --r-table-rows-font: 34px;
-  --r-betyg-col-x: 50.900%; --r-betyg-col-y: 28.150%; --r-betyg-col-w: 16.280%; --r-betyg-col-h: 36.590%;
-  --r-planering-card-x: 15.940%; --r-planering-card-y: 67.380%; --r-planering-card-w: 51.440%; --r-planering-card-h: 20.830%;
+  --r-betyg-col-x: 50.788vw; --r-betyg-col-y: 30.530vh; --r-betyg-col-w: 14.252vw; --r-betyg-col-h: 32.613vh;
+  --r-planering-card-x: 20.184vw; --r-planering-card-y: 65.496vh; --r-planering-card-w: 45.031vw; --r-planering-card-h: 18.566vh;
   --r-planering-card-cap: 21px; --r-planering-card-font: 30px;
-  --r-rail-heading-x: 70.330%; --r-rail-heading-y: 20.830%; --r-rail-heading-w: 8.370%; --r-rail-heading-h: 5.080%;
+  --r-rail-heading-x: 67.797vw; --r-rail-heading-y: 24.006vh; --r-rail-heading-w: 7.327vw; --r-rail-heading-h: 4.528vh;
   --r-rail-heading-cap: 22px; --r-rail-heading-font: 33px;
-  --r-rail-today-x: 69.990%; --r-rail-today-y: 26.220%; --r-rail-today-w: 21.570%; --r-rail-today-h: 14.430%;
+  --r-rail-today-x: 67.499vw; --r-rail-today-y: 28.810vh; --r-rail-today-w: 18.882vw; --r-rail-today-h: 12.861vh;
   --r-rail-today-cap: 21px; --r-rail-today-font: 30px;
-  --r-attgora-heading-x: 70.190%; --r-attgora-heading-y: 43.700%; --r-attgora-heading-w: 14.070%; --r-attgora-heading-h: 5.080%;
+  --r-attgora-heading-x: 67.674vw; --r-attgora-heading-y: 44.390vh; --r-attgora-heading-w: 12.317vw; --r-attgora-heading-h: 4.528vh;
   --r-attgora-heading-cap: 23px; --r-attgora-heading-font: 33px;
-  --r-attgora-rows-x: 69.990%; --r-attgora-rows-y: 49.290%; --r-attgora-rows-w: 21.970%; --r-attgora-rows-h: 18.090%;
+  --r-attgora-rows-x: 67.499vw; --r-attgora-rows-y: 49.372vh; --r-attgora-rows-w: 19.233vw; --r-attgora-rows-h: 16.124vh;
   --r-attgora-rows-cap: 19px; --r-attgora-rows-font: 28px;
-  --r-nu-card-x: 69.990%; --r-nu-card-y: 69.310%; --r-nu-card-w: 21.970%; --r-nu-card-h: 17.480%;
-  --r-vecka-chip-x: 87.210%; --r-vecka-chip-y: 87.200%; --r-vecka-chip-w: 4.960%; --r-vecka-chip-h: 3.860%;
+  --r-nu-card-x: 67.499vw; --r-nu-card-y: 67.216vh; --r-nu-card-w: 19.233vw; --r-nu-card-h: 15.580vh;
+  --r-vecka-chip-x: 82.574vw; --r-vecka-chip-y: 83.161vh; --r-vecka-chip-w: 4.342vw; --r-vecka-chip-h: 3.440vh;
   --r-vecka-chip-cap: 15px; --r-vecka-chip-font: 22px;
-  --r-gutter-marks-x: 6.970%; --r-gutter-marks-y: 70.330%; --r-gutter-marks-w: 7.500%; --r-gutter-marks-h: 10.160%;
+  --r-gutter-marks-x: 12.332vw; --r-gutter-marks-y: 68.125vh; --r-gutter-marks-w: 6.566vw; --r-gutter-marks-h: 9.056vh;
 }
 
 .comp-frame { position: relative; width: 100%; aspect-ratio: 1493 / 984; overflow: hidden; }
