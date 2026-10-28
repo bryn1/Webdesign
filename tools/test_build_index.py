@@ -9,8 +9,13 @@ committable without tribal `git add -f`, pruned when its project vanishes or arm
 unmistakable to scripts (exit codes), and survivable without a browser.
 
 Each test runs the tool against a throwaway fixture repo, so nothing here writes into this repo.
+This is the mirror-LIFETIME + prune-predicate + privacy/encoding half of the gate (the legs
+docs/ARCHITECTURE.md §8's mechanism row names); tools/test_build_index_uncovered.py holds the
+cycle-6 coverage legs for paths no leg had ever run. Run BOTH as `python3 -m pytest -q tools/`.
 Which file is under test is one env var away — that is how the RED leg is shown against the
-pre-change tool (its legs go red: root shadow, stale page, rc=0 on --root, traceback on timeout).
+pre-change tool (its legs go red: root shadow, stale page, rc=0 on --root, traceback on timeout,
+and every fix4 leg: the directory-marker guard, the refusal exit 2, the re-encoded loud keep at
+exit 3, the NEITHER-half foreign plant, the ceiling leg).
 The committability leg gates the PAIR (writer, the .gitignore of the repo that writer came from), so
 extract BOTH halves next to each other; a BUILD_INDEX_TOOL copy with no .gitignore beside it FAILS
 that leg instead of skipping it (MC 11003 cycle-2 DA P3-A — a leg the recipe silently drops is not a
@@ -196,24 +201,30 @@ def test_host_surface_prunes_a_stale_page_when_a_marker_arms(repo):
 
 
 def test_host_surface_never_prunes_a_page_the_writer_did_not_write(repo):
-    """MC 11003 cycle-2 (DA P2-A): the prune loop removed ANY root index.html whose first 4 KB carried
-    the nav-back string, so a hand-written page that merely quotes "← Alla projekt" was deleted — and
-    its directory with it, by the rmdir that follows. Root identity is the writer's signature (the mark
-    AND its own "<project> — prototyper" <title>), not a 13-character Swedish string. RED pre-fix: the
-    plant below is gone and docs/ is gone; the two prune legs above stay green either way, which is
-    exactly why this leg had to exist. Its RED object is the shipped loop (d89443c) — against the
-    pre-repair writer there is no prune loop at all, so the plant survives and this leg passes."""
+    """MC 11003 cycle-2 (DA P2-A) + cycle-6 (TEST F1 m_fforeign and DA F2 — ONE leg covers the rule
+    both findings named, so the staged package's separate globen plant was NOT ported): the prune
+    must never delete, announce or touch a page carrying NEITHER half of the signature. The original
+    plant quoted "← Alla projekt" in body copy — one half — so it fell into the LOUD branch and the
+    (F,F) branch this leg was written for stayed unasserted: deleting `if not marked: continue`
+    (mutant m_fforeign, and DA's plant p3) kept the suite green while the hand-written page was
+    DELETED and its dir rmdir'd. The plant now carries neither half (foreign <title>, no nav mark):
+    a silent keep rc 0. RED on that mutant: plant gone. Byte-assert per cycle-6 DA F3: KEPT means
+    the BYTES — is_file() survived DA's plant p2, which overwrote kept pages."""
     assert run(repo, "--host-surface").returncode == 0
     plant = repo / "docs"                       # a path build_root() never generates (not a project)
     plant.mkdir()
     (plant / "index.html").write_text(
         "<!doctype html>\n<title>Contributor style guide</title>\n"
-        "<body><p>The nav-back link reads <a href=\"../\">← Alla projekt</a></p>\n", encoding="utf-8")
+        "<body><p>Build the site with tools/build-index.py.</p>\n", encoding="utf-8")
+    planted = (plant / "index.html").read_bytes()
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert (plant / "index.html").is_file(), "prune deleted a page this writer never wrote"
+    assert (plant / "index.html").read_bytes() == planted, \
+        "prune deleted or rewrote a page this writer never wrote (P2-A reborn, or F3's clobber)"
     assert plant.is_dir(), "prune rmdir'd a directory it never created"
     assert "pruned stale surface page docs/" not in r.stderr, r.stderr
+    assert "KEPT, review docs/" not in r.stderr, \
+        f"the NEITHER-half page under a NON-project dir announced — foreign pages stay silent: {r.stderr!r}"
 
 
 def test_title_shape_alone_does_not_identify_a_writer_page(repo):
@@ -228,9 +239,11 @@ def test_title_shape_alone_does_not_identify_a_writer_page(repo):
     (plant / "index.html").write_text("<!doctype html>\n<title>notes — prototyper &amp; koncept</title>\n"
                                       "<body><h1>hand-authored, no nav-back mark anywhere</h1>\n",
                                       encoding="utf-8")
+    planted = (plant / "index.html").read_bytes()   # cycle-6 DA F3: KEPT must mean the BYTES
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert (plant / "index.html").is_file(), "prune deleted a page over its <title> shape alone"
+    assert (plant / "index.html").read_bytes() == planted, \
+        "prune deleted or rewrote a page kept over its <title> shape alone (is_file() hid DA's p2)"
     assert plant.is_dir(), "prune rmdir'd a directory it never created"
     assert "pruned stale surface page notes/" not in r.stderr, r.stderr
 
@@ -246,9 +259,11 @@ def test_host_surface_says_so_when_a_stale_page_carries_the_mark_without_the_tit
     stale.write_text(stale.read_text(encoding="utf-8").replace("prototyper", "Prototyper", 1),
                      encoding="utf-8")
     (repo / "projects" / SITE / "LOCAL_ONLY").write_text("", encoding="utf-8")   # MC 10510 privacy
+    planted = stale.read_bytes()                # cycle-6 DA F3: KEPT must mean the BYTES
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert stale.is_file(), "a hand-edited page must be KEPT, not deleted — the loud line is the fix"
+    assert stale.read_bytes() == planted, \
+        "a hand-edited page was deleted or REWRITTEN after being announced KEPT (is_file() hid DA's p2)"
     assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
     assert "<title>" in r.stderr, f"the reason is missing from: {r.stderr!r}"
 
@@ -269,9 +284,11 @@ def test_host_surface_says_so_when_a_stale_page_carries_the_title_without_the_ma
     assert mod.SURFACE_MARK not in navless, "fixture no longer strips the mark — the nav wording moved"
     stale.write_text(navless, encoding="utf-8")                 # the writer's OWN <title>, no mark at all
     shutil.rmtree(repo / "projects" / SITE)
+    planted = stale.read_bytes()                # cycle-6 DA F3: KEPT must mean the BYTES
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert stale.is_file(), "deleted on half a signature — that is the cycle-2 DA P2-A defect"
+    assert stale.read_bytes() == planted, \
+        "deleted or rewrote on half a signature — that is the cycle-2 DA P2-A defect (is_file() hid p2)"
     assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
     assert mod.SURFACE_MARK in r.stderr, f"the missing MARK half is not named: {r.stderr!r}"
     assert "<title>" not in r.stderr, f"the announcement blames the wrong half: {r.stderr!r}"
@@ -293,9 +310,11 @@ def test_host_surface_keeps_a_page_whose_title_starts_with_the_writers_own(repo)
     assert extended.startswith(own) and extended != own, f"plant is not an EXTENDED title: {extended!r}"
     stale.write_text(edited, encoding="utf-8")
     (repo / "projects" / SITE / "LOCAL_ONLY").write_text("", encoding="utf-8")   # MC 10510 privacy
+    planted = stale.read_bytes()                # cycle-6 DA F3: KEPT must mean the BYTES
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert stale.is_file(), "a hand-extended <title> was DELETED — own_title became a substring test"
+    assert stale.read_bytes() == planted, \
+        "a hand-extended <title> was DELETED or rewritten — own_title became a substring test"
     assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
     assert "<title>" in r.stderr, f"the announcement does not name the title half: {r.stderr!r}"
 
@@ -315,9 +334,11 @@ def test_host_surface_says_so_when_a_copy_edit_of_its_own_title_stem_orphans_old
     assert reworded != writer.read_text(encoding="utf-8"), "the stem constant moved — find the new literal"
     writer.write_text(reworded, encoding="utf-8")
     shutil.rmtree(repo / "projects" / SITE)
+    planted = stale.read_bytes()                # cycle-6 DA F3: KEPT must mean the BYTES
     r = run(repo, "--host-surface")
     assert r.returncode == 0, r.stderr
-    assert stale.is_file(), "the orphan was deleted — the copy-edit widened the prune instead"
+    assert stale.read_bytes() == planted, \
+        "the orphan was deleted or rewritten — the copy-edit widened the prune instead"
     assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, f"silent decline: {r.stderr!r}"
 
 
@@ -371,11 +392,84 @@ def test_local_only_project_is_skipped_in_every_mode(repo):
     for argv in ([], ["--host-surface"]):
         r = run(repo, *argv)
         assert r.returncode == 0, f"{argv}: {r.stderr}"
-        assert "skipped local-only" in r.stderr, argv
+        # MC 11003 fix4 wording row: the notice prints PER scan(), not per run — build() scans once
+        # for _site/, build_root() scans again for the mirror. A --host-surface run prints TWO lines;
+        # docs used to promise "a one-line skip notice" (DA F4), which this now pins either way.
+        assert r.stderr.count("skipped local-only") == (2 if argv else 1), \
+            f"{argv}: skip-notice lines = {r.stderr.count('skipped local-only')}, stderr {r.stderr!r}"
         assert not (repo / "_site" / SITE).exists(), f"{argv}: LOCAL_ONLY project reached _site"
         assert not (repo / SITE).exists(), f"{argv}: LOCAL_ONLY project reached the root surface"
         assert not (repo / "_site" / "index.html").is_file() or \
             f'href="{SITE}/"' not in (repo / "_site" / "index.html").read_text(encoding="utf-8")
+
+
+def test_a_local_only_marker_of_ANY_kind_arms_the_guard(tmp_path):
+    """MC 11003 cycle-6 fix4 (the P0): scan() armed the guard with os.path.isfile, so a LOCAL_ONLY
+    created as a DIRECTORY — the same look in a file manager, a plausible mv/mkdir — was NOT a marker:
+    the private project scanned as public, was written to _site and to the root mirror, exit 0, one
+    word said. The predicate is PRESENCE now (lexists). RED on an isfile-only predicate: both
+    branches here publish and the skip notice never prints. The alternative reading — "treat any
+    unreadable marker as private" — was NOT taken (no owner ruling exists; see the module docstring)."""
+    repo = _fixture(tmp_path, thumb=True)
+    (repo / "projects" / SITE / "LOCAL_ONLY").mkdir()          # marker as a DIRECTORY, not a file
+    for argv in ([], ["--host-surface"]):
+        r = run(repo, *argv)
+        assert r.returncode == 0, f"{argv}: {r.stderr}"
+        assert "skipped local-only" in r.stderr, \
+            f"{argv}: a directory marker did not arm the guard — stderr {r.stderr!r}"
+        assert not (repo / "_site" / SITE).exists(), f"{argv}: a dir-marker project reached _site"
+        assert not (repo / SITE).exists(), f"{argv}: a dir-marker project reached the root surface"
+
+
+def test_an_unclassifiable_local_only_marker_refuses_the_run_and_names_the_path(tmp_path):
+    """Cycle-6 fix4, the loud half. A LOCAL_ONLY path that is present but is NEITHER a file NOR a
+    directory (here a dangling symlink — also what a socket or FIFO gives) cannot be positively
+    classified, so the whole run is REFUSED: exit 2, the path named, nothing written. Silence here
+    would be the fail-open again. RED on an isfile-only predicate: the symlink simply is not a file,
+    the project reads as public and the run exits 0 having published it. The alternative reading
+    "treat any unreadable marker as private" is NOT taken — this refuses, per the orchestrator's
+    cycle-6 reading, which no owner ruling replaces yet."""
+    repo = _fixture(tmp_path, thumb=True)
+    os.symlink("nothing-here", repo / "projects" / SITE / "LOCAL_ONLY")
+    for argv in ([], ["--host-surface"]):
+        r = run(repo, *argv)
+        assert r.returncode == 2, f"{argv}: rc {r.returncode} — an unclassifiable marker was not refused: {r.stderr!r}"
+        assert "refusing to run" in r.stderr and f"{SITE}/LOCAL_ONLY" in r.stderr, \
+            f"{argv}: refusal does not name the path: {r.stderr!r}"
+        assert not (repo / "_site").exists() and not (repo / SITE).exists(), \
+            f"{argv}: a refused run wrote surface anyway"
+
+
+def test_a_re_encoded_page_under_an_armed_marker_is_kept_named_and_ends_the_run_nonzero(tmp_path):
+    """Cycle-6 fix4 (the encoding hazard the parent probe reproduced). A page an editor re-saved in
+    cp1252 or UTF-16 decodes as U+FFFD mush: BOTH signature halves vanish from the ONE head window at
+    char ~142 — not past 65 536 — so the old (F,F) branch read the private project's own stale page as
+    a foreign page, kept it, said nothing and exited 0: a private project's public page survived every
+    publish in silence. Now: KEPT as bytes, ANNOUNCED by path, and the run ENDS exit 3 (EXIT_UNIDENTIFIED_KEEP)
+    because scripts and cron read rc 0 as ok and never see the notice. RED on the pre-fix writer: rc 0
+    and stderr names neither the page nor KEPT. The BOM control at the end keeps the fix honest: a
+    UTF-8 BOM decodes fine, so that page is still PRUNED at rc 0 — decode failure, not difference, is
+    what arms the loud keep. The staged package's silent ceiling twin lives in
+    tools/test_build_index_uncovered.py: BOTH directions of the ONE-window bound are pinned."""
+    repo = _fixture(tmp_path, thumb=True)
+    assert run(repo, "--host-surface").returncode == 0
+    mirror = repo / SITE / "index.html"
+    text = mirror.read_text(encoding="utf-8")
+    (repo / "projects" / SITE / "LOCAL_ONLY").write_text("private\n", encoding="utf-8")
+    for enc in ("cp1252", "utf-16"):
+        payload = text.encode(enc, errors="replace")
+        mirror.write_bytes(payload)
+        r = run(repo, "--host-surface")
+        assert mirror.read_bytes() == payload, \
+            f"{enc}: the unreadable page was DELETED or rewritten — never delete what you cannot read"
+        assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, \
+            f"{enc}: silent keep of a marked-private project's page: {r.stderr!r}"
+        assert r.returncode == 3, f"{enc}: rc {r.returncode} — an unreadable keep must not read as ok: {r.stderr!r}"
+    mirror.write_bytes(b"\xef\xbb\xbf" + text.encode("utf-8"))   # UTF-8 BOM: decodes, so still prunable
+    r = run(repo, "--host-surface")
+    assert not mirror.exists(), f"a UTF-8 BOM page survived the prune — the loud keep over-closed: {r.stderr!r}"
+    assert "pruned stale surface page" in r.stderr and r.returncode == 0, \
+        f"BOM page pruned with the wrong voice or code: rc {r.returncode}, {r.stderr!r}"
 
 
 def test_retired_root_flag_exits_nonzero(repo):
@@ -439,7 +533,8 @@ def test_host_surface_survives_a_browser_timeout(repo_no_thumb, monkeypatch):
             raise subprocess.TimeoutExpired(["node", "screenshot.mjs"], 120)
 
     monkeypatch.setattr(mod, "subprocess", DeadClock)
-    report = mod.build_root(thumbs=True, opt_in=mod.HOST_SURFACE_FLAG)
+    report, kept_private = mod.build_root(thumbs=True, opt_in=mod.HOST_SURFACE_FLAG)
+    assert kept_private == [], f"build_root now returns (report, kept_private) — unpack it: {kept_private!r}"
     assert any("FAILED" in line and "browser timed out" in line for line in report), report
     assert (repo_no_thumb / SITE / "index.html").is_file(), "a slow browser aborted the publish"
     assert (repo_no_thumb / "index.html").is_file()

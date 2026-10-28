@@ -15,8 +15,15 @@ writes a generated, gitignored _site/:
 _site/ is what the :8090 server serves, so neither .git nor .audits is reachable over HTTP.
 
 A project is LOCAL-ONLY (real, private content — MC 10510 privacy guard) iff projects/<project>/LOCAL_ONLY
-exists; scan() skips such projects in ALL modes (root cards, per-project page writer, thumbs, _site) and
-names each skipped project on stderr, so the guard never runs silently.
+exists — a marker of ANY kind arms the guard (MC 11003 cycle-6 fix4: the code required a plain FILE, so a
+DIRECTORY named LOCAL_ONLY — indistinguishable from the file in a file manager — read as PUBLIC and the
+private project was published at rc 0, silent; "exists" is the docstring's own word, now the code's too).
+A marker the tool cannot positively classify (present but neither a file nor a directory, e.g. a dangling
+symlink) REFUSES the whole run — exit 2, the path named, nothing written; never processed as public. The
+alternative reading ("treat any unreadable marker as private") is NOT taken: no owner ruling exists, and
+this cycle's reading is the orchestrator's, not the owner's. scan() skips marked projects in ALL modes
+(root cards, per-project page writer, thumbs, _site) and names each skipped project on stderr, so the
+guard never runs silently.
 
 With --host-surface it ALSO writes the committed public surface (MC 10088 HOSTING-01; two-level layout
 per the owner's BROWSE-V2 ruling, MC 10088.12 — root = one card per project, then /<project>/ lists
@@ -32,8 +39,15 @@ It removes ONLY a page carrying both halves of this writer's signature (its nav-
 <title>); a page carrying ONE half inside the reader's window — a hand-edited <title>, or one an older
 wording left — is KEPT and announced on stderr as "KEPT, review <site>/index.html …", never dropped,
 because silence is how an edited title stopped the privacy guard applying, forever, at rc 0 (MC 11003
-cycle-3 DA P1; README says the same in the words a page-editor reads). The announcing is BOUNDED by that
-window, not promised for every page: what one page shows outside it is written next to HEAD_CHARS.
+cycle-3 DA P1; README says the same in the words a page-editor reads). A stale page showing NEITHER half
+under a project dir still on disk with its LOCAL_ONLY marker armed cannot be told apart from this writer's
+own page that an ordinary editor re-saved in cp1252 or UTF-16 — that save hides BOTH halves at char ~142
+by breaking the DECODE, not the position (cycle-6 DA F1 + the parent probe, reproduced end to end). Such
+a page is KEPT, named on stderr, and the run ENDS exit 3: a private project's public page is never kept
+in silence, because cron and scripts read rc 0 as success and cannot read stderr. A neither-half page
+elsewhere (its project deleted, or a non-project dir) is foreign by this reader's bound and stays kept,
+silent, rc 0 — the cycle-2 DA P2-A protection of hand-written pages, unchanged. What the announcing does
+and does not promise for every page is BOUNDED by the window next to HEAD_CHARS, not per-page.
 If no browser is available, a surface publish still writes the PAGES: make_thumb reports the thumb
 failure per file instead of aborting the publish (MC 11003 follow-up, DA P2-D).
 
@@ -63,7 +77,10 @@ Usage: python3 tools/build-index.py [--thumbs] [--force-thumbs] [--host-surface]
                    non-zero code as "the flag you passed is gone", never as "nothing was written".
 Any other token — an unknown or malformed flag (--root=yes, --host-surface=1) or a bare positional
 (host-surface, np) — is REJECTED with exit 2 before anything is written; exit 1 = a thumb step failed
-(pages were still written).
+(pages were still written); exit 3 = the pages were written, but the prune KEPT a page it could not
+positively identify UNDER A MARKED-PRIVATE project and announced it on stderr (a silent keep there —
+what a cp1252/UTF-16 re-save of a writer's own page used to cause at rc 0 — is how the privacy guard
+fails open, so a script must never read it as success).
 """
 import html
 import os
@@ -80,7 +97,8 @@ KINDS = ("prototypes", "concepts")
 HOST_SURFACE_FLAG = "--host-surface"
 RETIRED_ROOT_FLAG = "--root"
 FLAGS = ("--thumbs", "--force-thumbs", HOST_SURFACE_FLAG, RETIRED_ROOT_FLAG)
-EXIT_FLAG_ERROR = 2
+EXIT_REFUSED = 2  # the refusal code: exit 2, nothing written (bad flag, retired flag, unreadable privacy marker)
+EXIT_UNIDENTIFIED_KEEP = 3  # pages were written; a private project's stale page was kept UNREAD — review
 # Identity of a page THIS writer wrote, for the prune loop: BOTH halves that project_page(public=True)
 # emits — the nav-back mark and the page's own <title>, read back through the SAME constants the
 # writer emits (surface_title()). The mark alone was the MC 11003 cycle-2 DA P2-A defect: identity was
@@ -96,12 +114,18 @@ SURFACE_TITLE_STEM = "— prototyper"
 # mark at char 1 884-1 888, so ~2 200 characters of head/CSS growth moved the mark out of the window
 # and the writer's own stale page then survived every publish, silently, rc 0. title_of() already
 # read 65 536; the prune now reads through the same reader instead of authoring a second one.
-# What that ONE window GUARANTEES, and what it does not (MC 11003 cycle-5 TEST F5, measured): a page
-# showing at least ONE half of the signature inside it is named on stderr and kept, never dropped; a
-# page that hides BOTH halves past 65 536 characters reads as a foreign page and is kept without a word,
-# rc 0. The gap is closed for THIS writer's pages by shape, not by luck: page() emits the <title> before
-# the CSS and the nav mark sits in the BODY after it, so a growing generated page can push only the MARK
-# past the window, never both halves — and a shrunken reader reddens the window leg.
+# What that ONE window GUARANTEES, and what it does not (MC 11003 cycle-5 TEST F5 + cycle-6 DA F1,
+# measured): a page showing at least ONE half inside it is named on stderr and kept, never dropped.
+# A half can hide TWO ways — by POSITION (past 65 536 characters) and by DECODE (a page re-saved in
+# cp1252/UTF-16 hides BOTH halves at char ~142: errors="replace" mangles them where they sit). The
+# bound is therefore "a half this reader can neither find NOR decode inside the window", not merely
+# "past 65 536". Position is closed for THIS writer's pages by shape, not luck: page() emits the
+# <title> before the CSS and the nav mark sits in the BODY after it, so a growing generated page can
+# push only the MARK out, never both halves — a shrunken reader reddens the window leg, a grown one
+# reddens the ceiling leg. Decode is closed WHERE IT DANGERS THE GUARD (fix4): a neither-half page
+# under an armed LOCAL_ONLY marker is KEPT, ANNOUNCED, and fails the run (exit 3); a neither-half
+# page whose project is gone stays a silent foreign keep at rc 0 — unreadable bytes are never
+# evidence for deleting a page this writer may not have written (cycle-2 DA P2-A stands).
 HEAD_CHARS = 65536
 
 CSS = """
@@ -137,6 +161,16 @@ def head_of(page):
     surface page's mark out of the text the guard looked at, so the page became unprunable)."""
     with open(page, encoding="utf-8", errors="replace") as fh:
         return fh.read(HEAD_CHARS)
+
+
+def marker_of(pdir):
+    """The ONE privacy-marker predicate (MC 11003 fix4): projects/<p>/LOCAL_ONLY if it is PRESENT —
+    a marker of ANY kind (file, dir, link) arms the guard; isfile-only read a directory marker as
+    public, the fail-open this closes. Callers ask what they can act on: scan() classifies (file or
+    dir → skip; anything else → refuse exit 2, never guessed), build_root()'s prune only asks whether
+    a marker is armed when it must not keep a private project's page in silence."""
+    marker = os.path.join(pdir, "LOCAL_ONLY")
+    return marker if os.path.lexists(marker) else None
 
 
 def title_from(head):
@@ -193,7 +227,19 @@ def scan():
         pdir = os.path.join(PROJECTS, proj)
         if proj.startswith((".", "_")) or not os.path.isdir(pdir):
             continue
-        if os.path.isfile(os.path.join(pdir, "LOCAL_ONLY")):
+        marker = marker_of(pdir)
+        if marker:
+            # The guard asks "does the marker exist", never "is it a regular file" (MC 11003 fix4:
+            # isfile-only let a DIRECTORY named LOCAL_ONLY — the same look in a file manager — read as
+            # public, publishing the private project silently at rc 0). A marker the tool cannot
+            # classify — present, neither file nor dir (a dangling symlink) — is refused loudly, exit 2,
+            # naming the path; it is never processed as public and never guessed private.
+            if not (os.path.isfile(marker) or os.path.isdir(marker)):
+                print(f"build-index: refusing to run: {marker} is neither a file nor a directory — a "
+                      f"LOCAL_ONLY marker this tool cannot classify is refused, never processed as "
+                      f"public (MC 11003 fix4: silence is the defect). Fix or remove the marker.",
+                      file=sys.stderr)
+                sys.exit(EXIT_REFUSED)
             print(f"build-index: skipped local-only project {proj} (projects/{proj}/LOCAL_ONLY)", file=sys.stderr)
             continue
         entries = []
@@ -383,8 +429,11 @@ def build_root(thumbs=False, force=False, opt_in=None):
     it out of the prune by design, and silence was how that quietly stopped the privacy guard applying
     forever, rc 0 (cycle-3 DA P1). `own_title` is EQUALS, not contains — a title that merely starts with
     the writer's own is a hand-edited title, and deleting it would break what README promises a
-    page-editor (cycle-5 TEST F2). A page showing neither half inside the window is read as
-    foreign and stays silent; the bound sits at HEAD_CHARS.
+    page-editor (cycle-5 TEST F2). A page showing neither half inside the window is foreign by the
+    reader's bound: silent keep under a deleted project or a non-project dir, but LOUD keep + exit 3
+    (EXIT_UNIDENTIFIED_KEEP) under a project dir still marked LOCAL_ONLY — a cp1252/UTF-16 re-save of
+    the writer's own page hides both halves at char ~142, not past the window (cycle-6 DA F1). Returns
+    (report, unreviewed): the surface's thumb report and the dir names kept unread under a marker.
 
     NOTE (MC 11003 follow-up, DA P1-C — owner decision pending, deliberately NOT resolved here):
     every href/src is relative, but the card set is scan(), while hosting.yaml's mirror include names
@@ -396,6 +445,7 @@ def build_root(thumbs=False, force=False, opt_in=None):
                  f"(MC 11003: projects/<site>/ is canon, a root <site>/ page is a generated mirror)")
     projects = scan()
     live = {p["name"] for p in projects}
+    unreviewed = []
     for n in sorted(os.listdir(ROOT)):
         d = os.path.join(ROOT, n)
         if n in live or n.startswith((".", "_")) or n in ("projects", "thumbs"):
@@ -428,6 +478,22 @@ def build_root(thumbs=False, force=False, opt_in=None):
                   f"hand.", file=sys.stderr)
             continue
         if not marked:
+            # (F,F) — NEITHER half inside the window. A page under a project dir still on disk with its
+            # LOCAL_ONLY marker armed cannot be told apart from THIS writer's own page that an ordinary
+            # editor re-saved in cp1252/UTF-16: that save breaks the DECODE and hides both halves at
+            # char ~142 (MC 11003 cycle-6 DA F1 + the parent probe, reproduced end to end — pruned
+            # nothing, said nothing, rc 0). A private project's public page is never kept in silence:
+            # kept unread, announced, and main() ends the run EXIT_UNIDENTIFIED_KEEP because cron
+            # cannot read stderr. A neither-half page whose project dir is gone stays a SILENT foreign
+            # keep, rc 0 — deleting on unreadable bytes is the cycle-2 P2-A defect, unchanged.
+            if marker_of(os.path.join(PROJECTS, n)):
+                unreviewed.append(n)
+                print(f"build-index: KEPT, review {n}/index.html — projects/{n} carries an armed "
+                      f"LOCAL_ONLY marker and the page shows NEITHER half of the writer's signature "
+                      f"inside the head window (its bytes do not decode as the UTF-8 this writer emits "
+                      f"— an editor re-save in cp1252/UTF-16 does exactly that): it is kept unread and "
+                      f"named, never deleted unread and never quiet. Remove the page or re-save it as "
+                      f"UTF-8; this run exits {EXIT_UNIDENTIFIED_KEEP}.", file=sys.stderr)
             continue
         os.remove(stale)
         if not os.listdir(d):
@@ -458,7 +524,7 @@ def build_root(thumbs=False, force=False, opt_in=None):
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(page("Webdesign — prototyper & koncept", body,
                       head_extra="<link rel=\"icon\" href=\"favicon.ico\">\n"))
-    return report
+    return report, unreviewed
 
 
 def main(argv):
@@ -471,25 +537,29 @@ def main(argv):
             print(f"build-index: refusing to run: {a} is not a flag of this tool (accepted: --thumbs "
                   f"--force-thumbs {HOST_SURFACE_FLAG} {RETIRED_ROOT_FLAG} (retired) --help). Nothing was written.",
                   file=sys.stderr)
-        return EXIT_FLAG_ERROR
+        return EXIT_REFUSED
     retired = RETIRED_ROOT_FLAG in argv
     if retired:
         print(f"build-index: {RETIRED_ROOT_FLAG} is retired (MC 11003) and writes no root <site>/ surface "
               f"(the ordinary _site/ build of this run still runs) — the generated "
               f"public surface requires the explicit {HOST_SURFACE_FLAG} opt-in "
               f"(projects/<site>/ is canon, the root <site>/ page is a mirror). This run exits "
-              f"{EXIT_FLAG_ERROR}: a retired flag must never read as success to a script or cron.", file=sys.stderr)
+              f"{EXIT_REFUSED}: a retired flag must never read as success to a script or cron.", file=sys.stderr)
     force = "--force-thumbs" in argv
     projects, report = build(thumbs=force or "--thumbs" in argv, force=force)
+    unreviewed = []
     if HOST_SURFACE_FLAG in argv:
-        report += build_root(thumbs=True, force=force, opt_in=HOST_SURFACE_FLAG)
+        surface_report, unreviewed = build_root(thumbs=True, force=force, opt_in=HOST_SURFACE_FLAG)
+        report += surface_report
     for p in projects:
         print(f"{p['name']}: {sum(1 for e in p['entries'] if e['kind'] == 'prototypes')} prototypes, "
               f"{sum(1 for e in p['entries'] if e['kind'] == 'concepts')} concepts")
     for line in report:
         print("thumb", line)
     if retired:
-        return EXIT_FLAG_ERROR
+        return EXIT_REFUSED
+    if unreviewed:
+        return EXIT_UNIDENTIFIED_KEEP
     failed = [r for r in report if "FAILED" in r]
     return 1 if failed else 0
 

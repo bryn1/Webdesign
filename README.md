@@ -60,10 +60,16 @@ must be committable by a plain `git add` — no ignore rule
 hides it (MC 11003 follow-up), and a `<site>/` page whose project is deleted or carries a
 `LOCAL_ONLY` marker is pruned by the next `--host-surface` run. **Edit the `<title>` of one of those
 generated pages by hand and you have opted that page out of the prune**: the writer only deletes a page
-carrying both halves of its own signature (the `← Alla projekt` nav mark and its own `<title>`), so an
-edited page stays public and every later publish says so on stderr (`KEPT, review <site>/index.html …`)
-instead of removing it — re-publish it with `--host-surface`, or delete it yourself
-(MC 11003 cycle-3 DA P1; docs/ARCHITECTURE.md §2).
+carrying both halves of its own signature (the `← Alla projekt` nav mark and its own `<title>`) while
+they stay READABLE to it inside its 65 536-character head window, so an edited page stays public and
+every later publish that can still read it says so on stderr (`KEPT, review <site>/index.html …`)
+instead of removing it — re-publish it with `--host-surface`, or delete it yourself. One limit,
+measured cycle-6: a page an editor re-saved in cp1252/UTF-16 hides BOTH halves from the reader; under a
+`LOCAL_ONLY`-marked project that unreadable keep is LOUD and the publish ENDS exit 3 (never a quiet
+success), and only where the project dir is gone too is it the silent foreign keep (a hand-written page
+is never deleted over bytes the tool cannot read). `LOCAL_ONLY` arms as a marker of any kind — file or
+directory; a marker that is neither stops the whole publish with exit 2, naming the path
+(MC 11003 cycle-3 DA P1 + cycle-6 DA F1/fix4; docs/ARCHITECTURE.md §2).
 
 ## Add a prototype
 
