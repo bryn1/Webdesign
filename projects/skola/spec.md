@@ -5,7 +5,7 @@ app-router, träd-cachen `.tmp/skola-tree.txt`). All kopi nedan är de faktiska 
 vyname­n från trädet; nya fakta, siffror eller kontaktuppgifter får aldrig hittas på.
 Appen är ett lärande-platform för skola (elever/lärare/admin) — Operate-läge.
 
-## Ytor (en prototyp per kluster; klustermedlemmar visas som sektioner/tillstånd i samma index)
+## Ytor (en prototyp per kluster; klustermedlemmarna finns nu som egna .html-sidor per yta, länkade från ytans index — 01 har login-sidan `login.html` som egen fil, de övriga klustren 12/14/8 sidor; delat skal `_assets/skola-shell.css`. Byggt T5, MC 11630)
 
 | Prototyp | Representerande vy | Övriga i klustret (in-page-states) |
 |---|---|---|
