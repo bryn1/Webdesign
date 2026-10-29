@@ -1,0 +1,165 @@
+/* features.css — 04-skola-admin feature pages (MC 11630 T5 B5).
+   Linked AFTER skola-shell.css on every feature page. Weekly Schema Grid world:
+   white content panel on the #eef0f2 board, navy accents, Mada. Geometry basis
+   900px height (1vh = 9px @900): header band 0–8vh via shell, page-heading
+   16.77–22.5% (admin.css), feature nav + panel below. */
+
+/* ---------- shared frame slots ---------- */
+.r-feat-nav  { left: 7.77%; top: 25.5%; width: 84.5%; height: 4.44%; }
+.r-feat-main { left: 7.77%; top: 31.7%; width: 84.5%; height: 62.9%; }
+
+.feat-nav { display: flex; align-items: center; gap: clamp(8px, 0.8vw, 13px); }
+.feat-nav a {
+  display: flex; align-items: center; height: 100%;
+  padding: 0 clamp(10px, 1vw, 16px);
+  background: #e6eaee; border-radius: 999px; text-decoration: none;
+  color: #3b414d; font-size: clamp(15px, 1.3vw, 19px); font-weight: 700;
+  letter-spacing: -0.4px; white-space: nowrap;
+}
+.feat-nav a.active { background: #16204f; color: #fff; }
+
+.feat-main {
+  background: #fff; border: 1px solid #d7dbe0; border-radius: 18px;
+  padding: 2.1% 2.5%; overflow: hidden; display: flex; flex-direction: column;
+}
+.feat-head { display: flex; align-items: baseline; gap: clamp(10px, 1.2vw, 18px); flex: none; flex-wrap: wrap; }
+.feat-h2 { font-size: clamp(19px, 1.7vw, 25px); font-weight: 800; letter-spacing: -0.9px; color: #16181d; }
+.feat-sub { font-size: clamp(15px, 1.3vw, 19px); color: #3b414d; }
+.proto {
+  display: inline-flex; align-items: center; height: clamp(24px, 2.5vh, 32px);
+  padding: 0 12px; border-radius: 999px; background: #c9ced6; color: #16204f;
+  font-size: clamp(14px, 1.15vw, 17px); font-weight: 700; white-space: nowrap;
+}
+
+.feat-cols { flex: 1; display: flex; gap: clamp(14px, 1.8vw, 28px); min-height: 0; margin-top: clamp(10px, 1.6vh, 20px); }
+.f-col { min-width: 0; min-height: 0; overflow: hidden; }
+.f-col-h { font-size: clamp(17px, 1.5vw, 22px); font-weight: 800; letter-spacing: -0.7px; color: #1d2330; margin-bottom: clamp(6px, 1.1vh, 14px); }
+
+/* filter chips + fake selects (dynamic filter = prototyp) */
+.chipbar { display: flex; align-items: center; gap: clamp(8px, 0.9vw, 14px); flex: none; flex-wrap: wrap; margin-top: clamp(8px, 1.3vh, 16px); }
+.fchip {
+  display: inline-flex; align-items: center; height: clamp(26px, 3vh, 36px);
+  padding: 0 clamp(10px, 1vw, 15px); border-radius: 999px; background: #e6eaee;
+  color: #3b414d; font-size: clamp(14px, 1.2vw, 18px); font-weight: 700; white-space: nowrap;
+}
+.fchip.on { background: #1c2461; color: #fff; }
+.fsel {
+  display: inline-flex; align-items: center; gap: 8px; height: clamp(26px, 3vh, 36px);
+  padding: 0 clamp(10px, 1vw, 15px); border-radius: 10px; border: 1px solid #c8cdd4;
+  color: #6f747d; background: #fff; font-size: clamp(14px, 1.2vw, 18px); font-weight: 600; white-space: nowrap;
+}
+.fsel::after { content: "▾"; color: #6f747d; }
+
+/* tables */
+.ft { width: 100%; border-collapse: collapse; }
+.ft th {
+  text-align: left; font-size: clamp(14px, 1.2vw, 18px); font-weight: 800; letter-spacing: 0.4px;
+  color: #2c4a6e; border-bottom: 2px solid #d7dbe0; padding: clamp(5px, 0.9vh, 10px) clamp(6px, 0.8vw, 12px) clamp(5px, 0.9vh, 10px) 0;
+}
+.ft td {
+  font-size: clamp(15px, 1.3vw, 19px); color: #3b414d; border-bottom: 1px solid #e4e7ea;
+  padding: clamp(5px, 0.9vh, 10px) clamp(6px, 0.8vw, 12px) clamp(5px, 0.9vh, 10px) 0;
+}
+.ft td.k { color: #16181d; font-weight: 700; }
+.ft .empty td { color: #6f747d; font-style: italic; }
+
+/* status pills (clone states: väntar / misslyckades + frisk-style) */
+.st { display: inline-flex; align-items: center; height: clamp(22px, 2.4vh, 30px); padding: 0 10px; border-radius: 999px; font-size: clamp(13px, 1.1vw, 16px); font-weight: 700; white-space: nowrap; }
+.st.wait { background: #e3e6ea; color: #3b414d; }
+.st.ok { background: #16204f; color: #fff; }
+.st.bad { background: #d9dce1; color: #6b3232; }
+
+/* buttons (static, prototyp) */
+.fbtn {
+  display: inline-flex; align-items: center; height: clamp(30px, 3.6vh, 42px);
+  padding: 0 clamp(12px, 1.3vw, 20px); border-radius: 10px; background: #16204f; color: #fff;
+  font-size: clamp(15px, 1.25vw, 19px); font-weight: 700; white-space: nowrap;
+}
+.fbtn.ghost { background: #e6eaee; color: #3b414d; }
+.fbtn.danger { background: #6b3232; }
+
+/* review queue (granska) */
+.qtabs { display: flex; gap: clamp(14px, 1.6vw, 24px); font-size: clamp(17px, 1.5vw, 23px); font-weight: 800; letter-spacing: -0.6px; flex: none; }
+.qtabs a { text-decoration: none; color: #6f747d; padding-bottom: 4px; }
+.qtabs a.active { color: #1c2461; border-bottom: 4px solid #1c2461; }
+.qlist { display: flex; flex-direction: column; gap: clamp(6px, 1vh, 12px); }
+.qrow { background: #eef0f2; border-radius: 12px; padding: clamp(8px, 1.2vh, 14px) clamp(10px, 1.1vw, 16px); display: flex; flex-direction: column; gap: 4px; }
+.qrow .qt { font-size: clamp(15px, 1.3vw, 19px); font-weight: 700; color: #16181d; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.qrow .qm { font-size: clamp(13px, 1.1vw, 17px); color: #5f646d; }
+.qrow.sel { background: #dfe4f3; outline: 2px solid #1c2461; }
+.qdetail { flex: 1; display: flex; flex-direction: column; gap: clamp(10px, 1.6vh, 18px); }
+.qhint {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  background: #eef0f2; border-radius: 12px; color: #5f646d;
+  font-size: clamp(16px, 1.4vw, 21px); font-weight: 600; text-align: center; padding: 6%;
+}
+.qbtns { display: flex; gap: clamp(10px, 1.2vw, 16px); flex: none; }
+
+/* chat (admin-chat) */
+.chat { flex: 1; display: flex; flex-direction: column; gap: clamp(8px, 1.3vh, 15px); min-height: 0; }
+.bubble { max-width: 72%; padding: clamp(9px, 1.4vh, 16px) clamp(12px, 1.3vw, 20px); border-radius: 16px; font-size: clamp(15px, 1.3vw, 19px); }
+.bubble.user { align-self: flex-end; background: #16204f; color: #fff; border-bottom-right-radius: 4px; }
+.bubble.ai { align-self: flex-start; background: #e6eaee; color: #3b414d; border-bottom-left-radius: 4px; }
+.chat-input { flex: none; display: flex; align-items: center; gap: clamp(8px, 1vw, 14px); margin-top: clamp(6px, 1vh, 12px); }
+.chat-field {
+  flex: 1; display: flex; align-items: center; height: clamp(42px, 5.4vh, 62px);
+  background: #eef0f2; border: 1px solid #d7dbe0; border-radius: 999px; padding: 0 clamp(16px, 1.6vw, 24px);
+  color: #5f646d; font-size: clamp(15px, 1.3vw, 19px); font-weight: 500;
+}
+
+/* settings rows */
+.set-rows { display: flex; flex-direction: column; }
+.srow { display: flex; align-items: center; justify-content: space-between; gap: clamp(10px, 1.4vw, 20px); padding: clamp(5px, 0.85vh, 10px) 0; border-bottom: 1px solid #e4e7ea; font-size: clamp(15px, 1.3vw, 19px); color: #3b414d; }
+.srow:last-child { border-bottom: none; }
+.srow .sv { color: #16181d; font-weight: 700; text-align: right; }
+.toggle { flex: none; width: 46px; height: 26px; border-radius: 999px; background: #c3c9d2; position: relative; }
+.toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; }
+.toggle.on { background: #16204f; }
+.toggle.on::after { left: auto; right: 3px; }
+
+/* static plate bar chart (training) */
+.bars { display: flex; align-items: flex-end; gap: clamp(8px, 1vw, 14px); height: clamp(90px, 15vh, 170px); }
+.bars i { flex: 1; background: #16204f; border-radius: 6px 6px 0 0; min-height: 8%; }
+.bars i.l { background: #c9ced6; }
+
+/* cards grid (uploads) */
+.cardgrid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.4vw, 20px); min-height: 0; align-content: start; }
+.fcard { background: #eef0f2; border: 1px solid #d7dbe0; border-radius: 14px; padding: clamp(10px, 1.5vh, 18px) clamp(10px, 1.1vw, 16px); display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fcard .fn { font-size: clamp(15px, 1.3vw, 19px); font-weight: 700; color: #16181d; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.fcard .fm { font-size: clamp(13px, 1.1vw, 17px); color: #6f747d; }
+.pager { flex: none; display: flex; gap: clamp(10px, 1.2vw, 16px); justify-content: flex-end; margin-top: clamp(8px, 1.3vh, 16px); }
+
+/* static modal states (users detail / uploads delete) */
+.modalwrap { flex: none; display: flex; justify-content: center; }
+.modal {
+  background: #fff; border: 1px solid #1c2461; border-radius: 16px; box-shadow: 0 6px 24px rgba(22, 32, 79, 0.18);
+  padding: clamp(14px, 2.2vh, 26px) clamp(16px, 1.8vw, 26px); display: flex; flex-direction: column; gap: clamp(8px, 1.3vh, 14px);
+}
+.modal .mt { font-size: clamp(18px, 1.6vw, 24px); font-weight: 800; letter-spacing: -0.8px; color: #16181d; }
+.modal .mb { font-size: clamp(15px, 1.3vw, 19px); color: #3b414d; }
+
+/* mobile <=560px — same doctrine as admin.css: static stacked flow */
+@media (max-width: 560px) {
+  .frame { width: auto; height: auto; margin: 0; border-radius: 0; box-shadow: none; }
+  .r { position: relative !important; width: auto !important; height: auto !important; left: auto !important; top: auto !important; }
+  .wordmark { display: inline-block; margin: 14px 0 0 14px; }
+  .tabs { display: flex; gap: 16px; margin: 10px 14px 0; }
+  .header-icons { display: none; }
+  .search-pill { display: inline-flex; width: fit-content; margin: 14px 0 0 14px; }
+  .page-heading { display: block; margin: 20px 14px 0; }
+  .feat-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 14px 0; }
+  .feat-nav a { height: 34px; align-self: auto; }
+  .feat-main { margin: 16px 14px 22px; padding: 16px 14px; overflow: visible; }
+  .proto { white-space: normal; height: auto; padding: 5px 12px; }
+  .feat-cols { flex-direction: column; overflow: visible; }
+  .f-col { overflow-x: auto; }
+  .f-col + .f-col { border-top: 1px solid #e4e7ea; padding-top: 14px; }
+  .chat .bubble { max-width: 88%; }
+  .cardgrid { grid-template-columns: 1fr; }
+  .modal { box-shadow: none; border: 1px solid #1c2461; }
+  .qhint { padding: 24px 14px; }
+}
+
+/* focus + motion (same doctrine as admin.css) */
+a:focus-visible, button:focus-visible { outline: 3px solid #1c2461; outline-offset: 2px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

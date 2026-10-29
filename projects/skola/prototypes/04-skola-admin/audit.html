@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Admin — Audit</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+<link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+<div class="frame">
+<div class="sheet" aria-hidden="true"></div>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" class="active" aria-current="page">Admin</a>
+  </nav>
+  <span class="r r-header-icons header-icons" aria-hidden="true"><img class="header-icons-plate" src="assets/plates/header-icons.png" alt="" width="104" height="48" loading="lazy"></span>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <h1 class="r r-page-heading page-heading">Audit</h1>
+
+  <nav class="r r-feat-nav feat-nav" aria-label="Adminsidor">
+    <a href="index.html">Schemaläggning</a>
+    <a href="audit.html" class="active" aria-current="page">Audit</a>
+    <a href="admin-chat.html">Admin AI</a>
+    <a href="granska.html">Granska</a>
+    <a href="settings.html">Inställningar</a>
+    <a href="subjects.html">Ämnen</a>
+    <a href="training.html">Träningsdata</a>
+    <a href="uploads.html">Uppladdningar</a>
+    <a href="users.html">Användare</a>
+  </nav>
+
+  <main class="r r-feat-main feat-main">
+    <div class="feat-head">
+      <span class="feat-h2">Granskning</span>
+      <span class="feat-sub">Rapporter, feedback och veckovis användningsanalys.</span>
+      <span class="proto">prototyp — statisk logg, fungerar inte</span>
+    </div>
+    <div class="feat-cols">
+      <div class="f-col" style="flex:1">
+        <table class="ft">
+          <thead><tr><th>Tid</th><th>Användare</th><th>Händelse</th><th>Roll</th></tr></thead>
+          <tbody>
+            <tr><td>2026-10-28 08:12</td><td class="k">Anna Svensson</td><td>Loggade in</td><td>Admin</td></tr>
+            <tr><td>2026-10-28 08:31</td><td class="k">Anna Svensson</td><td>Godkände innehåll — Fysik · Område 2</td><td>Admin</td></tr>
+            <tr><td>2026-10-28 09:05</td><td class="k">Erik Lund</td><td>Laddade upp fil — kapitel-3.pdf</td><td>Lärare</td></tr>
+            <tr><td>2026-10-28 09:40</td><td class="k">Anna Svensson</td><td>Ändrade policy — AI-rättning</td><td>Admin</td></tr>
+            <tr><td>2026-10-28 10:02</td><td class="k">Maria Holm</td><td>Bad om revidering — Biologi · cellen</td><td>Lärare</td></tr>
+            <tr><td>2026-10-28 10:47</td><td class="k">Anna Svensson</td><td>Skapade konto — anna@skola.se</td><td>Admin</td></tr>
+            <tr><td>2026-10-28 11:15</td><td class="k">Johan Nor</td><td>Loggade in</td><td>Lärare</td></tr>
+            <tr><td>2026-10-28 12:03</td><td class="k">Anna Svensson</td><td>Export veckorapport</td><td>Admin</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

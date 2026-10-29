@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Admin — Användare</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+<link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+<div class="frame">
+<div class="sheet" aria-hidden="true"></div>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" class="active" aria-current="page">Admin</a>
+  </nav>
+  <span class="r r-header-icons header-icons" aria-hidden="true"><img class="header-icons-plate" src="assets/plates/header-icons.png" alt="" width="104" height="48" loading="lazy"></span>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <h1 class="r r-page-heading page-heading">Användare</h1>
+
+  <nav class="r r-feat-nav feat-nav" aria-label="Adminsidor">
+    <a href="index.html">Schemaläggning</a>
+    <a href="audit.html">Audit</a>
+    <a href="admin-chat.html">Admin AI</a>
+    <a href="granska.html">Granska</a>
+    <a href="settings.html">Inställningar</a>
+    <a href="subjects.html">Ämnen</a>
+    <a href="training.html">Träningsdata</a>
+    <a href="uploads.html">Uppladdningar</a>
+    <a href="users.html" class="active" aria-current="page">Användare</a>
+  </nav>
+
+  <main class="r r-feat-main feat-main">
+    <div class="feat-head">
+      <span class="feat-h2">Konton</span>
+      <span class="proto">prototyp — tabell och detaljvy fungerar inte</span>
+    </div>
+    <div class="chipbar">
+      <span class="fchip on">Alla</span>
+      <span class="fchip">Admin</span>
+      <span class="fchip">Lärare</span>
+      <span class="fchip">Elev</span>
+      <span class="fsel">Klass:</span>
+    </div>
+    <div class="feat-cols">
+      <div class="f-col" style="flex:1">
+        <table class="ft">
+          <thead><tr><th>Namn</th><th>E-post</th><th>Roll</th><th>Klass</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Anna Svensson</td><td>anna@skola.se</td><td>Admin</td><td>—</td><td><span class="st ok">aktiv</span></td></tr>
+            <tr><td class="k">Erik Lund</td><td>erik@skola.se</td><td>Lärare</td><td>7A</td><td><span class="st ok">aktiv</span></td></tr>
+            <tr><td class="k">Maria Holm</td><td>maria@skola.se</td><td>Lärare</td><td>7B</td><td><span class="st ok">aktiv</span></td></tr>
+            <tr><td class="k">Johan Nor</td><td>johan@skola.se</td><td>Lärare</td><td>8C</td><td><span class="st wait">väntar</span></td></tr>
+            <tr><td class="k">Elev 7A-01</td><td>—</td><td>Elev</td><td>7A</td><td><span class="st ok">aktiv</span></td></tr>
+            <tr><td class="k">Elev 7B-03</td><td>—</td><td>Elev</td><td>7B</td><td><span class="st bad">inaktiv</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="f-col" style="width:32%">
+        <div class="f-col-h">Detaljvy — Anna Svensson</div>
+        <div class="modal" role="img" aria-label="Statisk detaljvy för konto">
+          <span class="mt">Behörigheter</span>
+          <span class="mb">Admin — hela skolan · <strong>byter lösenord vid nästa inloggning</strong></span>
+          <span class="mt" style="margin-top:6px">Senaste aktivitet</span>
+          <span class="mb">Inga loggade händelser.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

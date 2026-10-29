@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Admin — Granska</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+<link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+<div class="frame">
+<div class="sheet" aria-hidden="true"></div>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" class="active" aria-current="page">Admin</a>
+  </nav>
+  <span class="r r-header-icons header-icons" aria-hidden="true"><img class="header-icons-plate" src="assets/plates/header-icons.png" alt="" width="104" height="48" loading="lazy"></span>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <h1 class="r r-page-heading page-heading">Granska innehåll</h1>
+
+  <nav class="r r-feat-nav feat-nav" aria-label="Adminsidor">
+    <a href="index.html">Schemaläggning</a>
+    <a href="audit.html">Audit</a>
+    <a href="admin-chat.html">Admin AI</a>
+    <a href="granska.html" class="active" aria-current="page">Granska</a>
+    <a href="settings.html">Inställningar</a>
+    <a href="subjects.html">Ämnen</a>
+    <a href="training.html">Träningsdata</a>
+    <a href="uploads.html">Uppladdningar</a>
+    <a href="users.html">Användare</a>
+  </nav>
+
+  <main class="r r-feat-main feat-main">
+    <div class="feat-head">
+      <nav class="qtabs" aria-label="Vyer">
+        <a href="granska.html" class="active" aria-current="page">Innehåll</a>
+        <a href="audit.html">Rapporter</a>
+      </nav>
+      <span class="proto">prototyp — kö och knappar fungerar inte</span>
+    </div>
+    <div class="chipbar">
+      <span class="fchip on">Alla</span>
+      <span class="fchip">Godkända</span>
+      <span class="fchip">Ogranskade</span>
+      <span class="fsel">Ämne</span>
+      <span class="fsel">Område</span>
+      <span class="fsel">Förmåga</span>
+      <span class="fsel">Innehållstyp</span>
+      <span class="fsel">Godkännandestatus</span>
+      <span class="feat-sub">Standardfilter (ogranskade)</span>
+    </div>
+    <div class="feat-cols">
+      <div class="f-col" style="width:36%" aria-label="Innehåll">
+        <div class="qlist">
+          <div class="qrow sel"><span class="qt">Fysik · Kraft och rörelse</span><span class="qm">Område 2 · TEXTAREA · ogranskad</span></div>
+          <div class="qrow"><span class="qt">Biologi · Cellen</span><span class="qm">Område 1 · INPUT · ogranskad</span></div>
+          <div class="qrow"><span class="qt">Matematik · Bråktal</span><span class="qm">Område 3 · TEXTAREA · godkänd</span></div>
+          <div class="qrow"><span class="qt">Svenska · Argumenterande text</span><span class="qm">Område 1 · SELECT · ogranskad</span></div>
+        </div>
+      </div>
+      <div class="f-col" style="flex:1" aria-label="Detaljvy">
+        <div class="qdetail">
+          <div class="qhint">Välj en post i listan till vänster.</div>
+          <div class="qbtns">
+            <span class="fbtn" aria-hidden="true">Godkänn</span>
+            <span class="fbtn ghost" aria-hidden="true">Be om revidering</span>
+            <span class="fbtn ghost" aria-hidden="true">Visa fördjupning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

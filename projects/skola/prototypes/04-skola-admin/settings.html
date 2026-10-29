@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Admin — Inställningar</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+<link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+<div class="frame">
+<div class="sheet" aria-hidden="true"></div>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a><a href="../03-skola-larare/">Lärare</a><a href="../04-skola-admin/" class="active" aria-current="page">Admin</a>
+  </nav>
+  <span class="r r-header-icons header-icons" aria-hidden="true"><img class="header-icons-plate" src="assets/plates/header-icons.png" alt="" width="104" height="48" loading="lazy"></span>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <h1 class="r r-page-heading page-heading">Inställningar</h1>
+
+  <nav class="r r-feat-nav feat-nav" aria-label="Adminsidor">
+    <a href="index.html">Schemaläggning</a>
+    <a href="audit.html">Audit</a>
+    <a href="admin-chat.html">Admin AI</a>
+    <a href="granska.html">Granska</a>
+    <a href="settings.html" class="active" aria-current="page">Inställningar</a>
+    <a href="subjects.html">Ämnen</a>
+    <a href="training.html">Träningsdata</a>
+    <a href="uploads.html">Uppladdningar</a>
+    <a href="users.html">Användare</a>
+  </nav>
+
+  <main class="r r-feat-main feat-main">
+    <div class="feat-head">
+      <span class="feat-sub">Systemkonfiguration och policy.</span>
+      <span class="proto">prototyp — inställningar kan inte ändras</span>
+    </div>
+    <div class="feat-cols">
+      <div class="f-col" style="flex:1">
+        <div class="f-col-h">Systemkonfiguration</div>
+        <div class="set-rows">
+          <div class="srow"><span>Modell</span><span class="sv">Qwen3-30B-A3B-Instruct-2507 Q4_K_M</span></div>
+          <div class="srow"><span>Embeddings</span><span class="sv">Qwen3.6-35B-A3B-UD Q4_K_M</span></div>
+          <div class="srow"><span>Whisper STT</span><span class="sv">Aktiv</span></div>
+          <div class="srow"><span>Värd</span><span class="sv">localhost:8089</span></div>
+          <div class="srow"><span>Temp</span><span class="sv">0.7</span></div>
+          <div class="srow"><span>Showcase-läge:</span><span class="sv">Av</span></div>
+          <div class="srow"><span>Endast lokala modeller</span><span class="toggle on" aria-hidden="true"></span></div>
+        </div>
+      </div>
+      <div class="f-col" style="flex:1">
+        <div class="f-col-h">Policy</div>
+        <div class="set-rows">
+          <div class="srow"><span>AI-genererat material publiceras direkt</span><span class="toggle" aria-hidden="true"></span></div>
+          <div class="srow"><span>AI-läraren (chat)</span><span class="toggle on" aria-hidden="true"></span></div>
+          <div class="srow"><span>AI-rättning</span><span class="toggle" aria-hidden="true"></span></div>
+          <div class="srow"><span>Avstängd som standard — lärare måste granska.</span><span class="sv"></span></div>
+          <div class="srow"><span>Audit-logg krävs</span><span class="toggle on" aria-hidden="true"></span></div>
+          <div class="srow"><span>Anonyma elev-konton</span><span class="toggle on" aria-hidden="true"></span></div>
+          <div class="srow"><span>Triage / klassificering</span><span class="toggle on" aria-hidden="true"></span></div>
+        </div>
+      </div>
+      <div class="f-col" style="width:26%">
+        <div class="f-col-h">Användning</div>
+        <div class="bars" aria-label="Användning veckovis (statisk plate)">
+          <i style="height:35%"></i><i style="height:60%"></i><i style="height:80%"></i><i style="height:45%"></i><i class="l" style="height:20%"></i>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
