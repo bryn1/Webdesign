@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Prov · Plugga</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/elev.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <span class="r r-brand-emblem emblem" aria-hidden="true">
+    <svg viewBox="0 0 52 52" width="100%" height="100%"><circle cx="26" cy="26" r="24" fill="#1c2461"/><circle cx="26" cy="20" r="8" fill="#eef0f7"/><path d="M10 40c4-9 28-9 32 0z" fill="#eef0f7"/></svg>
+  </span>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/" class="active">Elev</a>
+    <a href="../03-skola-larare/">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span class="mag" aria-hidden="true">⌕</span>&nbsp; Sök schema</span>
+
+  <div class="feat">
+    <nav class="fnav" aria-label="Elevsidor">
+      <a href="index.html">Schema</a><a href="uppgifter.html">Uppgifter</a><a href="kurser.html">Kurser</a><a href="plugga.html">Plugga</a><a href="plugga-omrade.html">Områden</a><a href="plugga-prov.html" aria-current="page">Prov</a><a href="repetera.html">Repetera</a><a href="framsteg.html">Framsteg</a><a href="elev-ai.html">AI-läraren</a><a href="lektion.html">Lektion</a><a href="tidigare.html">Tidigare</a><a href="presentation.html">Presentation</a><a href="installningar.html">Inställningar</a>
+    </nav>
+
+    <header class="fhead">
+      <span class="feyp">Diagnostesten · Slutprov · Repetitionsprov</span>
+      <h1 class="fh1">Prov i Plugga</h1>
+      <p class="fsub">De här sidorna sätter och följer din nivå i ett område. <span class="fproto">prototyp — inlämning fungerar inte</span></p>
+    </header>
+
+    <div class="fbody cols-2b">
+      <section class="fstack" aria-label="Diagnostest och pluggpass">
+        <div class="fcard">
+          <span class="fceyp">Diagnostesten</span>
+          <h2 style="margin-top:2px;">Var står du just nu?</h2>
+          <p class="fcsub">Korta 8 frågor över förmågorna i området. Svara kort — det här är ingen prov, bara så vi kan visa dig övningar på rätt nivå. Du kan hoppa över när som helst.</p>
+          <p style="margin-top:10px;"><button class="fbtn prim" disabled>Starta diagnostesten</button> <button class="fbtn" disabled>Hoppa över</button></p>
+        </div>
+        <div class="fcard">
+          <span class="fceyp">Pluggpass · inför provet</span>
+          <p class="fcsub" style="margin-top:4px;">Pluggpassen (POST /api/plugga/study-sessions) byggs i en senare fas. Den här sidan är platshållaren — när study_sessions-tabellen är seedad visas planen + dagspassen här.</p>
+        </div>
+      </section>
+
+      <aside class="fstack" aria-label="Slutprov och repetitionsprov">
+        <div class="fcard">
+          <span class="ftag acc">SLUTPROV · RESULTAT</span>
+          <h2 style="margin-top:6px;">Slutprovet inlämnat.</h2>
+          <p class="fcsub">Rätt: 14 · Delvis: 3 · Fel: 2 (19 frågor)</p>
+          <div class="frows" style="margin-top:8px;">
+            <div class="frow"><span class="fmain"><b>Begrepp</b></span><span class="ftime">Rätt 5 · Fel 0</span></div>
+            <div class="frow"><span class="fmain"><b>Metod</b></span><span class="ftime">Rätt 7 · Delvis 2</span></div>
+            <div class="frow"><span class="fmain"><b>Resonemang</b></span><span class="ftime">Delvis 1 · Fel 2</span></div>
+          </div>
+        </div>
+        <div class="fcard">
+          <span class="fceyp">Repetitionsprov · matematik · bråk</span>
+          <h2 style="margin-top:2px;">Dags att repetera!</h2>
+          <p class="fcsub">Du genomförde slutprovet för det här området för ungefär 70 dagar sedan. Det är dags att kolla hur mycket du fortfarande kan. Frågorna hämtas när du startar — svara på alla och lämna in.</p>
+          <p style="margin-top:10px;"><button class="fbtn" disabled>Lämna in repetitionsprov</button></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</body>
+</html>

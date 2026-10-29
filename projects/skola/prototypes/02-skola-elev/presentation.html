@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Presentation</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/elev.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <span class="r r-brand-emblem emblem" aria-hidden="true">
+    <svg viewBox="0 0 52 52" width="100%" height="100%"><circle cx="26" cy="26" r="24" fill="#1c2461"/><circle cx="26" cy="20" r="8" fill="#eef0f7"/><path d="M10 40c4-9 28-9 32 0z" fill="#eef0f7"/></svg>
+  </span>
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/" class="active">Elev</a>
+    <a href="../03-skola-larare/">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span class="mag" aria-hidden="true">⌕</span>&nbsp; Sök schema</span>
+
+  <div class="feat">
+    <nav class="fnav" aria-label="Elevsidor">
+      <a href="index.html">Schema</a><a href="uppgifter.html">Uppgifter</a><a href="kurser.html">Kurser</a><a href="plugga.html">Plugga</a><a href="plugga-omrade.html">Områden</a><a href="plugga-prov.html">Prov</a><a href="repetera.html">Repetera</a><a href="framsteg.html">Framsteg</a><a href="elev-ai.html">AI-läraren</a><a href="lektion.html">Lektion</a><a href="tidigare.html">Tidigare</a><a href="presentation.html" aria-current="page">Presentation</a><a href="installningar.html">Inställningar</a>
+    </nav>
+
+    <header class="fhead">
+      <span class="feyp">Presentation · live</span>
+      <h1 class="fh1">Presentation</h1>
+      <p class="fsub">Du följer lärarens bilder i realtid under lektionen. <span class="fproto">prototyp — livesynk körs inte</span></p>
+    </header>
+
+    <div class="fbody cols-2">
+      <section class="fstack" aria-label="Bildvisare">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="ftag acc">Live</span>
+          <span class="ftime">Bild 3 av 8 · synkad 10:32</span>
+        </div>
+        <div class="fstage" style="flex:1;">
+          <span class="fs-kick">NO · Växters fysiologi</span>
+          <span class="fs-h">Fotosyntes: ljus + koldioxid + vatten → socker + syre</span>
+          <ul>
+            <li>Vad behövs i kloroplasten?</li>
+            <li>Varför blir blad gröna?</li>
+          </ul>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="fbtn" disabled>← Förra</button>
+          <button class="fbtn" disabled>Nästa →</button>
+          <span class="fproto">prototyp — bläddring fungerar inte</span>
+        </div>
+      </section>
+
+      <aside class="fstack" aria-label="Sammanfattning och frånvarolägen">
+        <div class="fcard">
+          <span class="ftag acc">Sammanfattning</span>
+          <h2 style="margin-top:6px;">Diskussionsfrågor</h2>
+          <ul style="margin:6px 0 0; padding-left:18px; font-size:13.5px; line-height:1.55; color:var(--ink, #16171a);">
+            <li>Förklara med egna ord varför växter behöver ljus.</li>
+            <li>Vad händer med produktionen en mulen vecka?</li>
+          </ul>
+        </div>
+        <div class="fempty"><b>Ansluter…</b>Väntar på att läraren ska starta presentationen.</div>
+        <div class="fempty"><b>Inga slides ännu.</b>Presentationsfliken har skickat ännu inga bilder.</div>
+        <div class="fempty"><b>Presentationen är inte aktiv just nu.</b>Den visas igen när lektionen startar.</div>
+      </aside>
+    </div>
+  </div>
+</div>
+</body>
+</html>

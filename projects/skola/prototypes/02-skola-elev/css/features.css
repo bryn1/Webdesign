@@ -1,0 +1,128 @@
+/* 02-skola-elev — feature pages (B3, MC 11630). Linked after elev.css and BEFORE skola-shell.css
+   by every feature page. Desktop (>=561px): the shell owns the header band (top 8vh) and keeps
+   body overflow hidden — .feat fills the rest, fit-to-viewport, no page scroll.
+   Mobile (<=560px): .feat becomes a static stacked block, like each surface's index pattern. */
+
+.feat { position: absolute; left: 1.21%; right: 1.21%; top: 9.8vh; bottom: 1.8vh;
+        display: flex; flex-direction: column; min-height: 0; color: var(--ink, #16171a); }
+
+/* feature nav: the surface's pages, one mechanism on every page */
+.fnav { flex: none; display: flex; flex-wrap: wrap; gap: 3px 16px; padding-bottom: 1.2vh;
+        font-size: 13.5px; font-weight: 600; border-bottom: 1px solid var(--hairline, #e9ebef); }
+.fnav a { color: var(--ink-secondary, #6e737c); text-decoration: none; white-space: nowrap; }
+.fnav a:hover { color: #1c2461; }
+.fnav a[aria-current="page"] { color: #1c2461; border-bottom: 2px solid #1c2461; }
+
+.fhead { flex: none; padding-top: 1.3vh; }
+.feyp { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
+        text-transform: uppercase; color: var(--ink-secondary, #6e737c); }
+.fh1 { font-size: clamp(26px, 2.7vw, 40px); font-weight: 800; letter-spacing: -1.4px;
+       margin: 3px 0 5px; color: var(--ink, #16171a); }
+.fsub { font-size: 14.5px; line-height: 1.45; color: var(--ink-secondary, #6e737c);
+        max-width: 74ch; margin: 0; }
+
+/* honest prototype mark for anything that would POST or move state */
+.fproto { display: inline-block; background: var(--paper-inset, #f3f4f7); border: 1px solid var(--stroke, #dfe1e6);
+          color: #4b5059; border-radius: 999px; padding: 2px 10px;
+          font-size: 12.5px; font-weight: 600; font-style: italic; white-space: nowrap; }
+
+.fbody { flex: 1; display: grid; gap: 14px; min-height: 0; margin-top: 1.5vh; align-content: start; }
+.fbody.cols-2 { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+.fbody.cols-2b { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.fstack { display: flex; flex-direction: column; gap: 14px; min-height: 0; min-width: 0; }
+
+.fcard { background: var(--paper-tinted, #f9fafb); border: 1px solid var(--hairline, #e9ebef);
+         border-radius: 14px; padding: 13px 16px; min-width: 0; }
+.fcard h2 { font-size: 16.5px; font-weight: 800; letter-spacing: -0.4px; margin: 0 0 3px; }
+.fceyp { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+         text-transform: uppercase; color: var(--ink-secondary, #6e737c); }
+.fcsub { font-size: 13.5px; line-height: 1.45; color: var(--ink-secondary, #6e737c); margin: 4px 0 0; }
+.fh2 { font-size: 13px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase;
+       color: #23272c; margin: 0 0 8px; }
+
+.fcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; align-content: start; }
+.fcards.tight { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.fmini { background: var(--paper-tinted, #f9fafb); border: 1px solid var(--hairline, #e9ebef);
+         border-radius: 12px; padding: 10px 13px; min-width: 0; }
+.fmini b { display: block; font-size: 15px; letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fmini .pmeta { font-size: 12.5px; color: var(--ink-secondary, #6e737c); letter-spacing: .6px; margin-top: 2px; }
+
+.fbar { height: 8px; border-radius: 999px; background: var(--paper-inset, #f3f4f7); overflow: hidden; margin-top: 7px; }
+.fbar i { display: block; height: 100%; border-radius: 999px; background: var(--indigo, #564ef3); }
+.fbar i.mid { background: #9a86e8; } .fbar i.low { background: var(--stroke, #dfe1e6); }
+
+.ftag { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12.5px; font-weight: 700;
+        background: var(--paper-inset, #f3f4f7); color: #4b5059; white-space: nowrap; }
+.ftag.acc { background: var(--indigo-veil, rgba(86,78,243,.08)); color: var(--indigo-deep, #4332d5); }
+.ftag.done { background: #e6f4ea; color: #1e7d3c; }
+
+.fkpi { display: flex; flex-direction: column; gap: 2px; }
+.fkpi b { font-size: 26px; letter-spacing: -1px; }
+.fkpi span { font-size: 12.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-secondary, #6e737c); }
+.fkpis { display: flex; gap: clamp(16px, 3vw, 42px); flex-wrap: wrap; }
+
+.fbtn { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--stroke, #dfe1e6);
+        background: var(--paper, #fff); color: var(--ink, #16171a); border-radius: 999px;
+        padding: 7px 16px; font-family: inherit; font-size: 14px; font-weight: 700; }
+.fbtn[disabled] { opacity: .55; cursor: not-allowed; }
+.fbtn.prim { background: #1c2461; border-color: #1c2461; color: #fff; }
+
+.fnote { font-size: 12.5px; font-style: italic; color: var(--ink-secondary, #6e737c); margin: 6px 0 0; }
+
+.frows { display: flex; flex-direction: column; gap: 8px; }
+.frow { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        background: var(--paper-tight, var(--paper-tinted, #f9fafb)); border: 1px solid var(--hairline, #e9ebef);
+        border-radius: 12px; padding: 9px 14px; font-size: 14.5px; min-width: 0; }
+.frow .fmain { min-width: 0; }
+.frow b { font-weight: 700; letter-spacing: -0.2px; }
+.frow .ftime { font-size: 12.5px; color: var(--ink-secondary, #6e737c); white-space: nowrap; }
+
+.fchat { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; overflow: hidden; }
+.fbub { max-width: 76%; border-radius: 16px; padding: 10px 14px; font-size: 14.5px; line-height: 1.5; }
+.fbub.me { align-self: flex-end; background: #1c2461; color: #fff; }
+.fbub.ai { align-self: flex-start; background: var(--paper-tinted, #f9fafb); border: 1px solid var(--hairline, #e9ebef); }
+.fsrc { display: block; margin-top: 7px; font-size: 12.5px; color: var(--ink-secondary, #6e737c); }
+.fcomposer { flex: none; display: flex; gap: 8px; margin-top: 10px; }
+.finput { flex: 1; border: 1px solid var(--stroke, #dfe1e6); border-radius: 999px; padding: 9px 16px;
+          font-family: inherit; font-size: 14.5px; background: var(--paper, #fff); color: var(--ink-secondary, #6e737c); }
+
+.fsel { border: 1px solid var(--stroke, #dfe1e6); border-radius: 10px; padding: 7px 12px; background: var(--paper, #fff);
+        color: var(--ink-secondary, #6e737c); font-size: 14px; }
+.ftog { flex: none; width: 40px; height: 22px; border-radius: 999px; background: var(--paper-inset, #f3f4f7);
+        border: 1px solid var(--stroke, #dfe1e6); position: relative; }
+.ftog.on { background: var(--indigo, #564ef3); border-color: var(--indigo-deep, #4332d5); }
+.ftog::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; }
+.ftog.on::after { left: 20px; }
+.fsett { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 9px 0; border-top: 1px solid var(--hairline, #e9ebef); }
+.fsett:first-of-type { border-top: none; }
+.fsett p { font-size: 12.5px; color: var(--ink-secondary, #6e737c); margin: 2px 0 0; line-height: 1.4; }
+.fsett b { font-size: 14.5px; }
+
+.fstage { background: #232b52; border-radius: 16px; padding: 20px 24px; color: #fff;
+          display: flex; flex-direction: column; gap: 8px; min-height: 0; justify-content: center; }
+.fstage .fs-kick { font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #b9c0dd; }
+.fstage .fs-h { font-size: clamp(20px, 2vw, 30px); font-weight: 800; letter-spacing: -0.8px; }
+.fstage ul { margin: 0; padding-left: 18px; font-size: 14.5px; line-height: 1.55; color: #e7eaf6; }
+
+.fempty { border: 1px dashed var(--stroke, #dfe1e6); border-radius: 14px; padding: 16px; text-align: center;
+          font-size: 14px; color: var(--ink-secondary, #6e737c); }
+.fempty b { display: block; margin-bottom: 3px; color: var(--ink, #16171a); }
+
+.ftabrow { display: flex; gap: 4px; border-bottom: 2px solid var(--hairline, #e9ebef); margin-bottom: 10px; }
+.ftab { padding: 7px 14px 6px; font-size: 14px; font-weight: 700; color: var(--ink-secondary, #6e737c); text-decoration: none; }
+.ftab.on { color: #1c2461; border-bottom: 3px solid #1c2461; margin-bottom: -2px; }
+
+/* ---------- mobile (<=560px): stacked block, like the surface's own index pattern ---------- */
+@media (max-width: 560px) {
+  .feat { position: static; display: block; left: auto; right: auto; top: auto; bottom: auto;
+          margin: 16px 14px 26px; }
+  .fhead { padding-top: 10px; }
+  .fh1 { font-size: 26px; }
+  .fbody, .fbody.cols-2, .fbody.cols-2b { display: block; margin-top: 14px; }
+  .fbody.cols-2 > *, .fbody.cols-2b > * { margin-bottom: 14px; }
+  .fcards { grid-template-columns: 1fr 1fr; }
+  .fbub { max-width: 94%; }
+  .fkpis { gap: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
