@@ -97,7 +97,7 @@ KINDS = ("prototypes", "concepts")
 HOST_SURFACE_FLAG = "--host-surface"
 RETIRED_ROOT_FLAG = "--root"
 FLAGS = ("--thumbs", "--force-thumbs", HOST_SURFACE_FLAG, RETIRED_ROOT_FLAG)
-EXIT_REFUSED = 2  # the refusal code: exit 2, nothing written (bad flag, retired flag, unreadable privacy marker)
+EXIT_REFUSED = 2  # refusal: bad flag / unclassifiable marker refuse before any write; retired --root reports 2 AFTER the writes it made (see Usage)
 EXIT_UNIDENTIFIED_KEEP = 3  # pages were written; a private project's stale page was kept UNREAD — review
 # Identity of a page THIS writer wrote, for the prune loop: BOTH halves that project_page(public=True)
 # emits — the nav-back mark and the page's own <title>, read back through the SAME constants the

@@ -450,26 +450,38 @@ def test_a_re_encoded_page_under_an_armed_marker_is_kept_named_and_ends_the_run_
     and stderr names neither the page nor KEPT. The BOM control at the end keeps the fix honest: a
     UTF-8 BOM decodes fine, so that page is still PRUNED at rc 0 — decode failure, not difference, is
     what arms the loud keep. The staged package's silent ceiling twin lives in
-    tools/test_build_index_uncovered.py: BOTH directions of the ONE-window bound are pinned."""
+    tools/test_build_index_uncovered.py: BOTH directions of the ONE-window bound are pinned.
+    fix5 (DA-c7 F2 + TEST-c7 F1): the marker is planted in BOTH shapes, file first then directory.
+    The (F,F) branch re-reads the marker at build_root()'s OWN call site; armed only as a file, this
+    leg stayed green while m_dirmarker_blind narrowed that one line to isfile — the exact bug shape
+    fix4 was born to kill, planted at the new site, with dir-marker projects silently back to rc 0."""
     repo = _fixture(tmp_path, thumb=True)
-    assert run(repo, "--host-surface").returncode == 0
     mirror = repo / SITE / "index.html"
-    text = mirror.read_text(encoding="utf-8")
-    (repo / "projects" / SITE / "LOCAL_ONLY").write_text("private\n", encoding="utf-8")
-    for enc in ("cp1252", "utf-16"):
-        payload = text.encode(enc, errors="replace")
-        mirror.write_bytes(payload)
+    marker = repo / "projects" / SITE / "LOCAL_ONLY"
+    for kind in ("file", "dir"):
+        if marker.is_file():                                     # re-arm the next shape, page restored
+            marker.unlink()
+        assert run(repo, "--host-surface").returncode == 0      # writer's own page, project unmarked
+        text = mirror.read_text(encoding="utf-8")
+        if kind == "file":
+            marker.write_text("private\n", encoding="utf-8")
+        else:
+            marker.mkdir()
+        for enc in ("cp1252", "utf-16"):
+            payload = text.encode(enc, errors="replace")
+            mirror.write_bytes(payload)
+            r = run(repo, "--host-surface")
+            assert mirror.read_bytes() == payload, \
+                f"{kind}/{enc}: the unreadable page was DELETED or rewritten — never delete what you cannot read"
+            assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, \
+                f"{kind}/{enc}: silent keep of a marked-private project's page: {r.stderr!r}"
+            assert r.returncode == 3, \
+                f"{kind}/{enc}: rc {r.returncode} — an unreadable keep must not read as ok: {r.stderr!r}"
+        mirror.write_bytes(b"\xef\xbb\xbf" + text.encode("utf-8"))   # BOM: decodes, so still prunable
         r = run(repo, "--host-surface")
-        assert mirror.read_bytes() == payload, \
-            f"{enc}: the unreadable page was DELETED or rewritten — never delete what you cannot read"
-        assert "KEPT" in r.stderr and f"{SITE}/index.html" in r.stderr, \
-            f"{enc}: silent keep of a marked-private project's page: {r.stderr!r}"
-        assert r.returncode == 3, f"{enc}: rc {r.returncode} — an unreadable keep must not read as ok: {r.stderr!r}"
-    mirror.write_bytes(b"\xef\xbb\xbf" + text.encode("utf-8"))   # UTF-8 BOM: decodes, so still prunable
-    r = run(repo, "--host-surface")
-    assert not mirror.exists(), f"a UTF-8 BOM page survived the prune — the loud keep over-closed: {r.stderr!r}"
-    assert "pruned stale surface page" in r.stderr and r.returncode == 0, \
-        f"BOM page pruned with the wrong voice or code: rc {r.returncode}, {r.stderr!r}"
+        assert not mirror.exists(), f"a UTF-8 BOM page survived the prune — the loud keep over-closed: {r.stderr!r}"
+        assert "pruned stale surface page" in r.stderr and r.returncode == 0, \
+            f"BOM page pruned with the wrong voice or code: rc {r.returncode}, {r.stderr!r}"
 
 
 def test_retired_root_flag_exits_nonzero(repo):
