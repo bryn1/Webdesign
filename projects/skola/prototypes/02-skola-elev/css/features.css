@@ -16,7 +16,7 @@
 .fhead { flex: none; padding-top: 1.3vh; }
 .feyp { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.8px;
         text-transform: uppercase; color: var(--ink-secondary, #6e737c); }
-.fh1 { font-size: clamp(26px, 2.7vw, 40px); font-weight: 800; letter-spacing: -1.4px;
+.fh1 { font-size: clamp(24px, 2.3vw, 33px); font-weight: 800; letter-spacing: -1.4px;
        margin: 3px 0 5px; color: var(--ink, #16171a); }
 .fsub { font-size: 14.5px; line-height: 1.45; color: var(--ink-secondary, #6e737c);
         max-width: 74ch; margin: 0; }
@@ -117,7 +117,6 @@
   .feat { position: static; display: block; left: auto; right: auto; top: auto; bottom: auto;
           margin: 16px 14px 26px; }
   .fhead { padding-top: 10px; }
-  .fh1 { font-size: 26px; }
   .fbody, .fbody.cols-2, .fbody.cols-2b { display: block; margin-top: 14px; }
   .fbody.cols-2 > *, .fbody.cols-2b > * { margin-bottom: 14px; }
   .fcards { grid-template-columns: 1fr 1fr; }
