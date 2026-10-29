@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Lärare · Ny uppgift</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/scaffold-numbers.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/larare.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a>
+    <a href="../03-skola-larare/" class="active" aria-current="page">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <div class="page">
+    <div class="page-head">
+      <h1 class="page-heading">Ny uppgift</h1>
+      <span class="proto-mark">prototyp — fungerar inte</span>
+      <span class="week-chip">v. 42</span>
+    </div>
+    <nav class="subnav" aria-label="Lärarsidorna"><a href="index.html">Start</a><a href="schema.html">Schema</a><a href="planera.html">Planera</a><a href="lektion.html">Lektion</a><a href="presentation.html">Presentationer</a><a href="uppgift-ny.html" class="active" aria-current="page">Ny uppgift</a><a href="klasser.html">Klasser</a><a href="klass.html">Klassdetalj</a><a href="elev-profil.html">Elevprofil</a><a href="omdomen.html">Omdömen</a><a href="granska.html">Granska</a><a href="larare-ai.html">AI-assistent</a><a href="simulationer.html">Simulationer</a><a href="arkiv.html">Arkiv</a><a href="installningar.html">Inställningar</a></nav>
+    <div class="cols">
+      <div class="col">
+        <div class="card grow">
+          <h2 class="card-h">Uppgiftsformulär</h2>
+          <fieldset disabled>
+            <span class="field"><label for="u-tit">Titel</label><input id="u-tit" class="inp" value="Kap 3 — läsfrågor"></span>
+            <div class="grid2">
+              <span class="field"><label for="u-kl">Klass</label><select id="u-kl" class="inp"><option>7A</option><option>7B</option><option>7C</option><option>8C</option></select></span>
+              <span class="field"><label for="u-am">Ämne</label><select id="u-am" class="inp"><option>Svenska</option><option>SO</option></select></span>
+            </div>
+            <span class="field"><label for="u-de">Deadline</label><input id="u-de" class="inp" type="datetime-local" value="2026-10-16T20:00"></span>
+            <span class="field"><label for="u-in">Instruktioner till eleverna</label><textarea id="u-in" class="inp" rows="3">Läs kapitel 3. Svara på frågorna 1–5 med citerat stöd ur texten.</textarea></span>
+            <span class="field"><label id="u-fo">Förmågor som bedöms (Lgr22)</label>
+              <span><span class="chip on">Läsförståelse</span> <span class="chip on">Skrivande</span> <span class="chip">Samtal</span> <span class="chip">Källkritik</span></span></span>
+            <span class="field"><label>Bilagor</label>
+              <span class="card-note">Bilagor kopplas till uppgifter i en kommande fas.</span></span>
+            <button class="btn" type="button" disabled>Publicering</button>
+          </fieldset>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card grow">
+          <h2 class="card-h">Förhandsgranskning · uppdateras live</h2>
+          <div class="slide" style="margin-bottom:1vh"><b>Så ser eleven det</b><p>Kap 3 — läsfrågor · Deadline 16 okt 20:00 · Inlämning i textfält</p></div>
+          <h2 class="card-h" style="margin-top:0.6vh">Sammanfattning</h2>
+          <p class="card-note">2 förmågor valda · 0 bilagor · synlig för 7A från och med publicering.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+/* features.css — page chrome for the 14 lärare feature pages (MC 11630, B4).
+   Linked after larare.css, before ../_assets/skola-shell.css.
+   Desktop (>=561px): content sits under the fixed shell header (hairline 8vh),
+   fits the viewport, no page scroll. Mobile (<=560px): stacked blocks. */
+
+/* ---------- page frame under the shell header ---------- */
+.page { position: absolute; left: 1.8%; right: 1.8%; top: 10.4vh; bottom: 2.4vh;
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.page-head { flex: none; display: flex; align-items: center; gap: 14px; }
+.page-heading { margin: 0; color: #1d2330; }
+.proto-mark { flex: none; background: #c9ced6; color: #16204f; border-radius: 999px;
+  padding: 4px 14px; font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+.week-chip { margin-left: auto; flex: none; color: #565b63; font-weight: 700; font-size: 18px; }
+
+/* sub-navigation between the surface's pages */
+.subnav { flex: none; display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 1.5vh 0 1.4vh; }
+.subnav a { text-decoration: none; background: #dde1e6; color: #2e333c; font-weight: 700;
+  font-size: 16px; letter-spacing: -0.2px; padding: 5px 13px; border-radius: 999px; white-space: nowrap; }
+.subnav a.active { background: #1f3559; color: #fff; }
+.subnav a:focus-visible { outline: 3px solid #1c2461; outline-offset: 2px; }
+
+/* ---------- columns / cards ---------- */
+.cols { flex: 1; min-height: 0; display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 26%); }
+.cols.rail-left { grid-template-columns: minmax(0, 26%) minmax(0, 1fr); }
+.cols.half { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.col { min-height: 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.grow { flex: 1; min-height: 0; }
+.card { background: #e6eaee; border-radius: 18px; padding: 2.2vh 1.5vw; min-height: 0;
+  display: flex; flex-direction: column; overflow: hidden; }
+.card-h { margin: 0 0 1vh; font-size: clamp(19px, 2.1vh, 26px); font-weight: 800;
+  letter-spacing: -0.8px; color: #1d2330; display: flex; align-items: baseline; gap: 10px; }
+.card-h .tag { font-size: 16px; font-weight: 700; color: #454b55; letter-spacing: 0; }
+.card-note { font-size: 16px; font-weight: 500; color: #454b55; line-height: 1.35; }
+
+/* ---------- lists ---------- */
+.list { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+.item { background: #dde1e6; border-radius: 14px; padding: 1vh 1.2vw; display: grid;
+  align-items: center; min-width: 0; overflow: hidden; }
+.item .t { font-size: clamp(16px, 1.9vh, 21px); font-weight: 700; color: #1d2330;
+  letter-spacing: -0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .s { font-size: 16px; font-weight: 600; color: #454b55; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; }
+.item-row { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.item-cols { grid-template-columns: 16% minmax(0, 1fr) 20% 14%; gap: 8px; }
+
+/* ---------- tables ---------- */
+.tbl-wrap { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+table.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { background: #1a2d4b; color: #f2f5f8; font-weight: 700; text-align: left;
+  font-size: clamp(16px, 1.8vh, 20px); letter-spacing: -0.4px; padding: 0.9vh 2.5%; white-space: nowrap; }
+.tbl td { font-size: clamp(16px, 1.9vh, 21px); font-weight: 600; color: #1d2330;
+  padding: 0.8vh 2.5%; border-bottom: 1px solid #d5dade; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; }
+.tbl tr:nth-child(even) td { background: #dde1e6; }
+.tbl .muted { color: #454b55; font-weight: 600; }
+
+/* ---------- chips, dots, stats ---------- */
+.chip { display: inline-flex; align-items: center; gap: 6px; background: #dde1e6; color: #2e333c;
+  border-radius: 999px; padding: 3px 12px; font-size: 16px; font-weight: 700; white-space: nowrap; }
+.chip.on { background: #1f3559; color: #fff; }
+.sdot { width: 14px; height: 14px; border-radius: 50%; flex: none; display: inline-block; }
+.sdot.g { background: #57a77f; } .sdot.n { background: #8f96a1; } .sdot.d { background: #1a2d4b; }
+.statrow { flex: none; display: flex; gap: 10px; }
+.stat { flex: 1; background: #dde1e6; border-radius: 14px; padding: 1.1vh 4px; text-align: center; min-width: 0; }
+.stat b { display: block; font-size: clamp(22px, 2.8vh, 32px); font-weight: 900; letter-spacing: -1px; color: #1d2330; }
+.stat span { font-size: 16px; font-weight: 700; color: #454b55; }
+
+/* ---------- forms (visually real, functionally disabled) ---------- */
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.field { display: block; margin: 0 0 1.3vh; min-width: 0; }
+.field label { display: block; font-size: 16px; font-weight: 800; color: #3b414d; margin-bottom: 0.5vh; }
+.inp { width: 100%; background: #dde1e6; border: 0; border-radius: 12px; padding: 0.85vh 1.1vw;
+  font-family: inherit; font-size: 17px; font-weight: 600; color: #1d2330; min-width: 0; }
+.inp:disabled { color: #454b55; opacity: 1; }
+textarea.inp { resize: none; min-height: 7vh; line-height: 1.35; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 12px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; background: #1f3559; color: #fff;
+  border: 0; border-radius: 999px; padding: 0.8vh 1.5vw; font-family: inherit; font-weight: 800;
+  font-size: 17px; letter-spacing: -0.3px; }
+.btn.ghost { background: #dde1e6; color: #2e333c; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.tog { width: 54px; height: 28px; appearance: none; -webkit-appearance: none; background: #b7bcc4;
+  border-radius: 999px; position: relative; flex: none; margin: 0; }
+.tog::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px;
+  border-radius: 50%; background: #fff; }
+.tog:checked { background: #1f3559; }
+.tog:checked::after { left: 29px; }
+.tog:disabled { opacity: 0.7; }
+.toggle-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  padding: 0.9vh 0; border-bottom: 1px solid #d5dade; }
+.toggle-row .lbl { display: block; font-size: 17px; font-weight: 700; color: #1d2330; }
+.toggle-row .desc { display: block; font-size: 16px; font-weight: 500; color: #454b55; margin-top: 2px; }
+
+/* ---------- chat ---------- */
+.chat { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 1.1vh; overflow: hidden; }
+.bubble { max-width: 84%; padding: 1vh 1.2vw; border-radius: 16px; font-size: clamp(16px, 1.9vh, 21px);
+  font-weight: 500; line-height: 1.4; }
+.bubble.user { align-self: flex-end; background: #1f3559; color: #f2f5f8; border-bottom-right-radius: 4px; }
+.bubble.ai { align-self: flex-start; background: #dde1e6; color: #1d2330; border-bottom-left-radius: 4px; }
+.src-chip { display: inline-block; background: #cdd4dc; border-radius: 8px; padding: 1px 8px;
+  font-size: 16px; font-weight: 700; color: #2e333c; margin: 3px 4px 0 0; }
+.thinking { align-self: flex-start; font-size: 17px; font-weight: 700; color: #454b55; }
+
+/* ---------- week grid (schema) ---------- */
+.week { flex: 1; min-height: 0; display: grid; grid-template-columns: 7% repeat(5, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr); gap: 5px; }
+.week .wh { background: #1a2d4b; color: #f2f5f8; font-weight: 800; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: clamp(16px, 1.8vh, 20px); }
+.week .wt { color: #454b55; font-weight: 700; font-size: 16px; display: flex; align-items: center;
+  justify-content: center; }
+.cell { background: #dde1e6; border-radius: 10px; padding: 0.6vh 0.55vw; overflow: hidden;
+  font-size: clamp(16px, 1.7vh, 19px); font-weight: 600; color: #1d2330; line-height: 1.25; }
+.cell b { display: block; font-weight: 800; letter-spacing: -0.3px; }
+.cell.filled { background: #1f3559; color: #f2f5f8; }
+.cell.filled i { font-style: normal; color: #c3ccd9; }
+.cell.off { background: #e6eaee; }
+
+/* ---------- heatmap plate ---------- */
+.heat { flex: 1; min-height: 0; display: grid; grid-template-columns: 15% repeat(6, minmax(0, 1fr));
+  gap: 4px; }
+.heat .hl { font-weight: 700; font-size: 16px; color: #2e333c; display: flex; align-items: center;
+  overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.heat .hh { font-weight: 800; font-size: 15px; color: #2e333c; display: flex; align-items: flex-end;
+  justify-content: center; overflow: hidden; white-space: nowrap; }
+.heat .hc { border-radius: 6px; min-height: 2.6vh; }
+.b0 { background: #e6eaee; } .b1 { background: #c7d2e0; } .b2 { background: #93a9c6; }
+.b3 { background: #5c7ba6; } .b4 { background: #1f3559; }
+.legend { flex: none; display: flex; align-items: center; gap: 6px; font-size: 16px;
+  font-weight: 700; color: #454b55; margin-top: 0.8vh; }
+.legend .hc { width: 22px; height: 14px; border-radius: 4px; }
+
+/* ---------- misc states ---------- */
+.empty { border: 2px dashed #9aa3b0; border-radius: 16px; padding: 1.6vh 2vw; text-align: center;
+  color: #454b55; font-weight: 600; font-size: 17px; }
+.live-row { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; color: #1d2330; }
+.klass-col { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; overflow: hidden; }
+.klass-col .klass { flex: 1; }
+.slide { background: #fff; border-radius: 12px; padding: 1.4vh 1.4vw; overflow: hidden;
+  border: 1px solid #cfd5db; }
+.slide b { display: block; font-size: clamp(17px, 2vh, 22px); font-weight: 800; color: #14161c;
+  letter-spacing: -0.5px; margin-bottom: 4px; }
+.slide p { margin: 0; font-size: 16px; font-weight: 500; color: #454b55; line-height: 1.35; }
+
+/* ---------- mobile stack (<=560px): stacked blocks ---------- */
+@media (max-width: 560px) {
+  .page { position: static; left: auto; right: auto; top: auto; bottom: auto;
+    overflow: visible; padding: 4px 14px 26px; gap: 0; }
+  .cols, .cols.rail-left, .cols.half { grid-template-columns: minmax(0, 1fr); }
+  .col { overflow: visible; }
+  .card { padding: 14px; margin-top: 12px; }
+  .list, .tbl-wrap, .chat, .week, .heat { overflow: visible; flex: none; }
+  .week { grid-auto-rows: minmax(64px, auto); }
+  .heat .hc { min-height: 34px; }
+  .bubble { max-width: 92%; }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .item-cols { grid-template-columns: minmax(0, 1fr) auto; }
+  .item-cols .hide-sm { display: none; }
+  .item { padding: 10px 12px; }
+  .subnav { margin: 14px 0 0; }
+  .week-chip { margin-left: 0; }
+}

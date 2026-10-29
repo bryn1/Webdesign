@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Lärare · Inställningar</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/scaffold-numbers.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/larare.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a>
+    <a href="../03-skola-larare/" class="active" aria-current="page">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <div class="page">
+    <div class="page-head">
+      <h1 class="page-heading">Inställningar</h1>
+      <span class="proto-mark">prototyp — fungerar inte</span>
+      <span class="week-chip">· Sparat</span>
+    </div>
+    <nav class="subnav" aria-label="Lärarsidorna"><a href="index.html">Start</a><a href="schema.html">Schema</a><a href="planera.html">Planera</a><a href="lektion.html">Lektion</a><a href="presentation.html">Presentationer</a><a href="uppgift-ny.html">Ny uppgift</a><a href="klasser.html">Klasser</a><a href="klass.html">Klassdetalj</a><a href="elev-profil.html">Elevprofil</a><a href="omdomen.html">Omdömen</a><a href="granska.html">Granska</a><a href="larare-ai.html">AI-assistent</a><a href="simulationer.html">Simulationer</a><a href="arkiv.html">Arkiv</a><a href="installningar.html" class="active" aria-current="page">Inställningar</a></nav>
+    <div class="cols half">
+      <div class="col">
+        <div class="card grow">
+          <h2 class="card-h">Konto <span class="tag">Profil</span></h2>
+          <fieldset disabled>
+            <span class="field"><label for="i-na">Namn</label><input id="i-na" class="inp" value="Maria Andersson"></span>
+            <span class="field"><label for="i-ep">E-post</label><input id="i-ep" class="inp" type="email" value="maria.andersson@skola.example"></span>
+            <span class="field"><label for="i-ro">Roll</label><input id="i-ro" class="inp" value="Lärare"></span>
+            <span class="field"><label>Klasser</label><span><span class="chip on">7A</span> <span class="chip">7B</span> <span class="chip">7C</span> <span class="chip">8C</span></span></span>
+          </fieldset>
+          <p class="card-note">Sparning är bortkopplad — skissläget visar ”· sparar…” / ”· Sparat”.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h2 class="card-h">Utseende <span class="tag">Tema och text</span></h2>
+          <p class="card-note"><span class="chip on">Ljust</span> <span class="chip">Mörkt</span> <span class="chip">Följ system</span></p>
+        </div>
+        <div class="card grow">
+          <h2 class="card-h">Tillgänglighet</h2>
+          <fieldset disabled>
+            <div class="toggle-row"><span><span class="lbl">Läshjälp</span><span class="desc">Ökar bokstavsavstånd och använder ett mer läsbart typsnitt.</span></span><input class="tog" type="checkbox"></div>
+            <div class="toggle-row"><span><span class="lbl">Hög kontrast</span><span class="desc">Ökar kontrasten mellan text och bakgrund.</span></span><input class="tog" type="checkbox"></div>
+            <div class="toggle-row"><span><span class="lbl">Minska rörelse</span><span class="desc">Stänger av animationer och övergångar.</span></span><input class="tog" type="checkbox" checked></div>
+            <div class="toggle-row" style="border-bottom:0"><span><span class="lbl">Uppläsning</span><span class="desc">Visa knapp för att läsa upp text på alla sidor.</span></span><input class="tog" type="checkbox"></div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

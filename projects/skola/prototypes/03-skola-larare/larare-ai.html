@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Lärare · AI-assistent</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/scaffold-numbers.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/larare.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a>
+    <a href="../03-skola-larare/" class="active" aria-current="page">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <div class="page">
+    <div class="page-head">
+      <h1 class="page-heading">AI-assistent</h1>
+      <span class="proto-mark">prototyp — fungerar inte</span>
+      <span class="week-chip">Skola · AI-assistent</span>
+    </div>
+    <nav class="subnav" aria-label="Lärarsidorna"><a href="index.html">Start</a><a href="schema.html">Schema</a><a href="planera.html">Planera</a><a href="lektion.html">Lektion</a><a href="presentation.html">Presentationer</a><a href="uppgift-ny.html">Ny uppgift</a><a href="klasser.html">Klasser</a><a href="klass.html">Klassdetalj</a><a href="elev-profil.html">Elevprofil</a><a href="omdomen.html">Omdömen</a><a href="granska.html">Granska</a><a href="larare-ai.html" class="active" aria-current="page">AI-assistent</a><a href="simulationer.html">Simulationer</a><a href="arkiv.html">Arkiv</a><a href="installningar.html">Inställningar</a></nav>
+    <div class="cols rail-left">
+      <div class="col">
+        <div class="card grow">
+          <h2 class="card-h">Tidigare samtal</h2>
+          <div class="list">
+            <div class="item item-row"><span class="t">Frågor om kap 3</span><span class="chip on">Öppnat</span></div>
+            <div class="item item-row"><span class="t">Bedömning av resuméer</span><span class="chip">Förra veckan</span></div>
+            <div class="item item-row"><span class="t">Schemaläggning prov</span><span class="chip">v.40</span></div>
+          </div>
+          <fieldset disabled style="margin-top:0.8vh"><button class="btn ghost" type="button">Ta bort samtalet</button></fieldset>
+        </div>
+        <div class="card" style="flex:none">
+          <h2 class="card-h">Ämne:</h2>
+          <p class="card-note"><span class="chip on">Alla ämnen</span> <span class="chip">Svenska</span> <span class="chip">SO</span> <span class="chip">Engelska</span></p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card grow">
+          <div class="chat">
+            <div class="bubble user">Behöver en följdfråga till stycke tre, kap 3 — nivå C.</div>
+            <div class="bubble ai">Här är ett förslag: ”Varför vänder sig huvudpersonen från sin vän i just det här ögonblicket?” — kopplat till Lgr22 Läsförståelse.<br><span class="src-chip">Kap 3 · sid 42</span><span class="src-chip">Lgr22 · Svenska</span></div>
+            <div class="bubble user">Kortare variant till bordet?</div>
+            <div class="bubble ai thinking">Tänker…</div>
+          </div>
+          <fieldset disabled style="display:flex;gap:10px;margin-top:1vh">
+            <input class="inp" placeholder="Skriv en fråga…" aria-label="Skriv en fråga…">
+            <button class="btn" type="button" disabled>Skicka</button>
+          </fieldset>
+          <p class="card-note" style="margin-top:0.6vh">Chatten är statisk — inga svar genereras i prototypen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

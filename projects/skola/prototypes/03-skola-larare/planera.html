@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="sv" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Skola — Lärare · Planera</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/scaffold-numbers.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/larare.css">
+<link rel="stylesheet" href="css/features.css">
+  <link rel="stylesheet" href="../_assets/skola-shell.css">
+</head>
+<body>
+<div class="frame">
+
+  <a class="r r-wordmark wordmark" href="../01-skola-start/">Skola</a>
+  <nav class="r r-header-tabs tabs" aria-label="Roller">
+    <a href="../02-skola-elev/">Elev</a>
+    <a href="../03-skola-larare/" class="active" aria-current="page">Lärare</a>
+    <a href="../04-skola-admin/">Admin</a>
+  </nav>
+  <span class="r r-search-pill search-pill"><span aria-hidden="true">⌕</span> Sök schema</span>
+
+  <div class="page">
+    <div class="page-head">
+      <h1 class="page-heading">Planera lektion</h1>
+      <span class="proto-mark">prototyp — fungerar inte</span>
+      <span class="week-chip">v. 42</span>
+    </div>
+    <nav class="subnav" aria-label="Lärarsidorna"><a href="index.html">Start</a><a href="schema.html">Schema</a><a href="planera.html" class="active" aria-current="page">Planera</a><a href="lektion.html">Lektion</a><a href="presentation.html">Presentationer</a><a href="uppgift-ny.html">Ny uppgift</a><a href="klasser.html">Klasser</a><a href="klass.html">Klassdetalj</a><a href="elev-profil.html">Elevprofil</a><a href="omdomen.html">Omdömen</a><a href="granska.html">Granska</a><a href="larare-ai.html">AI-assistent</a><a href="simulationer.html">Simulationer</a><a href="arkiv.html">Arkiv</a><a href="installningar.html">Inställningar</a></nav>
+    <div class="cols">
+      <div class="col">
+        <div class="card">
+          <h2 class="card-h">Mina pågående lektioner</h2>
+          <div class="list" style="flex:none">
+            <div class="item item-row"><span class="t">Röd tråd — kap 3</span><span class="chip on">7A · Fre</span></div>
+            <div class="item item-row"><span class="t">Läsläxa v.42</span><span class="chip">7A · 7B</span></div>
+            <div class="item item-row"><span class="t">Väder och vind</span><span class="chip">8C · Tis</span></div>
+          </div>
+        </div>
+        <div class="card grow">
+          <h2 class="card-h">Lektionseditor <span class="tag">tillstånd: Ny lektion / Tom lektion</span></h2>
+          <div class="list">
+            <div class="item item-row"><span class="t">1. Instämning — ställfråga</span><span class="s">10 min</span></div>
+            <div class="item item-row"><span class="t">2. Genomgång kap 3</span><span class="s">25 min</span></div>
+            <div class="item item-row"><span class="t">Tom lektion — börja från mall</span><span class="chip">+</span></div>
+          </div>
+          <fieldset disabled><button class="btn ghost" type="button">Lägg till moment</button></fieldset>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card grow">
+          <h2 class="card-h">Presentationsbyggare</h2>
+          <fieldset disabled>
+            <span class="field"><label for="p-tit">Titel</label><input id="p-tit" class="inp" value="Röd tråd — kap 3"></span>
+            <span class="field"><label for="p-kl">Klass</label><select id="p-kl" class="inp"><option>7A</option><option>7B</option><option>7C</option><option>8C</option></select></span>
+            <span class="field"><label for="p-am">Ämne</label><select id="p-am" class="inp"><option>Svenska</option><option>SO</option></select></span>
+            <span class="field"><label for="p-la">Längd</label><input id="p-la" class="inp" value="40 min"></span>
+            <span class="field"><label for="p-da">Datum</label><input id="p-da" class="inp" value="2026-10-16"></span>
+            <button class="btn" type="button" disabled>Generera presentation</button>
+          </fieldset>
+          <p class="card-note" style="margin-top:1vh">Generering och Stoppa är bortkopplade i prototypen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
