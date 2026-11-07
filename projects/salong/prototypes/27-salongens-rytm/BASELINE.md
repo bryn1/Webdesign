@@ -342,3 +342,90 @@ nojs, links 27/0, gb1–gb9 incl. `gb2-focus-outline` clean-focus and `gb3-raw-c
 clean-tokens). QUALITY.md carries the fresh run on disk (gitignored repo-wide per
 `.gitignore:**/QUALITY.md` — same shape as the round-2 commit, which carried the gate result
 in this ledger, not in the file).
+
+## Round 4 (2026-11-07, MC 10088.26) — the delivered page failed the WIDENED gate: skip-pill ring, bottom edge. The declaration above stands as written; this is ledger, not regeneration.
+
+**What the new gate found (P1, access-class, on DELIVERED bytes).** Gate 1.2.1 / skill 1.7.1
+(MC 10088.19 was verified under gate 1.1.0, whose `gb2-focus-outline` was an outline-REMOVAL
+scan only — exactly the fleet-side gap §Round 3 asked for; it landed and it found this). Re-run
+on the committed bytes `578ca789`: exit 1, one row red — `bad-focus-contrast a.hoppa "Hoppa till
+innehållet"` **and** `a.hoppa "Hoppa till sidfoten"`: ring `rgb(124,58,23)` declared via
+`--copper-deep` vs sampled ground at the **bottom** edge, **1.21:1 @1440 / 1.29:1 @375**, ground
+`rgb(88,90,81)` / `rgb(91,94,87)` (step viewport-space capture, scrollY 0). Both pills, both
+viewports. So §Round 3's row "skip pills (paper header ground — copper now) 2.04 → 7.54" is
+SUPERSEDED by this round: 7.54 was true on three sides, not four.
+
+**Why (§Round 3's own blind spot, quoted).** Round 3 called the destination geometry a finding it
+would not touch ("the painted ring falls UNDER the sticky header… filed here so the next audit can
+rule"). The ring was never on paper all the way round: the pill's box is `y 12–66.6 @1440`,
+`12–63.9 @375` (measured rect), while the sticky paper header ends at **61.09 / 56.91** — the box
+overhangs by 6 px, and `outline` is drawn OUTSIDE the box, so the bottom band (`--ring-offset` 3 +
+ring 2) lands 6–8 px below the box, on the hero photo.
+
+**Both readings, side by side, instruments named.** (a) **The gate** (`gate-backlog.mjs
+focusBgSample`, per-side median of the 3 px band outside the ring's outer edge, own render, dpr1
+@1440 / dpr2 @375): **1.21:1 / 1.29:1**. (b) **The orchestrator** (its own bottom-band read over
+the photo strip the ring actually crosses): ground `rgb(19,35,28)`, lum 0.0142 → **1.80:1**. They
+differ because they sample different pixel rows of a photographic ground — the gate the thin band
+past the ring (photo wash ~0.10 lum), the orchestrator the darker strip under it (0.014). Same
+verdict: 1.80 and 1.21 are both under the WCAG 1.4.11 3:1 bar. A third instrument, this round's
+`.tmp/skipfocus.mjs` (REAL `Tab` presses so `:focus-visible` paints; three bands per edge in
+DEVICE px — the offset gap *under* the ring, the ring band itself, the 3 px past its outer edge),
+reproduced (a) exactly: bottom 1.21:1 / 1.29:1, other three sides 7.54:1 on `rgb(246,241,232)`.
+Arithmetic note, honest: the same ground pair (b) recomputed under the WCAG formula gives 1.93:1
+against `--copper-deep` (lum 0.0737); the reading quoted is the orchestrator's own, kept as given.
+
+**What changed — ONE declaration, no new token, no new mechanism, zero geometry change.**
+`base.css .hoppa:focus` gains `box-shadow: 0 0 0 var(--pad-cta-v) var(--paper)`: the pill is a UI
+surface, so it paints its own opaque ground — one declared `--pad-cta-v` (12 px) deep, past the
+ring's outer edge (3+2) and past the 3 px of adjacent ground an instrument reads. Ring colour and
+`--ring-offset` untouched: it is a light ground, so copper-deep stays (the brief's mirror-image
+warning — brass-on-paper is the defect round 3 already fixed). The plate is invisible on the three
+header sides (paper on paper) and reads as a paper mat where the pill overhangs the fold. The gate
+still measures the OUTLINE as the indicator (`focusInspect` checks outline before box-shadow, so
+the plate is ground, never a second ring).
+
+**Direction measured and rejected (not guessed).** Containment inside the paper band, at the
+declared values: `padding-block: calc(var(--pad-cta-v) / 2)` (6 px) measured **1.21:1 @1440** — the
+ring's outer band still crosses 61.09, because the pill's line-box alone is `--fs-body × --lh-body`
+= 30.6 px @1440 / 27.9 px @375, so at `top: var(--pad-cta-v)` the box cannot clear the boundary with
+the token vocabulary; a 375-safe containment needs ~4–5 px vertical padding (a non-token number) and
+would still sit ~1 px off the hero boundary, or `top` < 8 px, which clips the ring's own TOP edge
+out of the viewport. Measured numbers: `.tmp/skip-contain6/skipfocus.json`.
+
+**After-numbers, per edge** — `.tmp/skipfocus.mjs`, REAL Tab, `:focus-visible` = true on both pills,
+scrollY 0, ring painted `rgb(124,58,23)` at every edge (band n ≥ 106 @1440 / ≥ 408 @375):
+
+| edge | ground under the ring @1440 | adjacent ground @1440 | ground + adjacent @375 | ratio (both widths) |
+|---|---|---|---|---|
+| top | rgb(246,241,232) | rgb(246,241,232) 7.54:1 | rgb(246,241,232) 7.54:1 | **7.54** |
+| bottom | rgb(246,241,232) | rgb(246,241,232) 7.54:1 | rgb(246,241,232) 7.54:1 | **7.54** (was 1.21 / 1.29) |
+| left | rgb(246,241,232) | rgb(246,241,232) 7.54:1 | rgb(246,241,232) 7.54:1 | **7.54** |
+| right | rgb(246,241,232) | rgb(246,241,232) 7.54:1 | rgb(246,241,232) 7.54:1 | **7.54** |
+
+Both pills (`Hoppa till innehållet`, `Hoppa till sidfoten`), 1440×900 (dpr1) and 375×812 (dpr2,
+isMobile). Nothing moved to another edge: the four sides now share ONE ground, `--paper`, so the
+worst edge and the best edge are the same measurement — the gate's own per-side worst-side rule
+reads 7.54:1 everywhere (≥ 3:1, WCAG 1.4.11). Raw: `.tmp/skip-post/skipfocus.json` + PNGs.
+
+**Skip pair still works as a skip pair (re-run same instrument).** Tab once from page load →
+`:focus-visible` = true on pill 1; Enter → `activeElement = main#innehall` @both widths (unchanged
+from §Round 3). Pill 2 → `Hoppa till sidfoten`, Enter → the page scrolls to the footer
+(scrollY 4334 @1440 / 8845 @375) and `activeElement` stays `BODY` — the footer carries no
+`tabindex`, unchanged pre/after this fix, still the §Round 3 finding this card did not own. Zero
+page errors at both widths.
+
+**Gate, both sides of the fix.** Before (`578ca789`): exit 1, `# QUALITY: FAIL`, one red row —
+`gb2-focus-outline` with the four `bad-focus-contrast` findings quoted above. After (this round's
+bytes, gate 1.2.1, run `20261107T214003Z`, re-run on the committed tree `GATE_EXIT=0`): exit 0,
+`# QUALITY: PASS`, `gb2-focus-outline PASS | clean-focus [B13 outline-removal + WCAG 1.4.11
+indicator contrast >=3:1 on composited bg, P1] (indicator contrast: 1440: 40 tab-steps, 39
+measured, 0 UA-auto, 1 skipped, CAP walked; 375: 40 tab-steps, 34 measured, 0 UA-auto, 6 skipped,
+CAP walked)` — no `bad-focus-contrast` finding at either viewport. Every other row is unchanged
+from the pre-fix run (detect 0, contrast 0/134 both widths, console 0, overflow 375/1280/1440,
+scroll-overlap 0, reduced, nojs 0/122, links 27/0, gb1/gb3/gb5/gb6/gb7/gb8/gb9 clean), so the
+folder's other contracts did not move: prices still `–` (§I1, 9 en-dash rows, `Pris anges med –`),
+hours still "(bekräftas snart)" ×2, fabricated-social-proof grep 0 hits, one `h1` +
+header/nav/main/footer landmarks + the skip pair (gb1/gb8), tab policy (gb9), img `width`/`height`
++ `srcset` (gb5), chip rail complete with JS off (nojs 0/122). QUALITY.md is gitignored repo-wide,
+so this ledger carries the result, as in rounds 2 and 3.

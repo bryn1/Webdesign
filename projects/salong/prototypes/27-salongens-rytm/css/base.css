@@ -104,9 +104,17 @@ a:hover { color: var(--copper-deep); }
   width: auto;
   height: auto;
   clip-path: none;
-  /* the pill paints over the sticky PAPER header (measured ground lum 0.8833) — it is a
-     light surface, so the ring follows the light rule: brass measured 2.04:1 there (round-3
-     instrument, BASELINE §Round 3), copper-deep measures 7.54:1 */
+  /* The pill is a UI surface, so it carries its own ground: its box (y 12–67 @1440, 12–64 @375)
+     overhangs the sticky PAPER header (bottom 61.09 / 56.91) by 6 px, and with the ring drawn
+     OUTSIDE the box its bottom edge stood on the hero photo — 1.21:1 @1440 / 1.29:1 @375, under the
+     WCAG 1.4.11 3:1 bar (gate 1.2.1 gb2; the defect the round-3 audit rated non-blocking). The plate
+     is --paper painted by the pill itself, one declared --pad-cta-v deep — past the ring's outer
+     edge (--ring-offset 3 + ring 2) and past the 3 px of adjacent ground an instrument reads — so
+     every edge of the ring stands on the declared light surface the light-ground rule was written
+     for, whatever is painted behind the pill. On the three header sides it is invisible (paper on
+     paper). Ring colour and --ring-offset unchanged: copper-deep on --paper measures 7.54:1.
+     Per-edge after-numbers, both viewports: BASELINE.md §Round 4. */
+  box-shadow: 0 0 0 var(--pad-cta-v) var(--paper);
   outline: 2px solid var(--copper-deep);
   outline-offset: var(--ring-offset);
 }
