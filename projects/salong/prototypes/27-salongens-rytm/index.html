@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jane Cooper — frisör i Malmö | Salongens rytm</title>
+<meta name="description" content="Klippning, färg och vård med lugn och omsorg. Jane Cooper, frisör i Malmö på Drottninggatan 2.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2314332b'/%3E%3Crect x='2' y='2' width='12' height='12' fill='none' stroke='%23d9a05b'/%3E%3Crect x='4' y='4' width='8' height='8' fill='none' stroke='%23d9a05b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body>
+
+<a class="hoppa" href="#innehall">Hoppa till innehållet</a>
+<a class="hoppa" href="#sidfot">Hoppa till sidfoten</a>
+
+<header class="site-header">
+  <div class="kant">
+    <a class="wordmark" href="#top">Jane Cooper</a>
+    <nav class="site-nav" aria-label="Sidnavigering">
+      <!-- tab-policy: conversion och navigering stannar i samma tab;
+           bara Instagram-korsförsäljningen öppnar ny (se varje target) -->
+      <a class="nav-lank" href="#om">Om</a>
+      <a class="nav-lank" href="#tjanster">Tjänster</a>
+      <a class="nav-lank" href="#galleri">Galleri</a>
+      <a href="#boka">Boka</a>
+      <a class="nav-lank" href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main id="innehall" tabindex="-1">
+
+  <!-- beat 1 · identitet — scen 1 av 2 (bokmärken), exakt en CTA, noll bevisenheter -->
+  <section class="scen scen--top" id="top" aria-labelledby="topp-rubrik">
+    <div class="scen__media">
+      <img src="../_assets/gal-01.jpeg" alt="" width="1536" height="2048" loading="eager" decoding="async">
+    </div>
+    <div class="scen__in">
+      <p class="eyebrow">Frisör i Malmö</p>
+      <h1 id="topp-rubrik">Jane Cooper</h1>
+      <p class="lede">Klippning, färg och vård med lugn och omsorg.</p>
+      <!-- conversion: samma tab, djuplänk till boknings-mocken -->
+      <a class="cta cta--papper" href="#boka">Boka tid</a>
+    </div>
+  </section>
+
+  <!-- beat 2 · hantverksberättelsen (första person, PoC kopia ordagrant) -->
+  <section class="content" id="om" aria-labelledby="om-rubrik">
+    <div class="kant om-grid">
+      <figure class="ram" data-reveal data-delay="1">
+        <img src="../_assets/jane-portrait.jpg"
+             alt="Jane Cooper, frisör på Jane Cooper i Malmö"
+             width="1656" height="2208" loading="lazy" decoding="async">
+        <figcaption><p class="meta" style="padding-top:var(--pad-card-sm)">Porträtt — Jane Cooper · Malmö</p></figcaption>
+      </figure>
+      <div class="prosa" data-reveal>
+        <p class="eyebrow">Om mig</p>
+        <h2 id="om-rubrik">Hår som känns som ditt</h2>
+        <p>Jag heter Jane Cooper och är frisör i Malmö. Mitt arbete bygger på att lyssna
+           först: vilken hårtyp du har, hur du lever med ditt hår och vad du vill känna
+           när du går ut dörren.</p>
+        <p>Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i centrala
+           Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och vårdande
+           behandlingar.</p>
+        <p>Vill du se mitt dagliga arbete? Följ mig på Instagram
+           <!-- tab-policy: Instagram är korsförsäljning — nya tabben, avsiktligt -->
+           <a href="https://www.instagram.com/jane.cooper/" target="_blank" rel="noopener">@jane.cooper</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- beat 3 · capability: fem tjänster, pris `–` (PoC-regel I1) -->
+  <section class="content content--sand" id="tjanster" aria-labelledby="tjanster-rubrik">
+    <div class="kant">
+      <div class="beat-lead" data-reveal>
+        <p class="eyebrow">Tjänster</p>
+        <h2 id="tjanster-rubrik">Det här kan jag</h2>
+        <p class="lede">Klippning, färg, vård, uppsättning och barbering — fem ben, samma rytm.</p>
+        <p class="not" style="margin-top:var(--pad-cta-v)">Pris anges med – — den här prototypen sätter inga priser.</p>
+      </div>
+      <div class="tjanster">
+        <article class="ram tjanst" data-reveal>
+          <h3>Klippning</h3>
+          <p>Klippning efter hårets fall och din morgonrutin — du klarar formen hemma, utan ritual.</p>
+          <p class="pris"><span class="meta">Pris</span><span class="belopp">–</span></p>
+        </article>
+        <article class="ram tjanst" data-reveal data-delay="1">
+          <h3>Färg &amp; balayage</h3>
+          <p>Ammoniakfri färg och balayage som växer ut utan hård kant — du kommer tillbaka när det passar din kalender.</p>
+          <p class="pris"><span class="meta">Pris</span><span class="belopp">–</span></p>
+        </article>
+        <article class="ram tjanst" data-reveal>
+          <h3>Vård &amp; håranalys</h3>
+          <p>Först tittar jag på hår och hårbotten. Sedan ett vårdschema som passar just ditt hem, inte butiken.</p>
+          <p class="pris"><span class="meta">Pris</span><span class="belopp">–</span></p>
+        </article>
+        <article class="ram tjanst" data-reveal data-delay="1">
+          <h3>Bröllop &amp; bal</h3>
+          <p>Uppsättning och fästning som sitter hela kvällen — du kan dansa och glömma bort att tänka på håret.</p>
+          <p class="pris"><span class="meta">Pris</span><span class="belopp">–</span></p>
+        </article>
+        <article class="ram tjanst" data-reveal>
+          <h3>Barbering &amp; skägg</h3>
+          <p>Barbering, trim och rakning — du går därifrån med en kant som är vald, inte bara tillväxt.</p>
+          <p class="pris"><span class="meta">Pris</span><span class="belopp">–</span></p>
+        </article>
+      </div>
+      <p style="margin-top:var(--space-intra)">
+        <!-- conversion: eskalerar "Boka tid" → "Välj en tid", samma kanal #boka, samma tab -->
+        <a class="cta" href="#boka">Välj en tid</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- beat 4 · bredd: galleriet som format-rail (P12). Utan JS: alla bilder syns, railen är inaktiv -->
+  <section class="content" id="galleri" aria-labelledby="galleri-rubrik">
+    <div class="kant">
+      <div class="beat-lead" data-reveal>
+        <p class="eyebrow">Galleri</p>
+        <h2 id="galleri-rubrik">Före &amp; efter</h2>
+        <p class="lede">Fyra bildplatser, sorterade efter behandling. Filtrera nedan — utan klick syns allt.</p>
+      </div>
+      <div class="rail" role="group" aria-label="Filtrera galleri efter behandling" data-reveal>
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">Alla</button>
+        <button class="chip" type="button" data-filter="klippning" aria-pressed="false">Klippning</button>
+        <button class="chip" type="button" data-filter="farg" aria-pressed="false">Färg &amp; balayage</button>
+        <button class="chip" type="button" data-filter="vard" aria-pressed="false">Vård &amp; håranalys</button>
+        <button class="chip" type="button" data-filter="upp" aria-pressed="false">Bröllop &amp; bal</button>
+        <button class="chip" type="button" data-filter="barbering" aria-pressed="false">Barbering &amp; skägg</button>
+      </div>
+      <p class="sr-only" role="status" id="galleri-status"></p>
+      <div class="galleri-rut" id="galleri-rut" data-reveal>
+        <figure class="ram galleri-kort" data-format="klippning">
+          <img src="../_assets/gal-01.jpeg" alt="Före och efter — bildplats 1: klippning" width="1536" height="2048" loading="lazy" decoding="async">
+          <figcaption><span class="namn">Före &amp; efter 01</span><span class="meta">Klippning</span></figcaption>
+        </figure>
+        <figure class="ram galleri-kort" data-format="farg">
+          <img src="../_assets/gal-02.jpeg" alt="Före och efter — bildplats 2: färg och balayage" width="1536" height="2048" loading="lazy" decoding="async">
+          <figcaption><span class="namn">Före &amp; efter 02</span><span class="meta">Färg &amp; balayage</span></figcaption>
+        </figure>
+        <figure class="ram galleri-kort" data-format="vard">
+          <img src="../_assets/gal-03.jpeg" alt="Före och efter — bildplats 3: vård och håranalys" width="1536" height="2048" loading="lazy" decoding="async">
+          <figcaption><span class="namn">Före &amp; efter 03</span><span class="meta">Vård &amp; håranalys</span></figcaption>
+        </figure>
+        <figure class="ram galleri-kort" data-format="upp">
+          <img src="../_assets/gal-04.jpeg" alt="Före och efter — bildplats 4: bröllop och bal" width="1536" height="2048" loading="lazy" decoding="async">
+          <figcaption><span class="namn">Före &amp; efter 04</span><span class="meta">Bröllop &amp; bal</span></figcaption>
+        </figure>
+      </div>
+      <p class="tom-rum" id="tom-rum" hidden>Inga bilder ännu — barbering och skägg har ingen före-och-efter-bild i galleriet så här långt.</p>
+      <p style="margin-top:var(--space-intra)"><a href="#besok">Så går ett besök till →</a></p>
+    </div>
+  </section>
+
+  <!-- beat 5 · capability + status: den ärliga "första besöket"-beskrivningen, ingen testimonial -->
+  <section class="content content--sand" id="besok" aria-labelledby="besok-rubrik">
+    <div class="kant">
+      <div class="beat-lead" data-reveal>
+        <p class="eyebrow">Besöket</p>
+        <h2 id="besok-rubrik">Så går ditt första besök till</h2>
+        <p class="lede">Fyra beat, samma rytm varje gång.</p>
+      </div>
+      <ol class="steg" data-reveal>
+        <li>
+          <p class="lopp">01 · Höra av dig</p>
+          <p>Du ringer eller skriver på Instagram (@jane.cooper) och säger vilken tid du tänker dig.</p>
+        </li>
+        <li>
+          <p class="lopp">02 · Beskriv</p>
+          <p>Först beskriver du håret, hur du lever med det och vad du vill känna när du går ut dörren.</p>
+        </li>
+        <li>
+          <p class="lopp">03 · Arbeta</p>
+          <p>Jag klipper, färgar och vårdar i lugn takt — ingen springer i salongen.</p>
+        </li>
+        <li>
+          <p class="lopp">04 · Gå ut</p>
+          <p>Du går med ett hår som känns som ditt, och ett schema för hur du sköter det mellan besöken.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- beat 6 · beslutspunkten: demo-mocken + bevisraden (P6 — allt bevittningsbart samlas här) -->
+  <section class="content" id="boka" aria-labelledby="boka-rubrik">
+    <div class="kant">
+      <div class="beat-lead" data-reveal>
+        <p class="eyebrow">Boka</p>
+        <h2 id="boka-rubrik">Välj en tid — sedan bokar du via telefon eller Instagram</h2>
+        <p class="demo-not"><span class="demo-mark">Demo</span> Kalendern är en mock utan backend. Välj en tid så visas vägen som faktiskt finns: telefon eller Instagram.</p>
+      </div>
+      <div class="tider" role="group" aria-label="Demo-tider den här veckan" data-reveal>
+        <button class="tid" type="button" data-dag="mån" data-klock="10:00">Mån 10:00</button>
+        <button class="tid" type="button" data-dag="mån" data-klock="13:00">Mån 13:00</button>
+        <button class="tid" type="button" data-dag="mån" data-klock="15:30">Mån 15:30</button>
+        <button class="tid" type="button" data-dag="tis" data-klock="10:00">Tis 10:00</button>
+        <button class="tid" type="button" data-dag="tis" data-klock="13:00">Tis 13:00</button>
+        <button class="tid" type="button" data-dag="tis" data-klock="15:30">Tis 15:30</button>
+        <button class="tid" type="button" data-dag="ons" data-klock="10:00">Ons 10:00</button>
+        <button class="tid" type="button" data-dag="ons" data-klock="13:00">Ons 13:00</button>
+        <button class="tid" type="button" data-dag="ons" data-klock="15:30">Ons 15:30</button>
+        <button class="tid" type="button" data-dag="tor" data-klock="10:00">Tor 10:00</button>
+        <button class="tid" type="button" data-dag="tor" data-klock="13:00">Tor 13:00</button>
+        <button class="tid" type="button" data-dag="tor" data-klock="15:30">Tor 15:30</button>
+        <button class="tid" type="button" data-dag="fre" data-klock="10:00">Fre 10:00</button>
+        <button class="tid" type="button" data-dag="fre" data-klock="13:00">Fre 13:00</button>
+        <button class="tid" type="button" data-dag="fre" data-klock="15:30">Fre 15:30</button>
+      </div>
+
+      <dialog class="boka-dialog" id="dialog-tid" aria-labelledby="dialog-rubrik">
+        <h3 id="dialog-rubrik">Tiden är vald — nu bokar du på riktigt</h3>
+        <p id="dialog-text">Du valde <strong id="vald-tid">–</strong>. Den här kalendern är en demo, ingen bokning skapas. Så här når du Jane:</p>
+        <ol>
+          <li>
+            <!-- conversion: telefon stannar i samma tab -->
+            <a href="tel:46701234567">070 123 45 67</a> — ring och säg tiden du vill ha.
+          </li>
+          <li>
+            <!-- tab-policy: Instagram-korsförsäljning öppnar ny tab, avsiktligt -->
+            <a href="https://www.instagram.com/jane.cooper/" target="_blank" rel="noopener">@jane.cooper</a> — skriv tiden i ett meddelande.
+          </li>
+        </ol>
+        <p class="slut-rad"><span class="demo-mark">Demo</span> <button class="stang-knapp" type="button" id="dialog-stang">Stäng</button></p>
+      </dialog>
+
+      <p class="not" data-reveal style="margin-top:var(--space-inter)">Vad du faktiskt kan kolla, här och nu:</p>
+      <div class="bevis-rad" data-reveal>
+        <div class="ram bevis-kort">
+          <p class="meta">Före &amp; efter</p>
+          <p>Galleriet ovan visar före och efter — titta innan du väljer behandling.</p>
+          <p><a href="#galleri">Till galleriet →</a></p>
+        </div>
+        <div class="ram bevis-kort">
+          <p class="meta">Instagram</p>
+          <p>Mitt dagliga arbete publicerar jag på @jane.cooper — där syns salongen vardag för vardag.</p>
+          <!-- tab-policy: korsförsäljning i ny tab -->
+          <p><a href="https://www.instagram.com/jane.cooper/" target="_blank" rel="noopener">@jane.cooper →</a></p>
+        </div>
+        <div class="ram bevis-kort">
+          <p class="meta">Första besöket</p>
+          <p>Du beskriver håret först — klippt, färgat och vårdat blir det i lugn takt, efter vad som passar just dig.</p>
+          <p><a href="#besok">Läs hela rutinen →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- beat 7 · en enda avslutande ask — scen 2 av 2, signaturparet i bytt riktning -->
+  <section class="scen scen--slut" id="kontakt" aria-labelledby="kontakt-rubrik">
+    <div class="scen__in">
+      <p class="eyebrow">Kontakt</p>
+      <h2 id="kontakt-rubrik">Hitta mig eller skriv till mig</h2>
+      <dl class="kontakt-rader" style="text-align:left">
+        <div><dt>Adress</dt><dd>Jane Cooper — Malmö, Drottninggatan 2, 000 00 Malmö</dd></div>
+        <div>
+          <dt>Telefon</dt>
+          <!-- conversion: tel och mailto stannar i samma tab -->
+          <dd><a href="tel:46701234567">070 123 45 67</a></dd>
+        </div>
+        <div><dt>E-post</dt><dd><a href="mailto:jane.cooper@example.com">jane.cooper@example.com</a></dd></div>
+        <div>
+          <dt>Instagram</dt>
+          <!-- tab-policy: korsförsäljning i ny tab -->
+          <dd><a href="https://www.instagram.com/jane.cooper/" target="_blank" rel="noopener">@jane.cooper</a></dd>
+        </div>
+        <div><dt>Öppettider</dt><dd>(bekräftas snart)</dd></div>
+      </dl>
+      <!-- den avslutande asken: eskalerar "Välj en tid" → "Säkra en tid", samma kanal, samma tab -->
+      <a class="cta cta--papper" href="#boka">Säkra en tid</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="sidfot">
+  <div class="kant">
+    <p class="meta">Jane Cooper — Salongens rytm</p>
+    <nav class="footer-nav" aria-label="Sidfotens navigering">
+      <!-- tab-policy: sidfotsnavigering i samma tab -->
+      <a href="#top">Toppen</a>
+      <a href="#om">Om</a>
+      <a href="#tjanster">Tjänster</a>
+      <a href="#galleri">Galleri</a>
+      <a href="#boka">Boka</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <p class="text-sm">Layoutprototyp — alla uppgifter ur Jane Coopers PoC: priser med –, öppettider
+       (bekräftas snart), bokningsgridet är en demo utan backend. Bilder: delade platshållare
+       ur salongens <em>_assets</em>.</p>
+  </div>
+</footer>
+
+<script src="js/rytm.js" defer></script>
+</body>
+</html>

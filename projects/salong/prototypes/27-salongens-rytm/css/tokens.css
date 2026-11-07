@@ -1,0 +1,75 @@
+/* tokens.css — the one token block (B1). Every colour literal in this build lives in the
+   :root rule below; nothing outside :root names a colour. Numbers the design repeats are
+   named here once; type retunes from the single root-size multiplier (--root). */
+
+:root {
+  /* — palette: spruce + copper + sand families, brass accent, paper ground, ink — */
+  --paper: #f6f1e8;          /* the single paper ground (B2) */
+  --paper-2: #ece4d6;        /* sand tone: light fills */
+  --rule: #d8cbb6;           /* sand hairline rules */
+  --ink: #201a15;            /* warm near-black */
+  --ink-soft: #4a4038;       /* secondary ink on paper only */
+  --spruce-deep: #14332b;    /* scene 1 ground (hero) */
+  --spruce: #1d473c;         /* links, active chips, mirror-frame line on light */
+  --spruce-mist: #dce7de;    /* light spruce: secondary text on dark */
+  --copper-deep: #7c3a17;    /* CTA fill, eyebrows, focus on light */
+  --copper: #a4552b;         /* copper mid: hover of copper-deep */
+  --brass: #d9a05b;          /* accent: micro-labels and focus on dark scenes */
+  --closer-ground: #5c2d14;  /* scene 2 ground (kontakt + footer) — hue-swapped bookend */
+  --scene-tint: #120f0c;     /* the solid ink tint layer behind scene text (B5) */
+  --scene-tint-hero: 0.62;   /* tint value 1 of 2 (hero class) */
+  --scene-tint-scene: 0.68;  /* tint value 2 of 2 (closer class + dialog backdrop) */
+  --scene-photo: 0.35;       /* the photo sits INTO its ground (keeps the spruce hue the pair declares) */
+
+  /* — type roles (B3): display / body / micro-label, sizes as N × the root multiplier — */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "DejaVu Serif", serif;
+  --font-body: Optima, "Segoe UI", system-ui, "DejaVu Sans", sans-serif;
+  --root: 16.4px;                          /* band B1 — the single multiplier */
+  --fs-h1: calc(3.15 * var(--root));
+  --fs-h2: calc(1.9 * var(--root));
+  --fs-h3: calc(1.18 * var(--root));
+  --fs-lede: calc(1.18 * var(--root));
+  --fs-body: var(--root);
+  --fs-micro: calc(0.85 * var(--root));    /* never below ~13.9 px in any band */
+  --lh-display: 1.08;
+  --lh-body: 1.7;
+  --lh-micro: 1.45;
+  --tr-display: -0.012em;                  /* display tracking: named, never ad hoc */
+  --tr-micro: 0.14em;
+
+  /* — spacing rhythm (B6 / brief): two declared values, ratio honoured — */
+  --space-intra: 24px;                     /* inside a beat */
+  --space-inter: 64px;                     /* between beats */
+  --pad-scene: calc(2 * var(--space-inter)); /* scene air = 128 px = 2× inter (declared derivation) */
+
+  /* — geometry (layout, not rhythm) — */
+  --wrap: 1100px;
+  --wrap-narrow: 660px;
+  --min-hero: 88vh;                        /* scene min-height tokens; the fold cuts the next beat */
+  --min-closer: 60vh;
+  --pad-cta-v: calc(var(--space-intra) / 2);
+  --pad-card: var(--space-intra);
+  --pad-card-sm: calc(var(--space-intra) / 2);
+  --frame-offset: 3px;                     /* the one mirror-frame motif (B4) */
+  --ring-offset: 3px;
+  --radius: 2px;
+
+  /* — motion (B7 budget: reveal / hero-andning / sticky-skalm / dialog-lyft) — */
+  --dur-reveal: 600ms;
+  --delay-1: 120ms;                        /* the second and last delay value */
+  --dur-quick: 160ms;
+  --dur-breath: 24s;
+  --ease-rytm: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Hard four-band breakpoints (P3): discrete, non-overlapping, .9 px upper bounds.
+   The type ladder resteps here only — band-to-band steps 0.6 / 0.5 / 0.5 px, each ≤ 0.9. */
+@media (min-width: 600px) and (max-width: 899.9px) {
+  :root { --root: 17px; }
+}
+@media (min-width: 900px) and (max-width: 1199.9px) {
+  :root { --root: 17.5px; }
+}
+@media (min-width: 1200px) and (max-width: 9999.9px) {
+  :root { --root: 18px; }
+}

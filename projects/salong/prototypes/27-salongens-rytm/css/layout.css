@@ -1,0 +1,169 @@
+/* layout.css — the sticky shell, the scene/content rhythm (B6), the two bookend scenes
+   and the footer. Beat-to-beat padding comes from the two rhythm tokens only. */
+
+/* — sticky shell (motion family "sticky-skalm": CSS only, no JS, no timed motion) — */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-header .kant {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-intra);
+  padding-block: var(--pad-cta-v);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: var(--tr-display);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pad-card-sm) var(--space-intra);
+}
+
+.site-nav a {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--spruce);
+  font-weight: 600;
+}
+
+.site-nav a:hover { color: var(--copper-deep); text-decoration: underline; }
+
+/* on the smallest band only the ask stays in the shell; the footer carries the full list */
+@media (max-width: 599.9px) {
+  .site-nav .nav-lank { display: none; }
+}
+
+/* — content beats: one rhythm token apart, light grounds between the two scenes — */
+.content {
+  padding-block: var(--space-inter);
+  background: var(--paper);
+}
+
+.content--sand { background: var(--paper-2); }
+
+.beat-lead { margin-bottom: var(--space-intra); }
+.beat-lead h2 { margin-top: var(--pad-cta-v); }
+
+/* — saturated scenes (B5/B6/P7): exactly two, bookending, never adjacent —
+   one solid ::before ink tint behind scene text; two declared tint values site-wide — */
+.scen {
+  position: relative;
+  overflow: hidden;                       /* clips the breathing photo; never page-wide */
+  background-color: var(--spruce-deep);   /* opaque ground: what text is measured against */
+  color: var(--paper);
+  padding-block: var(--pad-scene);
+  display: grid;
+  align-content: center;                  /* centred big type (P7) */
+  min-height: var(--min-hero);
+}
+
+.scen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--scene-tint);
+  opacity: var(--scene-tint-hero);
+  z-index: 1;
+}
+
+.scen__media { position: absolute; inset: 0; z-index: 0; }
+.scen__media img { width: 100%; height: 100%; object-fit: cover; opacity: var(--scene-photo); }
+
+.scen__in {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-intra);
+  padding-inline: var(--space-intra);
+}
+
+.scen .eyebrow { color: var(--brass); }
+.scen .lede { color: var(--spruce-mist); max-width: 34ch; }
+
+/* the links the scenes carry are contact channels, not blue-on-dark accidents —
+   the scenes' OWN CTAs are paper-filled buttons, not links: their ink text is
+   what sits on paper, and it must out-specify `.scen a` above */
+.scen a { color: var(--brass); }
+.scen a:hover { color: var(--paper); }
+.scen .cta, .scen .cta:hover { color: var(--ink); }
+
+/* scene 2 — the hue-swapped bookend: copper ground, spruce-mist/paper accents */
+.scen--slut {
+  background-color: var(--closer-ground);
+  min-height: var(--min-closer);
+}
+
+.scen--slut::before { opacity: var(--scene-tint-scene); }
+
+/* the footer continues the bookend ground — the page closes on the signature pair */
+.site-footer {
+  background: var(--closer-ground);
+  color: var(--paper);
+  padding-block: var(--space-inter) var(--space-intra);
+}
+
+.site-footer .kant {
+  display: grid;
+  gap: var(--space-intra);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pad-card-sm) var(--space-intra);
+}
+
+.footer-nav a {
+  color: var(--paper);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.footer-nav a:hover { color: var(--brass); text-decoration: underline; }
+
+.site-footer a { color: var(--paper); }
+.site-footer a:hover { color: var(--brass); }
+.site-footer .meta { color: var(--brass); }
+.site-footer .text-sm { color: var(--spruce-mist); font-size: var(--fs-micro); line-height: var(--lh-micro); max-width: 74ch; }
+
+/* — section interiors that are rhythm, not component — */
+.om-grid { display: grid; gap: var(--space-intra); }
+.om-grid figure img { width: 100%; height: auto; }
+
+.kontakt-rader { display: grid; gap: var(--space-intra); }
+.kontakt-rader dt { font-weight: 700; }
+.kontakt-rader dd { margin: 0; }
+
+@media (min-width: 900px) and (max-width: 1199.9px) {
+  .om-grid { grid-template-columns: 240px 1fr; align-items: start; gap: var(--space-inter); }
+  .kontakt-rader { grid-template-columns: 1fr 1fr; }
+  .kontakt-rader > div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--pad-card-sm); }
+  .kontakt-rader dd { text-align: right; }
+}
+
+@media (min-width: 1200px) and (max-width: 9999.9px) {
+  .om-grid { grid-template-columns: 260px 1fr; align-items: start; gap: var(--space-inter); }
+  .kontakt-rader { grid-template-columns: 1fr 1fr; }
+  .kontakt-rader > div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--pad-card-sm); }
+  .kontakt-rader dd { text-align: right; }
+}

@@ -1,0 +1,208 @@
+/* components.css — service cards, the format rail + gallery cards, the demo tider grid,
+   the proof row, the visit steps and the booking dialog. */
+
+/* — tjänster: five real services, price `–` (PoC rule I1: the theme sets no prices) — */
+.tjanster { display: grid; gap: var(--space-intra); }
+
+.tjanst {
+  background: var(--paper);
+  padding: var(--pad-card);
+  display: grid;
+  gap: var(--pad-card-sm);
+  align-content: start;
+}
+
+.tjanst p { max-width: 42ch; }
+
+.tjanst .pris {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid var(--rule);
+  padding-top: var(--pad-card-sm);
+}
+
+.tjanst .pris .belopp {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  color: var(--copper-deep);
+}
+
+/* — galleri: the format-first rail (P12), a true horizontal chip rail. Chips are real
+   buttons; filtering is JS-only enhancement — with JS off nothing is hidden and the
+   rail is inert but honest. — */
+.rail {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: var(--pad-card-sm);
+  margin-bottom: var(--space-intra);
+  padding-block: var(--pad-cta-v);   /* room for the native rail scrollbar, if any */
+}
+
+.chip {
+  flex: none;
+  white-space: nowrap;
+  font: inherit;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--spruce);
+  background: transparent;
+  border: 1px solid var(--spruce);
+  padding: var(--pad-cta-v) var(--space-intra);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.chip:hover { background: var(--paper-2); }
+
+.chip[aria-pressed="true"] {
+  background: var(--spruce);
+  color: var(--paper);
+}
+
+.galleri-rut { display: grid; gap: var(--space-intra); }
+
+.galleri-kort {
+  background: var(--paper);
+  padding: var(--pad-card-sm);
+}
+
+.galleri-kort img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.galleri-kort figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--pad-card-sm);
+  padding-top: var(--pad-card-sm);
+}
+
+.galleri-kort .namn { font-weight: 700; }
+
+.tom-rum {
+  border: 1px dashed var(--spruce);
+  padding: var(--pad-card);
+  color: var(--ink-soft);
+}
+
+/* — boka: the demo mock grid (labelled, no backend) and the proof row at the decision
+   point (P6) — */
+.tider {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--pad-card-sm);
+  margin-top: var(--space-intra);
+}
+
+.tid {
+  font: inherit;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--pad-cta-v) var(--pad-card-sm);
+  cursor: pointer;
+}
+
+.tid:hover { background: var(--paper-2); border-color: var(--spruce); }
+
+.demo-mark {
+  display: inline-block;
+  color: var(--paper);
+  background: var(--spruce-deep);
+  border-radius: var(--radius);
+  padding: 0 var(--pad-card-sm);
+}
+
+.demo-not { max-width: 58ch; }
+
+.bevis-rad {
+  display: grid;
+  gap: var(--space-intra);
+  margin-top: var(--space-inter);
+}
+
+.bevis-kort {
+  background: var(--paper);
+  padding: var(--pad-card);
+  display: grid;
+  gap: var(--pad-card-sm);
+  align-content: start;
+}
+
+.bevis-kort p { max-width: 40ch; }
+
+/* —besök: the first-visit description, four beats of the actual rhythm — */
+.steg { display: grid; gap: var(--space-intra); list-style: none; padding: 0; }
+
+.steg li {
+  border-top: 2px solid var(--spruce);
+  padding-top: var(--pad-card-sm);
+  display: grid;
+  gap: var(--pad-card-sm);
+}
+
+.steg .lopp { color: var(--copper-deep); font-weight: 700; }
+
+/* — the booking dialog: user-initiated only (B12), themed backdrop from the tint token — */
+.boka-dialog {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--spruce);
+  outline: 1px solid var(--spruce);
+  outline-offset: var(--frame-offset);
+  border-radius: var(--radius);
+  padding: var(--pad-card);
+  max-width: min(480px, calc(100vw - var(--space-inter)));
+  margin: auto;
+}
+
+.boka-dialog::backdrop { background: var(--scene-tint); opacity: var(--scene-tint-scene); }
+
+.boka-dialog h3 { margin-bottom: var(--pad-card-sm); }
+.boka-dialog ol { padding-left: var(--space-intra); display: grid; gap: var(--pad-card-sm); }
+.boka-dialog .slut-rad { margin-top: var(--space-intra); display: flex; justify-content: space-between; gap: var(--space-intra); align-items: center; }
+
+.stang-knapp {
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--pad-cta-v) var(--space-intra);
+  cursor: pointer;
+}
+
+.stang-knapp:hover { border-color: var(--spruce); }
+
+@media (min-width: 600px) and (max-width: 899.9px) {
+  .tjanster { grid-template-columns: 1fr 1fr; }
+  .galleri-rut { grid-template-columns: 1fr 1fr; }
+  .steg { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 900px) and (max-width: 1199.9px) {
+  .tjanster { grid-template-columns: 1fr 1fr; }
+  .galleri-rut { grid-template-columns: 1fr 1fr; }
+  .steg { grid-template-columns: 1fr 1fr; }
+  .bevis-rad { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1200px) and (max-width: 9999.9px) {
+  .tjanster { grid-template-columns: repeat(3, 1fr); }
+  .galleri-rut { grid-template-columns: repeat(4, 1fr); }
+  .steg { grid-template-columns: repeat(4, 1fr); }
+  .bevis-rad { grid-template-columns: repeat(3, 1fr); }
+}
