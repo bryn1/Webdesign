@@ -37,7 +37,11 @@
   <!-- beat 1 · identitet — scen 1 av 2 (bokmärken), exakt en CTA, noll bevisenheter -->
   <section class="scen scen--top" id="top" aria-labelledby="topp-rubrik">
     <div class="scen__media">
-      <img src="../_assets/gal-01.jpeg" alt="" width="1536" height="2048" loading="eager" decoding="async">
+      <!-- srcset candidates are machine-derived from this single-size PLACEHOLDER file
+           (see BASELINE.md §derived assets) — widths the hero slot actually renders at -->
+      <img src="../_assets/gal-01.jpeg" alt="" width="1536" height="2048" loading="eager" decoding="async"
+           srcset="derived/gal-01-w384.jpeg 384w, derived/gal-01-w768.jpeg 768w, derived/gal-01-w1152.jpeg 1152w, ../_assets/gal-01.jpeg 1536w"
+           sizes="100vw">
     </div>
     <div class="scen__in">
       <p class="eyebrow">Frisör i Malmö</p>
@@ -54,7 +58,9 @@
       <figure class="ram" data-reveal data-delay="1">
         <img src="../_assets/jane-portrait.jpg"
              alt="Jane Cooper, frisör på Jane Cooper i Malmö"
-             width="1656" height="2208" loading="lazy" decoding="async">
+             width="1656" height="2208" loading="lazy" decoding="async"
+             srcset="derived/jane-portrait-w384.jpg 384w, derived/jane-portrait-w768.jpg 768w, derived/jane-portrait-w1152.jpg 1152w, ../_assets/jane-portrait.jpg 1656w"
+             sizes="(min-width:900px) 260px, 87vw">
         <figcaption><p class="meta" style="padding-top:var(--pad-card-sm)">Porträtt — Jane Cooper · Malmö</p></figcaption>
       </figure>
       <div class="prosa" data-reveal>
@@ -136,19 +142,27 @@
       <p class="sr-only" role="status" id="galleri-status"></p>
       <div class="galleri-rut" id="galleri-rut" data-reveal>
         <figure class="ram galleri-kort" data-format="klippning">
-          <img src="../_assets/gal-01.jpeg" alt="Före och efter — bildplats 1: klippning" width="1536" height="2048" loading="lazy" decoding="async">
+          <img src="../_assets/gal-01.jpeg" alt="Före och efter — bildplats 1: klippning" width="1536" height="2048" loading="lazy" decoding="async"
+               srcset="derived/gal-01-w384.jpeg 384w, derived/gal-01-w768.jpeg 768w, derived/gal-01-w1152.jpeg 1152w, ../_assets/gal-01.jpeg 1536w"
+               sizes="(min-width:1200px) 245px, (min-width:600px) 46vw, 87vw">
           <figcaption><span class="namn">Före &amp; efter 01</span><span class="meta">Klippning</span></figcaption>
         </figure>
         <figure class="ram galleri-kort" data-format="farg">
-          <img src="../_assets/gal-02.jpeg" alt="Före och efter — bildplats 2: färg och balayage" width="1536" height="2048" loading="lazy" decoding="async">
+          <img src="../_assets/gal-02.jpeg" alt="Före och efter — bildplats 2: färg och balayage" width="1536" height="2048" loading="lazy" decoding="async"
+               srcset="derived/gal-02-w384.jpeg 384w, derived/gal-02-w768.jpeg 768w, derived/gal-02-w1152.jpeg 1152w, ../_assets/gal-02.jpeg 1536w"
+               sizes="(min-width:1200px) 245px, (min-width:600px) 46vw, 87vw">
           <figcaption><span class="namn">Före &amp; efter 02</span><span class="meta">Färg &amp; balayage</span></figcaption>
         </figure>
         <figure class="ram galleri-kort" data-format="vard">
-          <img src="../_assets/gal-03.jpeg" alt="Före och efter — bildplats 3: vård och håranalys" width="1536" height="2048" loading="lazy" decoding="async">
+          <img src="../_assets/gal-03.jpeg" alt="Före och efter — bildplats 3: vård och håranalys" width="1536" height="2048" loading="lazy" decoding="async"
+               srcset="derived/gal-03-w384.jpeg 384w, derived/gal-03-w768.jpeg 768w, derived/gal-03-w1152.jpeg 1152w, ../_assets/gal-03.jpeg 1536w"
+               sizes="(min-width:1200px) 245px, (min-width:600px) 46vw, 87vw">
           <figcaption><span class="namn">Före &amp; efter 03</span><span class="meta">Vård &amp; håranalys</span></figcaption>
         </figure>
         <figure class="ram galleri-kort" data-format="upp">
-          <img src="../_assets/gal-04.jpeg" alt="Före och efter — bildplats 4: bröllop och bal" width="1536" height="2048" loading="lazy" decoding="async">
+          <img src="../_assets/gal-04.jpeg" alt="Före och efter — bildplats 4: bröllop och bal" width="1536" height="2048" loading="lazy" decoding="async"
+               srcset="derived/gal-04-w384.jpeg 384w, derived/gal-04-w768.jpeg 768w, derived/gal-04-w1152.jpeg 1152w, ../_assets/gal-04.jpeg 1536w"
+               sizes="(min-width:1200px) 245px, (min-width:600px) 46vw, 87vw">
           <figcaption><span class="namn">Före &amp; efter 04</span><span class="meta">Bröllop &amp; bal</span></figcaption>
         </figure>
       </div>

@@ -17,9 +17,21 @@
   --brass: #d9a05b;          /* accent: micro-labels and focus on dark scenes */
   --closer-ground: #5c2d14;  /* scene 2 ground (kontakt + footer) — hue-swapped bookend */
   --scene-tint: #120f0c;     /* the solid ink tint layer behind scene text (B5) */
-  --scene-tint-hero: 0.62;   /* tint value 1 of 2 (hero class) */
+  --scene-tint-hero: 0.45;   /* tint value 1 of 2 (hero class) — round-2 fix: the photo must read as
+                               a place (BASELINE Concept); 0.45 keeps text AA on the REAL composited
+                               pixels (measured worst 5.74:1 @1440 / 5.06:1 @375, see BASELINE ledger) */
   --scene-tint-scene: 0.68;  /* tint value 2 of 2 (closer class + dialog backdrop) */
-  --scene-photo: 0.35;       /* the photo sits INTO its ground (keeps the spruce hue the pair declares) */
+  --scene-photo: 0.60;       /* effective photo presence 0.60 × (1−0.45) = 33 % (was 0.35 × 0.38 = 13 %);
+                               re-tuned against real pixels, not the photo-blind contrast row */
+
+  /* — breakpoint vocabulary (P3 / gate gb7): the four declared bands named as px tokens.
+     A @media condition cannot read var(), so THIS block is the machine-readable vocabulary:
+     every media px in the sheets equals one of these tokens or token − 0.1 (the .9 cap).
+     Band table and steps: BASELINE.md §Hard four-band breakpoints — values unchanged. — */
+  --bp-b2: 600px;            /* B2 lower bound; B1 upper bound = bp-b2 − 0.1 (599.9px) */
+  --bp-b3: 900px;            /* B3 lower bound; B2 upper bound = bp-b3 − 0.1 (899.9px) */
+  --bp-b4: 1200px;           /* B4 lower bound; B3 upper bound = bp-b4 − 0.1 (1199.9px) */
+  --bp-far: 10000px;         /* declared fall-off cap; B4 upper bound = bp-far − 0.1 (9999.9px) */
 
   /* — type roles (B3): display / body / micro-label, sizes as N × the root multiplier — */
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "DejaVu Serif", serif;
@@ -45,7 +57,10 @@
   /* — geometry (layout, not rhythm) — */
   --wrap: 1100px;
   --wrap-narrow: 660px;
-  --min-hero: 88vh;                        /* scene min-height tokens; the fold cuts the next beat */
+  --min-hero: 70vh;                        /* scene min-height tokens; the fold cuts the next beat
+                                             (round-2 fix: at 88 vh the fold cut hero padding and the
+                                             declared "content card cut by the fold" cue never
+                                             rendered — audit P2-1; measured values in BASELINE ledger) */
   --min-closer: 60vh;
   --pad-cta-v: calc(var(--space-intra) / 2);
   --pad-card: var(--space-intra);
@@ -63,6 +78,7 @@
 }
 
 /* Hard four-band breakpoints (P3): discrete, non-overlapping, .9 px upper bounds.
+   Every px here equals a --bp-* token above or token − 0.1 (the vocabulary gb7 reads).
    The type ladder resteps here only — band-to-band steps 0.6 / 0.5 / 0.5 px, each ≤ 0.9. */
 @media (min-width: 600px) and (max-width: 899.9px) {
   :root { --root: 17px; }
