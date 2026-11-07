@@ -71,6 +71,16 @@ a:hover { color: var(--copper-deep); }
   border-radius: var(--radius);
 }
 
+/* the ring colour follows the GROUND it is drawn on (WCAG 1.4.11 non-text contrast, 3:1,
+   spec.md AA). With a 3px offset the ring sits on background on BOTH sides, and copper-deep
+   measures 1.02–1.05:1 against the hero photo wash, 2.01:1 on the closer scene and 1.34:1 on
+   the footer — invisible position markers on every dark-scene conversion target. tokens.css
+   declares brass as the accent for "focus on dark scenes"; the two dark scenes and the footer
+   take it, every light surface keeps copper-deep. Per-element measured ratios, both viewports,
+   static and Ken-Burns peak: BASELINE.md §Round 3. */
+.scen :focus-visible,
+.site-footer :focus-visible { outline-color: var(--brass); }
+
 /* — the skip pair (P5): both targets ship in the delivered HTML — */
 .hoppa {
   position: absolute;
@@ -94,7 +104,10 @@ a:hover { color: var(--copper-deep); }
   width: auto;
   height: auto;
   clip-path: none;
-  outline: 2px solid var(--brass);
+  /* the pill paints over the sticky PAPER header (measured ground lum 0.8833) — it is a
+     light surface, so the ring follows the light rule: brass measured 2.04:1 there (round-3
+     instrument, BASELINE §Round 3), copper-deep measures 7.54:1 */
+  outline: 2px solid var(--copper-deep);
   outline-offset: var(--ring-offset);
 }
 

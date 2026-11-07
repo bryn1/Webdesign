@@ -228,7 +228,9 @@ photography.** The fleet `_assets` files are single-size deterministic PLACEHOLD
 (gal-01…04 1536×2048, jane-portrait 1656×2208 — re-measured with PIL this round). `derived/`
 beside `css/` holds genuine machine-downscales made for this build with **Pillow 12.2**
 (LANCZOS, JPEG q85, no re-encode at native size): each file at **384×512, 768×1024 and
-1152×1536** px (`-w384/-w768/-w1152` suffixes), 6–45 KB vs the ~420–490 KB native. Every
+1152×1536** px (`-w384/-w768/-w1152` suffixes) — **per tier re-measured (ls, round 3):
+w384 5.9–7.6 KB, w768 38–44 KB, w1152 129–143 KB** vs the ~420–490 KB native (the original
+"6–45 KB" claim described only the two small tiers — corrected, see §Round 3). Every
 `<img>` now ships `srcset` + `sizes` matching the slot widths the layout actually renders
 (gallery card ≈245 px @≥1200, portrait column 260 px @≥900, hero 100 vw); the native file
 stays in the set as the largest `w`-candidate. These derivatives are MACHINE-DERIVED FROM
@@ -262,3 +264,81 @@ contrast row RE-RUN after the photo-presence change (0/134 at both widths). Link
 0 broken (the 15 `derived/` files resolve). The deliverable audit that certifies this folder
 must be RE-RUN against these bytes (workflow-webdesign §5: an audit from before a fix does
 not count) — that is the orchestrator's step, not this build's.
+
+## Round 3 (2026-11-07, MC 10088.19 fix round 3) — deliverable-audit c2 P1-1 (focus-ring contrast) + P3-1 (byte-size claim) + P4-1 (stale comment numbers). The declaration above stands as written; this is ledger, not regeneration.
+
+**What the audit found (P1-1, access-class).** The keyboard focus ring — 2px `--copper-deep`
+at 3px offset (the `:focus-visible` rule) — was invisible on the dark scenes: with a 3px
+offset the ring sits on background on BOTH sides, and copper-deep (linear-lum ~0.066–0.074,
+instruments below) lands ~1:1 on the hero photo wash round 2 had brightened. Both readings,
+side by side: **auditor [B]** (ring-band vs behind-the-ring pixels, dpr2): hero CTA **1.01:1**,
+closer CTA **2.01:1**, footer links **1.34:1**, rings on paper 7.55:1 pass.
+**Orchestrator** (background-column sampling of the shipped frame): hero background lum
+**0.0792** vs copper-deep **0.0658** = **1.12:1**. WCAG 1.4.11 non-text contrast **3:1**,
+binding via `projects/salong/spec.md` (AA). The build violated its own token contract:
+`tokens.css` declares `--brass` as "accent: micro-labels and focus on dark scenes" — no focus
+rule ever used it.
+
+**What changed (one scoped rule + two colour fixes, zero new tokens/mechanisms/selector
+types).** base.css: `.scen :focus-visible, .site-footer :focus-visible { outline-color:
+var(--brass); }` — the ring colour follows the ground it is drawn on; every light surface
+keeps copper-deep. Also caught by the same sweep: `.hoppa:focus` shipped a BRASS ring on the
+skip pill, which paints over the sticky **paper** header (measured ground 0.8833) — brass on
+paper measured **2.04:1**, the same defect class on the opposite ground; it now takes
+copper-deep (7.54:1 on paper). The hero eyebrow was NOT touched (round 2's brass→spruce-mist
+move is correct: small text needs 4.5:1, brass only reaches ~3.5:1 on the wash).
+
+**Measured after** (own instrument `.tmp/focus-round3.mjs` — dpr2 band sampling of the REAL
+rendered ring pixels vs the offset-gap + beyond-ring pixels; ring core = band pixels at token
+lum; ground = the band's 5th/95th pct; Ken-Burns pinned deterministically t=0 and t=24000
+peak; both viewports. Before the change it reproduced the auditor's readings exactly:
+1.01–1.05 / 2.01 / 1.34 / 7.54):
+
+| element (focusable in dark scene) | before → after 1440×900 | before → after 375×812 | need |
+|---|---|---|---|
+| hero CTA `Boka tid` (photo wash, static→peak) | 1.04/1.05 → **3.82/3.86** | 1.02 → **3.76/3.77** | 3.0 |
+| closer `Säkra en tid` | 2.01 → **7.41** | 2.01 → **7.41** | 3.0 |
+| closer tel / e-post / Instagram links | 2.01 → **7.41** (each) | 2.01 → **7.41** (each) | 3.0 |
+| footer nav × 6 links | 1.34 → **4.96** (each) | 1.34 → **4.96** (each) | 3.0 |
+| skip pills (paper header ground — copper now) | 2.04 → **7.54** | 2.04 → **7.54** | 3.0 |
+| light surfaces unchanged: nav/dialog rings on paper | 7.54 → 7.54 | 7.54 → 7.54 | 3.0 |
+
+Hero worst-band ratios hold at the Ken-Burns PEAK (3.86) and over the brightest structure the
+CTA's ring actually sits on (band p95 lum 0.0714 → brass 3.76 even there); closer ground
+0.0116, footer ground 0.042 (flat, no photo). Matches the auditor's composite predictions
+(3.74/7.37/4.96) and the orchestrator's token arithmetic (3.53). No element landed under 3:1,
+so no further contrast lever was pulled — colour alone was the fix; nothing thicker, nothing
+new. Method note (honest): the sampling bands clear the ring stroke by 1.5 CSS px (Chromium
+device-snaps fractional outline edges); headline = ring-core vs band percentile, extremes
+carry glyph/ring AA tails and are reported in the JSON.
+
+**Skip-pair destinations measured, recorded, NOT changed.** Keyboard-activated skip 1 moves
+focus to `main#innehall` (tabindex −1) and `:focus-visible` matches, but the painted ring
+falls UNDER the sticky header (top edge) and off-canvas (sides) — the instrument found zero
+ring pixels in the viewport at either width (its band read pure paper). Skip 2's target
+`#sidfot` (the footer itself) receives no focus in this Chromium at all (activeElement stays
+BODY — no tabindex). Both are real findings but fixing them needs a focus/geometry decision
+beyond this P1; filed here so the next audit can rule, not silently skipped.
+
+**Gate gap to file fleet-side — this folder cannot close it.** The gate's focus row
+`gb2-focus-outline` is an outline-REMOVAL scan (flags `outline: 0/none` with no themed
+replacement, gate-backlog.mjs); it passed the whole 1.01:1 ring every round. Ring-vs-background
+contrast on a composited photo is not decidable by CSS-source scanning — same blind class as
+the contrast row's photo-blindness ledgered in round 2. Focus-indicator non-text contrast
+belongs in the fleet-side gate (pixel probe), not in this prototype.
+
+**Honest-number corrections (P3-1 + P4-1), both re-measured, not restated:** derived-tier
+sizes above corrected in place (w384 5.9–7.6 KB, w768 38–44 KB, w1152 129–143 KB, ls); the
+two CSS comments quoting hero-text contrast used values no instrument reproduced — corrected
+from `.tmp/hero-round3.mjs` (audit-[A] method, static AND peak, dpr1): worst over
+eyebrow/h1/lede = **6.23:1 @1440 / 5.49:1 @375** (tokens.css note); spruce-mist worst =
+**5.49:1** (layout.css note). Page length re-measured with the same instrument: 5 234 px =
+**5.816 viewports** @1440×900 — §Round 2's number reproduces; the "5.74/5.06" the comments
+quoted were stale contrast claims, not lengths, and now match the instrument.
+
+**Gate re-run (20261107T180654Z, gate 1.1.0): exit 0, `# QUALITY: PASS`** — all rows green
+(detect 0, contrast 0/134 both widths, console 0, overflow ×3, scroll-overlap 0, reduced,
+nojs, links 27/0, gb1–gb9 incl. `gb2-focus-outline` clean-focus and `gb3-raw-colours`
+clean-tokens). QUALITY.md carries the fresh run on disk (gitignored repo-wide per
+`.gitignore:**/QUALITY.md` — same shape as the round-2 commit, which carried the gate result
+in this ledger, not in the file).

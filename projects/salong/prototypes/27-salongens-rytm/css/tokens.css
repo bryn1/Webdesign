@@ -19,7 +19,8 @@
   --scene-tint: #120f0c;     /* the solid ink tint layer behind scene text (B5) */
   --scene-tint-hero: 0.45;   /* tint value 1 of 2 (hero class) — round-2 fix: the photo must read as
                                a place (BASELINE Concept); 0.45 keeps text AA on the REAL composited
-                               pixels (measured worst 5.74:1 @1440 / 5.06:1 @375, see BASELINE ledger) */
+                               pixels (worst 6.23:1 @1440 / 5.49:1 @375 across eyebrow/h1/lede, static
+                               and Ken-Burns peak — round-3 re-measure, BASELINE §Round 3) */
   --scene-tint-scene: 0.68;  /* tint value 2 of 2 (closer class + dialog backdrop) */
   --scene-photo: 0.60;       /* effective photo presence 0.60 × (1−0.45) = 33 % (was 0.35 × 0.38 = 13 %);
                                re-tuned against real pixels, not the photo-blind contrast row */

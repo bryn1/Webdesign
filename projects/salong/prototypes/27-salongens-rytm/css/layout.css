@@ -99,8 +99,9 @@
 /* the hero is the one scene WITH a photo behind its type: at the round-2 photo presence
    (33 % effective) brass measures 2.79–2.89:1 against the real composited pixels — an
    unreadable micro-label the contrast row is blind to. The hero eyebrow therefore takes
-   the declared secondary-on-dark token (spruce-mist, measured worst 5.06:1); brass keeps
-   its declared role (micro-labels on dark) everywhere no photo sits under the type. */
+   the declared secondary-on-dark token (spruce-mist, worst 5.49:1 re-measured at the peak
+   in round 3, BASELINE §Round 3); brass keeps its declared role (micro-labels and focus on
+   dark) everywhere no photo sits under the type. */
 .scen--top .eyebrow { color: var(--spruce-mist); }
 .scen .lede { color: var(--spruce-mist); max-width: 34ch; }
 
