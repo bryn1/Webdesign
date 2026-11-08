@@ -93,7 +93,7 @@ INVISIBLE to `git status` — the visibility that found the trap in the first pl
 | `.audits/202610051009-workflow-explode/` | A SEPARATE, unrelated run (MC 10140, a new-concept design phase). In-flight, untracked. Not part of the product. |
 | `projects/portfolio/concepts/workflow-explode/` | That run's build target (served on :8092 by its own keepalive). Full build since 2026-10-05: `index.html` + `css/` + `js/` (vendored ScrollTrigger) + `assets/` + RESULT.md, all tracked; `:8092/workflow-explode/` answers 200 (probed this pass). Not the product. |
 | `docs/ARCHITECTURE.md` | This file (layout-v2 path). |
-| `DESIGN.md`, `PRODUCT.md` (repo root) | impeccable project state (mode 0600), tracked — the impeccable lab tooling's own canon, impeccable-scoped, not product surface. |
+| `DESIGN.md`, `PRODUCT.md` (repo root) | SUPERSEDED POINTER FILES only (first line `SUPERSEDED 2026-11-08 (MC 10088.27): DO NOT USE`) — owner ruling 2026-11-08: every website carries its own brief inside its own folder; the portfolio gateway surface's impeccable canon (the former root files, mode 0600 PRODUCT) moved to `projects/portfolio/`. Never put a brief at the repo root; the quality gate's `brief-scope` row fails a run whose brief lies outside its project folder. |
 | `.tmp/`, `.playwright-mcp/`, `.pytest_cache/` | Git-ignored scratch (probe payloads, browser logs). |
 
 No build system, no package.json, no node_modules, no backend, no database, no API surface
