@@ -18,11 +18,18 @@ Svenska, `lang="sv"`, varmt first-person ("Jag klipper, färgar och vårdar hår
    går ut dörren." + "Just nu arbetar jag på Jane Cooper, salongen på Drottninggatan 2 i
    centrala Malmö. Vi arbetar med bland annat ammoniakfri färg, balayage och
    vårdande behandlingar." + "Vill du se mitt dagliga arbete? Följ mig på Instagram
-   @jane.cooper." Porträtt: bilden finns — `../_assets/jane-portrait.jpg` (Jane själv,
-   spegelselfie i salongen, från hennes publika Instagram-inlägg
-   instagram.com/jane.cooper/p/XXXXXXXXXXX/, ägarens uppdrag 2026-10-05; provenans i
-   `_assets/jane-portrait.ATTRIBUTION.md`). Alla teman visar den i Om-sektionen, inramad
-   enligt temat, alt "Jane Cooper, frisör på Jane Cooper i Malmö".
+   @jane.cooper." Porträtt: `../_assets/jane-portrait.jpg` är en PLATSHÅLLARE —
+   genererad gradientkonst från `tools/gen-placeholders.py` (seed 20261006), inget
+   fotografi och ingen källbild i produkten; originalet togs bort ur produkten
+   enligt ägarbeslut R2 (MC 10088), provenans i platshållarens sidecar
+   `_assets/jane-portrait.ATTRIBUTION.md`. (Porträttbeskrivningen från ägarens
+   uppdrag 2026-10-05 — verkligt foto med Instagram-permalänk och alt "Jane
+   Cooper, frisör på Jane Cooper i Malmö" — SUPERSEDERAD av R2; spec-korrigerad
+   2026-11-08, MC 10088.30.) Alla teman får fortsätta peka på samma fil, visade i
+   Om-sektionen inramade enligt temat, men alt-text eller bildtext får inte hävda
+   att bilden är ett foto av Jane Cooper — ärlig märkning är den platshållartext
+   00, 15 + 18 redan visar ("Porträtt — bild kommer"). Instagram nämns aldrig som
+   ett specifikt inlägg, alltid endast kontot instagram.com/jane.cooper.
    Undantag 15 + 18: foto-fria teman (research-2 §6) behåller plats-hållaren
    "Porträtt — bild kommer" — "helt utan foto" är deras poäng.
 3. Tjänster — `id="tjanster"` — rubrik "Det här kan jag". Fem tjänster (titel + PoC-text):
