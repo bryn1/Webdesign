@@ -83,3 +83,4 @@ Only the final site and its images are committed. Run records (`.audits/`), impe
 (`.impeccable/`), screenshots, loose thumbnails, `node_modules/` and `_site/` stay on disk, untracked
 — the committed card thumbnails under `thumbs/` are the named exception: tracked product (docs/
 ARCHITECTURE.md §2).
+> Adopted build defaults for hero pages (3D decision ladder, delivery budget, video heroes, license chains): [docs/web-craft.md](docs/web-craft.md) — MC 12355.
