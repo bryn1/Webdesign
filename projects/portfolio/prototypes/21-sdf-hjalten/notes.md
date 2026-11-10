@@ -28,8 +28,10 @@ Captured with `node ~/.dsh/skills/describe-image/scripts/screenshot.mjs <file> -
 
 | page | raw html | gzip -k of html | external requests | folder du (excl. shots/, .audits/) |
 |---|---|---|---|---|
-| 21-sdf-hjalten | 13,744 B | **5,680 B** | **0** (all inline, data-URI favicon, system font stack) | 20,743 B (incl. gate-written QUALITY.md) |
-| 13-krom-soluppgang | 40,789 B | **13,205 B** | Google Fonts (css2 + woff2 files, not counted here) | 47,078 B (incl. QUALITY.md + SOURCE.md) |
+| 21-sdf-hjalten | 13,744 B | **5,680 B** | **0** (all inline, data-URI favicon, system font stack) | 17,260 B |
+| 13-krom-soluppgang | 40,789 B | **13,205 B** | Google Fonts (css2 + woff2 files, not counted here) | 41,428 B |
+
+_Folder totals re-measured 2026-11-10 (DA F2): git-blob sum of TRACKED files excluding `shots/`, taken after all files exist (`git ls-tree -rl … | grep -v /shots/ | awk '{s+=$4}'`) — the original du row was measured before notes.md existed and was stated as a folder du (method drift)._
 
 No separate JS files exist in either page — both are single self-contained index.html files.
 
