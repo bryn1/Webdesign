@@ -1,0 +1,7 @@
+/* base.css — fixture stylesheet for tools/visual-changelog.mjs tests.
+   Flat colours only: no gradients, images, animations or webfonts, so headless
+   Chromium renders byte-identical PNGs across runs for identical content. */
+body { margin: 0; font-family: "DejaVu Sans", sans-serif; color: #101010; background: #f2f2f2; }
+.panel { padding: 2rem; background: #d9e6f2; }
+h1 { font-size: 2rem; margin: 0 0 1rem; }
+p { font-size: 1rem; line-height: 1.5; max-width: 40rem; }
