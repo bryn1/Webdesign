@@ -1,0 +1,272 @@
+<!-- Tema 21 "SDF-hjälten" (MC 12359, bench item 4): helskärms­hero där den rörliga visualen är ett
+     zero-asset signed distance field, raymarchat i ett WebGL-fragmentshader (smooth-blend-stil, enbart
+     per-pixel-kostnad); ljus och kamera reagerar subtilt på pekaren. Inga bilder, inga texturer, inga
+     webbtypsnitt, inga externa anrop — systemtypsnittsstack. Filhygien: mappkonventionen för portfölj-
+     prototyper är en självständig index.html (samlad markup + stil + ett shader; syskon desamma).
+     Markör: SDF_HJALTEN -->
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>21 · SDF-hjälten — Alexander Lektove</title>
+<meta name="description" content="Portfolio-tema 21: en hjälte utan tillgångar — det rörliga planet raymarchas i webbläsaren. Alexander Lektove, AI-arkitekt & systemsbyggare, Karlskrona.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23101519'/%3E%3Ccircle cx='8' cy='8' r='5' fill='%23e8a13a'/%3E%3C/svg%3E">
+<style>
+:root{
+  --wall:#1b2024; --wall-hi:#21272c; --panel:#262d33; --inset:#101519;
+  --line:#2e363c; --skugga:#07090b;
+  --alu:#aab3b8; --alu-hi:#cfd6da; --ink:#14181b;
+  --silk:#e9e4d9; --silk-dim:#97968f;
+  --amber:#e8a13a; --amber-safe:#eeae54; --green:#6fbf8a;
+  --font-display:"Saira Condensed","Arial Narrow","Liberation Sans Narrow",system-ui,sans-serif;
+  --font-body:"Saira","Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif;
+  --rack:6px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:linear-gradient(180deg,var(--wall),var(--inset)) var(--wall);
+  color:var(--silk);font:400 1.0625rem/1.7 var(--font-body);overflow-wrap:break-word;
+}
+h1,h2{font-family:var(--font-display);margin:0}
+p{margin:0 0 1em}
+a{color:var(--amber-safe);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--amber-safe);outline-offset:2px}
+/* skip-par (gb8): klipp-idiomet målar inget i vila; kontrast- och fokusgaten känner igen det */
+.hoppa{
+  position:absolute;left:.75rem;top:.5rem;z-index:10;
+  background:var(--amber);color:var(--ink);text-decoration:none;
+  padding:.5rem .95rem;border-radius:var(--rack);
+  font:600 1rem/1.2 var(--font-display);letter-spacing:.08em;
+  clip-path:inset(50%);
+}
+.hoppa:focus{clip-path:none}
+.hoppa:focus-visible{outline:3px solid var(--amber-safe);outline-offset:2px}
+canvas#scen{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+header.topp{
+  position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.8rem clamp(1rem,4vw,2.25rem);background:var(--inset);border-bottom:1px solid var(--line);
+}
+.brand{font:600 1.05rem/1.3 var(--font-display);letter-spacing:.14em;color:var(--silk)}
+.topp nav{display:flex;flex-wrap:wrap;gap:1.25rem}
+.topp nav a{font-size:1rem;white-space:nowrap}
+main{position:relative;z-index:1}
+section.hero{
+  min-height:84vh;display:grid;place-items:center;
+  padding:clamp(1.5rem,6vh,4rem) clamp(1rem,4vw,2.25rem);
+}
+.panel{
+  width:min(640px,100%);background:var(--inset);
+  border:1px solid var(--panel);border-radius:var(--rack);
+  padding:clamp(1.4rem,4.5vw,2.6rem);box-shadow:0 26px 70px var(--skugga);
+}
+.kick{font:600 1rem/1.4 var(--font-display);letter-spacing:.16em;color:var(--amber-safe);margin:0 0 .9rem}
+h1{font-size:clamp(2.15rem,7.2vw,3.3rem);font-weight:600;line-height:1.06;letter-spacing:.015em;color:var(--silk);margin:0 0 .4rem}
+.sub{font-size:1.15rem;color:var(--alu-hi);margin:0 0 .2rem}
+blockquote.citat{
+  margin:1.15rem 0;padding-left:1.05rem;border-left:3px solid var(--amber);
+  color:var(--silk);font-size:1.1rem;line-height:1.6;
+}
+.signatur{color:var(--silk-dim);max-width:52ch}
+ul.stats{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:1.45rem 0;padding:0}
+ul.stats li{display:flex;flex-direction:column;gap:.15rem;overflow-wrap:anywhere}
+ul.stats b{font:600 1.5rem/1.15 var(--font-display);color:var(--amber-safe)}
+ul.stats li>span{font-size:.98rem;color:var(--silk-dim);max-width:24ch}
+.lamp{display:inline-flex;align-items:center;gap:.45em;font:600 .95rem/1.2 var(--font-display);letter-spacing:.06em;color:var(--silk-dim)}
+.lamp::before{content:"";width:.55em;height:.55em;border-radius:50%;background:var(--green);flex:none}
+.handling{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
+.knapp{
+  display:inline-block;padding:.66rem 1.15rem;border:1px solid var(--amber);border-radius:var(--rack);
+  font:600 1rem/1.2 var(--font-display);letter-spacing:.06em;text-decoration:none;
+  background:var(--amber);color:var(--ink);
+}
+.knapp.randig{background:transparent;border-color:var(--alu);color:var(--silk)}
+footer#kontakt{
+  position:relative;z-index:1;background:var(--inset);border-top:1px solid var(--line);
+  padding:2rem clamp(1rem,4vw,2.25rem) 2.4rem;
+}
+footer h2{font-size:1.35rem;font-weight:600;letter-spacing:.05em;color:var(--silk);margin:0 0 .7rem}
+footer blockquote{margin:0 0 1em;padding-left:1.05rem;border-left:3px solid var(--amber);color:var(--silk);line-height:1.6}
+.notice{font-size:.98rem;color:var(--silk-dim);max-width:70ch}
+.sign{font:600 .98rem/1.4 var(--font-display);letter-spacing:.1em;color:var(--alu)}
+</style>
+</head>
+<body>
+<a class="hoppa" href="#innehall">Hoppa till innehåll</a>
+<a class="hoppa" href="#kontakt">Hoppa till kontakt</a>
+
+<canvas id="scen" aria-hidden="true"></canvas>
+
+<header class="topp">
+  <span class="brand">Alexander&nbsp;Lektove · Karlskrona</span>
+  <nav aria-label="Huvudmeny">
+    <a href="#innehall">Innehåll</a>
+    <a href="mailto:alexander@sibbamala.com">E-post</a>
+    <a href="https://github.com/bryn1">GitHub</a>
+  </nav>
+</header>
+
+<main id="innehall">
+  <section class="hero" aria-label="Inledning">
+    <div class="panel">
+      <p class="kick">Portfölj · Karlskrona</p>
+      <h1>Alexander Lektove</h1>
+      <p class="sub">AI-arkitekt &amp; systemsbyggare</p>
+      <blockquote class="citat">AI används på den data som inte är så viktig.<br>
+        Den viktiga datan får inte lämna rummet.</blockquote>
+      <p class="signatur">Jag bygger agentflottor som kör på lokal hårdvara – och som går att lita
+        på utan att någon läser varje rad de producerar.</p>
+      <ul class="stats">
+        <li><b>100&nbsp;%</b><span>av flottans inferens körs lokalt</span><span class="lamp">verifierat</span></li>
+        <li><b>2&nbsp;900+</b><span>uppdrag spårade på två tavlor</span><span class="lamp">verifierat</span></li>
+        <li><b>~208&nbsp;t/s</b><span>uppmätt genomströmning, 8 spår/maskin</span><span class="lamp">verifierat</span></li>
+      </ul>
+      <div class="handling">
+        <a class="knapp" href="mailto:alexander@sibbamala.com">Skriv till mig</a>
+        <a class="knapp randig" href="https://github.com/bryn1">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="kontakt">
+  <h2>Kontakt</h2>
+  <p><a href="mailto:alexander@sibbamala.com">alexander@sibbamala.com</a> ·
+     <a href="https://github.com/bryn1">github.com/bryn1</a></p>
+  <blockquote>Har ni ett återkommande flöde med ett kontrollerbart ”klart” är det den bästa starten.</blockquote>
+  <p class="notice">⚠ Under uppbyggnad — sidan byggs om löpande av flottan. Siffrorna är verifierade
+    mot systemets loggar; texten kan släpa efter.</p>
+  <p class="sign">Alexander Lektove · Karlskrona</p>
+</footer>
+
+<script>
+/* Enbart den rörliga visualen: ett SDF av fem sfärer som smälts samman med polynomial smooth-min,
+   raymarchat per pixel. Sfärens inneslutningsboll gångrar marchen — skärmar utanför den betalar
+   bara en halo-term. prefers-reduced-motion: en enda statisk bildruta, ingen rytm, ingen pekare.
+   Misslyckas WebGL tyst: canvas tas bort, sidan faller på CSS-gradienten. */
+(function () {
+  "use strict";
+  var cv = document.getElementById("scen");
+  function dead() { try { cv.parentNode.removeChild(cv); } catch (e) { /* redan borta */ } }
+  try {
+    var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var gl = cv.getContext("webgl", { alpha: false, antialias: false, depth: false, stencil: false });
+    if (!gl) { dead(); return; }
+    var VS = "attribute vec2 aPos;void main(){gl_Position=vec4(aPos,0.,1.);}";
+    var FS = [
+      "precision highp float;",
+      "uniform vec2 uRes;uniform float uTime;uniform vec2 uPtr;",
+      "float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return min(b,a)-h*h*k*(1.-h);}",
+      "float map(vec3 p,float t){",
+      " vec3 c1=vec3(-.55+.10*sin(t*.21),.05+.14*sin(t*.27),.10+.10*cos(t*.19));",
+      " vec3 c2=vec3(-.30+.08*cos(t*.33),.30+.10*sin(t*.23),.02+.12*sin(t*.29));",
+      " vec3 c3=vec3(.10+.10*sin(t*.17),-.22+.10*cos(t*.31),.10+.08*cos(t*.23));",
+      " vec3 c4=vec3(.50+.08*cos(t*.25),.18+.12*sin(t*.19),-.05+.10*sin(t*.37));",
+      " vec3 c5=vec3(.75+.06*sin(t*.29),-.12+.14*sin(t*.21),.06+.08*cos(t*.31));",
+      " vec3 c6=vec3(.08+.08*sin(t*.13),.10+.08*cos(t*.17),-.06+.10*sin(t*.25));",
+      " float d=length(p-c6)-.46;",
+      " d=smin(d,length(p-c1)-.40,.65);",
+      " d=smin(d,length(p-c2)-.32,.65);",
+      " d=smin(d,length(p-c3)-.38,.65);",
+      " d=smin(d,length(p-c4)-.44,.65);",
+      " d=smin(d,length(p-c5)-.30,.65);",
+      " return d;",
+      "}",
+      "vec3 nrm(vec3 p,float t){vec2 e=vec2(.0022,0.);",
+      " return normalize(vec3(map(p+e.xyy,t)-map(p-e.xyy,t),map(p+e.yxy,t)-map(p-e.yxy,t),map(p+e.yyx,t)-map(p-e.yyx,t)));}",
+      "void main(){",
+      " vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;",
+      " vec3 ro=vec3((uPtr.x-.5)*.5,(uPtr.y-.5)*-.38,3.);",
+      " vec3 rd=normalize(vec3(uv,-1.6));",
+      " vec3 col=mix(vec3(.039,.047,.055),vec3(.106,.125,.141),clamp((gl_FragCoord.y/uRes.y)*.9,0.,1.));",
+      " col*=1.-.6*pow(min(1.4*length(uv*vec2(1.15,1.)),1.4),2.2);",
+      " vec3 amber=vec3(.933,.682,.329);",
+      " vec3 oc=ro-vec3(.1,.05,.03);",
+      " float bb=dot(oc,rd);float cc=dot(oc,oc)-1.8225;float hh=bb*bb-cc;",
+      " float tca=clamp(-bb,0.,9.);float dc=max(length(oc+rd*tca)-1.35,0.);",
+      " col+=clamp(.03/(pow(dc,1.7)+.075),0.,.4)*amber*.38;",
+      " if(hh>0.){",
+      "  float t=max(.6,-bb-sqrt(hh));float tE=min(-bb+sqrt(hh)+1.2,9.5);",
+      "  bool hit=false;vec3 p=ro;float d=1.;",
+      "  for(int i=0;i<80;i++){",
+      "   p=ro+rd*t;d=map(p,uTime);",
+      "   if(d<.0025){hit=true;break;}",
+      "   t+=max(d*.8,.015);",
+      "   if(t>tE)break;",
+      "  }",
+      "  if(hit){",
+      "   vec3 n=nrm(p,uTime);",
+      "   vec3 key=normalize(vec3(-.55+(uPtr.x-.5)*.5,.72,.6));",
+      "   float dif=max(dot(n,key),0.);",
+      "   float fre=pow(1.-abs(dot(n,rd)),3.);",
+      "   vec3 base=mix(vec3(.047,.055,.062),vec3(.149,.173,.196),clamp(n.y*.5+.5,0.,1.));",
+      "   vec3 hv=normalize(key-rd);",
+      "   float spec=pow(max(dot(n,hv),0.),96.);",
+      "   col=base*(.24+.8*dif)+vec3(.02,.024,.03)*(.5+.5*n.y)+fre*amber*.5+spec*vec3(.8,.84,.86)*(.10+.35*dif);",
+      "  }",
+      " }",
+      " col=col/(col+.72)*1.32;",
+      " col=pow(clamp(col,0.,1.),vec3(.9));",
+      " gl_FragColor=vec4(col,1.);",
+      "}"
+    ].join("\n");
+    function sh(type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS) || !gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { dead(); return; }
+    var prg = gl.createProgram();
+    gl.attachShader(prg, vs); gl.attachShader(prg, fs); gl.linkProgram(prg);
+    if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) { dead(); return; }
+    gl.useProgram(prg);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prg, "aPos");
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(prg, "uRes");
+    var uTime = gl.getUniformLocation(prg, "uTime");
+    var uPtr = gl.getUniformLocation(prg, "uPtr");
+    var W = 0, H = 0, t0 = performance.now(), px = [.5, .5], pt = [.5, .5];
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(1, Math.round(cv.clientWidth * dpr));
+      var h = Math.max(1, Math.round(cv.clientHeight * dpr));
+      var cap = 1050000, s = w * h > cap ? Math.sqrt(cap / (w * h)) : 1;
+      W = Math.max(1, Math.round(w * s)); H = Math.max(1, Math.round(h * s));
+      cv.width = W; cv.height = H;
+      gl.viewport(0, 0, W, H);
+    }
+    function render(ms) {
+      px[0] += (pt[0] - px[0]) * .08; px[1] += (pt[1] - px[1]) * .08;
+      gl.uniform2f(uRes, W, H);
+      gl.uniform1f(uTime, (ms - t0) / 1000);
+      gl.uniform2f(uPtr, px[0], px[1]);
+      gl.clearColor(.043, .055, .063, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    resize();
+    if (reduced) { render(t0); }
+    else {
+      window.addEventListener("pointermove", function (e) {
+        pt[0] = e.clientX / innerWidth; pt[1] = e.clientY / innerHeight;
+      }, { passive: true });
+      (function loop(ms) { requestAnimationFrame(loop); render(ms); })(t0);
+    }
+    var rsz;
+    window.addEventListener("resize", function () {
+      clearTimeout(rsz);
+      rsz = setTimeout(function () { resize(); if (reduced) render(t0); }, 150);
+    });
+  } catch (e) { dead(); }
+})();
+</script>
+</body>
+</html>
